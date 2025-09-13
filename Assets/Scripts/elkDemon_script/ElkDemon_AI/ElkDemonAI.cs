@@ -4,6 +4,7 @@ public class ElkDemonAI : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public Transform[] patrolPoints;
+    public Transform[] observationPoints;
     public float moveSpeed = 3f;
     public float huntSpeed = 5f;
     public float sightRange = 15f;
@@ -12,9 +13,18 @@ public class ElkDemonAI : MonoBehaviour
     public float eyeHeight = 1.5f;
     public Transform player;
     public float maxAnimSpeed = 6f;
+    public float stalkSpeed = 1f;
 
     private Animator stateMachine;
+    private Vector3 playerLastKnownPosition;
+    private Vector3 playerLastKnownDirection;
+    private float playerLastSeenTime;
+    private bool hasRecentPlayerInfo = false;
+    private int currentObservationIndex = 0;
 
+    public bool HasRecentPlayerInfo { get { return hasRecentPlayerInfo; } }
+    public Vector3 PlayerLastKnownPosition { get { return playerLastKnownPosition; } }
+    public Vector3 PlayerLastKnownDirection { get { return playerLastKnownDirection; } }
 
     void Start()
     {
@@ -91,8 +101,42 @@ public class ElkDemonAI : MonoBehaviour
         }
         else
         {
+            UpdatePlayerTrackingInfo(player.position, directionToPlayer);
             Debug.Log("Vision CLEAR. Can see player! Ray started from: " + rayStartPoint);
             return true;
         }
+    }
+
+    public void UpdatePlayerTrackingInfo(Vector3 playerPosition, Vector3 directionToPlayer)
+    {
+        playerLastKnownPosition = playerPosition;
+        playerLastKnownDirection = directionToPlayer.normalized;
+
+        playerLastSeenTime = Time.time;
+        hasRecentPlayerInfo = true;
+        // Optional: could also estimate player's movement direction by comparing
+        // with previous frame's position for even more intelligent tracking
+    }
+
+    public Transform GetObservationPoint()
+    {
+        if (observationPoints == null || observationPoints.Length == 0)
+            return player;
+
+        // Simple round-robin selection
+        currentObservationIndex = (currentObservationIndex + 1) % observationPoints.Length;
+        return observationPoints[currentObservationIndex];
+    }
+    private void OnDrawGizmos()
+    {
+        // Draw sight range
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position + Vector3.up * eyeHeight, sightRange);
+
+        // Draw sight angle
+        Vector3 leftDir = Quaternion.Euler(0, -sightAngle / 2, 0) * transform.forward;
+        Vector3 rightDir = Quaternion.Euler(0, sightAngle / 2, 0) * transform.forward;
+        Gizmos.DrawRay(transform.position + Vector3.up * eyeHeight, leftDir * sightRange);
+        Gizmos.DrawRay(transform.position + Vector3.up * eyeHeight, rightDir * sightRange);
     }
 }
