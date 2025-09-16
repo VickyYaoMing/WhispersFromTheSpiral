@@ -4,7 +4,7 @@ public class PatrolState : StateMachineBehaviour
 {
     private ElkDemonAI elkDemon;
     private Transform[] patrolRoutes;
-    private int currentPatrolIndex;
+    private int currentPatrolIndex; 
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -24,21 +24,20 @@ public class PatrolState : StateMachineBehaviour
 
         animator.SetBool("IsHunting", false);
         animator.SetFloat("Speed", elkDemon.moveSpeed); 
-        Debug.Log("Patrol Mode Activated");
+        //Debug.Log("Patrol Mode Activated");
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Patrol logic
+      
         Vector3 targetPosition = patrolRoutes[currentPatrolIndex].position;
         elkDemon.MoveTowards(targetPosition, elkDemon.moveSpeed);
 
         if (Vector3.Distance(elkDemon.transform.position, targetPosition) < 0.5f)
         {
-            currentPatrolIndex = (currentPatrolIndex + 1) % patrolRoutes.Length;
+            currentPatrolIndex = Random.Range(0, patrolRoutes.Length);
         }
 
-        // Check for player sight
         if (elkDemon.canSeePlayer())
         {
             animator.SetTrigger("PlayerSpotted");

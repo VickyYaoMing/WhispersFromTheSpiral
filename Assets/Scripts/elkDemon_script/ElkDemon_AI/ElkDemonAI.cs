@@ -33,7 +33,7 @@ public class ElkDemonAI : MonoBehaviour
 
         if (player == null)
         {
-            Debug.LogError("No object with tag 'Player' found in scene!");
+            //Debug.LogError("No object with tag 'Player' found in scene!");
         }
 
     }
@@ -60,7 +60,7 @@ public class ElkDemonAI : MonoBehaviour
     {
         if (player == null)
         {
-            Debug.Log("CanSeePlayer: Failed - Player reference is null.");
+            //Debug.Log("CanSeePlayer: Failed - Player reference is null.");
             return false;
         }
 
@@ -69,41 +69,62 @@ public class ElkDemonAI : MonoBehaviour
 
         if (distanceToPlayer > sightRange)
         {
-            Debug.Log("CanSeePlayer: Failed - Player is too far. Distance: " + distanceToPlayer);
+            //Debug.Log("CanSeePlayer: Failed - Player is too far. Distance: " + distanceToPlayer);
             return false;
         }
         else
         {
-            Debug.Log("CanSeePlayer: Passed Range Check. Distance: " + distanceToPlayer);
+            //Debug.Log("CanSeePlayer: Passed Range Check. Distance: " + distanceToPlayer);
         }
 
         float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
         if (angleToPlayer > sightAngle / 2)
         {
-            Debug.Log("CanSeePlayer: Failed - Player is outside FOV. Angle: " + angleToPlayer);
+            //Debug.Log("CanSeePlayer: Failed - Player is outside FOV. Angle: " + angleToPlayer);
             return false;
         }
         else
         {
-            Debug.Log("CanSeePlayer: Passed Angle Check. Angle: " + angleToPlayer);
+            //Debug.Log("CanSeePlayer: Passed Angle Check. Angle: " + angleToPlayer);
         }
 
         Vector3 rayStartPoint = transform.position + (Vector3.up * eyeHeight);
-
         RaycastHit hit;
-        // Visualize the ray in the Scene View. THIS IS CRUCIAL FOR DEBUGGING.
+
+        // Visualize the ray in the Scene View >:)
         Debug.DrawRay(rayStartPoint, directionToPlayer.normalized * sightRange, Color.red, 0.1f);
 
         if (Physics.Raycast(rayStartPoint, directionToPlayer.normalized, out hit, sightRange, obstructionMask))
         {
-            Debug.Log("Vision BLOCKED by: " + hit.collider.gameObject.name + " | Layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer));
+            //Debug.Log("Vision BLOCKED by: " + hit.collider.gameObject.name + " | Layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer));
             return false;
         }
         else
         {
             UpdatePlayerTrackingInfo(player.position, directionToPlayer);
-            Debug.Log("Vision CLEAR. Can see player! Ray started from: " + rayStartPoint);
+            //Debug.Log("Vision CLEAR. Can see player! Ray started from: " + rayStartPoint);
             return true;
+        }
+    }
+
+    public bool CanAttackPlayer()
+    {
+        if (player == null) return false;
+
+        float distance = Vector3.Distance(transform.position, player.position);
+        if (distance > 2f) return false; // Your attack range
+
+        Vector3 direction = (player.position - transform.position).normalized;
+        float dot = Vector3.Dot(transform.forward, direction);
+
+        return dot > 0.7f && canSeePlayer();
+    }
+
+    public void CheckForAttack(Animator animator)
+    {
+        if (CanAttackPlayer())
+        {
+            animator.SetTrigger("Attack");
         }
     }
 
@@ -127,6 +148,7 @@ public class ElkDemonAI : MonoBehaviour
         currentObservationIndex = (currentObservationIndex + 1) % observationPoints.Length;
         return observationPoints[currentObservationIndex];
     }
+
     private void OnDrawGizmos()
     {
         // Draw sight range

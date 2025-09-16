@@ -24,6 +24,8 @@ public class HuntState : StateMachineBehaviour
     {
         if (elkDemon == null) return;
 
+        elkDemon.CheckForAttack(animator);
+
         if (elkDemon.canSeePlayer())
         {
             // Hunt them directly!
@@ -32,7 +34,6 @@ public class HuntState : StateMachineBehaviour
         }
         else
         {
-            //  Use intelligent tracking
             timeSinceLastSeen += Time.deltaTime;
 
             // 5 second memory
@@ -44,11 +45,10 @@ public class HuntState : StateMachineBehaviour
                 Vector3 predictedPosition = elkDemon.PlayerLastKnownPosition + (elkDemon.PlayerLastKnownDirection * 3f); 
 
                 Debug.DrawLine(elkDemon.transform.position, predictedPosition, Color.yellow);
-                elkDemon.MoveTowards(predictedPosition, elkDemon.huntSpeed * 0.8f); // Slightly slower when predicting
+                elkDemon.MoveTowards(predictedPosition, elkDemon.huntSpeed * 0.8f); 
             }
             else
             {
-                // Lost track of player or info is too old
                 animator.SetTrigger("LostSight");
             }
         }

@@ -15464,7 +15464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.6042584
+      value: -0.6042584
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_LocalPosition.z
@@ -15570,6 +15570,7 @@ MonoBehaviour:
   - {fileID: 1598171316}
   - {fileID: 2030883380}
   - {fileID: 1376830789}
+  observationPoints: []
   moveSpeed: 1.5
   huntSpeed: 3.5
   sightRange: 5
@@ -15579,6 +15580,8 @@ MonoBehaviour:
     m_Bits: 8
   eyeHeight: 1.5
   player: {fileID: 0}
+  maxAnimSpeed: 6
+  stalkSpeed: 1
 --- !u!136 &610036397
 CapsuleCollider:
   m_ObjectHideFlags: 0
