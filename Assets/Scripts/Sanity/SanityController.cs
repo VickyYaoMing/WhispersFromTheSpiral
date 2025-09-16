@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+// using System.Numerics;
 using UnityEngine;
 
 
@@ -158,7 +159,70 @@ namespace SanitySystem
         }
         public class SanityAreaAffector : SanityAffectorBase
         {
+            public enum Falloff { Linear, SmoothStep, InverseSquare }
+            public Falloff falloff = Falloff.SmoothStep;
 
+            public override float GetDrain01PerSec(Vector3 playerPos)
+            {
+                if (maxRange <= 0f) //unlimited range
+                    return 0f;
+                float d = DistanceTo(playerPos);
+                if (d > maxRange) return 0f; //out of range
+                float t = Mathf.Clamp01(1f - (d / maxRange));
+                float w = falloff switch
+                {
+                    Falloff.Linear => t,
+                    Falloff.SmoothStep => t * t * (3f - 2f * t),
+                    Falloff.InverseSquare => 1f / Mathf.Max(1f, d * d), //avoid infinity at d=0
+                    _ => t
+                };
+                return strength01 * w;
+            }
+        }
+        //One shot expanding wave that applies a single impulse when the front crosses the player
+        //Hook this to a kind of sound cue (scream, clang, etc) and then call Fire() on play.
+        public class SanityShockwave : MonoBehaviour
+        {
+            [Range(-1f, 1f)] public float impulseDelta01 = -0.2f; //negative = drain, positive = restore
+            public float startRadius = 0f;
+            public float endRadius = 12f; //can be changed as needed for testing and balancing
+            public float speed = 10f; //meters per second
+            public float thickness = 1.0f; //how thick the wave is
+
+            [SerializeField] SanityController target; // explicit reference to the target sanity controller
+            double startTime = -1;
+            bool consumed;
+
+            void OnEnable()
+            {
+                consumed = false;
+            }
+            public void Fire(SanityController to = null)
+            {
+                target = to ? to : target;
+                startTime = AudioSettings.dspTime; //use audio time for better sync with sound effects
+                consumed = false;
+            }
+            void Update()
+            {
+                if (startTime < 0) return; //not fired yet
+                var ctrl = target ? target : FindAnyObjectByType<SanityController>();
+                if (!ctrl) { enabled = false; return; } //no target, disable
+
+                double t = AudioSettings.dspTime - startTime;
+                float radius = startRadius + speed * (float)t;
+                if (radius > endRadius + thickness)
+                {
+                    startTime = -1; //done
+                    return;
+                }
+                float dist = Vector3.Distance(ctrl.transform.position, transform.position);
+                if (!consumed && dist >= radius - thickness * 0.5f && dist <= radius + thickness * 0.5f)
+                {
+                    ctrl.AddImpulse01(impulseDelta01);
+                    consumed = true; //only once
+                }
+            }
         }
     }
 }
