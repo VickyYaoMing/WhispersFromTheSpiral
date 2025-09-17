@@ -93,6 +93,10 @@ public class AttackState : StateMachineBehaviour
         if (dotProduct > attackAngleThreshold)
         {
             float distance = Vector3.Distance(elkDemon.transform.position, elkDemon.player.position);
+
+            // Can be modify to balance the Elk demon attack range
+            // Right now it seems a bit hard for the Elk demon to REALLY hit the player
+            // Play Testing require!
             if (distance < attackRange)
             {
                 Debug.Log("Player got hit by Mario's Attack!");
