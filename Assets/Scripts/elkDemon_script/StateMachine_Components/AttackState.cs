@@ -5,7 +5,6 @@ public class AttackState : StateMachineBehaviour
     private ElkDemonAI elkDemon;
     private float coolDownTimer = 0f;
     private bool hasAttacked = false;
-    private bool animationFinished = false;
 
     [Header("Attack Settings")]
     public float attackCD = 2f;
@@ -23,7 +22,6 @@ public class AttackState : StateMachineBehaviour
 
         elkDemon.StopMoving();
         hasAttacked = false;
-        animationFinished = false;
         coolDownTimer = 0f;
 
         animator.SetBool("IsAttacking", true);
@@ -51,6 +49,12 @@ public class AttackState : StateMachineBehaviour
 
         CheckExitConditions(animator);
         DebugAttackInfo();
+    }
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        animator.SetBool("IsAttacking", false);
+        ResetTriggers(animator);
+        Debug.Log("Exited Attack State");
     }
 
     private void CheckExitConditions(Animator animator)
@@ -94,13 +98,6 @@ public class AttackState : StateMachineBehaviour
                 Debug.Log("Player got hit by Mario's Attack!");
             }
         }
-    }
-
-    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        animator.SetBool("IsAttacking", false);
-        ResetTriggers(animator);
-        Debug.Log("Exited Attack State");
     }
 
     private void ResetTriggers(Animator animator)

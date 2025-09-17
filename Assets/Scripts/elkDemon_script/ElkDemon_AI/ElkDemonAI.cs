@@ -112,7 +112,7 @@ public class ElkDemonAI : MonoBehaviour
         if (player == null) return false;
 
         float distance = Vector3.Distance(transform.position, player.position);
-        if (distance > 2f) return false; // Your attack range
+        if (distance > 2f) return false; 
 
         Vector3 direction = (player.position - transform.position).normalized;
         float dot = Vector3.Dot(transform.forward, direction);
@@ -135,8 +135,6 @@ public class ElkDemonAI : MonoBehaviour
 
         playerLastSeenTime = Time.time;
         hasRecentPlayerInfo = true;
-        // Optional: could also estimate player's movement direction by comparing
-        // with previous frame's position for even more intelligent tracking
     }
 
     public Transform GetObservationPoint()
