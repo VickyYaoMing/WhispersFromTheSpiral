@@ -1,33 +1,49 @@
-using System.Collections;
 using UnityEngine;
 
 public class MainMenuNavigation : MonoBehaviour
 {
-    [SerializeField] GameObject mainView;
-    [SerializeField] GameObject optionsView;
-    [SerializeField] GameObject creditsView;
     [SerializeField] CanvasGroup mainCanvasGroup;
     [SerializeField] CanvasGroup optionsCanvasGroup;
     [SerializeField] CanvasGroup creditsCanvasGroup;
-    private float fadeDuration = 2.0f;
+    private MainMenuAnimator m_menuAnimator;
+    private MenuState m_currentState;
 
     enum MenuState
     {
         MainView, OptionsView, CreditsView
     }
 
-    
+    #region Unity Functions
+    private void Awake()
+    {
+        m_menuAnimator = GetComponent<MainMenuAnimator>();
+    }
+
     void Start()
     {
-        ReturnToMenu();
+        optionsCanvasGroup.alpha = 0f;
+        creditsCanvasGroup.alpha = 0f;
+        m_menuAnimator.FadeIn(mainCanvasGroup, 2f);
     }
+    #endregion
 
     public void ReturnToMenu()
     {
-        mainView.SetActive(true);
-        optionsView.SetActive(false);
-        creditsView.SetActive(false);
-        FadeIn(mainCanvasGroup);
+        optionsCanvasGroup.interactable = false;
+        creditsCanvasGroup.interactable = false;
+
+        switch (m_currentState)
+        {
+            case MenuState.OptionsView:
+                m_menuAnimator.FadeOut(optionsCanvasGroup, 0.5f);
+                break;
+            case MenuState.CreditsView:
+                m_menuAnimator.FadeOut(creditsCanvasGroup, 0.5f);
+                break;
+        }
+        m_menuAnimator.FadeIn(mainCanvasGroup, 0.5f);
+        m_currentState = MenuState.MainView;
+        mainCanvasGroup.interactable = true;
     }
 
     public void StartGame()
@@ -37,20 +53,22 @@ public class MainMenuNavigation : MonoBehaviour
 
     public void ViewOptions()
     {
-        FadeOut(mainCanvasGroup);
-        mainView.SetActive(false);
-   
-        optionsView.SetActive(true);
-        FadeIn(optionsCanvasGroup);
+        mainCanvasGroup.interactable = false;
+        m_currentState = MenuState.OptionsView;
+
+        m_menuAnimator.FadeOut(mainCanvasGroup, 0.5f);
+        m_menuAnimator.FadeIn(optionsCanvasGroup, 0.5f);
+        optionsCanvasGroup.interactable = true;
     }
 
     public void ViewCredits()
     {
-        FadeOut(mainCanvasGroup);
-        mainView.SetActive(false);
+        mainCanvasGroup.interactable = false;
+        m_currentState = MenuState.CreditsView;
 
-        creditsView.SetActive(true);
-        FadeIn(creditsCanvasGroup);
+        m_menuAnimator.FadeOut(mainCanvasGroup, 0.5f);
+        m_menuAnimator.FadeIn(creditsCanvasGroup, 0.5f);
+        creditsCanvasGroup.interactable = true;
     }
 
     public void QuitGame()
@@ -61,31 +79,4 @@ public class MainMenuNavigation : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
-
-    private void FadeIn(CanvasGroup group)
-    {
-        StartCoroutine(FadeCanvasGroup(group, 0f, 1f));
-    }
-
-    private void FadeOut(CanvasGroup group)
-    {
-        StartCoroutine(FadeCanvasGroup(group, 1f, 0f));
-    }
-
-    private IEnumerator FadeCanvasGroup(CanvasGroup group, float startAlpha, float finalAlpha)
-    {
-        float elapsedTime = 0f;
-        group.alpha = startAlpha;
-
-        while (elapsedTime < fadeDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            group.alpha = Mathf.Lerp(startAlpha, finalAlpha, elapsedTime / fadeDuration);
-            yield return null;
-        }
-
-        group.alpha = finalAlpha;
-    }
-
-
 }
