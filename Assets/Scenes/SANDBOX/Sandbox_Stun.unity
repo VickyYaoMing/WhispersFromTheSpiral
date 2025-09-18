@@ -9284,6 +9284,11 @@ Transform:
   - {fileID: 1300414428}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &392648502 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6330197989133451956, guid: a901be983c210274a8c2dc913053b233, type: 3}
+  m_PrefabInstance: {fileID: 1803434066}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &405620398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15564,6 +15569,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a3f5b114c03f849bcd750c998f40dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 1.5
+  huntSpeed: 3.5
+  maxAnimSpeed: 6
+  stalkSpeed: 1
+  sightRange: 5
+  sightAngle: 45
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 8
+  eyeHeight: 1.5
   patrolPoints:
   - {fileID: 2131337849}
   - {fileID: 736589990}
@@ -15571,17 +15586,7 @@ MonoBehaviour:
   - {fileID: 2030883380}
   - {fileID: 1376830789}
   observationPoints: []
-  moveSpeed: 1.5
-  huntSpeed: 3.5
-  sightRange: 5
-  sightAngle: 45
-  obstructionMask:
-    serializedVersion: 2
-    m_Bits: 8
-  eyeHeight: 1.5
-  player: {fileID: 0}
-  maxAnimSpeed: 6
-  stalkSpeed: 1
+  player: {fileID: 392648502}
 --- !u!136 &610036397
 CapsuleCollider:
   m_ObjectHideFlags: 0

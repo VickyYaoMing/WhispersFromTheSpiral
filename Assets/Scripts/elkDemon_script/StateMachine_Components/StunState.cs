@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class StunState : StateMachineBehaviour
 {
-    private ElkDemonAI elkDemon;
+    private ElkDemonAI _elkDemon;
     private bool isStun = false;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (elkDemon == null)
+        if (_elkDemon == null)
         {
-            elkDemon = animator.GetComponent<ElkDemonAI>();
+            _elkDemon = animator.GetComponent<ElkDemonAI>();
         }
 
-        elkDemon.StopMoving();
+        _elkDemon.StopMoving();
 
         isStun = true;
         animator.SetBool("IsStun", true);
@@ -21,7 +21,7 @@ public class StunState : StateMachineBehaviour
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (elkDemon == null || elkDemon.player == null) return;
+        if (_elkDemon == null || _elkDemon.Player == null) return;
 
         
     }

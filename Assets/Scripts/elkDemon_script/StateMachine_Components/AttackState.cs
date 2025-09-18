@@ -2,27 +2,25 @@ using UnityEngine;
 
 public class AttackState : StateMachineBehaviour
 {
-    private ElkDemonAI elkDemon;
-    private float coolDownTimer = 0f;
-    private bool hasAttacked = false;
+    private ElkDemonAI _elkDemon;
+    private float _coolDownTimer;
+    private bool _hasAttacked;
 
     [Header("Attack Settings")]
-    public float attackCD = 2f;
-    public float attackRange = 2f;
-    public float attackAngleThreshold = 0.7f;
-    public float attackWindupTime = 0.5f;
-    public float attackAnimationDuration = 1.5f;
+    [SerializeField] private float attackCD = 2f;
+    [SerializeField] private float attackWindupTime = 0.5f;
+    [SerializeField] private float attackAnimationDuration = 1.5f;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (elkDemon == null)
+        if (_elkDemon == null)
         {
-            elkDemon = animator.GetComponent<ElkDemonAI>();
+            _elkDemon = animator.GetComponent<ElkDemonAI>();
         }
 
-        elkDemon.StopMoving();
-        hasAttacked = false;
-        coolDownTimer = 0f;
+        _elkDemon.StopMoving();
+        _hasAttacked = false;
+        _coolDownTimer = 0f;
 
         animator.SetBool("IsAttacking", true);
         Debug.Log("Entered Attack state!");
@@ -30,21 +28,21 @@ public class AttackState : StateMachineBehaviour
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (elkDemon == null || elkDemon.player == null) return;
+        if (_elkDemon == null) return;
 
-        coolDownTimer += Time.deltaTime;
+        _coolDownTimer += Time.deltaTime;
 
         // Face the player
-        if (elkDemon.canSeePlayer())
+        if (_elkDemon.CanSeePlayer())
         {
-            Vector3 lookDirection = new Vector3(elkDemon.player.position.x, elkDemon.transform.position.y, elkDemon.player.position.z);
-            elkDemon.transform.LookAt(lookDirection);
+            Vector3 lookDirection = new Vector3(_elkDemon.Player.position.x, _elkDemon.transform.position.y, _elkDemon.Player.position.z);
+            _elkDemon.transform.LookAt(lookDirection);
         }
 
-        if (!hasAttacked && coolDownTimer >= attackWindupTime)
+        if (!_hasAttacked && _coolDownTimer >= attackWindupTime)
         {
             PerformAttack();
-            hasAttacked = true;
+            _hasAttacked = true;
         }
 
         CheckExitConditions(animator);
@@ -59,26 +57,26 @@ public class AttackState : StateMachineBehaviour
 
     private void CheckExitConditions(Animator animator)
     {
-        if (elkDemon.player == null) return;
+        if (_elkDemon.Player == null) return;
 
-        float distanceToPlayer = Vector3.Distance(elkDemon.transform.position, elkDemon.player.position);
+        float distanceToPlayer = Vector3.Distance(_elkDemon.transform.position, _elkDemon.Player.position);
 
-        if (distanceToPlayer > attackRange * 1.5f)
+        if (distanceToPlayer > _elkDemon.AttackRange * 1.5f)
         {
             animator.SetTrigger("PlayerOutOfRange");
             return;
         }
 
-        if (!elkDemon.canSeePlayer())
+        if (!_elkDemon.CanSeePlayer())
         {
             animator.SetTrigger("LostSight");
             return;
         }
 
-        if (coolDownTimer >= attackCD)
+        if (_coolDownTimer >= attackCD)
         {
             animator.SetTrigger("AttackComplete");
-            coolDownTimer = 0;
+            _coolDownTimer = 0;
         }
     }
 
@@ -87,17 +85,17 @@ public class AttackState : StateMachineBehaviour
     {
         Debug.Log("Elk Demon Attacks!");
 
-        Vector3 directionToPlayer = (elkDemon.player.position - elkDemon.transform.position).normalized;
-        float dotProduct = Vector3.Dot(elkDemon.transform.forward, directionToPlayer);
+        Vector3 directionToPlayer = (_elkDemon.Player.position - _elkDemon.transform.position).normalized;
+        float dotProduct = Vector3.Dot(_elkDemon.transform.forward, directionToPlayer);
 
-        if (dotProduct > attackAngleThreshold)
+        if (dotProduct > _elkDemon.AttackAngleThreshold)
         {
-            float distance = Vector3.Distance(elkDemon.transform.position, elkDemon.player.position);
+            float distance = Vector3.Distance(_elkDemon.transform.position, _elkDemon.Player.position);
 
             // Can be modify to balance the Elk demon attack range
             // Right now it seems a bit hard for the Elk demon to REALLY hit the player
             // Play Testing require!
-            if (distance < attackRange)
+            if (distance < _elkDemon.AttackRange)
             {
                 Debug.Log("Player got hit by Mario's Attack!");
             }
@@ -113,12 +111,12 @@ public class AttackState : StateMachineBehaviour
 
     void DebugAttackInfo()
     {
-        if (elkDemon.player == null) return;
+        if (_elkDemon.Player == null) return;
 
-        float distance = Vector3.Distance(elkDemon.transform.position, elkDemon.player.position);
-        Vector3 direction = (elkDemon.player.position - elkDemon.transform.position).normalized;
-        float dot = Vector3.Dot(elkDemon.transform.forward, direction);
+        float distance = Vector3.Distance(_elkDemon.transform.position, _elkDemon.Player.position);
+        Vector3 direction = (_elkDemon.Player.position - _elkDemon.transform.position).normalized;
+        float dot = Vector3.Dot(_elkDemon.transform.forward, direction);
 
-        Debug.Log($"Attack Info - Distance: {distance}, Dot: {dot}, CanSee: {elkDemon.canSeePlayer()}");
+        Debug.Log($"Attack Info - Distance: {distance}, Dot: {dot}, CanSee: {_elkDemon.CanSeePlayer()}");
     }
 }

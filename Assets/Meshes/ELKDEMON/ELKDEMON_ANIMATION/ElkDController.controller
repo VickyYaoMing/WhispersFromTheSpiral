@@ -489,9 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f278960672281174087201fbb21569fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCD: 2
-  attackRange: 2
-  attackAngleThreshold: 0.7
+  attackCD: 2.68
   attackWindupTime: 0.5
   attackAnimationDuration: 1.5
 --- !u!1102 &2857299517591312493
