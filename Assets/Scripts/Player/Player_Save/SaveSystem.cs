@@ -5,17 +5,17 @@ using System.IO;
 
 public class SaveSystem
 {
-    private static SaveData _saveData = new();
+    private static SaveData _saveData = new SaveData();
 
     [System.Serializable]
     public struct SaveData
     {
-        public PlayerSaveData PlayerSave;
+        public PlayerSaveData PlayerData;
     }
     
     public static string SaveFileName()
     {
-        string saveFile = Application.persistentDataPath + "/save" + ".txt";
+        string saveFile = Application.persistentDataPath + "/save" + ".save";
         return saveFile;
     }
 
@@ -44,7 +44,6 @@ public class SaveSystem
     public static void HandleLoadData()
     {
         GameManager.Instance.Player.Load(_saveData.PlayerData);
-
     }
 
 }

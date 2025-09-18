@@ -120,4 +120,10 @@ public class InteractionManager : MonoBehaviour
 
     }
 
+    public void SetHandSlot(Transform handSlot)
+    {
+        this.handSlot = handSlot;
+    }
+
+
 }
