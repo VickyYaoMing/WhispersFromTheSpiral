@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class StunState : StateMachineBehaviour
 {
+    [Header("Stun Settings")]
+    [SerializeField] private float stunDuration = 3f;
+    [SerializeField] private float stunTimer = 0f;
+
     private ElkDemonAI _elkDemon;
-    private bool isStun = false;
+    private bool _isStun = false;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -12,9 +16,13 @@ public class StunState : StateMachineBehaviour
             _elkDemon = animator.GetComponent<ElkDemonAI>();
         }
 
-        _elkDemon.StopMoving();
+        animator.ResetTrigger("Attack");
+        animator.SetBool("IsAttacking", false);
 
-        isStun = true;
+        _elkDemon.StopMoving();
+        stunTimer = 0f;
+
+        _isStun = true;
         animator.SetBool("IsStun", true);
         Debug.Log("Entered Stun state!");
     }
@@ -23,11 +31,21 @@ public class StunState : StateMachineBehaviour
     {
         if (_elkDemon == null || _elkDemon.Player == null) return;
 
+        stunTimer += Time.deltaTime;
+
+        if (stunTimer >= stunDuration)
+        {
+            animator.SetTrigger("StunComplete");
+            animator.SetBool("IsStun", false);
+            stunTimer = 0f;
+        }
+
         
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        animator.SetBool("IsStun", false);
+        animator.ResetTrigger("StunComplete");
         Debug.Log("Exited Stun State");
     }
 }

@@ -18,6 +18,12 @@ public class AttackState : StateMachineBehaviour
             _elkDemon = animator.GetComponent<ElkDemonAI>();
         }
 
+        if (animator.GetBool("IsStun"))
+        {
+            animator.ResetTrigger("Attack");
+            return;
+        }
+
         _elkDemon.StopMoving();
         _hasAttacked = false;
         _coolDownTimer = 0f;

@@ -162,6 +162,12 @@ public class ElkDemonAI : MonoBehaviour
     //    return observationPoints[_currentObservationIndex];
     //}
 
+    public void GetStunned()
+    {
+        _stateMachine.SetTrigger("Stunned");
+        Debug.Log("Elk Demon got Stunned!");
+    }
+
     // Draw sight range and angle
     private void OnDrawGizmos()
     {
