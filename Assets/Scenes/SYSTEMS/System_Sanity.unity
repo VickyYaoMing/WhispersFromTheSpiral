@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sanity01: 1
-  RegenRateAtFull: 0.06
+  RegenRateAtFull: 0.08
   RegenRateAtEmpty: 0.02
   RegenCurveExponent: 1
   AmbientDrainAtFull: 0
@@ -724,7 +724,7 @@ Transform:
   m_GameObject: {fileID: 1276974672}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.93, y: 0.62, z: 3.82}
+  m_LocalPosition: {x: 9.42, y: 0.62, z: 3.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1201,7 +1201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69ea9c8618037f64a8fc3cdf871659d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delta: -0.2
+  delta: -0.15
   playerTag: Player
 --- !u!65 &2108992247
 BoxCollider:
@@ -1233,7 +1233,7 @@ Transform:
   m_GameObject: {fileID: 2108992245}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.07, y: 1.0281816, z: 5.89}
+  m_LocalPosition: {x: 6.17, y: 1.0281816, z: 7.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -84,6 +84,7 @@ namespace SanitySystem
 
 
             SetSanity(_sanity01 + (regen - ambient) * dt);
+            Debug.Log($"Current State: {_state}");
         }
         public void SetSanity(float value)
         {
