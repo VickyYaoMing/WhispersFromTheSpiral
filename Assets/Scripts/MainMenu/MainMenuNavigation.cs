@@ -5,7 +5,7 @@ public class MainMenuNavigation : MonoBehaviour
     [SerializeField] CanvasGroup mainCanvasGroup;
     [SerializeField] CanvasGroup optionsCanvasGroup;
     [SerializeField] CanvasGroup creditsCanvasGroup;
-    private MainMenuAnimator m_menuAnimator;
+    private FadeAnimator m_fadeAnimator;
     private MenuState m_currentState;
 
     enum MenuState
@@ -16,14 +16,14 @@ public class MainMenuNavigation : MonoBehaviour
     #region Unity Functions
     private void Awake()
     {
-        m_menuAnimator = GetComponent<MainMenuAnimator>();
+        m_fadeAnimator = GetComponent<FadeAnimator>();
     }
 
     void Start()
     {
         optionsCanvasGroup.alpha = 0f;
         creditsCanvasGroup.alpha = 0f;
-        m_menuAnimator.FadeIn(mainCanvasGroup, 2f);
+        m_fadeAnimator.FadeIn(mainCanvasGroup, 2f);
     }
     #endregion
 
@@ -35,13 +35,13 @@ public class MainMenuNavigation : MonoBehaviour
         switch (m_currentState)
         {
             case MenuState.OptionsView:
-                m_menuAnimator.FadeOut(optionsCanvasGroup, 0.5f);
+                m_fadeAnimator.FadeOut(optionsCanvasGroup, 0.5f);
                 break;
             case MenuState.CreditsView:
-                m_menuAnimator.FadeOut(creditsCanvasGroup, 0.5f);
+                m_fadeAnimator.FadeOut(creditsCanvasGroup, 0.5f);
                 break;
         }
-        m_menuAnimator.FadeIn(mainCanvasGroup, 0.5f);
+        m_fadeAnimator.FadeIn(mainCanvasGroup, 0.5f);
         m_currentState = MenuState.MainView;
         mainCanvasGroup.interactable = true;
     }
@@ -56,8 +56,8 @@ public class MainMenuNavigation : MonoBehaviour
         mainCanvasGroup.interactable = false;
         m_currentState = MenuState.OptionsView;
 
-        m_menuAnimator.FadeOut(mainCanvasGroup, 0.5f);
-        m_menuAnimator.FadeIn(optionsCanvasGroup, 0.5f);
+        m_fadeAnimator.FadeOut(mainCanvasGroup, 0.5f);
+        m_fadeAnimator.FadeIn(optionsCanvasGroup, 0.5f);
         optionsCanvasGroup.interactable = true;
     }
 
@@ -66,8 +66,8 @@ public class MainMenuNavigation : MonoBehaviour
         mainCanvasGroup.interactable = false;
         m_currentState = MenuState.CreditsView;
 
-        m_menuAnimator.FadeOut(mainCanvasGroup, 0.5f);
-        m_menuAnimator.FadeIn(creditsCanvasGroup, 0.5f);
+        m_fadeAnimator.FadeOut(mainCanvasGroup, 0.5f);
+        m_fadeAnimator.FadeIn(creditsCanvasGroup, 0.5f);
         creditsCanvasGroup.interactable = true;
     }
 

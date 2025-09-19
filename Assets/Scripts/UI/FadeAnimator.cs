@@ -1,8 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(MainMenuNavigation))]
-public class MainMenuAnimator : MonoBehaviour
+public class FadeAnimator : MonoBehaviour
 {
     public void FadeIn(CanvasGroup group, float duration)
     {

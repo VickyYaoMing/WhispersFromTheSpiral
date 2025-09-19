@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
     private PlayerMovement player_movement;
     private PlayerLook player_look;
     private InteractionManager interactionManager;
+    private UIManager uiManager;
     private int currentScrollIndex = 0;
 
 
@@ -18,10 +19,13 @@ public class InputManager : MonoBehaviour
         player_movement = GetComponent<PlayerMovement>();
         player_look = GetComponent<PlayerLook>();
         interactionManager = GetComponent<InteractionManager>();
+        uiManager = GetComponent<UIManager>();
         on_foot = player_input.On_Foot;
         inventoryActions = player_input.Inventory;
         on_foot.Jump.performed += ctx => player_movement.Jump();
         on_foot.Interact.performed += ctx => interactionManager.OnInteractWithItem();
+        on_foot.Pause.performed += ctx => uiManager.Pause();
+        on_foot.ViewInventory.performed += ctx => uiManager.ToggleInventory();
         inventoryActions.Item1.performed += ctx => interactionManager.GetItemInInventory(0);
         inventoryActions.Item2.performed += ctx => interactionManager.GetItemInInventory(1);
         inventoryActions.Item3.performed += ctx => interactionManager.GetItemInInventory(2);
