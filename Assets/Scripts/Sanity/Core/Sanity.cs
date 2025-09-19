@@ -18,8 +18,8 @@ namespace SanitySystem
     {
         [Header("Sanity Value (0..1)")]
         [Tooltip("1 = calm/sane, 0 = overwhelmed/insane phase")]
-        [Range(0f, 1f)][SerializeField] float _sanity01 = 1f;
-        public float Sanity01 => _sanity01;
+        [Range(0f, 1f)][SerializeField] float _baseSanity = 1f;
+        public float Sanity01 => _baseSanity;
 
 
         [Header("Regeneration (per second)")]
@@ -79,23 +79,23 @@ namespace SanitySystem
             float dt = Mathf.Max(0f, Time.deltaTime);
 
 
-            float regen = Mathf.Lerp(RegenRateAtEmpty, RegenRateAtFull, Pow01(_sanity01, RegenCurveExponent));
-            float ambient = Mathf.Lerp(AmbientDrainAtEmpty, AmbientDrainAtFull, Pow01(_sanity01, AmbientCurveExponent));
+            float regen = Mathf.Lerp(RegenRateAtEmpty, RegenRateAtFull, Pow01(_baseSanity, RegenCurveExponent));
+            float ambient = Mathf.Lerp(AmbientDrainAtEmpty, AmbientDrainAtFull, Pow01(_baseSanity, AmbientCurveExponent));
 
 
-            SetSanity(_sanity01 + (regen - ambient) * dt);
-            Debug.Log($"Current State: {_state}");
+            SetSanity(_baseSanity + (regen - ambient) * dt);
+            Debug.Log($"Current State: {_state}"); //Debug statement.
         }
         public void SetSanity(float value)
         {
             float v = Mathf.Clamp(value, ClampMin, ClampMax);
-            if (!Mathf.Approximately(v, _sanity01))
+            if (!Mathf.Approximately(v, _baseSanity))
             {
-                _sanity01 = v;
-                OnSanityChanged?.Invoke(_sanity01);
+                _baseSanity = v;
+                OnSanityChanged?.Invoke(_baseSanity);
 
 
-                var next = EvaluateState(_sanity01, _state);
+                var next = EvaluateState(_baseSanity, _state);
                 if (next != _state)
                 {
                     _state = next;
@@ -106,7 +106,7 @@ namespace SanitySystem
         public void ApplyImpulse(float impulse)
         {
             float d = Mathf.Clamp(impulse * ImpulseScale, ImpulseMin, ImpulseMax);
-            SetSanity(_sanity01 + d);
+            SetSanity(_baseSanity + d);
             OnImpulseApplied?.Invoke(d);
         }
         SanityState EvaluateState(float s, SanityState previous)
@@ -141,7 +141,7 @@ namespace SanitySystem
         }
         void EmitAll()
         {
-            OnSanityChanged?.Invoke(_sanity01);
+            OnSanityChanged?.Invoke(_baseSanity);
             OnSanityStateChanged?.Invoke(_state);
         }
 

@@ -271,8 +271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6653a74de009c5a4ba75a8a541087b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sanity01: 1
-  RegenRateAtFull: 0.08
+  _baseSanity: 1
+  RegenRateAtFull: 0.05
   RegenRateAtEmpty: 0.02
   RegenCurveExponent: 1
   AmbientDrainAtFull: 0
