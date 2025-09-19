@@ -9284,6 +9284,34 @@ Transform:
   - {fileID: 1300414428}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &392648495 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 75806692677558944, guid: a901be983c210274a8c2dc913053b233, type: 3}
+  m_PrefabInstance: {fileID: 1803434066}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &392648502 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6330197989133451956, guid: a901be983c210274a8c2dc913053b233, type: 3}
+  m_PrefabInstance: {fileID: 1803434066}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &392648503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392648495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f4ab711cc19da842be3befa57965064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunRange: 10
+  stunCd: 2
+  enemy:
+    serializedVersion: 2
+    m_Bits: 64
+  stunKey: 113
 --- !u!1001 &405620398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15464,7 +15492,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.6042584
+      value: -0.6042584
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_LocalPosition.z
@@ -15505,6 +15533,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_Name
       value: Elk Demon
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15564,21 +15596,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a3f5b114c03f849bcd750c998f40dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolPoints:
-  - {fileID: 2131337849}
-  - {fileID: 736589990}
-  - {fileID: 1598171316}
-  - {fileID: 2030883380}
-  - {fileID: 1376830789}
+  attackRange: 2
+  attackAngleThreshold: 0.7
   moveSpeed: 1.5
   huntSpeed: 3.5
+  maxAnimSpeed: 6
+  stalkSpeed: 1
   sightRange: 5
   sightAngle: 45
   obstructionMask:
     serializedVersion: 2
     m_Bits: 8
   eyeHeight: 1.5
-  player: {fileID: 0}
+  patrolPoints:
+  - {fileID: 2131337849}
+  - {fileID: 736589990}
+  - {fileID: 1598171316}
+  - {fileID: 2030883380}
+  - {fileID: 1376830789}
+  observationPoints: []
+  player: {fileID: 392648502}
 --- !u!136 &610036397
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -41539,7 +41576,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 75806692677558944, guid: a901be983c210274a8c2dc913053b233, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 392648503}
   m_SourcePrefab: {fileID: 100100000, guid: a901be983c210274a8c2dc913053b233, type: 3}
 --- !u!1001 &1805200087
 PrefabInstance:
