@@ -7,7 +7,7 @@ public class InteractionManager : MonoBehaviour
 {
     private int availableHoldingItems = 3;
     private int currentItemSpot = 0;
-
+    [SerializeField] private GameObject arms;
     private int currentTotalItems = 0;
     private bool itemTriggered = false;
     private bool currentHandAvailable = true;
@@ -16,15 +16,22 @@ public class InteractionManager : MonoBehaviour
     private GameObject currentItem = null;
     private GameObject[] itemArray;
     private Vector3 objectOffset = new Vector3(-0.001f, 0.0004f, 0);
+    private bool lockItem = false;
+    private bool isTriggerALockItem = false;
+    private InputManager inputManager;
+    private PlayerLook playerLook;
 
     private void Start()
     {
         itemArray = new GameObject[3];
+        inputManager = GetComponent<InputManager>();
+        playerLook = GetComponent<PlayerLook>();
     }
 
-    public void OnItemTriggered(bool isItemTriggered, Func<GameObject> callback)
+    public void OnItemTriggered(bool isItemTriggered, Func<GameObject> callback, bool isTriggerALockItem)
     {
         itemTriggered = isItemTriggered;
+        this.isTriggerALockItem = isTriggerALockItem;
         currentItemCallback = callback;
 
     }
@@ -34,6 +41,7 @@ public class InteractionManager : MonoBehaviour
     }
     public void GetItemInInventory(int spot)
     {
+        if (lockItem) return;
         Debug.Log("Inventory spot: " + spot);
         if(currentItemSpot != spot)
         {
@@ -79,6 +87,13 @@ public class InteractionManager : MonoBehaviour
     {
         currentItem = currentItemCallback?.Invoke();
         if (currentItem == null) return;
+        currentItem.GetComponent<InteractableBase>().enabled = true;
+        if (currentItem.GetComponent<InteractableBase>().itemShouldBeCameraLocked)
+        {
+            OnItemCameraLock(); 
+            return;
+        }
+
         itemArray[currentItemSpot] = currentItem;
         currentTotalItems++;
         currentHandAvailable = false;
@@ -86,6 +101,27 @@ public class InteractionManager : MonoBehaviour
         ItemPhysics(true);
         currentItem.transform.SetParent(handSlot.transform);
         currentItem.transform.localPosition = objectOffset;
+    }
+
+    private void OnItemCameraLock()
+    {
+        arms.SetActive(false);
+        lockItem = true;
+        inputManager.enabled = false;
+        playerLook.LockCameraOnItem(currentItem.transform);
+
+    }
+
+    private void Update()
+    {
+        if(lockItem && Input.GetKeyDown(KeyCode.Escape))
+        {
+            arms.SetActive(true);
+            inputManager.enabled = true;
+            playerLook.UnlockCamera();
+            lockItem = false;
+            currentItem = itemArray[currentItemSpot];
+        }
     }
 
     private void OnDrop()
@@ -96,11 +132,16 @@ public class InteractionManager : MonoBehaviour
         currentItem.transform.SetParent(null);
         currentItem.transform.position = transform.position + transform.forward * 1f;
         ItemPhysics(false);
-
+        currentItem.GetComponent<InteractableBase>().enabled = false;
         currentItem = null;
     }
     private void OnSwap()
     {
+        if(isTriggerALockItem)
+        {
+            OnPickUp();
+            return;
+        }
         OnDrop();
         OnPickUp();
     }
