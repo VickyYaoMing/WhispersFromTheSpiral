@@ -125,5 +125,27 @@ public class InteractionManager : MonoBehaviour
         this.handSlot = handSlot;
     }
 
+    #region Methods for save and load
 
+    public GameObject[] GetItemArray()
+    {
+        return itemArray;
+    }
+
+    public void SetItemArray(GameObject[] savedInventory)
+    {
+        itemArray = savedInventory;
+    }
+
+    public GameObject GetCurrentItem()
+    {
+        return currentItem;
+    }
+
+    public void SetCurrentItem(GameObject savedItem)
+    {
+        currentItem = savedItem;
+    }
+
+    #endregion
 }

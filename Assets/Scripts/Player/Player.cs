@@ -39,11 +39,19 @@ public class Player : MonoBehaviour
     public void Save(ref PlayerSaveData data)
     {
         data.position = transform.position;
+
+        //theoretically works, can't test because i can't grab the items in my scene :////
+        data.inventory = interactionManager.GetItemArray();
+        data.savedItem = interactionManager.GetCurrentItem();
     }
 
     public void Load(PlayerSaveData data)
     {
         transform.position = data.position;
+
+        //same goes for these 2
+        interactionManager.SetItemArray(data.inventory);
+        interactionManager.SetCurrentItem(data.savedItem);
     }
 
 }
@@ -52,4 +60,6 @@ public class Player : MonoBehaviour
 public struct PlayerSaveData
 {
     public Vector3 position;
+    public GameObject[] inventory;
+    public GameObject savedItem;
 }
