@@ -9311,7 +9311,52 @@ MonoBehaviour:
   enemy:
     serializedVersion: 2
     m_Bits: 64
-  stunKey: 113
+--- !u!114 &392648504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392648495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d27527ff3e3abd43992a9976d8b4c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visionRange: 10
+  visionAngle: 45
+  playerCam: {fileID: 435141002}
+  showDebugCone: 1
+  coneColor: {r: 1, g: 0, b: 0, a: 0.2}
+--- !u!114 &392648511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392648495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6653a74de009c5a4ba75a8a541087b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseSanity: 1
+  RegenRateAtFull: 0.06
+  RegenRateAtEmpty: 0.02
+  RegenCurveExponent: 1
+  AmbientDrainAtFull: 0
+  AmbientDrainAtEmpty: 0
+  AmbientCurveExponent: 1
+  ImpulseScale: 1
+  ImpulseMin: -0.5
+  ImpulseMax: 0.5
+  ClampMin: 0
+  ClampMax: 1
+  ThresholdUneasy: 0.85
+  ThresholdAfraid: 0.65
+  ThresholdPanicked: 0.45
+  ThresholdInsane: 0.2
+  Hysteresis: 0.03
 --- !u!1001 &405620398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15551,6 +15596,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       insertIndex: -1
       addedObject: {fileID: 610036397}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 610036398}
   m_SourcePrefab: {fileID: 100100000, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
 --- !u!1 &610036393 stripped
 GameObject:
@@ -15639,6 +15687,19 @@ CapsuleCollider:
   m_Height: 1.0646577
   m_Direction: 1
   m_Center: {x: -0.015921911, y: 0.48452514, z: 0.020550888}
+--- !u!114 &610036398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610036393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e86948d92a6d64994efeaddcc894be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drainPerSecond: -0.15
 --- !u!1001 &614482115
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41573,6 +41634,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7414091367555301039, guid: a901be983c210274a8c2dc913053b233, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -41580,6 +41645,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 75806692677558944, guid: a901be983c210274a8c2dc913053b233, type: 3}
       insertIndex: -1
       addedObject: {fileID: 392648503}
+    - targetCorrespondingSourceObject: {fileID: 75806692677558944, guid: a901be983c210274a8c2dc913053b233, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 392648504}
+    - targetCorrespondingSourceObject: {fileID: 75806692677558944, guid: a901be983c210274a8c2dc913053b233, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 392648511}
   m_SourcePrefab: {fileID: 100100000, guid: a901be983c210274a8c2dc913053b233, type: 3}
 --- !u!1001 &1805200087
 PrefabInstance:
