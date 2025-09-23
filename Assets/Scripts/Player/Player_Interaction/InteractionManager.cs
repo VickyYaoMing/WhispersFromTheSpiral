@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using static UnityEditor.Progress;
+using System.Collections;
 
 public class InteractionManager : MonoBehaviour
 {
@@ -87,13 +88,12 @@ public class InteractionManager : MonoBehaviour
     {
         currentItem = currentItemCallback?.Invoke();
         if (currentItem == null) return;
-        currentItem.GetComponent<InteractableBase>().enabled = true;
         if (currentItem.GetComponent<InteractableBase>().itemShouldBeCameraLocked)
         {
-            OnItemCameraLock(); 
+            OnItemCameraLock();
             return;
         }
-
+        currentItem.GetComponent<InteractableBase>().enabled = true;
         itemArray[currentItemSpot] = currentItem;
         currentTotalItems++;
         currentHandAvailable = false;
@@ -109,6 +109,13 @@ public class InteractionManager : MonoBehaviour
         lockItem = true;
         inputManager.enabled = false;
         playerLook.LockCameraOnItem(currentItem.transform);
+        StartCoroutine(EnableAfterRelease());
+    }
+
+    private IEnumerator EnableAfterRelease()
+    {
+        yield return null;
+        currentItem.GetComponent<InteractableBase>().enabled = true;
 
     }
 
@@ -119,6 +126,7 @@ public class InteractionManager : MonoBehaviour
             arms.SetActive(true);
             inputManager.enabled = true;
             playerLook.UnlockCamera();
+            currentItem.GetComponent<InteractableBase>().enabled = false;
             lockItem = false;
             currentItem = itemArray[currentItemSpot];
         }

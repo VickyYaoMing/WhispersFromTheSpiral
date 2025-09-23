@@ -6,6 +6,7 @@ public class PlanchetteInteraction : MonoBehaviour
     private float speed = 2f;
     private float stopDistance = 0.05f;
     private bool shouldMove = false;
+    public bool reachedTarget { get; private set; } = false;
     private Transform targetTransform = null;
     public void MoveToTarget(Transform target)
     {
@@ -17,14 +18,15 @@ public class PlanchetteInteraction : MonoBehaviour
     {
         if (shouldMove && transform != null)
         {
-            Debug.Log("Planchette pressed");
             Vector3 toTarget = targetTransform.position - transform.position;
             float distance = toTarget.magnitude;
+            reachedTarget = false;
 
             if (distance <= stopDistance)
             {
                 transform.position = targetTransform.position;
                 shouldMove = false;
+                reachedTarget = true;
                 return;
             }
 
