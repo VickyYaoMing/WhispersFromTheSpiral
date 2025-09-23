@@ -13,13 +13,18 @@ public class InteractionManager : MonoBehaviour
     private bool currentHandAvailable = true;
     private Func<GameObject> currentItemCallback;
     [SerializeField] private Transform handSlot;
-    private GameObject currentItem = null;
-    private GameObject[] itemArray;
+    [SerializeField] private GameObject currentItem = null;
+    [SerializeField] private GameObject[] itemArray;
     private Vector3 objectOffset = new Vector3(-0.001f, 0.0004f, 0);
 
     private void Start()
     {
         itemArray = new GameObject[3];
+    }
+
+    private void Awake()
+    {
+        GameManager.Instance.InteractionManager = this;
     }
 
     public void OnItemTriggered(bool isItemTriggered, Func<GameObject> callback)
@@ -127,25 +132,42 @@ public class InteractionManager : MonoBehaviour
 
     #region Methods for save and load
 
-    public GameObject[] GetItemArray()
+    public void Save(ref PlayerInventoryData data)
     {
-        return itemArray;
+        data.inventory = itemArray;
+        data.currentItemIndex = currentItemSpot;
     }
 
-    public void SetItemArray(GameObject[] savedInventory)
+    public void Load(PlayerInventoryData data) 
     {
-        itemArray = savedInventory;
-    }
+        //Works, but doesn't move the item into the character's hand.
+        //Item position is memorized and the current item is too.
+        //If item is in slot 0, it is teleported into the player's hand and works as intended. 
+        //If it is not in slot 0, it will not be teleported into the player's hand and will instead remain on the floor.
 
-    public GameObject GetCurrentItem()
-    {
-        return currentItem;
-    }
+        itemArray = data.inventory;
 
-    public void SetCurrentItem(GameObject savedItem)
-    {
-        currentItem = savedItem;
+        currentItem = data.inventory[data.currentItemIndex];
+        currentItemSpot = data.currentItemIndex;
+
+        foreach (GameObject item in itemArray)
+        {
+            if (item == null) continue;
+
+            item.transform.SetParent(handSlot.transform);
+            item.transform.localPosition = objectOffset;
+            item.GetComponent<Rigidbody>().isKinematic = true;
+            item.GetComponent<Rigidbody>().detectCollisions = false;
+        }
+
     }
 
     #endregion
+}
+
+[System.Serializable] 
+public struct PlayerInventoryData
+{
+    public GameObject[] inventory;
+    public int currentItemIndex;
 }

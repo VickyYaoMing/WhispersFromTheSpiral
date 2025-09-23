@@ -542,7 +542,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1685687434852775914, guid: a901be983c210274a8c2dc913053b233, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -576,6 +577,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handSlot: {fileID: 767332911}
+  currentItem: {fileID: 0}
+  itemArray: []
 --- !u!114 &767332920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,7 +591,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e1afa59ac34d94fa3d1cc226b25c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionManager: {fileID: 767332912}
   playerLook: {fileID: 767332921}
   playerMovement: {fileID: 767332922}
   inputManager: {fileID: 767332923}

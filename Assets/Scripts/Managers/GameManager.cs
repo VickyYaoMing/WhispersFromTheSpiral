@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     }
 
     public Player Player {  get; set; }
+    public InteractionManager InteractionManager { get; set; }
     public SaveSystem SaveSystem { get;  set; }
 
     private void Awake()
