@@ -9326,7 +9326,8 @@ MonoBehaviour:
   visionRange: 10
   visionAngle: 45
   playerCam: {fileID: 435141002}
-  showDebugCone: 1
+  enemy: {fileID: 610036395}
+  showDebug: 1
   coneColor: {r: 1, g: 0, b: 0, a: 0.2}
 --- !u!114 &392648511
 MonoBehaviour:
@@ -41604,7 +41605,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6330197989133451956, guid: a901be983c210274a8c2dc913053b233, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.25
+      value: -5.62
       objectReference: {fileID: 0}
     - target: {fileID: 6330197989133451956, guid: a901be983c210274a8c2dc913053b233, type: 3}
       propertyPath: m_LocalRotation.w

@@ -8,11 +8,14 @@ public class PlayerSanityVision : MonoBehaviour
     [SerializeField] private float visionAngle = 30f;
     [SerializeField] private Camera playerCam;
 
+    [Header("References")]
+    [SerializeField] private Transform enemy;
+
     [Header("Debug Settings")]
-    [SerializeField] private bool showDebugCone = true;
+    [SerializeField] private bool showDebug = true;
     [SerializeField] private Color coneColor = new Color(1f, 0f, 0f, 0.2f);
 
-    private SanityDrainOnLook currentTarget;
+
 
     void Start()
     {
@@ -31,55 +34,38 @@ public class PlayerSanityVision : MonoBehaviour
             return;
         }
 
-        currentTarget = null;
+        Vector3 origin = playerCam.transform.position;
+        Vector3 dirToEnemy = enemy.position - origin;
 
-        Collider[] hits = Physics.OverlapSphere(playerCam.transform.position, visionRange);
-        foreach (var hit in hits)
+        float dist = dirToEnemy.magnitude;
+        if (dist > visionRange) return;
+
+        float angle = Vector3.Angle(playerCam.transform.forward, dirToEnemy);
+        if (angle <= visionAngle * 0.5f)
         {
-            var target = hit.GetComponent<SanityDrainOnLook>();
-            if (target == null)
-            {
-                continue;
-            }
-
-            Vector3 directionToTarget = (hit.transform.position - playerCam.transform.position).normalized;
-            float angleToTarget = Vector3.Angle(playerCam.transform.forward, directionToTarget);
-            if (angleToTarget <= visionAngle)
-            {
-                if (Physics.Raycast(playerCam.transform.position,directionToTarget, out RaycastHit rayHit, visionRange))
-                {
-                    if (rayHit.collider.GetComponent<SanityDrainOnLook>() == target)
-                    {
-                        target.DrainTick();
-                        currentTarget = target;
-                        break;
-                    }
-                }
-            }
-
+            var drain = enemy.GetComponent<SanityDrainOnLook>();
+            if (drain != null)
+                drain.DrainTick();
         }
 
-        
     }
 
     private void OnDrawGizmos()
     {
-        if (!showDebugCone || playerCam == null) return;
+        if (!showDebug || playerCam == null) return;
 
         Gizmos.color = coneColor;
         Vector3 origin = playerCam.transform.position;
-        Vector3 forward = playerCam.transform.forward;
 
-        // Draw vision cone outline
-        for (int i = 0; i < 36; i++)
-        {
-            float angle = (i / 36f) * 360f;
-            Quaternion rotation = Quaternion.AngleAxis(angle, forward);
-            Vector3 dir = rotation * (Quaternion.AngleAxis(visionAngle, playerCam.transform.right) * forward);
-            Gizmos.DrawRay(origin, dir * visionRange);
-        }
+        // Draw cone edges
+        Quaternion leftRot = Quaternion.AngleAxis(-visionAngle * 0.5f, Vector3.up);
+        Quaternion rightRot = Quaternion.AngleAxis(visionAngle * 0.5f, Vector3.up);
 
-        // Draw range sphere for clarity
+        Vector3 leftDir = leftRot * playerCam.transform.forward;
+        Vector3 rightDir = rightRot * playerCam.transform.forward;
+
+        Gizmos.DrawRay(origin, leftDir * visionRange);
+        Gizmos.DrawRay(origin, rightDir * visionRange);
         Gizmos.DrawWireSphere(origin, visionRange);
     }
 }
