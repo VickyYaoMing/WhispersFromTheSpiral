@@ -8,7 +8,6 @@ public class InteractionManager : MonoBehaviour
 {
     private int availableHoldingItems = 3;
     private int currentItemSpot = 0;
-    [SerializeField] private GameObject arms;
     private int currentTotalItems = 0;
     private bool itemTriggered = false;
     private bool currentHandAvailable = true;
@@ -105,7 +104,6 @@ public class InteractionManager : MonoBehaviour
 
     private void OnItemCameraLock()
     {
-        arms.SetActive(false);
         lockItem = true;
         inputManager.enabled = false;
         playerLook.LockCameraOnItem(currentItem.transform);
@@ -123,7 +121,6 @@ public class InteractionManager : MonoBehaviour
     {
         if(lockItem && Input.GetKeyDown(KeyCode.Escape))
         {
-            arms.SetActive(true);
             inputManager.enabled = true;
             playerLook.UnlockCamera();
             currentItem.GetComponent<InteractableBase>().enabled = false;

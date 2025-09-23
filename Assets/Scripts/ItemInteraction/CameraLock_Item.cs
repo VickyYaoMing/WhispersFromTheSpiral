@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class CameraLock_Item : MonoBehaviour
+public class CameraLock_Item : InteractableBase
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
-        
+        itemShouldBeCameraLocked = true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

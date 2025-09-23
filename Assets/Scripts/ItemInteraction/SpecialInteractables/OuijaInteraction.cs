@@ -25,20 +25,12 @@ public class OuijaInteraction : InteractableBase
 
     public void Update()
     {
-        //for (int i = 0; i < anchors.Count; i++)
-        //{
-        //    KeyCode key = (KeyCode)System.Enum.Parse(typeof(KeyCode), anchors[i].name);
-        //    if (Input.GetKeyDown(key))
-        //    {
-        //        planchette.MoveToTarget(anchors[i].transform);
-        //    }
-        //}
 
         for (int i = 0; i < allKeys.Length; i++)
         {
             if (Input.GetKeyDown(allKeys[i]))
             {
-                if (allKeys[i] >= KeyCode.A && allKeys[i] <= KeyCode.Z || allKeys[i] == KeyCode.Question)
+                if (allKeys[i] >= KeyCode.A && allKeys[i] <= KeyCode.Z)
                 {
                     questionText += allKeys[i];
                     inputText.text = questionText;
@@ -66,31 +58,38 @@ public class OuijaInteraction : InteractableBase
 
     private void Answer()
     {
-        
-        string answer = "chillin";
-
-       //for(int i = 0; i < answer.Length; i++)
-       // {
-       //     for(int j = 0; j < anchors.Count; j++)
-       //     {
-       //         if(answer[j].ToString().ToUpper() == anchors[j].name)
-       //         {
-       //         }
-       //     }
-       // }
-
+        StartCoroutine(SpellWord("Larry"));
     }
 
-    private IEnumerator ReachLetter(int j)
+    private IEnumerator SpellWord(string word)
     {
-        // Tell the planchette to move
-        planchette.MoveToTarget(anchors[j].transform);
+        word = word.ToUpperInvariant();
 
-        // Wait until planchette.reachedTarget becomes true
-        yield return new WaitUntil(() => planchette.reachedTarget);
+        for (int i = 0; i < word.Length; i++)
+        {
+            string letter = word[i].ToString();
 
-        Debug.Log("Reached target " + anchors[j].name);
+            int j = -1;
+            for (int k = 0; k < anchors.Count; k++)
+            {
+                if (anchors[k].name == letter)
+                {
+                    j = k;
+                    break;
+                }
+            }
+            if (j < 0) continue; 
+
+            
+            planchette.MoveToTarget(anchors[j].transform);
+            yield return new WaitUntil(() => planchette.reachedTarget);
+
+            Debug.Log("Reached target " + anchors[j].name);
+
+            yield return new WaitForSeconds(0.8f);
+        }
     }
+
 
 
     public void OnDisable()
