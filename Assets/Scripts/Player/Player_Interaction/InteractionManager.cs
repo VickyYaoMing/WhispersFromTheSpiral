@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using static UnityEditor.Progress;
+using UnityEditor.UIElements;
 
 public class InteractionManager : MonoBehaviour
 {
@@ -142,8 +143,7 @@ public class InteractionManager : MonoBehaviour
     {
         //Works, but doesn't move the item into the character's hand.
         //Item position is memorized and the current item is too.
-        //If item is in slot 0, it is teleported into the player's hand and works as intended. 
-        //If it is not in slot 0, it will not be teleported into the player's hand and will instead remain on the floor.
+        //Item is teleported into the player's hand and works as intended. 
 
         itemArray = data.inventory;
 
@@ -154,14 +154,23 @@ public class InteractionManager : MonoBehaviour
         {
             if (item == null) continue;
 
+            //Refactor this into a method? Pretty much the same code that runs when picking an item up.
+            currentTotalItems++;
             item.transform.SetParent(handSlot.transform);
             item.transform.localPosition = objectOffset;
             item.GetComponent<Rigidbody>().isKinematic = true;
             item.GetComponent<Rigidbody>().detectCollisions = false;
+
+            if (item == currentItem)
+            {
+                currentHandAvailable = false;
+            }
+            else
+            {
+                item.SetActive(false);
+            }
         }
-
     }
-
     #endregion
 }
 

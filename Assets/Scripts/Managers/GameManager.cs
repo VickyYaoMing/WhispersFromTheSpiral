@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     public Player Player {  get; set; }
     public InteractionManager InteractionManager { get; set; }
     public SaveSystem SaveSystem { get;  set; }
+    public ItemManager ItemManager { get; set; }
 
     private void Awake()
     {
@@ -39,6 +41,9 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+
+
     }
     void Start()
     {
