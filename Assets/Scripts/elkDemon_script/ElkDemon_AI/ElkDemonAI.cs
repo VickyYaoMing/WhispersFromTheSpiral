@@ -1,66 +1,90 @@
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.UI;
 
+[RequireComponent (typeof(Animator))]
 public class ElkDemonAI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public Transform[] patrolPoints;
-    public Transform[] observationPoints;
-    public float moveSpeed = 3f;
-    public float huntSpeed = 5f;
-    public float sightRange = 15f;
-    public float sightAngle = 45f; 
-    public LayerMask obstructionMask;
-    public float eyeHeight = 1.5f;
-    public Transform player;
-    public float maxAnimSpeed = 6f;
-    public float stalkSpeed = 1f;
+    [Header("Atack Settings")]
+    [SerializeField] private float attackRange = 2f;
+    [SerializeField] private float attackAngleThreshold = 0.7f;
 
-    private Animator stateMachine;
-    private Vector3 playerLastKnownPosition;
-    private Vector3 playerLastKnownDirection;
-    private float playerLastSeenTime;
-    private bool hasRecentPlayerInfo = false;
-    private int currentObservationIndex = 0;
+    [Header("Movement")]
+    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float huntSpeed = 5f;
+    [SerializeField] private float maxAnimSpeed = 6f;
+    [SerializeField] private float stalkSpeed = 1f;
 
-    public bool HasRecentPlayerInfo { get { return hasRecentPlayerInfo; } }
-    public Vector3 PlayerLastKnownPosition { get { return playerLastKnownPosition; } }
-    public Vector3 PlayerLastKnownDirection { get { return playerLastKnownDirection; } }
+    [Header("Sight")]
+    [SerializeField] private float sightRange = 15f;
+    [SerializeField] private float sightAngle = 45f;
+    [SerializeField] private LayerMask obstructionMask;
+    [SerializeField] private float eyeHeight = 1.5f;
+
+    [Header("References")]
+    [SerializeField] private Transform[] patrolPoints;
+    [SerializeField] private Transform[] observationPoints;
+    [SerializeField] private Transform player;
+
+    private NavMeshAgent _navAgent;
+    private Animator _stateMachine;
+    private Vector3 _playerLastKnownPosition;
+    private Vector3 _playerLastKnownDirection;
+    private float _playerLastSeenTime;
+    private bool _hasRecentPlayerInfo;
+    private int _currentObservationIndex;
+
+    public bool HasRecentPlayerInfo { get { return _hasRecentPlayerInfo; } }
+    public Vector3 PlayerLastKnownPosition { get { return _playerLastKnownPosition; } }
+    public Vector3 PlayerLastKnownDirection { get { return _playerLastKnownDirection; } }
+    public float MoveSpeed { get { return moveSpeed; } }
+    public float HuntSpeed { get { return huntSpeed; } }
+    public float AttackRange { get { return attackRange; } }
+    public float AttackAngleThreshold { get { return attackAngleThreshold; } }
+    public Transform Player { get { return player; } }
+    public Transform[] PatrolPoints { get { return patrolPoints;  } }
+
 
     void Start()
     {
-        stateMachine = GetComponent<Animator>();
+        _navAgent = GetComponent<NavMeshAgent>();
+        _stateMachine = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        if (player == null)
-        {
-            Debug.LogError("No object with tag 'Player' found in scene!");
-        }
-
+        _navAgent.updatePosition = true;
     }
 
     public void MoveTowards(Vector3 targetPosition, float currentSpeed)
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, currentSpeed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+        if(_navAgent == null) return;
+
+        _navAgent.speed = currentSpeed;
+        _navAgent.SetDestination(targetPosition);
+
+        if(_navAgent.velocity.sqrMagnitude > 0.01f)
         {
-            transform.LookAt(targetPosition);
+            Quaternion lookRot = Quaternion.LookRotation(_navAgent.velocity.normalized);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * 8f);
         }
 
         // Normalize speed and update animator
         float normalizedSpeed = Mathf.Clamp01(currentSpeed / maxAnimSpeed);
-        stateMachine.SetFloat("Speed", normalizedSpeed);
+        _stateMachine.SetFloat("Speed", normalizedSpeed);
     }
 
     public void StopMoving()
     {
-        stateMachine.SetFloat("Speed", 0f);
+        if (_navAgent == null) return;
+        _navAgent.ResetPath();
+        _navAgent.velocity = Vector3.zero;
+        _stateMachine.SetFloat("Speed", 0f);
     }
 
-    public bool canSeePlayer()
+    public bool CanSeePlayer()
     {
         if (player == null)
         {
-            Debug.Log("CanSeePlayer: Failed - Player reference is null.");
+            //Debug.Log("CanSeePlayer: Failed - Player reference is null.");
             return false;
         }
 
@@ -69,71 +93,95 @@ public class ElkDemonAI : MonoBehaviour
 
         if (distanceToPlayer > sightRange)
         {
-            Debug.Log("CanSeePlayer: Failed - Player is too far. Distance: " + distanceToPlayer);
+            //Debug.Log("CanSeePlayer: Failed - Player is too far. Distance: " + distanceToPlayer);
             return false;
         }
         else
         {
-            Debug.Log("CanSeePlayer: Passed Range Check. Distance: " + distanceToPlayer);
+            //Debug.Log("CanSeePlayer: Passed Range Check. Distance: " + distanceToPlayer);
         }
 
         float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
         if (angleToPlayer > sightAngle / 2)
         {
-            Debug.Log("CanSeePlayer: Failed - Player is outside FOV. Angle: " + angleToPlayer);
+            //Debug.Log("CanSeePlayer: Failed - Player is outside FOV. Angle: " + angleToPlayer);
             return false;
         }
         else
         {
-            Debug.Log("CanSeePlayer: Passed Angle Check. Angle: " + angleToPlayer);
+            //Debug.Log("CanSeePlayer: Passed Angle Check. Angle: " + angleToPlayer);
         }
 
         Vector3 rayStartPoint = transform.position + (Vector3.up * eyeHeight);
-
         RaycastHit hit;
-        // Visualize the ray in the Scene View. THIS IS CRUCIAL FOR DEBUGGING.
+
+        // Visualize the ray in the Scene View >:)
         Debug.DrawRay(rayStartPoint, directionToPlayer.normalized * sightRange, Color.red, 0.1f);
 
         if (Physics.Raycast(rayStartPoint, directionToPlayer.normalized, out hit, sightRange, obstructionMask))
         {
-            Debug.Log("Vision BLOCKED by: " + hit.collider.gameObject.name + " | Layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer));
+            //Debug.Log("Vision BLOCKED by: " + hit.collider.gameObject.name + " | Layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer));
             return false;
         }
         else
         {
             UpdatePlayerTrackingInfo(player.position, directionToPlayer);
-            Debug.Log("Vision CLEAR. Can see player! Ray started from: " + rayStartPoint);
+            //Debug.Log("Vision CLEAR. Can see player! Ray started from: " + rayStartPoint);
             return true;
+        }
+    }
+
+    public bool CanAttackPlayer()
+    {
+        if (player == null) return false;
+
+        float distance = Vector3.Distance(transform.position, player.position);
+        if (distance > attackRange) return false; 
+
+        Vector3 direction = (player.position - transform.position).normalized;
+        float dot = Vector3.Dot(transform.forward, direction);
+
+        return dot > attackAngleThreshold && CanSeePlayer();
+    }
+
+    public void CheckForAttack(Animator animator)
+    {
+        if (CanAttackPlayer())
+        {
+            animator.SetTrigger("Attack");
         }
     }
 
     public void UpdatePlayerTrackingInfo(Vector3 playerPosition, Vector3 directionToPlayer)
     {
-        playerLastKnownPosition = playerPosition;
-        playerLastKnownDirection = directionToPlayer.normalized;
-
-        playerLastSeenTime = Time.time;
-        hasRecentPlayerInfo = true;
-        // Optional: could also estimate player's movement direction by comparing
-        // with previous frame's position for even more intelligent tracking
+        _playerLastKnownPosition = playerPosition;
+        _playerLastKnownDirection = directionToPlayer.normalized;
+        _playerLastSeenTime = Time.time;
+        _hasRecentPlayerInfo = true;
     }
 
-    public Transform GetObservationPoint()
+    //public Transform GetObservationPoint()
+    //{
+    //    if (observationPoints == null || observationPoints.Length == 0)
+    //        return player;
+
+    //    // Simple round-robin selection
+    //    _currentObservationIndex = (_currentObservationIndex + 1) % observationPoints.Length;
+    //    return observationPoints[_currentObservationIndex];
+    //}
+
+    public void GetStunned()
     {
-        if (observationPoints == null || observationPoints.Length == 0)
-            return player;
-
-        // Simple round-robin selection
-        currentObservationIndex = (currentObservationIndex + 1) % observationPoints.Length;
-        return observationPoints[currentObservationIndex];
+        _stateMachine.SetTrigger("Stunned");
+        Debug.Log("Elk Demon got Stunned!");
     }
+
+    // Draw sight range and angle
     private void OnDrawGizmos()
     {
-        // Draw sight range
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position + Vector3.up * eyeHeight, sightRange);
 
-        // Draw sight angle
         Vector3 leftDir = Quaternion.Euler(0, -sightAngle / 2, 0) * transform.forward;
         Vector3 rightDir = Quaternion.Euler(0, sightAngle / 2, 0) * transform.forward;
         Gizmos.DrawRay(transform.position + Vector3.up * eyeHeight, leftDir * sightRange);
