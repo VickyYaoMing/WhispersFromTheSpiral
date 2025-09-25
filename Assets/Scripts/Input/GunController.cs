@@ -9,7 +9,7 @@ public class GunController : MonoBehaviour
     public Animator anim;
 
     [Header("Hit VFX Settings")]
-    public GameObject hitEffectPrefab; // Inspector'dan bağla (örn. Bullet_Hit.prefab)
+    public GameObject hitEffectPrefab; // Inspector connetted (exp. Bullet_Hit.prefab)
 
     float nextFire;
     int currentAmmo;
@@ -21,6 +21,7 @@ public class GunController : MonoBehaviour
 
     void Update()
     {
+        // Otomatic and single fire control
         if (Input.GetButton("Fire1") && Time.time >= nextFire)
         {
             if (stats.fireMode == FireMode.Single)
@@ -33,8 +34,12 @@ public class GunController : MonoBehaviour
             }
         }
 
+        // reload
         if (Input.GetKeyDown(KeyCode.R))
             StartCoroutine(Reload());
+
+        
+    
     }
 
     void TryShoot()
@@ -48,16 +53,30 @@ public class GunController : MonoBehaviour
 
     void Shoot()
     {
+        Debug.Log("FIRE!");
+
         if (anim != null) anim.SetTrigger("Shoot");
-        if (audioSrc != null && stats.shootSound != null) audioSrc.PlayOneShot(stats.shootSound);
+        if (audioSrc != null && stats.shootSound != null)
+            audioSrc.PlayOneShot(stats.shootSound);
+
         if (stats.muzzleFlashPrefab != null && muzzle != null)
             Instantiate(stats.muzzleFlashPrefab, muzzle.position, muzzle.rotation, muzzle);
-
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        if (Physics.Raycast(ray, out RaycastHit hit, stats.range, ~0, QueryTriggerInteraction.Ignore))
+
+        // Layer mask: HER ŞEYE çarpabilir
+        int layerMask = Physics.DefaultRaycastLayers;
+
+        if (Physics.Raycast(ray, out RaycastHit hit, stats.range, layerMask, QueryTriggerInteraction.Ignore))
         {
-            SpawnImpact(hit); // ← tek yerden yönet
+            Debug.Log("HIT!");
+            SpawnImpact(hit);
         }
+        else
+        {
+            Debug.Log("NO HIT!");
+        }
+
+
     }
 
     System.Collections.IEnumerator Reload()
@@ -67,21 +86,30 @@ public class GunController : MonoBehaviour
         currentAmmo = stats.maxAmmo;
     }
 
-    // --- Impact (decal + hit effect) ---
+    // --- Impact (Bullet Hole + VFX) ---
     void SpawnImpact(RaycastHit hit)
     {
-        // Duvarlarda siyah iz (Enemy'de bırakma)
+        // Bullet hole instantiate
         if (stats.bulletHolePrefab != null && !hit.collider.CompareTag("Enemy"))
         {
-            Quaternion rot = Quaternion.LookRotation(-hit.normal);
-            Vector3 pos = hit.point + hit.normal * 0.002f;
-            var hole = Instantiate(stats.bulletHolePrefab, pos, rot, hit.collider.transform);
+            // Doğru rotasyon (yüzeye yapışsın)
+            Quaternion rot = Quaternion.LookRotation(hit.normal);
+
+            // Yüzeye çok hafif mesafeli yerleştir (gömülmesin)
+            Vector3 pos = hit.point + hit.normal * 0.01f;
+
+            // Parent YOK! Dünya koordinatına instantiate
+            var hole = Instantiate(stats.bulletHolePrefab, pos, rot);
+
+            // Rastgele ölçek ve rotasyon (daha doğal görünüm)
             hole.transform.localScale = Vector3.one * Random.Range(0.08f, 0.12f);
             hole.transform.Rotate(0, 0, Random.Range(0f, 360f));
+
+            // 15 saniye sonra otomatik sil
             Destroy(hole, 15f);
         }
 
-        // Anlık kıvılcım/toz
+        // Hit VFX (kıvılcım, toz)
         if (hitEffectPrefab != null)
         {
             var fx = Instantiate(hitEffectPrefab, hit.point, Quaternion.LookRotation(hit.normal));
