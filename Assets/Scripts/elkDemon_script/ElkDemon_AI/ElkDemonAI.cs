@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.UI;
 
 [RequireComponent (typeof(Animator))]
 public class ElkDemonAI : MonoBehaviour
@@ -24,6 +26,7 @@ public class ElkDemonAI : MonoBehaviour
     [SerializeField] private Transform[] observationPoints;
     [SerializeField] private Transform player;
 
+    private NavMeshAgent _navAgent;
     private Animator _stateMachine;
     private Vector3 _playerLastKnownPosition;
     private Vector3 _playerLastKnownDirection;
@@ -44,22 +47,24 @@ public class ElkDemonAI : MonoBehaviour
 
     void Start()
     {
+        _navAgent = GetComponent<NavMeshAgent>();
         _stateMachine = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        if (player == null)
-        {
-            //Debug.LogError("No object with tag 'Player' found in scene!");
-        }
-
+        _navAgent.updatePosition = true;
     }
 
     public void MoveTowards(Vector3 targetPosition, float currentSpeed)
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, currentSpeed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+        if(_navAgent == null) return;
+
+        _navAgent.speed = currentSpeed;
+        _navAgent.SetDestination(targetPosition);
+
+        if(_navAgent.velocity.sqrMagnitude > 0.01f)
         {
-            transform.LookAt(targetPosition);
+            Quaternion lookRot = Quaternion.LookRotation(_navAgent.velocity.normalized);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * 8f);
         }
 
         // Normalize speed and update animator
@@ -69,6 +74,9 @@ public class ElkDemonAI : MonoBehaviour
 
     public void StopMoving()
     {
+        if (_navAgent == null) return;
+        _navAgent.ResetPath();
+        _navAgent.velocity = Vector3.zero;
         _stateMachine.SetFloat("Speed", 0f);
     }
 
