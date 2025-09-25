@@ -2,7 +2,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using static UnityEditor.Progress;
+using UnityEditor.UIElements;
 using System.Collections;
+
 
 public class InteractionManager : MonoBehaviour
 {
@@ -13,8 +15,8 @@ public class InteractionManager : MonoBehaviour
     private bool currentHandAvailable = true;
     private Func<GameObject> currentItemCallback;
     [SerializeField] private Transform handSlot;
-    private GameObject currentItem = null;
-    private GameObject[] itemArray;
+    [SerializeField] private GameObject currentItem = null;
+    [SerializeField] private GameObject[] itemArray;
     private Vector3 objectOffset = new Vector3(-0.001f, 0.0004f, 0);
     private bool lockItem = false;
     private bool isTriggerALockItem = false;
@@ -28,7 +30,13 @@ public class InteractionManager : MonoBehaviour
         playerLook = GetComponent<PlayerLook>();
     }
 
+    private void Awake()
+    {
+        GameManager.Instance.InteractionManager = this;
+    }
+
     public void OnItemTriggered(bool isItemTriggered, Func<GameObject> callback, bool isTriggerALockItem)
+
     {
         itemTriggered = isItemTriggered;
         this.isTriggerALockItem = isTriggerALockItem;
@@ -166,4 +174,57 @@ public class InteractionManager : MonoBehaviour
 
     }
 
+    public void SetHandSlot(Transform handSlot)
+    {
+        this.handSlot = handSlot;
+    }
+
+    #region Methods for save and load
+
+    public void Save(ref PlayerInventoryData data)
+    {
+        data.inventory = itemArray;
+        data.currentItemIndex = currentItemSpot;
+    }
+
+    public void Load(PlayerInventoryData data) 
+    {
+        //Works, but doesn't move the item into the character's hand.
+        //Item position is memorized and the current item is too.
+        //Item is teleported into the player's hand and works as intended. 
+
+        itemArray = data.inventory;
+
+        currentItem = data.inventory[data.currentItemIndex];
+        currentItemSpot = data.currentItemIndex;
+
+        foreach (GameObject item in itemArray)
+        {
+            if (item == null) continue;
+
+            //Refactor this into a method? Pretty much the same code that runs when picking an item up.
+            currentTotalItems++;
+            item.transform.SetParent(handSlot.transform);
+            item.transform.localPosition = objectOffset;
+            item.GetComponent<Rigidbody>().isKinematic = true;
+            item.GetComponent<Rigidbody>().detectCollisions = false;
+
+            if (item == currentItem)
+            {
+                currentHandAvailable = false;
+            }
+            else
+            {
+                item.SetActive(false);
+            }
+        }
+    }
+    #endregion
+}
+
+[System.Serializable] 
+public struct PlayerInventoryData
+{
+    public GameObject[] inventory;
+    public int currentItemIndex;
 }
