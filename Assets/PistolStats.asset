@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffb77ac627b187e469b1f5724d8feb1f, type: 3}
+  m_Name: PistolStats
+  m_EditorClassIdentifier: 
+  fireMode: 0
+  maxAmmo: 12
+  fireRate: 0.25
+  reloadTime: 1.5
+  damage: 10
+  range: 50
+  muzzleFlashPrefab: {fileID: 6556197431887549076, guid: e9fa184d4b94b86429fc326b166ad21c, type: 3}
+  bulletHolePrefab: {fileID: 3766188769529780822, guid: 4a4fdc7d72c7c8e4f8276ac59fbfb196, type: 3}
+  hitEffectPrefab: {fileID: 5334228485563152753, guid: a4448d28d145a034280476afd710033d, type: 3}
+  shootSound: {fileID: 8300000, guid: b5bd4499cdc20eb4085b56a220ee86f0, type: 3}
+  reloadSound: {fileID: 0}
