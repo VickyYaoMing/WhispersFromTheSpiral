@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ef47106d23523489178fe0996989eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sanity: {fileID: 611623104}
+  _sanity: {fileID: 0}
 --- !u!4 &456678994
 Transform:
   m_ObjectHideFlags: 0
@@ -272,22 +272,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseSanity: 1
-  RegenRateAtFull: 0.05
-  RegenRateAtEmpty: 0.02
-  RegenCurveExponent: 1
-  AmbientDrainAtFull: 0
-  AmbientDrainAtEmpty: 0
-  AmbientCurveExponent: 1
-  ImpulseScale: 1
-  ImpulseMin: -0.5
-  ImpulseMax: 0.5
-  ClampMin: 0
-  ClampMax: 1
-  ThresholdUneasy: 0.85
-  ThresholdAfraid: 0.65
-  ThresholdPanicked: 0.45
-  ThresholdInsane: 0.2
-  Hysteresis: 0.03
+  _regenRateAtFull: 0.01
+  _regenRateAtEmpty: 0.02
+  _regenCurveExponent: 1
+  _ambientDrainAtFull: 0
+  _ambientDrainAtEmpty: 0
+  _ambientCurveExponent: 1
+  _impulseScale: 1
+  _impulseMin: -0.5
+  _impulseMax: 0.5
+  _clampMin: 0
+  _clampMax: 1
+  _thresholdUneasy: 0.85
+  _thresholdAfraid: 0.65
+  _thresholdPanicked: 0.45
+  _thresholdInsane: 0.2
+  _hysteresis: 0.03
 --- !u!1 &661279703
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,7 +672,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1276974675}
   - component: {fileID: 1276974674}
-  - component: {fileID: 1276974673}
+  - component: {fileID: 1276974676}
   m_Layer: 0
   m_Name: TestZone (1)
   m_TagString: Untagged
@@ -680,20 +680,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1276974673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276974672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69ea9c8618037f64a8fc3cdf871659d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  delta: -0.7
-  playerTag: Player
 --- !u!65 &1276974674
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -724,12 +710,26 @@ Transform:
   m_GameObject: {fileID: 1276974672}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.42, y: 0.62, z: 3.33}
+  m_LocalPosition: {x: 9.16, y: 0.62, z: 3.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1276974676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276974672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69ea9c8618037f64a8fc3cdf871659d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _delta: 0
+  _playerTag: Player
 --- !u!1 &1667719407
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,16 +759,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0839b5937c118514caa528070b98d263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sanity: {fileID: 611623104}
-  heartbeat2D: {fileID: 0}
-  breathing2D: {fileID: 796516637}
-  voices2D: {fileID: 1811666446}
-  heartbeatAtCalm: 0.1
-  heartbeatAtBroken: 0.492
-  breathingAtCalm: 0.05
-  breathingAtBroken: 0.8
-  voicesAtCalm: 0
-  voicesAtBroken: 0.1
+  _sanity: {fileID: 0}
+  _heartbeat2D: {fileID: 0}
+  _breathing2D: {fileID: 0}
+  _voices2D: {fileID: 0}
+  _heartbeatAtCalm: 0.1
+  _heartbeatAtBroken: 1
+  _breathingAtCalm: 0.15
+  _breathingAtBroken: 0.8
+  _voicesAtCalm: 0
+  _voicesAtBroken: 0.7
 --- !u!4 &1667719409
 Transform:
   m_ObjectHideFlags: 0
@@ -1201,8 +1201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69ea9c8618037f64a8fc3cdf871659d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delta: -0.15
-  playerTag: Player
+  _delta: 0
+  _playerTag: Player
 --- !u!65 &2108992247
 BoxCollider:
   m_ObjectHideFlags: 0
