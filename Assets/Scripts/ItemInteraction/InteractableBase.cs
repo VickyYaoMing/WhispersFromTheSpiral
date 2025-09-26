@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class InteractableBase : MonoBehaviour
 {
     public bool itemShouldBeCameraLocked { get; protected set; } = false;
+    public bool IsCollectible { get; protected set; } = false;
     protected bool isActive = false;
     private void OnTriggerEnter(Collider other)
     {
