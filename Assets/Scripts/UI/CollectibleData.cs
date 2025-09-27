@@ -7,6 +7,6 @@ public class CollectibleData
 {
     public Sprite SpriteInWorld;
     public Sprite SpriteInNotebook;
-    public Text Description;
+    public string DescriptionText;
 }
 

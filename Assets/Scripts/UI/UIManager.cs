@@ -17,7 +17,6 @@ public class UIManager : MonoBehaviour
     private bool m_isPaused;
     private bool m_isNotebookActive;
     private bool m_isViewingCollectible;
-    private Sprite m_currentCollectibleSprite;
     private CollectibleData m_currentCollectibleData;
 
 
@@ -93,7 +92,8 @@ public class UIManager : MonoBehaviour
         if (m_isViewingCollectible)
         {
             CollectibleViewMenu.GetComponent<Image>().sprite = m_currentCollectibleData.SpriteInWorld;
-            //fix showing the text
+            TextMeshProUGUI descriptionText = CollectibleViewMenu.GetComponentInChildren<TextMeshProUGUI>();
+            descriptionText.text = m_currentCollectibleData.DescriptionText;
             m_FadeAnimator.FadeIn(m_collectibleGroup, 0.5f);
         }
 
@@ -107,7 +107,7 @@ public class UIManager : MonoBehaviour
         {
             SpriteInWorld = collectible.GetComponent<CollectibleItem>().SpriteInWorld,
             SpriteInNotebook = collectible.GetComponent<CollectibleItem>().SpriteInNotebook,
-            Description = collectible.GetComponent<CollectibleItem>().Description,
+            DescriptionText = collectible.GetComponent<CollectibleItem>().Description.text,
         };
         ViewCollectible(collectible);
         collectible.GetComponent<CollectibleItem>().OnCollect();
