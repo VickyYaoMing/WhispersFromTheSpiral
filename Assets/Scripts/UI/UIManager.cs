@@ -8,9 +8,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject PauseMenu;
     [SerializeField] GameObject NotebookMenu;
     [SerializeField] GameObject CollectibleViewMenu;
+    [SerializeField] GameObject DarkOverlay;
     private CanvasGroup m_pauseGroup;
     private CanvasGroup m_notebookGroup;
     private CanvasGroup m_collectibleGroup;
+    private CanvasGroup m_darkOverlayGroup;
+    private CanvasGroup[] m_canvasGroups = new CanvasGroup[4];
     private InteractionManager m_interactionManager;
     
     private FadeAnimator m_FadeAnimator;
@@ -27,12 +30,19 @@ public class UIManager : MonoBehaviour
         m_pauseGroup = PauseMenu.GetComponent<CanvasGroup>();
         m_notebookGroup = NotebookMenu.GetComponent<CanvasGroup>();
         m_collectibleGroup = CollectibleViewMenu.GetComponent<CanvasGroup>();
+        m_darkOverlayGroup = DarkOverlay.GetComponent<CanvasGroup>();
 
-        m_pauseGroup.alpha = 0.0f;
-        m_notebookGroup.alpha = 0.0f;
-        m_collectibleGroup.alpha = 0.0f;
-        m_pauseGroup.interactable = false;
-        m_notebookGroup.interactable = false;
+        m_canvasGroups[0] = m_pauseGroup;
+        m_canvasGroups[1] = m_notebookGroup;
+        m_canvasGroups[2] = m_collectibleGroup;
+        m_canvasGroups[3] = m_darkOverlayGroup;
+
+        for (int i = 0; i < m_canvasGroups.Length; i++)
+        {
+            m_canvasGroups[i].alpha = 0.0f;
+            m_canvasGroups[i].interactable = false;
+            m_canvasGroups[i].blocksRaycasts = false;
+        }
     }
     void OnEnable()
     {
@@ -50,6 +60,7 @@ public class UIManager : MonoBehaviour
         if (m_isViewingCollectible)
         {
             m_FadeAnimator.FadeOut(m_collectibleGroup, 0.1f);
+            m_FadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
             m_isViewingCollectible = false;
             return;
         }
@@ -58,12 +69,14 @@ public class UIManager : MonoBehaviour
 
         if (m_isPaused)
         {
+            m_FadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
             m_FadeAnimator.FadeIn(m_pauseGroup, 0.5f);
             m_pauseGroup.interactable = true;
         }
         else
         {
             m_pauseGroup.interactable = false;
+            m_FadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
             m_FadeAnimator.FadeOut(m_pauseGroup, 0.5f);        
         }
     }
@@ -76,6 +89,7 @@ public class UIManager : MonoBehaviour
 
         if (m_isNotebookActive)
         {
+            m_FadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
             m_FadeAnimator.FadeIn(m_notebookGroup, 0.5f);
             m_notebookGroup.interactable = true;
         }
@@ -83,6 +97,7 @@ public class UIManager : MonoBehaviour
         {
             m_notebookGroup.interactable = false;
             m_FadeAnimator.FadeOut(m_notebookGroup, 0.5f);
+            m_FadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
         }
     }
 
@@ -95,8 +110,8 @@ public class UIManager : MonoBehaviour
             TextMeshProUGUI descriptionText = CollectibleViewMenu.GetComponentInChildren<TextMeshProUGUI>();
             descriptionText.text = m_currentCollectibleData.DescriptionText;
             m_FadeAnimator.FadeIn(m_collectibleGroup, 0.5f);
+            m_FadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
         }
-
     }
 
     private void CollectibleFound(GameObject collectible)
