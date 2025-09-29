@@ -43,15 +43,14 @@ public class InputManager : MonoBehaviour
         };
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         player_movement.ProcessMove(on_foot.Walking.ReadValue<Vector2>());
-
+        player_look.ProcessLook(on_foot.Looking.ReadValue<Vector2>());
     }
 
     private void LateUpdate()
     {
-        player_look.ProcessLook(on_foot.Looking.ReadValue<Vector2>());
     }
     void OnEnable()
     {
