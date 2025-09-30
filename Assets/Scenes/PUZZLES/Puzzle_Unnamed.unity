@@ -205,7 +205,8 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
-  m_Cameras: []
+  m_Cameras:
+  - {fileID: 1883254407}
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
@@ -240,7 +241,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 400826074}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!4 &400826078
 Transform:
   m_ObjectHideFlags: 0
@@ -282,7 +283,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430045239}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &430045241
 Camera:
   m_ObjectHideFlags: 0
@@ -732,6 +733,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1318445047 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 49731e705c83c964486f7aedea418db2, type: 3}
+  m_PrefabInstance: {fileID: 1721830330}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1318445050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1318445047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae25dfe8b36c45240a3c7a5f3b8e8cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerView: {fileID: 400826075}
+  topDownCamera: {fileID: 1883254407}
+  activationDistance: 10
 --- !u!1001 &1721830330
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -816,6 +837,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChessBoard_Final
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 49731e705c83c964486f7aedea418db2, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 1488687499083545402, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -855,7 +880,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 49731e705c83c964486f7aedea418db2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1318445050}
   m_SourcePrefab: {fileID: 100100000, guid: 49731e705c83c964486f7aedea418db2, type: 3}
 --- !u!1 &1883254404
 GameObject:
@@ -891,7 +919,7 @@ MonoBehaviour:
   m_RenderShadows: 1
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
+  m_CameraType: 1
   m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
@@ -927,7 +955,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1883254404}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1883254407
 Camera:
   m_ObjectHideFlags: 0
@@ -937,7 +965,7 @@ Camera:
   m_GameObject: {fileID: 1883254404}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -946,7 +974,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 20.78461
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -961,9 +989,9 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 60.000004
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 1
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -987,13 +1015,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1883254404}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1, y: 0.99, z: 0.5}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 1, y: 0.8, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!1 &2050985909
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,7 +1041,7 @@ GameObject:
   - component: {fileID: 2050985919}
   m_Layer: 0
   m_Name: player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
