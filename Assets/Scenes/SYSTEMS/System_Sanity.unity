@@ -259,6 +259,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 75806692677558944, guid: a901be983c210274a8c2dc913053b233, type: 3}
   m_PrefabInstance: {fileID: 611623094}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &611623096 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1710338143261066560, guid: a901be983c210274a8c2dc913053b233, type: 3}
+  m_PrefabInstance: {fileID: 611623094}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611623095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6653a74de009c5a4ba75a8a541087b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &611623104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,10 +770,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0839b5937c118514caa528070b98d263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sanity: {fileID: 0}
+  _sanity: {fileID: 611623096}
   _heartbeat2D: {fileID: 0}
-  _breathing2D: {fileID: 0}
-  _voices2D: {fileID: 0}
+  _breathing2D: {fileID: 796516637}
+  _voices2D: {fileID: 1811666446}
   _heartbeatAtCalm: 0.1
   _heartbeatAtBroken: 1
   _breathingAtCalm: 0.15

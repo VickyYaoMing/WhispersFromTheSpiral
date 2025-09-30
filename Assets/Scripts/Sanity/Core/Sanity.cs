@@ -14,6 +14,7 @@ namespace SanitySystem
         event Action<SanityState> OnSanityStateChanged;
         event Action<float> OnImpulseApplied;
     }
+    [DisallowMultipleComponent]
     public class Sanity : MonoBehaviour, ISanityProvider
     {
         [Header("Sanity Value (0..1)")]
