@@ -259,17 +259,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 75806692677558944, guid: a901be983c210274a8c2dc913053b233, type: 3}
   m_PrefabInstance: {fileID: 611623094}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &611623096 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1710338143261066560, guid: a901be983c210274a8c2dc913053b233, type: 3}
-  m_PrefabInstance: {fileID: 611623094}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 611623095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6653a74de009c5a4ba75a8a541087b66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &611623104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,6 +271,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6653a74de009c5a4ba75a8a541087b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  phaseProfile: {fileID: 11400000, guid: 23d29d56fb2d06f48bd55bd2dad02444, type: 2}
+  startPhaseIndex: 0
+  _cap01: 1
   _baseSanity: 1
   _regenRateAtFull: 0.01
   _regenRateAtEmpty: 0.02
@@ -289,6 +281,10 @@ MonoBehaviour:
   _ambientDrainAtFull: 0
   _ambientDrainAtEmpty: 0
   _ambientCurveExponent: 1
+  _ambientMultiplier: 1
+  _ambientAdditivePerSec: 0
+  _externalDrainPerSec: 0
+  stressGateForDrain: 0.35
   _impulseScale: 1
   _impulseMin: -0.5
   _impulseMax: 0.5
@@ -770,7 +766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0839b5937c118514caa528070b98d263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sanity: {fileID: 611623096}
+  _sanity: {fileID: 0}
   _heartbeat2D: {fileID: 0}
   _breathing2D: {fileID: 796516637}
   _voices2D: {fileID: 1811666446}

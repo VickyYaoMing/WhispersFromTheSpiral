@@ -61,7 +61,21 @@ public class StressController : MonoBehaviour
     }
     public void ApplyImpulse(float amount)
     {
+        if (amount <= 0f) return;
 
+        _stress = Mathf.Clamp01(_stress + amount);
+        OnStressChanged?.Invoke(_stress);
+
+        if (!_episodeActive && _epCooldownTimer <= 0f && _stress >= EpisodeGate)
+        {
+            _episodeActive = true;
+            _epTimer = UnityEngine.Random.Range(EpisodeDuration.x, EpisodeDuration.y);
+            OnEpisodeStarted?.Invoke();
+        }
+    }
+    public void AddRate(float perSecond)
+    {
+        _extraRate = Mathf.Max(0f, perSecond);
     }
 
 }

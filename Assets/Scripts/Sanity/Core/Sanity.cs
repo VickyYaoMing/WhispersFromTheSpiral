@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace SanitySystem
@@ -17,6 +18,16 @@ namespace SanitySystem
     [DisallowMultipleComponent]
     public class Sanity : MonoBehaviour, ISanityProvider
     {
+        //------------------------- PHASE OF GAME -------------------------
+        [Header("Phase Profile (slow, narrative)")]
+        public SanityPhaseProfile phaseProfile;
+        public int startPhaseIndex = 0;
+        [Header("Phase Cap (computed)")]
+        [SerializeField, Range(0f, 1f)] float _cap01 = 1f;
+        public float Cap01 => _cap01;
+        public int PhaseIndex { get; private set; } = -1;
+        //----------------------------------------------------------------------------
+
         [Header("Sanity Value (0..1)")]
         [Tooltip("1 = calm/sane, 0 = overwhelmed/insane phase")]
         [Range(0f, 1f)][SerializeField] float _baseSanity = 1f;
@@ -43,6 +54,33 @@ namespace SanitySystem
         [Range(0f, 0.5f)] public float _ambientDrainAtEmpty = 0.00f;
         [Tooltip("Curve shaping: >1 makes drain rise faster as sanity drops")]
         [Range(0.2f, 3f)] public float _ambientCurveExponent = 1.0f;
+
+        // External ambient control (global knobs)
+        [SerializeField, Min(0f)] float _ambientMultiplier = 1f;
+        [SerializeField, Min(0f)] float _ambientAdditivePerSec = 0f;
+        public float AmbientMultiplier { get => _ambientMultiplier; set => _ambientMultiplier = Mathf.Max(0f, value); }
+        public void SetAmbientAdditive(float perSecond) { _ambientAdditivePerSec = Mathf.Max(0f, perSecond); }
+        public void AddAmbientForSeconds(float perSecond, float seconds)
+        {
+            if (perSecond > 0f && seconds > 0f)
+            {
+                StartCoroutine(AmbientBurst(perSecond, seconds));
+            }
+
+            IEnumerator AmbientBurst(float perSecond, float seconds)
+            {
+                _ambientAdditivePerSec += perSecond;
+                yield return new WaitForSeconds(seconds);
+                _ambientAdditivePerSec = Mathf.Max(0f, _ambientAdditivePerSec - perSecond);
+            }
+        }
+
+        [Header("External Sanity Drain (e.g., enemy stare/chase)")] //WILL be used
+        [Tooltip("Extra drain/sec set by other systems (SanityDrainOnLook).")] //will be implemented when in call with thiti so no errors occur T_T
+        [SerializeField, Min(0f)] float _externalDrainPerSec = 0f;
+        [Tooltip("If Stress/Panic is ABOVE this, we DO NOT drain sanity (panic dominates).")] //So that stress is the main component but sanity can still be affected by the enemy.
+        [Range(0f, 1f)] public float stressGateForDrain = 0.35f;
+        public void SetExternalDrain(float perSecond) => _externalDrainPerSec = Mathf.Max(0f, perSecond);
 
 
         [Header("Impulses (one-shots)")]
@@ -79,16 +117,43 @@ namespace SanitySystem
         void OnEnable() { EmitAll(); }
         void Update()
         {
-            float _dt = Mathf.Max(0f, Time.deltaTime);
+            float dt = Mathf.Max(0f, Time.deltaTime);
 
+            float regenBase = Mathf.Lerp(_regenRateAtEmpty, _regenRateAtFull, Pow01(_baseSanity, _regenCurveExponent));
+            float ambientBase = Mathf.Lerp(_ambientDrainAtEmpty, _ambientDrainAtFull, Pow01(_baseSanity, _ambientCurveExponent));
+            float ambient = Mathf.Max(0f, ambientBase * _ambientMultiplier + _ambientAdditivePerSec);
 
-            float _regen = Mathf.Lerp(_regenRateAtEmpty, _regenRateAtFull, Pow01(_baseSanity, _regenCurveExponent));
-            float _ambient = Mathf.Lerp(_ambientDrainAtEmpty, _ambientDrainAtFull, Pow01(_baseSanity, _ambientCurveExponent));
+            // external drain (enemy stare/chase) is applied by other systems; we just integrate it
+            float extDrain = _externalDrainPerSec;
 
-
-            SetSanity(_baseSanity + (_regen - _ambient) * _dt);
+            SetSanity(_baseSanity + (Mathf.Max(0f, regenBase) - (ambient + extDrain)) * dt);
             Debug.Log($"Current State: {_state}"); //Debug statement.
 
+        }
+        // --- Phase control (call from your act/puzzle manager) ---
+        public void SetPhaseIndex(int index, bool keepRelativeLevel = true)
+        {
+            PhaseIndex = index;
+            float oldCap = _cap01;
+            _cap01 = 1f;
+            if (phaseProfile && index >= 0 && index < phaseProfile.phases.Length)
+                _cap01 = Mathf.Clamp01(phaseProfile.phases[index].maxSanityCap);
+
+            if (keepRelativeLevel && oldCap > 0f)
+            {
+                float frac = _baseSanity / Mathf.Max(0.0001f, oldCap);
+                SetSanity(frac * _cap01);
+            }
+            else
+            {
+                SetSanity(Mathf.Min(_baseSanity, _cap01));
+            }
+        }
+        public void SetPhaseId(string id, bool keepRelativeLevel = true)
+        {
+            if (!phaseProfile) return;
+            int idx = phaseProfile.IndexOf(id);
+            if (idx >= 0) SetPhaseIndex(idx, keepRelativeLevel);
         }
         public void SetSanity(float value)
         {
@@ -117,15 +182,33 @@ namespace SanitySystem
             OnImpulseApplied?.Invoke(_d);
         }
 
+        // --- Phase-driven FX helpers ---
+        public float GetBaseVignette()
+        {
+            if (!phaseProfile || PhaseIndex < 0) return 0f;
+            return phaseProfile.phases[PhaseIndex].vignetteBase;
+        }
+
+        public void GetVoices(out float bedVolume, out float densityPerMin)
+        {
+            if (!phaseProfile || PhaseIndex < 0) { bedVolume = 0f; densityPerMin = 0f; return; }
+            var ph = phaseProfile.phases[PhaseIndex];
+
+            float t = 1f - (_cap01 <= 0f ? 0f : (_baseSanity / _cap01)); // 0 calm→1 stressed (within cap)
+            bedVolume = Mathf.Lerp(ph.voicesBedVolumeAtCalm, ph.voicesBedVolumeAtMin, t);
+            densityPerMin = Mathf.Lerp(ph.voicesDensityPerMinAtCalm, ph.voicesDensityPerMinAtMin, t);
+        }
+
+
+
         // Checking the different thresholds
-        SanityState EvaluateState(float _sanity, SanityState _previous)
+        SanityState EvaluateState(float _sanity, SanityState _previousState)
         {
             float _up = _hysteresis, _down = -_hysteresis;
-            switch (_previous)
+            switch (_previousState)
             {
                 case SanityState.Sane:
-                    if (_sanity < _thresholdUneasy + _down) return SanityState.Uneasy;
-                    return SanityState.Sane;
+                    if (_sanity < _thresholdUneasy + _down) return SanityState.Uneasy; return SanityState.Sane;
                 case SanityState.Uneasy:
                     if (_sanity >= 1f - _up) return SanityState.Sane;
                     if (_sanity < _thresholdAfraid + _down) return SanityState.Afraid;
@@ -142,7 +225,7 @@ namespace SanitySystem
                     if (_sanity >= _thresholdPanicked + _up) return SanityState.Panicked;
                     return SanityState.Insane;
             }
-            return _previous;
+            return _previousState;
         }
         static float Pow01(float x, float p)
         {
