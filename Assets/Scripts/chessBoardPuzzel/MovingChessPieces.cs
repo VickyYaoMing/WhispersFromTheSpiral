@@ -17,16 +17,17 @@ public class MovingChessPieces : MonoBehaviour
     [SerializeField] private Transform chessBoard;
     [SerializeField] private Camera cameraView;
 
+    bool isPieceChosen = false;
     public GameObject chessPiece;
     float nrOfTiles = 10f;
     private float tilesize;
-    [ [SerializeField]] Vector3 boardPos;
+    [SerializeField] Vector3 boardPos;
 
 
 
     void Start()
     {
-        float boardWidth = chessPiece.GetComponent<Renderer>().bounds.size.x;
+        float boardWidth = chessBoard.GetComponent<Renderer>().bounds.size.x;
         tilesize = boardWidth / nrOfTiles;
 
         boardPos = chessBoard.position - new Vector3(boardWidth / 2f, 0, boardWidth / 2f);
@@ -35,35 +36,42 @@ public class MovingChessPieces : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cameraView == null) retrun; //chrsed for some reason so lets try ths
+        if (cameraView == null) return; //chrsed for some reason so lets try ths
         if (Input.GetMouseButtonDown(0))
         {
 
-            Ray ray = cameraView.ScreenPointToRay(cameraView.ScreenPointToRay(Input.mousePosition);
+            Ray ray = cameraView.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit)) {
+            if (Physics.Raycast(ray, out hit))
+            {
                 
-                if (hit.collider.ComapereTag("ChessPiece"))
+                if (hit.collider.CompareTag("ChessPiece"))
                 {
                     chessPiece = hit.collider.gameObject;
+                    isPieceChosen = true;
+                    Debug.Log("chess piece picked"+ isPieceChosen);
+                    Debug.Log("chess Piece chosen: "+ chessPiece.name);
+
+
                 }
-                else if (chessPiece != null && hit.collider.CompareTag("ChessBoard"))
-
+                if (isPieceChosen && hit.collider.CompareTag("ChessBoard"))
                 {
-                    Vector3 localPos = hit.point -boardPos;
-                    int x= Mathf.FloorToInt(localPos.x/tilesize);
+                    
+                    Vector3 localPos = chessBoard.InverseTransformPoint(hit.point);
+                    int x = Mathf.FloorToInt(localPos.x/tilesize);
                     int z = Mathf.FloorToInt(localPos.z/tilesize);
+                    Debug.Log("x pos: " + x + " " + "z pos:" + z);
 
-                    if (x > 0 && x < 9 && z < +&& z > 0) 
-                   {
-                        //this is looking like monogame all over and i ant to die
-                        Vector3 tilePos = boardPos + new Vector3(x * tilesize + tilesize / 2, 0, z * tilesize + tilesize / 2);
-                        chessPiece.transform.position = tilePos;
-                    }
+                    x = Mathf.Clamp(x, 0, (int)nrOfTiles - 1);
+                    z = Mathf.Clamp(z, 0, (int)nrOfTiles - 1);
 
-                   
-                    chessPiece = null;//once moved it deselectes//might need a bool here to make it work
+                    Vector3 tilePos = chessBoard.TransformPoint(new Vector3(x * tilesize + tilesize / 2, 0, z * tilesize + tilesize / 2));
+                    chessPiece.transform.position = tilePos;
+                    
 
+
+                    isPieceChosen = false; ;//once moved it deselectes//might need a bool here to make it work
+                    Debug.Log("Is piece selected: "+ isPieceChosen);
                 } 
             }
         }
