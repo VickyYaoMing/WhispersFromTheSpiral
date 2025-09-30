@@ -23,16 +23,20 @@ public class ItemManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log(savedItems.Count);
+        foreach (var item in savedItems)
+        {
+            Debug.Log(item);
+        }
     }
 
     public void Save(ref ItemManagerSaveData data)
     {
         List<ItemSaveData> ItemSaveDataList = new List<ItemSaveData>();
 
-        for(int i = savedItems.Count(); i > 0; i--)
+        for(int i = savedItems.Count() - 1; i > 0; i--)
         {
-            if (savedItems[i] = null)
+            if (savedItems[i] != null)
             {
                 GameObject Item = savedItems[i].gameObject;
                 ItemSaveData itemSaveData = new ItemSaveData
@@ -45,6 +49,7 @@ public class ItemManager : MonoBehaviour
             }
             else
             {
+                Debug.Log("Item at" + i + "is null");
                 savedItems.RemoveAt(i);
             }
         }
@@ -58,6 +63,7 @@ public class ItemManager : MonoBehaviour
         {
             if(item == null)
             {
+                Debug.Log("Item destroyed");
                 Destroy(item);
             }
         }
@@ -78,6 +84,13 @@ public class ItemManager : MonoBehaviour
 
     }
 
+}
+
+[System.Serializable]
+public struct ItemSaveData
+{
+    public GameObject item;
+    public Vector3 itemPosition;
 }
 
 [System.Serializable] 
