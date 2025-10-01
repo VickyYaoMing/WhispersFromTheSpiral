@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -16,7 +17,8 @@ public class UIManager : MonoBehaviour
     private CanvasGroup[] m_canvasGroups = new CanvasGroup[4];
     private InteractionManager m_interactionManager;
     
-    private FadeAnimator m_FadeAnimator;
+    private FadeAnimator m_fadeAnimator;
+    private Notebook m_notebook;
     private bool m_isPaused;
     private bool m_isNotebookActive;
     private bool m_isViewingCollectible;
@@ -26,11 +28,13 @@ public class UIManager : MonoBehaviour
     #region Unity Methods
     void Start()
     {
-        m_FadeAnimator = GetComponent<FadeAnimator>();
+        m_fadeAnimator = GetComponent<FadeAnimator>();
+        m_notebook = GetComponent<Notebook>();
         m_pauseGroup = PauseMenu.GetComponent<CanvasGroup>();
         m_notebookGroup = NotebookMenu.GetComponent<CanvasGroup>();
         m_collectibleGroup = CollectibleViewMenu.GetComponent<CanvasGroup>();
         m_darkOverlayGroup = DarkOverlay.GetComponent<CanvasGroup>();
+        
 
         m_canvasGroups[0] = m_pauseGroup;
         m_canvasGroups[1] = m_notebookGroup;
@@ -59,8 +63,8 @@ public class UIManager : MonoBehaviour
     {
         if (m_isViewingCollectible)
         {
-            m_FadeAnimator.FadeOut(m_collectibleGroup, 0.1f);
-            m_FadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
+            m_fadeAnimator.FadeOut(m_collectibleGroup, 0.1f);
+            m_fadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
             m_isViewingCollectible = false;
             return;
         }
@@ -69,15 +73,15 @@ public class UIManager : MonoBehaviour
 
         if (m_isPaused)
         {
-            m_FadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
-            m_FadeAnimator.FadeIn(m_pauseGroup, 0.5f);
+            m_fadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
+            m_fadeAnimator.FadeIn(m_pauseGroup, 0.5f);
             m_pauseGroup.interactable = true;
         }
         else
         {
             m_pauseGroup.interactable = false;
-            m_FadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
-            m_FadeAnimator.FadeOut(m_pauseGroup, 0.5f);        
+            m_fadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
+            m_fadeAnimator.FadeOut(m_pauseGroup, 0.5f);        
         }
     }
 
@@ -89,15 +93,15 @@ public class UIManager : MonoBehaviour
 
         if (m_isNotebookActive)
         {
-            m_FadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
-            m_FadeAnimator.FadeIn(m_notebookGroup, 0.5f);
+            m_fadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
+            m_fadeAnimator.FadeIn(m_notebookGroup, 0.5f);
             m_notebookGroup.interactable = true;
         }
         else
         {
             m_notebookGroup.interactable = false;
-            m_FadeAnimator.FadeOut(m_notebookGroup, 0.5f);
-            m_FadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
+            m_fadeAnimator.FadeOut(m_notebookGroup, 0.5f);
+            m_fadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
         }
     }
 
@@ -109,8 +113,8 @@ public class UIManager : MonoBehaviour
             CollectibleViewMenu.GetComponent<Image>().sprite = m_currentCollectibleData.SpriteInWorld;
             TextMeshProUGUI descriptionText = CollectibleViewMenu.GetComponentInChildren<TextMeshProUGUI>();
             descriptionText.text = m_currentCollectibleData.DescriptionText;
-            m_FadeAnimator.FadeIn(m_collectibleGroup, 0.5f);
-            m_FadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
+            m_fadeAnimator.FadeIn(m_collectibleGroup, 0.5f);
+            m_fadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
         }
     }
 
@@ -124,7 +128,18 @@ public class UIManager : MonoBehaviour
             SpriteInNotebook = collectible.GetComponent<CollectibleItem>().SpriteInNotebook,
             DescriptionText = collectible.GetComponent<CollectibleItem>().Description.text,
         };
+        m_notebook.Add(m_currentCollectibleData);
+        //DebugNotebook();
         ViewCollectible(collectible);
         collectible.GetComponent<CollectibleItem>().OnCollect();
+    }
+
+    private void DebugNotebook()
+    {
+        Debug.Log("Collectibles found" + m_notebook.CurrentSize());
+        for (int i = 0; i < m_notebook.CurrentSize(); i++)
+        {
+            Debug.Log("Collectible: " + m_notebook.Get()[i].DescriptionText);
+        }
     }
 }
