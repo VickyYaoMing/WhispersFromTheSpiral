@@ -7,7 +7,7 @@ public class PlayerStunAttack : MonoBehaviour
     [SerializeField] private float stunCd = 2f;
     [SerializeField] private LayerMask enemy;
 
-    private KeyCode stunKey = KeyCode.Q;
+    private KeyCode stunKey = KeyCode.G;
     private float _lastStunTimer = 0;
 
     private void Update()

@@ -25,5 +25,6 @@ public class SanityDrainOnLook : MonoBehaviour
         }
 
         playerSanity.ApplyImpulse(drainPerSecond * Time.deltaTime);
+
     } 
 }
