@@ -4,11 +4,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    private InteractionManager interactionManager; //dont need to serialize since i just use getcomponent. apply to the rest of the private fields?
-    [SerializeField] private PlayerLook playerLook;
-    [SerializeField] private PlayerInput input;
-    [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private InputManager inputManager;
+    //private InteractionManager interactionManager; //dont need to serialize since i just use getcomponent. apply to the rest of the private fields?
+    //[SerializeField] private PlayerLook playerLook;
+    //[SerializeField] private PlayerInput input;
+    //[SerializeField] private PlayerMovement playerMovement;
+    //[SerializeField] private InputManager inputManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

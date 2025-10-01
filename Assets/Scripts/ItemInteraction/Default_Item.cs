@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class Default_Item : InteractableBase
@@ -14,9 +15,4 @@ public class Default_Item : InteractableBase
     }
 }
 
-[System.Serializable]
-public struct ItemSaveData
-{
-    public GameObject item;
-    public Vector3 itemPosition;
-}
+
