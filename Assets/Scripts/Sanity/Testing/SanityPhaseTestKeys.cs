@@ -1,16 +1,15 @@
+using SanitySystem;
 using UnityEngine;
 
 public class SanityPhaseTestKeys : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public Sanity _sanity;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (!_sanity) return;
+        if (Input.GetKeyDown(KeyCode.I)) _sanity.SetPhaseIndex(0, true);
+        if (Input.GetKeyDown(KeyCode.O)) _sanity.SetPhaseIndex(1, true);
+        if (Input.GetKeyDown(KeyCode.P)) _sanity.SetPhaseIndex(2, true);
     }
 }

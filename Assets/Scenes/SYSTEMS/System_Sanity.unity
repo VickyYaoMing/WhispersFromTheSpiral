@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 456678994}
   - component: {fileID: 456678993}
+  - component: {fileID: 456678995}
   m_Layer: 0
   m_Name: SantyTester
   m_TagString: Untagged
@@ -148,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ef47106d23523489178fe0996989eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sanity: {fileID: 0}
+  _sanity: {fileID: 611623104}
 --- !u!4 &456678994
 Transform:
   m_ObjectHideFlags: 0
@@ -164,6 +165,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &456678995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456678992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ef7de25248c3f468bbe886467f79f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sanity: {fileID: 611623104}
 --- !u!1 &599023703 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8287ce08aa87c1d4faff5fbdfbaea243, type: 3}
@@ -313,7 +327,7 @@ MonoBehaviour:
   _sanityDrainPerSecond: 0.05
   _stressGainPerSecond: 0.049999997
   _drainGateHigh: 0.8
-  _healGateLow: 0.6
+  _healGateLow: 0.39999998
   _useDistanceFalloff: 1
   _maxAffectDistance: 20
   falloff: 2

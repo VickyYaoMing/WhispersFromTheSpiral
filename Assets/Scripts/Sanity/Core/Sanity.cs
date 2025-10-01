@@ -118,7 +118,6 @@ namespace SanitySystem
         void Update()
         {
             float dt = Mathf.Max(0f, Time.deltaTime);
-
             float regenBase = Mathf.Lerp(_regenRateAtEmpty, _regenRateAtFull, Pow01(_baseSanity, _regenCurveExponent));
             float ambientBase = Mathf.Lerp(_ambientDrainAtEmpty, _ambientDrainAtFull, Pow01(_baseSanity, _ambientCurveExponent));
             float ambient = Mathf.Max(0f, ambientBase * _ambientMultiplier + _ambientAdditivePerSec);
