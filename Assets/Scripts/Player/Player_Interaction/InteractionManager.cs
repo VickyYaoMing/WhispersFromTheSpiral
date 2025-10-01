@@ -1,13 +1,11 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using System;
-using static UnityEditor.Progress;
-using UnityEditor.UIElements;
 using System.Collections;
-
 
 public class InteractionManager : MonoBehaviour
 {
+    public delegate void CollectibleHandler(GameObject collectible);
+    public event CollectibleHandler OnCollectibleFound;
     private int availableHoldingItems = 3;
     private int currentItemSpot = 0;
     private int currentTotalItems = 0;
@@ -76,7 +74,6 @@ public class InteractionManager : MonoBehaviour
     }
     public void OnInteractWithItem()
     {
-
         if(itemTriggered && currentHandAvailable && currentTotalItems < availableHoldingItems) 
         {
             OnPickUp();  
@@ -95,6 +92,12 @@ public class InteractionManager : MonoBehaviour
     {
         currentItem = currentItemCallback?.Invoke();
         if (currentItem == null) return;
+        if (currentItem.GetComponent<InteractableBase>().IsCollectible)
+        {
+            OnCollectibleFound?.Invoke(currentItem);
+            itemTriggered = false;
+            return;
+        }
         if (currentItem.GetComponent<InteractableBase>().itemShouldBeCameraLocked)
         {
             OnItemCameraLock();

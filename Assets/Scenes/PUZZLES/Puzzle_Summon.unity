@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c3fe1524474ced40be5df4794e22255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Items: []
+  savedItems: []
 --- !u!1 &623784518
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 623784521}
   - component: {fileID: 623784520}
   - component: {fileID: 623784519}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -590,9 +590,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1222530863251032288, guid: a901be983c210274a8c2dc913053b233, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1710338143261066560, guid: a901be983c210274a8c2dc913053b233, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2850495403160462639, guid: a901be983c210274a8c2dc913053b233, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074944947487635860, guid: a901be983c210274a8c2dc913053b233, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6330197989133451956, guid: a901be983c210274a8c2dc913053b233, type: 3}
       propertyPath: m_LocalPosition.x
@@ -644,6 +656,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1685687434852775914, guid: a901be983c210274a8c2dc913053b233, type: 3}
+    - {fileID: 469979764050871393, guid: a901be983c210274a8c2dc913053b233, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -689,42 +702,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1e1afa59ac34d94fa3d1cc226b25c02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerLook: {fileID: 767332921}
-  playerMovement: {fileID: 767332922}
-  inputManager: {fileID: 767332923}
---- !u!114 &767332921 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2850495403160462639, guid: a901be983c210274a8c2dc913053b233, type: 3}
-  m_PrefabInstance: {fileID: 767332909}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767332910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 029c6b87e3b2cde499f618dda393495c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &767332922 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8031487114536000523, guid: a901be983c210274a8c2dc913053b233, type: 3}
-  m_PrefabInstance: {fileID: 767332909}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767332910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5412a6287cb24254993ee56e3dd73c96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &767332923 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7414091367555301039, guid: a901be983c210274a8c2dc913053b233, type: 3}
-  m_PrefabInstance: {fileID: 767332909}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767332910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e875c0f82bfa2f64d871612ece4b07e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &920166357
@@ -930,9 +907,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 75a0225e16ece384a98d66c5502f097c, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 75a0225e16ece384a98d66c5502f097c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -7307694616401553724, guid: 75a0225e16ece384a98d66c5502f097c, type: 3}
+    - target: {fileID: -7511558181221131132, guid: 75a0225e16ece384a98d66c5502f097c, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: dbd1dbd1acb24554084415b4d9c23248, type: 2}
     - target: {fileID: 919132149155446097, guid: 75a0225e16ece384a98d66c5502f097c, type: 3}
       propertyPath: m_Name
       value: book0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 75a0225e16ece384a98d66c5502f097c, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
