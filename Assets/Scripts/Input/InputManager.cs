@@ -24,8 +24,8 @@ public class InputManager : MonoBehaviour
         inventoryActions = player_input.Inventory;
         on_foot.Jump.performed += ctx => player_movement.Jump();
         on_foot.Interact.performed += ctx => interactionManager.OnInteractWithItem();
-        on_foot.Pause.performed += ctx => uiManager.Pause();
-        on_foot.ViewInventory.performed += ctx => uiManager.ToggleInventory();
+        on_foot.Exit.performed += ctx => uiManager.Exit();
+        on_foot.OpenNotebook.performed += ctx => uiManager.ToggleNotebook();
         inventoryActions.Item1.performed += ctx => interactionManager.GetItemInInventory(0);
         inventoryActions.Item2.performed += ctx => interactionManager.GetItemInInventory(1);
         inventoryActions.Item3.performed += ctx => interactionManager.GetItemInInventory(2);
@@ -41,6 +41,7 @@ public class InputManager : MonoBehaviour
 
             interactionManager.GetItemInInventory(currentScrollIndex);
         };
+        
     }
 
     private void Update()
