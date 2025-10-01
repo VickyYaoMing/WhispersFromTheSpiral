@@ -20,7 +20,6 @@ GameObject:
   - component: {fileID: 243505681456416465}
   - component: {fileID: 2373844301533983331}
   - component: {fileID: 4074944947487635860}
-  - component: {fileID: 1222530863251032288}
   - component: {fileID: 1710338143261066560}
   m_Layer: 0
   m_Name: Player
@@ -137,9 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e1afa59ac34d94fa3d1cc226b25c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLook: {fileID: 2850495403160462639}
-  playerMovement: {fileID: 8031487114536000523}
-  inputManager: {fileID: 7414091367555301039}
 --- !u!114 &7414091367555301039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,24 +239,6 @@ MonoBehaviour:
   enemy:
     serializedVersion: 2
     m_Bits: 64
---- !u!114 &1222530863251032288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 75806692677558944}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d27527ff3e3abd43992a9976d8b4c9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visionRange: 10
-  visionAngle: 90
-  playerCam: {fileID: 1333395779951691931}
-  enemy: {fileID: 0}
-  showDebug: 1
-  coneColor: {r: 1, g: 0, b: 0, a: 0.2}
 --- !u!114 &1710338143261066560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,6 +251,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6653a74de009c5a4ba75a8a541087b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  phaseProfile: {fileID: 0}
+  startPhaseIndex: 0
+  _cap01: 1
   _baseSanity: 1
   _regenRateAtFull: 0.01
   _regenRateAtEmpty: 0.02
@@ -280,6 +261,10 @@ MonoBehaviour:
   _ambientDrainAtFull: 0
   _ambientDrainAtEmpty: 0
   _ambientCurveExponent: 1
+  _ambientMultiplier: 1
+  _ambientAdditivePerSec: 0
+  _externalDrainPerSec: 0
+  stressGateForDrain: 0.35
   _impulseScale: 1
   _impulseMin: -0.5
   _impulseMax: 0.5
