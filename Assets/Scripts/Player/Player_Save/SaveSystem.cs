@@ -30,7 +30,7 @@ public class SaveSystem
 
     public static void HandleSaveData()
     {
-        GameManager.Instance.Player.Save(ref _saveData.PlayerData);
+        GameManager.Instance.Checkpoint.Save(ref _saveData.PlayerData);
         GameManager.Instance.InteractionManager.Save(ref _saveData.InventoryData);
         GameManager.Instance.ItemManager.Save(ref _saveData.ItemManagerSaveData);
     }

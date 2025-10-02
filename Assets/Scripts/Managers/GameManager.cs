@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public InteractionManager InteractionManager { get; set; }
     public SaveSystem SaveSystem { get;  set; }
     public ItemManager ItemManager { get; set; }
+    public Checkpoint Checkpoint { get; set; }
 
     private void Awake()
     {
@@ -55,16 +56,28 @@ public class GameManager : MonoBehaviour
     {
         if (Keyboard.current.qKey.wasPressedThisFrame)
         {
-            SaveSystem.Save();
-            Debug.Log("Saved!");
+            Save();
+            
         }
         if (Keyboard.current.fKey.wasPressedThisFrame) 
         {
-            SaveSystem.Load();
-            Debug.Log("Loaded!");
+            Load();
         }
 
     }
+
+    public void Save()
+    {
+        SaveSystem.Save();
+        Debug.Log("Saved!");
+    }
+
+    public void Load()
+    {
+        SaveSystem.Load();
+        Debug.Log("Loaded!");
+    }
+
 }
 
 public enum GameProgression

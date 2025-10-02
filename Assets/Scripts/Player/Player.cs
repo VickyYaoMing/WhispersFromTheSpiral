@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
 
     public void Save(ref PlayerSaveData data)
     {
-        data.position = transform.position;
+        //data.position = transform.position;
     }
 
     public void Load(PlayerSaveData data)
