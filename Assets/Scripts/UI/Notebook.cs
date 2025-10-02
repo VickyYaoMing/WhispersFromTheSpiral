@@ -1,12 +1,11 @@
 using UnityEngine;
-using UnityEngine.Profiling;
 
 public class Notebook : MonoBehaviour
 {
     [SerializeField] GameObject NotebookObject;
     private GameObject[] NotebookSlots;
     private CollectibleData[] m_foundCollectibles;
-    private readonly int m_maximumCollectibles = 25;
+    private readonly int m_maximumCollectibles = 24;
     private int m_currentIndex;
 
     #region Unity Methods
@@ -30,8 +29,6 @@ public class Notebook : MonoBehaviour
     {
         m_foundCollectibles[m_currentIndex] = data;
         NotebookSlots[m_currentIndex].GetComponent<NotebookSlot>().UpdateCollectible(data);
-        Debug.Log("Added collectible at index: " + m_currentIndex + NotebookSlots[m_currentIndex].GetComponent<NotebookSlot>().GetData.DescriptionText);
-
         m_currentIndex++;
     }
 
