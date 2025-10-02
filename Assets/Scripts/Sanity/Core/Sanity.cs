@@ -75,7 +75,7 @@ namespace SanitySystem
             }
         }
 
-        [Header("External Sanity Drain (e.g., enemy stare/chase)")] //WILL be used
+        [Header("External Sanity Drain (e.g., enemy stare/chase)")] //WILL be used: Update, is technically being used, just not active rn.
         [Tooltip("Extra drain/sec set by other systems (SanityDrainOnLook).")] //will be implemented when in call with thiti so no errors occur T_T
         [SerializeField, Min(0f)] float _externalDrainPerSec = 0f;
         [Tooltip("If Stress/Panic is ABOVE this, we DO NOT drain sanity (panic dominates).")] //So that stress is the main component but sanity can still be affected by the enemy.
@@ -83,7 +83,7 @@ namespace SanitySystem
         public void SetExternalDrain(float perSecond) => _externalDrainPerSec = Mathf.Max(0f, perSecond);
 
 
-        [Header("Impulses (one-shots)")]
+        [Header("Impulses (one-shots)")] //Quick changes in value (negative)
         [Tooltip("Scales ApplyImpulse values. Negative reduces sanity.")]
         //Negative values are sanity loss, positive values are sanity gain.
         public float _impulseScale = 1f; //Scales the impulse applied. (1 is default, can be tuned up or down as needed)
