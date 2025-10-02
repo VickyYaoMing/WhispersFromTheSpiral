@@ -14,13 +14,9 @@ public class MainMenuNavigation : MonoBehaviour
     }
 
     #region Unity Functions
-    private void Awake()
-    {
-        m_fadeAnimator = GetComponent<FadeAnimator>();
-    }
-
     void Start()
     {
+        m_fadeAnimator = GetComponent<FadeAnimator>();
         optionsCanvasGroup.alpha = 0f;
         creditsCanvasGroup.alpha = 0f;
         m_fadeAnimator.FadeIn(mainCanvasGroup, 2f);

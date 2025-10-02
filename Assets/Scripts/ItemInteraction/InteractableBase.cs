@@ -17,6 +17,8 @@ public abstract class InteractableBase : MonoBehaviour
 
 
 
+
+    public bool IsCollectible { get; protected set; } = false;
     protected bool isActive = false;
     private void OnTriggerEnter(Collider other)
     {

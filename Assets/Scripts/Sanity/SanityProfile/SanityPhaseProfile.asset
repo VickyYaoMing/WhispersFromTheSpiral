@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42a79988e50d254469430891be4e0f1d, type: 3}
+  m_Name: SanityPhaseProfile
+  m_EditorClassIdentifier: 
+  phases:
+  - id: s_Phase0
+    maxSanityCap: 1
+    vignetteBase: 0
+    voicesBedVolumeAtCalm: 0
+    voicesBedVolumeAtMin: 0
+    voicesDensityPerMinAtCalm: 0
+    voicesDensityPerMinAtMin: 0
+  - id: s_Phase1
+    maxSanityCap: 0.8
+    vignetteBase: 0.1
+    voicesBedVolumeAtCalm: 0.0001
+    voicesBedVolumeAtMin: 0.0001
+    voicesDensityPerMinAtCalm: 0.001
+    voicesDensityPerMinAtMin: 0.001
+  - id: s_Phase2
+    maxSanityCap: 0.65
+    vignetteBase: 0.2
+    voicesBedVolumeAtCalm: 0.005
+    voicesBedVolumeAtMin: 0.005
+    voicesDensityPerMinAtCalm: 0.005
+    voicesDensityPerMinAtMin: 0.005
