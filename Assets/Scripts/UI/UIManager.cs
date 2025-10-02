@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
     private CanvasGroup m_notebookGroup;
     private CanvasGroup m_collectibleGroup;
     private CanvasGroup m_darkOverlayGroup;
-    private CanvasGroup[] m_canvasGroups = new CanvasGroup[4];
+    private readonly CanvasGroup[] m_canvasGroups = new CanvasGroup[4];
     private InteractionManager m_interactionManager;
     
     private FadeAnimator m_fadeAnimator;
@@ -22,20 +22,16 @@ public class UIManager : MonoBehaviour
     private bool m_isPaused;
     private bool m_isNotebookActive;
     private bool m_isViewingCollectible;
-    private CollectibleData m_currentCollectibleData;
-
 
     #region Unity Methods
     void Start()
     {
         m_fadeAnimator = GetComponent<FadeAnimator>();
-        m_notebook = GetComponent<Notebook>();
         m_pauseGroup = PauseMenu.GetComponent<CanvasGroup>();
         m_notebookGroup = NotebookMenu.GetComponent<CanvasGroup>();
         m_collectibleGroup = CollectibleViewMenu.GetComponent<CanvasGroup>();
         m_darkOverlayGroup = DarkOverlay.GetComponent<CanvasGroup>();
         
-
         m_canvasGroups[0] = m_pauseGroup;
         m_canvasGroups[1] = m_notebookGroup;
         m_canvasGroups[2] = m_collectibleGroup;
@@ -51,11 +47,20 @@ public class UIManager : MonoBehaviour
     void OnEnable()
     {
         m_interactionManager = GetComponent<InteractionManager>();
-        if (m_interactionManager != null) { m_interactionManager.OnCollectibleFound += CollectibleFound;  }
+        m_notebook = GetComponent<Notebook>();
+        if (m_interactionManager != null) 
+        { 
+            m_interactionManager.OnCollectibleFound += m_notebook.AddCollectibleToNotebook;  
+            m_interactionManager.OnCollectibleFound += ViewCollectible;  
+        }
     }
     void OnDisable()
     {
-        if (m_interactionManager != null) { m_interactionManager.OnCollectibleFound -= CollectibleFound; }
+        if (m_interactionManager != null) 
+        { 
+            m_interactionManager.OnCollectibleFound -= m_notebook.AddCollectibleToNotebook;
+            m_interactionManager.OnCollectibleFound -= ViewCollectible;
+        }
     }
     #endregion 
 
@@ -66,6 +71,14 @@ public class UIManager : MonoBehaviour
             m_fadeAnimator.FadeOut(m_collectibleGroup, 0.1f);
             m_fadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
             m_isViewingCollectible = false;
+            return;
+        }
+
+        if (m_isNotebookActive)
+        {
+            m_fadeAnimator.FadeOut(m_notebookGroup, 0.1f);
+            m_fadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
+            m_isNotebookActive = false;
             return;
         }
 
@@ -89,6 +102,8 @@ public class UIManager : MonoBehaviour
     {
         if (m_isViewingCollectible) { return; }
 
+        if (m_isPaused) {  return; }
+
         m_isNotebookActive = !m_isNotebookActive;
 
         if (m_isNotebookActive)
@@ -110,36 +125,11 @@ public class UIManager : MonoBehaviour
         m_isViewingCollectible = true;
         if (m_isViewingCollectible)
         {
-            CollectibleViewMenu.GetComponent<Image>().sprite = m_currentCollectibleData.SpriteInWorld;
+            CollectibleViewMenu.GetComponent<Image>().sprite = collectible.GetComponent<CollectibleItem>().SpriteInWorld;
             TextMeshProUGUI descriptionText = CollectibleViewMenu.GetComponentInChildren<TextMeshProUGUI>();
-            descriptionText.text = m_currentCollectibleData.DescriptionText;
+            descriptionText.text = collectible.GetComponent<CollectibleItem>().Description.text;
             m_fadeAnimator.FadeIn(m_collectibleGroup, 0.5f);
             m_fadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
-        }
-    }
-
-    private void CollectibleFound(GameObject collectible)
-    {
-        if (gameObject == null) { return; }
-
-        m_currentCollectibleData = new()
-        {
-            SpriteInWorld = collectible.GetComponent<CollectibleItem>().SpriteInWorld,
-            SpriteInNotebook = collectible.GetComponent<CollectibleItem>().SpriteInNotebook,
-            DescriptionText = collectible.GetComponent<CollectibleItem>().Description.text,
-        };
-        m_notebook.Add(m_currentCollectibleData);
-        //DebugNotebook();
-        ViewCollectible(collectible);
-        collectible.GetComponent<CollectibleItem>().OnCollect();
-    }
-
-    private void DebugNotebook()
-    {
-        Debug.Log("Collectibles found" + m_notebook.CurrentSize());
-        for (int i = 0; i < m_notebook.CurrentSize(); i++)
-        {
-            Debug.Log("Collectible: " + m_notebook.Get()[i].DescriptionText);
         }
     }
 }

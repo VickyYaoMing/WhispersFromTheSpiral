@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class Notebook : MonoBehaviour
 {
+    public delegate void CollectibleHandler(GameObject collectible);
+    public event CollectibleHandler OnCollectibleFound;
     [SerializeField] GameObject NotebookObject;
     private GameObject[] NotebookSlots;
     private CollectibleData[] m_foundCollectibles;
     private readonly int m_maximumCollectibles = 24;
     private int m_currentIndex;
+    private CollectibleData m_currentCollectibleData;
 
     #region Unity Methods
     private void Start()
@@ -25,11 +28,20 @@ public class Notebook : MonoBehaviour
     }
     #endregion
 
-    public void Add(CollectibleData data)
+    public void AddCollectibleToNotebook(GameObject collectible)
     {
-        m_foundCollectibles[m_currentIndex] = data;
-        NotebookSlots[m_currentIndex].GetComponent<NotebookSlot>().UpdateCollectible(data);
+        if (gameObject == null) { return; }
+
+        m_currentCollectibleData = new()
+        {
+            SpriteInWorld = collectible.GetComponent<CollectibleItem>().SpriteInWorld,
+            SpriteInNotebook = collectible.GetComponent<CollectibleItem>().SpriteInNotebook,
+            DescriptionText = collectible.GetComponent<CollectibleItem>().Description.text,
+        };
+        m_foundCollectibles[m_currentIndex] = m_currentCollectibleData;
+        NotebookSlots[m_currentIndex].GetComponent<NotebookSlot>().UpdateCollectible(m_currentCollectibleData);
         m_currentIndex++;
+        collectible.GetComponent<CollectibleItem>().OnCollect();
     }
 
     public CollectibleData[] Get()
@@ -42,5 +54,4 @@ public class Notebook : MonoBehaviour
         return m_currentIndex;
     }
 
-    
 }
