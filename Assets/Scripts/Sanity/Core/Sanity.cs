@@ -129,7 +129,7 @@ namespace SanitySystem
             Debug.Log($"Current State: {_state}"); //Debug statement.
 
         }
-        // --- Phase control (call from your act/puzzle manager) ---
+        // --- Phase control (call from the act/puzzle manager (which will probably be made... later?)) ---
         public void SetPhaseIndex(int index, bool keepRelativeLevel = true)
         {
             PhaseIndex = index;
