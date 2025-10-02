@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,7 +30,10 @@ public class GameManager : MonoBehaviour
     public InteractionManager InteractionManager { get; set; }
     public SaveSystem SaveSystem { get;  set; }
     public ItemManager ItemManager { get; set; }
-    public Checkpoint Checkpoint { get; set; }
+    public CheckpointManager CheckpointManager { get; set; }
+
+    private bool isSaving;
+    private bool isLoading;
 
     private void Awake()
     {
@@ -56,12 +60,13 @@ public class GameManager : MonoBehaviour
     {
         if (Keyboard.current.qKey.wasPressedThisFrame)
         {
-            Save();
+            //Save();
             
         }
         if (Keyboard.current.fKey.wasPressedThisFrame) 
         {
-            Load();
+            LoadAsync();
+            //Load();
         }
 
     }
@@ -76,6 +81,21 @@ public class GameManager : MonoBehaviour
     {
         SaveSystem.Load();
         Debug.Log("Loaded!");
+    }
+
+    public async void SaveAsync()
+    {
+        isSaving = true;
+        await SaveSystem.SaveAsynchronously();
+        isSaving = false;
+    }
+
+    private async void LoadAsync()
+        
+    {
+        isLoading = true;
+        await SaveSystem.LoadAsynchronously();
+        isLoading = false;
     }
 
 }

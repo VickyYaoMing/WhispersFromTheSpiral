@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Checkpoint : InteractableBase
 {
-    [SerializeField] Vector3 spawnPosition = new Vector3(-2.3f, 5, 1);
+    int ID;
+    [SerializeField] Vector3 spawnPosition;
 
     private void Start()
     {
@@ -11,13 +12,24 @@ public class Checkpoint : InteractableBase
 
     private void Awake()
     {
-        GameManager.Instance.Checkpoint = this;
+
     }
 
     public override GameObject PickedUp()
     {
-        GameManager.Instance.Save();
+        GameManager.Instance.CheckpointManager.SetCurrentCheckpointID(ID);
+        GameManager.Instance.SaveAsync();
         return base.PickedUp();
+    }
+
+    public void SetID(int number)
+    {
+        ID = number;
+    }
+
+    public Vector3 GetSpawnPosition()
+    {
+        return spawnPosition;
     }
 
     public void Save(ref PlayerSaveData saveData)

@@ -7,7 +7,7 @@ using UnityEngine;
 public class ItemManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public List<Default_Item> savedItems;
+    public List<Default_Item> currentItems;
 
     void Start()
     {
@@ -17,28 +17,33 @@ public class ItemManager : MonoBehaviour
     void Awake()
     {
         GameManager.Instance.ItemManager = this;
-        savedItems = FindObjectsByType<Default_Item>(default).ToList();
+        currentItems = FindObjectsByType<Default_Item>(default).ToList();
+        foreach (var item in currentItems)
+        {
+            Debug.Log(item);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(savedItems.Count);
-        foreach (var item in savedItems)
-        {
-            Debug.Log(item);
-        }
+       // Debug.Log(currentItems.Count);
+       // foreach (var item in currentItems)
+       // {
+       //     Debug.Log(item);
+       // }
     }
 
     public void Save(ref ItemManagerSaveData data)
     {
         List<ItemSaveData> ItemSaveDataList = new List<ItemSaveData>();
 
-        for(int i = savedItems.Count() - 1; i > 0; i--)
+        for(int i = currentItems.Count() - 1; i >= 0; i--)
         {
-            if (savedItems[i] != null)
+            if (currentItems[i] != null)
             {
-                GameObject Item = savedItems[i].gameObject;
+                //Saves info properly, just needs to move it
+                GameObject Item = currentItems[i].gameObject;
                 ItemSaveData itemSaveData = new ItemSaveData
                 {
                     item = Item,
@@ -50,7 +55,7 @@ public class ItemManager : MonoBehaviour
             else
             {
                 Debug.Log("Item at" + i + "is null");
-                savedItems.RemoveAt(i);
+                currentItems.RemoveAt(i);
             }
         }
 
@@ -59,7 +64,7 @@ public class ItemManager : MonoBehaviour
 
     public void Load(ItemManagerSaveData data)
     {
-        foreach(var item in savedItems)
+        foreach(var item in currentItems)
         {
             if(item == null)
             {
@@ -72,7 +77,7 @@ public class ItemManager : MonoBehaviour
         {
             if (savedItem.item != null)
             {
-                foreach(var existingItem in savedItems)
+                foreach(var existingItem in currentItems)
                 {
                     if(existingItem == savedItem.item)
                     {

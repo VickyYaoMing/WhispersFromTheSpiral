@@ -189,7 +189,6 @@ public class InteractionManager : MonoBehaviour
 
     public void Load(PlayerInventoryData data) 
     {
-        //Works, but doesn't move the item into the character's hand.
         //Item position is memorized and the current item is too.
         //Item is teleported into the player's hand and works as intended. 
 

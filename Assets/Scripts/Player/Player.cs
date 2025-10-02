@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class Player : MonoBehaviour
 {
@@ -40,10 +41,17 @@ public class Player : MonoBehaviour
         //data.position = transform.position;
     }
 
-    public void Load(PlayerSaveData data)
+    public async Task Load(PlayerSaveData data)
     {
         //Very inconsistent. Possibly being overwritten by InputManager. Figure this out ASAP. Maybe do this async?
+        await SetTransformLoad(data);
+    }
+
+    public async Task SetTransformLoad(PlayerSaveData data)
+    {
+        //Loads player position asynchronously to prevent overwrite.
         transform.position = data.position;
+        await Task.Yield();
     }
 
 }
