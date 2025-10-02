@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Checkpoint : InteractableBase
 {
-    [SerializeField] int checkpointID;
     [SerializeField] Vector3 spawnPosition = new Vector3(-2.3f, 5, 1);
 
     private void Start()
