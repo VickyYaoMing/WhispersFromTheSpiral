@@ -10,6 +10,9 @@ public class OuijaInteraction : InteractableBase
     private KeyCode[] allKeys;
     [SerializeField] private TMP_Text inputText;
     private string questionText = string.Empty;
+    private string sonName = "oliver";
+    private string deathYear = "1969";
+
     void Start()
     {
         itemShouldBeCameraLocked = true;
@@ -48,8 +51,6 @@ public class OuijaInteraction : InteractableBase
                 }
                 if(questionText.Length > 0 && allKeys[i] == KeyCode.Return)
                 {
-                    questionText = string.Empty;
-                    inputText.text = questionText;
                     Answer();
                 }
             }
@@ -58,7 +59,26 @@ public class OuijaInteraction : InteractableBase
 
     private void Answer()
     {
-        StartCoroutine(SpellWord("Larry"));
+        if(questionText.ToLower().Contains(sonName) && questionText.ToLower().Contains("die") && questionText.ToLower().Contains("when") || questionText.ToLower().Contains("what"))
+        {
+            StartCoroutine(SpellWord(deathYear));
+        }
+        else
+        {
+            StartCoroutine(PlanchetteMovement(anchors[anchors.Count - 1].transform));
+        }
+
+        questionText = string.Empty;
+        inputText.text = questionText;
+    }
+
+    private IEnumerator PlanchetteMovement(Transform transform)
+    {
+        planchette.MoveToTarget(transform);
+        yield return new WaitUntil(() => planchette.reachedTarget);
+
+
+        yield return new WaitForSeconds(0.9f);
     }
 
     private IEnumerator SpellWord(string word)
@@ -78,15 +98,14 @@ public class OuijaInteraction : InteractableBase
                     break;
                 }
             }
-            if (j < 0) continue; 
+            if (j < 0) continue;
 
-            
+
             planchette.MoveToTarget(anchors[j].transform);
             yield return new WaitUntil(() => planchette.reachedTarget);
 
-            Debug.Log("Reached target " + anchors[j].name);
 
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(0.9f);
         }
     }
 
