@@ -193,7 +193,7 @@ namespace SanitySystem
             if (!phaseProfile || PhaseIndex < 0) { bedVolume = 0f; densityPerMin = 0f; return; }
             var ph = phaseProfile.phases[PhaseIndex];
 
-            float t = 1f - (_cap01 <= 0f ? 0f : (_baseSanity / _cap01)); // 0 calm→1 stressed (within cap)
+            float t = 1f - (_cap01 <= 0f ? 0f : (_baseSanity / _cap01)); // 0 calm -> 1 stressed (within cap)
             bedVolume = Mathf.Lerp(ph.voicesBedVolumeAtCalm, ph.voicesBedVolumeAtMin, t);
             densityPerMin = Mathf.Lerp(ph.voicesDensityPerMinAtCalm, ph.voicesDensityPerMinAtMin, t);
         }
