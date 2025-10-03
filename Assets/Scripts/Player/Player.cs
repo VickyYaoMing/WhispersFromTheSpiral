@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 
     private void Awake()
@@ -43,8 +45,24 @@ public class Player : MonoBehaviour
 
     public async Task Load(PlayerSaveData data)
     {
-        //Very inconsistent. Possibly being overwritten by InputManager. Figure this out ASAP. Maybe do this async?
+        //Works in Async.
+
+        //Disable the player movement and controller so that the loaded position data isn't overwritten.
+        var characterController = GetComponent<CharacterController>();
+        var playerMovement = GetComponent<PlayerMovement>();
+
+        if (characterController != null) characterController.enabled = false;
+        if (playerMovement != null) playerMovement.enabled = false;
+
         await SetTransformLoad(data);
+
+        //wait one frame (just in case)
+        await Task.Delay(1);
+
+        //Re-enable controller and movement
+        characterController.Move(Vector3.zero);
+        
+        playerMovement.enabled = true;
     }
 
     public async Task SetTransformLoad(PlayerSaveData data)

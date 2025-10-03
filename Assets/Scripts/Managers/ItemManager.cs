@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +39,7 @@ public class ItemManager : MonoBehaviour
 
         for(int i = currentItems.Count() - 1; i >= 0; i--)
         {
-            if (currentItems[i] != null)
+            if (currentItems[i] != null && !GameManager.Instance.Player.GetComponent<InteractionManager>().isItemInInventory(currentItems[i]))
             {
                 //Saves info properly, just needs to move it
                 GameObject Item = currentItems[i].gameObject;
@@ -52,10 +51,14 @@ public class ItemManager : MonoBehaviour
 
                 ItemSaveDataList.Add(itemSaveData);
             }
-            else
+            else if (currentItems[i] == null) 
             {
                 Debug.Log("Item at" + i + "is null");
                 currentItems.RemoveAt(i);
+            }
+            else
+            {
+                Debug.Log("Item at" + i + "is in inventory");
             }
         }
 

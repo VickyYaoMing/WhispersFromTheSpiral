@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
     {
         isSaving = true;
         await SaveSystem.SaveAsynchronously();
+        Debug.Log("Saved!");
         isSaving = false;
     }
 
@@ -95,8 +96,12 @@ public class GameManager : MonoBehaviour
     {
         isLoading = true;
         await SaveSystem.LoadAsynchronously();
+        Debug.Log("Loaded!");
         isLoading = false;
     }
+
+    public bool IsSaving { get { return isSaving; } }
+    public bool IsLoading { get { return isLoading; } }
 
 }
 

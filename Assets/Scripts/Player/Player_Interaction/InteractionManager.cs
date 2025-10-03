@@ -218,6 +218,19 @@ public class InteractionManager : MonoBehaviour
             }
         }
     }
+
+    public bool isItemInInventory(InteractableBase item)
+    {
+        foreach (GameObject inventoryItem in itemArray)
+        {
+            if (inventoryItem == item.gameObject)
+            {
+                Debug.Log(item +" was found in the inventory as " +  inventoryItem);
+                return true;
+            }
+        }
+        return false;
+    }
     #endregion
 }
 

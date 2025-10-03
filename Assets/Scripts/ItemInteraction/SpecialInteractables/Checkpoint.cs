@@ -17,6 +17,7 @@ public class Checkpoint : InteractableBase
 
     public override GameObject PickedUp()
     {
+        //Works as intended, however due to the way the interaction manager is built the checkpoint gameobject is disabled when the player scrolls their inventory.
         GameManager.Instance.CheckpointManager.SetCurrentCheckpointID(ID);
         GameManager.Instance.SaveAsync();
         return base.PickedUp();
