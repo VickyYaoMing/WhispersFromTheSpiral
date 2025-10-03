@@ -1,11 +1,9 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class NotebookSlot : MonoBehaviour
 {
     [SerializeField] Notebook Owner;
-    [SerializeField] Sprite DefaultSlotSprite;
     public string Description = "";
 
     private int m_indexInNotebook;
@@ -23,7 +21,6 @@ public class NotebookSlot : MonoBehaviour
 
     public void Init(int index)
     {
-       m_notebookSlotSprite.sprite = DefaultSlotSprite;
        m_indexInNotebook = index;
     }
 
