@@ -16,7 +16,6 @@ public class CheckpointManager : MonoBehaviour
         for (int i = 0; i < Checkpoints.Length; i++)
         {
             Checkpoints[i].SetID(i);
-            Debug.Log("Checkpoint: " + i);
         }
         GameManager.Instance.CheckpointManager = this;
     }

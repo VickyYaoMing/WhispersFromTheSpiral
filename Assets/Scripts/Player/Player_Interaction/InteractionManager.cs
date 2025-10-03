@@ -225,7 +225,6 @@ public class InteractionManager : MonoBehaviour
         {
             if (inventoryItem == item.gameObject)
             {
-                Debug.Log(item +" was found in the inventory as " +  inventoryItem);
                 return true;
             }
         }
