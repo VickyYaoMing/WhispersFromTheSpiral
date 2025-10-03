@@ -1,15 +1,19 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Notebook : MonoBehaviour
 {
-    public delegate void CollectibleHandler(GameObject collectible);
-    public event CollectibleHandler OnCollectibleFound;
     [SerializeField] GameObject NotebookObject;
+    [SerializeField] GameObject InspectorObject;
+    [SerializeField] GameObject DescriptionObject;
     private GameObject[] NotebookSlots;
     private CollectibleData[] m_foundCollectibles;
     private readonly int m_maximumCollectibles = 24;
     private int m_currentIndex;
     private CollectibleData m_currentCollectibleData;
+    private TextMeshProUGUI m_currentDescription;
+     
 
     #region Unity Methods
     private void Start()
@@ -25,6 +29,7 @@ public class Notebook : MonoBehaviour
                 NotebookSlots[i] = NotebookObject.transform.GetChild(i).gameObject;
             }
         }
+        m_currentDescription = DescriptionObject.GetComponent<TextMeshProUGUI>();
     }
     #endregion
 
@@ -44,14 +49,11 @@ public class Notebook : MonoBehaviour
         collectible.GetComponent<CollectibleItem>().OnCollect();
     }
 
-    public CollectibleData[] Get()
+    public void DisplayCollectibleInfo(NotebookSlot slot)
     {
-        return m_foundCollectibles;
+        int indexToView = slot.GetIndex();
+        if (m_foundCollectibles[indexToView] == null) { return; }
+        InspectorObject.GetComponent<Image>().sprite = m_foundCollectibles[indexToView].SpriteInWorld;
+        m_currentDescription.text = m_foundCollectibles[indexToView].DescriptionText;
     }
-
-    public int CurrentSize()
-    {
-        return m_currentIndex;
-    }
-
 }

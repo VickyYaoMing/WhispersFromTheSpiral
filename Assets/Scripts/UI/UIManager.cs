@@ -41,7 +41,6 @@ public class UIManager : MonoBehaviour
         {
             m_canvasGroups[i].alpha = 0.0f;
             m_canvasGroups[i].interactable = false;
-            m_canvasGroups[i].blocksRaycasts = false;
         }
     }
     void OnEnable()
