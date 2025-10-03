@@ -26,22 +26,18 @@ public class ItemManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       // Debug.Log(currentItems.Count);
-       // foreach (var item in currentItems)
-       // {
-       //     Debug.Log(item);
-       // }
     }
 
     public void Save(ref ItemManagerSaveData data)
     {
         List<ItemSaveData> ItemSaveDataList = new List<ItemSaveData>();
 
+        //Decrement so we can remove items that are null or exist in the inventory
         for(int i = currentItems.Count() - 1; i >= 0; i--)
         {
+            //If item is not null and is not in the player inventory, make an ItemSaveData instance for it and add it to the list. Else, remove it from the currentItems list
             if (currentItems[i] != null && !GameManager.Instance.Player.GetComponent<InteractionManager>().isItemInInventory(currentItems[i]))
             {
-                //Saves info properly, just needs to move it
                 GameObject Item = currentItems[i].gameObject;
                 ItemSaveData itemSaveData = new ItemSaveData
                 {
@@ -59,6 +55,7 @@ public class ItemManager : MonoBehaviour
             else
             {
                 Debug.Log("Item at" + i + "is in inventory");
+                currentItems.RemoveAt(i);
             }
         }
 
@@ -67,6 +64,7 @@ public class ItemManager : MonoBehaviour
 
     public void Load(ItemManagerSaveData data)
     {
+        //Change the load method such that it instantiates prefabs, then the whole save/load system should be done.
         foreach(var item in currentItems)
         {
             if(item == null)

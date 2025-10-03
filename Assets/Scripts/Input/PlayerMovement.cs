@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void ProcessMove(Vector2 input)
     {
+        if (GameManager.Instance.IsSaving || GameManager.Instance.IsLoading) return;
         Vector3 moveDir = Vector3.zero;
         moveDir.x = input.x;
         moveDir.z = input.y;

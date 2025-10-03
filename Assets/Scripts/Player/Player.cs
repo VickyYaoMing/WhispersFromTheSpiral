@@ -60,6 +60,7 @@ public class Player : MonoBehaviour
         await Task.Delay(1);
 
         //Re-enable controller and movement
+        characterController.enabled = true;
         characterController.Move(Vector3.zero);
         
         playerMovement.enabled = true;
