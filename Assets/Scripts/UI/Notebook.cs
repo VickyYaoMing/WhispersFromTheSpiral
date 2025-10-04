@@ -1,13 +1,19 @@
+using TMPro;
 using UnityEngine;
-using UnityEngine.Profiling;
+using UnityEngine.UI;
 
 public class Notebook : MonoBehaviour
 {
     [SerializeField] GameObject NotebookObject;
+    [SerializeField] GameObject InspectorObject;
+    [SerializeField] GameObject DescriptionObject;
     private GameObject[] NotebookSlots;
     private CollectibleData[] m_foundCollectibles;
-    private readonly int m_maximumCollectibles = 25;
+    private readonly int m_maximumCollectibles = 24;
     private int m_currentIndex;
+    private CollectibleData m_currentCollectibleData;
+    private TextMeshProUGUI m_currentDescription;
+     
 
     #region Unity Methods
     private void Start()
@@ -23,27 +29,31 @@ public class Notebook : MonoBehaviour
                 NotebookSlots[i] = NotebookObject.transform.GetChild(i).gameObject;
             }
         }
+        m_currentDescription = DescriptionObject.GetComponent<TextMeshProUGUI>();
     }
     #endregion
 
-    public void Add(CollectibleData data)
+    public void AddCollectibleToNotebook(GameObject collectible)
     {
-        m_foundCollectibles[m_currentIndex] = data;
-        NotebookSlots[m_currentIndex].GetComponent<NotebookSlot>().UpdateCollectible(data);
-        Debug.Log("Added collectible at index: " + m_currentIndex + NotebookSlots[m_currentIndex].GetComponent<NotebookSlot>().GetData.DescriptionText);
+        if (gameObject == null) { return; }
 
+        m_currentCollectibleData = new()
+        {
+            SpriteInWorld = collectible.GetComponent<CollectibleItem>().SpriteInWorld,
+            SpriteInNotebook = collectible.GetComponent<CollectibleItem>().SpriteInNotebook,
+            DescriptionText = collectible.GetComponent<CollectibleItem>().Description.text,
+        };
+        m_foundCollectibles[m_currentIndex] = m_currentCollectibleData;
+        NotebookSlots[m_currentIndex].GetComponent<NotebookSlot>().UpdateCollectible(m_currentCollectibleData);
         m_currentIndex++;
+        collectible.GetComponent<CollectibleItem>().OnCollect();
     }
 
-    public CollectibleData[] Get()
+    public void DisplayCollectibleInfo(NotebookSlot slot)
     {
-        return m_foundCollectibles;
+        int indexToView = slot.GetIndex();
+        if (m_foundCollectibles[indexToView] == null) { return; }
+        InspectorObject.GetComponent<Image>().sprite = m_foundCollectibles[indexToView].SpriteInWorld;
+        m_currentDescription.text = m_foundCollectibles[indexToView].DescriptionText;
     }
-
-    public int CurrentSize()
-    {
-        return m_currentIndex;
-    }
-
-    
 }

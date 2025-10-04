@@ -451,7 +451,7 @@ MonoBehaviour:
   aboveZoomClose: 1.1
   m_sprites:
   - {fileID: 21300000, guid: 6e75897208cc18b4396f3af40c9eb8af, type: 3}
-  - {fileID: 21300000, guid: 6e75897208cc18b4396f3af40c9eb8af, type: 3}
+  - {fileID: 21300000, guid: b0c4f31ed6a3f2444a45f0285e0e3e52, type: 3}
 --- !u!135 &550450812
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -527,7 +527,20 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: This is a test collectible, I hope this works :)
+  m_Text: "\u201CI won\u2019t let your judgement imprison the few pieces that remain
+    of who I once was. Whisper your shallow pity if you must. Fear the tragic alleyway
+    that led my soul to fracture or pretend that you understand, it has no consequence.
+    I alone dictate what remains behind in these final moments. Feed your superstitions
+    with whatever filth spills from your corrupted minds, but know this,  the truth
+    is mine to command.\r\n\r\nMy name is * and I killed them. Fragile lives held
+    in the palms of my hands through all my life, all of them saved just to relinquish
+    the one that mattered most. That is why I killed them. It was my spiral of despair.
+    It should have been me, yet it claimed the life of another. Another whose life
+    was mine to protect.\r\n\r\nI write not from a position of weakness but from
+    one of power. The path I chose was my own and I alone choose where it ends. The
+    blood of my actions stains the hands of those who kept me from what I loved.
+    The only regret I bear is failing to keep the darkness from my boy.\r\n\r\nI
+    will not be your prisoner. I am my own master.\u201D\r\n"
 --- !u!1 &778773646 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: dcd6b07ee76161f499d634ab64c2d2b8, type: 3}
@@ -837,7 +850,22 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: This is to test if the new collectible's data is aquired correctly :)
+  m_Text: "A divorced doctor who spends his life saving others, always at work neglecting
+    his family. His wife and son leave him to live on their own. \r\nAt nights he
+    drinks to numb the pain of being left alone and tries to forget his regrets.\r\nMakes
+    an attempt to reconnect with his estranged son, they are supposed to go on a
+    trip, but he has drank beforehand to make it easier to talk to his son.\r\nIn
+    a car accident, he barely survives on the way home to his mansion (rich doctor
+    who works all the time) where he lives alone, but his son doesn\u2019t survive.
+    The one life he cared about the most he couldn\u2019t save.\r\nHe gets into the
+    occult arts to try to understand why even he who had helped others cheat death
+    couldn\u2019t do it when it truly mattered. (goes insane as one would)\r\nOne
+    night he decides to not stop drinking, and passes out. (game starts)\r\nTries
+    to find his way back to his study (final scene) by solving the puzzles that are
+    a metaphor for him searching through his mind in his final moments.\r\nWakes
+    up and realises he has killed patients during his \u201Cspiritual journey\u201D
+    to understand why he couldn\u2019t save his son, the enemy in the game is the
+    monster within his mind he realises he has become. \r\n"
 --- !u!114 &1218997988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -856,7 +884,7 @@ MonoBehaviour:
   aboveZoomClose: 1.1
   m_sprites:
   - {fileID: 21300000, guid: 6e75897208cc18b4396f3af40c9eb8af, type: 3}
-  - {fileID: 21300000, guid: 6e75897208cc18b4396f3af40c9eb8af, type: 3}
+  - {fileID: 21300000, guid: b0c4f31ed6a3f2444a45f0285e0e3e52, type: 3}
 --- !u!222 &1218997989
 CanvasRenderer:
   m_ObjectHideFlags: 0
