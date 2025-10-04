@@ -7,6 +7,7 @@ public class ItemManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public List<Default_Item> currentItems;
+    private Dictionary<GameObject, GameObject> itemToPrefabMap = new Dictionary<GameObject, GameObject>();
 
     void Start()
     {
@@ -20,6 +21,11 @@ public class ItemManager : MonoBehaviour
         foreach (var item in currentItems)
         {
             Debug.Log(item);
+            itemToPrefabMap[item.gameObject] = item.gameObject;
+            //if (GameManager.Instance.Player.GetComponent<InteractionManager>().isItemInInventory(item))
+            //{
+            //    currentItems.Remove(item);
+            //}
         }
     }
 
@@ -41,12 +47,14 @@ public class ItemManager : MonoBehaviour
                 GameObject Item = currentItems[i].gameObject;
                 ItemSaveData itemSaveData = new ItemSaveData
                 {
-                    item = Item,
+                    itemPrefab = itemToPrefabMap[Item],
                     itemPosition = Item.transform.position
                 };
 
                 ItemSaveDataList.Add(itemSaveData);
             }
+
+            //Following two if statements are separate for debug reasons. Turn them into one before production.
             else if (currentItems[i] == null) 
             {
                 Debug.Log("Item at" + i + "is null");
@@ -67,24 +75,20 @@ public class ItemManager : MonoBehaviour
         //Change the load method such that it instantiates prefabs, then the whole save/load system should be done.
         foreach(var item in currentItems)
         {
-            if(item == null)
+            if(item != null && !GameManager.Instance.Player.GetComponent<InteractionManager>().isItemInInventory(item))
             {
                 Debug.Log("Item destroyed");
-                Destroy(item);
+                Destroy(item.gameObject);
             }
         }
 
         foreach (var savedItem in data.Items)
         {
-            if (savedItem.item != null)
+            if (savedItem.itemPrefab != null)
             {
-                foreach(var existingItem in currentItems)
-                {
-                    if(existingItem == savedItem.item)
-                    {
-                        existingItem.transform.position = savedItem.itemPosition;
-                    }
-                }
+                GameObject spawnedItem = Instantiate(savedItem.itemPrefab, savedItem.itemPosition, Quaternion.identity);
+                currentItems.Add(spawnedItem.GetComponent<Default_Item>());
+                itemToPrefabMap[spawnedItem] = savedItem.itemPrefab;
             }
         }
 
@@ -95,7 +99,7 @@ public class ItemManager : MonoBehaviour
 [System.Serializable]
 public struct ItemSaveData
 {
-    public GameObject item;
+    public GameObject itemPrefab;
     public Vector3 itemPosition;
 }
 
