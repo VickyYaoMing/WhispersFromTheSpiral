@@ -38,7 +38,7 @@ public class HuntState : StateMachineBehaviour
         {
             _timeSinceLastSeen += Time.deltaTime;
 
-            // 3 second memory
+            // 1 second memory
             if (_elkDemon.HasRecentPlayerInfo && _timeSinceLastSeen < 1f) 
             {
                 // Move toward player's last known position
