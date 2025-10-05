@@ -20,6 +20,12 @@ MonoBehaviour:
     voicesBedVolumeAtMin: 0
     voicesDensityPerMinAtCalm: 0
     voicesDensityPerMinAtMin: 0
+    vignetteAtCalm: 0
+    vignetteAtMin: 0
+    chromAbAtCalm: 0
+    chromAbAtMin: 0
+    lensDistAtCalm: 0
+    lensDistAtMin: 0
   - id: s_Phase1
     maxSanityCap: 0.8
     vignetteBase: 0.1
@@ -27,6 +33,12 @@ MonoBehaviour:
     voicesBedVolumeAtMin: 0.25
     voicesDensityPerMinAtCalm: 4
     voicesDensityPerMinAtMin: 16
+    vignetteAtCalm: 0.2
+    vignetteAtMin: 0.4
+    chromAbAtCalm: 0
+    chromAbAtMin: 0.25
+    lensDistAtCalm: -0.1
+    lensDistAtMin: -0.2
   - id: s_Phase2
     maxSanityCap: 0.65
     vignetteBase: 0.2
@@ -34,3 +46,9 @@ MonoBehaviour:
     voicesBedVolumeAtMin: 0.244
     voicesDensityPerMinAtCalm: 22.1
     voicesDensityPerMinAtMin: 47.1
+    vignetteAtCalm: 0.35
+    vignetteAtMin: 0.5
+    chromAbAtCalm: 0.2
+    chromAbAtMin: 0.35
+    lensDistAtCalm: -0.15
+    lensDistAtMin: -0.2
