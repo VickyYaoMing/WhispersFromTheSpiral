@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c3fe1524474ced40be5df4794e22255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  savedItems: []
+  currentItems: []
 --- !u!114 &491474872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,6 +653,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4074944947487635860, guid: a901be983c210274a8c2dc913053b233, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5864662687444926275, guid: a901be983c210274a8c2dc913053b233, type: 3}
+      propertyPath: m_RenderPostProcessing
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6330197989133451956, guid: a901be983c210274a8c2dc913053b233, type: 3}
