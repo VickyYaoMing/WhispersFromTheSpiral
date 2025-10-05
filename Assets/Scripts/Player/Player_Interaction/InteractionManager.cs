@@ -117,7 +117,8 @@ public class InteractionManager : MonoBehaviour
     {
         lockItem = true;
         inputManager.enabled = false;
-        playerLook.LockCameraOnItem(currentItem.transform);
+        InteractableBase interactBase = currentItem.GetComponent<InteractableBase>();
+        playerLook.LockCameraOnItem(currentItem.transform, interactBase.howCloseFromFront, interactBase.aboveZoomClose, interactBase.upwardTilt, interactBase.zoomFromFront);
         StartCoroutine(EnableAfterRelease());
     }
 
