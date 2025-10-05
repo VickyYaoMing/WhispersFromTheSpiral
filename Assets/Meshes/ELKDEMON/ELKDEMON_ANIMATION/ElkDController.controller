@@ -283,6 +283,7 @@ MonoBehaviour:
   attackCD: 2
   attackWindupTime: 0.5
   attackAnimationDuration: 1.5
+  sanityDmg: -0.5
 --- !u!1101 &-2862760320379415541
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -566,6 +567,7 @@ MonoBehaviour:
   attackCD: 3
   attackWindupTime: 0.5
   attackAnimationDuration: 1.5
+  sanityDmg: -0.5
 --- !u!1102 &2857299517591312493
 AnimatorState:
   serializedVersion: 6
