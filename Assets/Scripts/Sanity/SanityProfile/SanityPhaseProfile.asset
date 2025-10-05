@@ -24,13 +24,13 @@ MonoBehaviour:
     maxSanityCap: 0.8
     vignetteBase: 0.1
     voicesBedVolumeAtCalm: 0.0001
-    voicesBedVolumeAtMin: 0.0001
-    voicesDensityPerMinAtCalm: 0.001
-    voicesDensityPerMinAtMin: 0.001
+    voicesBedVolumeAtMin: 0.25
+    voicesDensityPerMinAtCalm: 4
+    voicesDensityPerMinAtMin: 16
   - id: s_Phase2
     maxSanityCap: 0.65
     vignetteBase: 0.2
-    voicesBedVolumeAtCalm: 0.005
-    voicesBedVolumeAtMin: 0.005
-    voicesDensityPerMinAtCalm: 0.005
-    voicesDensityPerMinAtMin: 0.005
+    voicesBedVolumeAtCalm: 0.0025
+    voicesBedVolumeAtMin: 0.244
+    voicesDensityPerMinAtCalm: 22.1
+    voicesDensityPerMinAtMin: 47.1

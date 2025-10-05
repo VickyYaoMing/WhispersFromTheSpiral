@@ -115,6 +115,19 @@ namespace SanitySystem
 
 
         void OnEnable() { EmitAll(); }
+
+        void Start()
+        {
+            if (phaseProfile && phaseProfile.phases != null && phaseProfile.phases.Length > 0)
+            {
+                SetPhaseIndex(Mathf.Clamp(startPhaseIndex, 0, phaseProfile.phases.Length - 1), keepRelativeLevel: true);
+            }
+            else
+            {
+                SetPhaseIndex(-1, keepRelativeLevel: false);
+                EmitAll();
+            }
+        }
         void Update()
         {
             float dt = Mathf.Max(0f, Time.deltaTime);
@@ -124,11 +137,17 @@ namespace SanitySystem
 
             // external drain (enemy stare/chase) is applied by other systems; we just integrate it
             float extDrain = _externalDrainPerSec;
+            float delta = (Mathf.Max(0f, regenBase) - (ambient + extDrain)) * dt;
 
-            SetSanity(_baseSanity + (Mathf.Max(0f, regenBase) - (ambient + extDrain)) * dt);
-            Debug.Log($"Current State: {_state}"); //Debug statement.
+            if (_baseSanity >= _cap01 - 0.00001f && delta > 0f)
+            {
+                delta = 0f;
+            }
+            SetSanity(_baseSanity + delta);
+            // Debug.Log($"Current State: {_state}"); //Debug statement.
 
         }
+
         // --- Phase control (call from the act/puzzle manager (which will probably be made... later?)) ---
         public void SetPhaseIndex(int index, bool keepRelativeLevel = true)
         {
@@ -157,6 +176,8 @@ namespace SanitySystem
         public void SetSanity(float value)
         {
             float _value = Mathf.Clamp(value, _clampMin, _clampMax);
+            _value = Mathf.Min(_value, _cap01);
+
             if (!Mathf.Approximately(_value, _baseSanity))
             {
                 _baseSanity = _value;
@@ -193,9 +214,13 @@ namespace SanitySystem
             if (!phaseProfile || PhaseIndex < 0) { bedVolume = 0f; densityPerMin = 0f; return; }
             var ph = phaseProfile.phases[PhaseIndex];
 
-            float t = 1f - (_cap01 <= 0f ? 0f : (_baseSanity / _cap01)); // 0 calm -> 1 stressed (within cap)
+            float t = 1f - ((_cap01 <= 0f) ? 0f : Mathf.Clamp01(_baseSanity / _cap01));
+
             bedVolume = Mathf.Lerp(ph.voicesBedVolumeAtCalm, ph.voicesBedVolumeAtMin, t);
             densityPerMin = Mathf.Lerp(ph.voicesDensityPerMinAtCalm, ph.voicesDensityPerMinAtMin, t);
+
+            bedVolume = Mathf.Clamp01(bedVolume);
+            densityPerMin = Mathf.Max(0f, densityPerMin);
         }
 
 
@@ -225,6 +250,29 @@ namespace SanitySystem
                     return SanityState.Insane;
             }
             return _previousState;
+        }
+        public bool TryGetVfxFloors(out float vigBase, out float caBase, out float ldBase)
+        {
+            vigBase = 0f; caBase = 0f; ldBase = 0f;
+
+            if (!phaseProfile || PhaseIndex < 0 || PhaseIndex >= phaseProfile.phases.Length)
+                return false;
+
+            var ph = phaseProfile.phases[PhaseIndex];
+
+            // cap-relative within-phase: 0 = calm at cap, 1 = near empty
+            float t = 1f - ((_cap01 <= 0f) ? 0f : Mathf.Clamp01(_baseSanity / _cap01));
+
+            vigBase = Mathf.Lerp(ph.vignetteAtCalm, ph.vignetteAtMin, t);
+            caBase = Mathf.Lerp(ph.chromAbAtCalm, ph.chromAbAtMin, t);
+            ldBase = Mathf.Lerp(ph.lensDistAtCalm, ph.lensDistAtMin, t);
+
+            // safety clamps
+            vigBase = Mathf.Clamp01(vigBase);
+            caBase = Mathf.Clamp01(caBase);
+            ldBase = Mathf.Clamp(ldBase, -1f, 1f);
+
+            return true;
         }
         static float Pow01(float x, float p)
         {
