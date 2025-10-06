@@ -195,7 +195,6 @@ public class InteractionManager : MonoBehaviour
 
     public void Load(PlayerInventoryData data) 
     {
-        //Works, but doesn't move the item into the character's hand.
         //Item position is memorized and the current item is too.
         //Item is teleported into the player's hand and works as intended. 
 
@@ -224,6 +223,18 @@ public class InteractionManager : MonoBehaviour
                 item.SetActive(false);
             }
         }
+    }
+
+    public bool isItemInInventory(InteractableBase item)
+    {
+        foreach (GameObject inventoryItem in itemArray)
+        {
+            if (inventoryItem == item.gameObject)
+            {
+                return true;
+            }
+        }
+        return false;
     }
     #endregion
 }
