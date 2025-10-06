@@ -115,7 +115,7 @@ public class InteractionManager : MonoBehaviour
 
     private void OnItemCameraLock()
     {
-        itemArray[currentItemSpot].SetActive(false);
+        if (itemArray[currentItemSpot]!=null) itemArray[currentItemSpot].SetActive(false);
         lockItem = true;
         inputManager.enabled = false;
         InteractableBase interactBase = currentItem.GetComponent<InteractableBase>();
@@ -139,7 +139,7 @@ public class InteractionManager : MonoBehaviour
             currentItem.GetComponent<InteractableBase>().enabled = false;
             lockItem = false;
             currentItem = itemArray[currentItemSpot];
-            currentItem.SetActive(true);
+            if(currentItem != null) currentItem.SetActive(true);
         }
     }
 
