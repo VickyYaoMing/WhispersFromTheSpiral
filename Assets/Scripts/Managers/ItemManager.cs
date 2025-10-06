@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,8 @@ using UnityEngine;
 public class ItemManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public List<Default_Item> savedItems;
+    public List<Default_Item> currentItems;
+    private Dictionary<GameObject, GameObject> itemToPrefabMap = new Dictionary<GameObject, GameObject>();
 
     void Start()
     {
@@ -17,40 +17,53 @@ public class ItemManager : MonoBehaviour
     void Awake()
     {
         GameManager.Instance.ItemManager = this;
-        savedItems = FindObjectsByType<Default_Item>(default).ToList();
+        currentItems = FindObjectsByType<Default_Item>(default).ToList();
+        foreach (var item in currentItems)
+        {
+            Debug.Log(item);
+            itemToPrefabMap[item.gameObject] = item.gameObject;
+            //if (GameManager.Instance.Player.GetComponent<InteractionManager>().isItemInInventory(item))
+            //{
+            //    currentItems.Remove(item);
+            //}
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(savedItems.Count);
-        foreach (var item in savedItems)
-        {
-            Debug.Log(item);
-        }
     }
 
     public void Save(ref ItemManagerSaveData data)
     {
         List<ItemSaveData> ItemSaveDataList = new List<ItemSaveData>();
 
-        for(int i = savedItems.Count() - 1; i > 0; i--)
+        //Decrement so we can remove items that are null or exist in the inventory
+        for(int i = currentItems.Count() - 1; i >= 0; i--)
         {
-            if (savedItems[i] != null)
+            //If item is not null and is not in the player inventory, make an ItemSaveData instance for it and add it to the list. Else, remove it from the currentItems list
+            if (currentItems[i] != null && !GameManager.Instance.Player.GetComponent<InteractionManager>().isItemInInventory(currentItems[i]))
             {
-                GameObject Item = savedItems[i].gameObject;
+                GameObject Item = currentItems[i].gameObject;
                 ItemSaveData itemSaveData = new ItemSaveData
                 {
-                    item = Item,
+                    itemPrefab = itemToPrefabMap[Item],
                     itemPosition = Item.transform.position
                 };
 
                 ItemSaveDataList.Add(itemSaveData);
             }
-            else
+
+            //Following two if statements are separate for debug reasons. Turn them into one before production.
+            else if (currentItems[i] == null) 
             {
                 Debug.Log("Item at" + i + "is null");
-                savedItems.RemoveAt(i);
+                currentItems.RemoveAt(i);
+            }
+            else
+            {
+                Debug.Log("Item at" + i + "is in inventory");
+                currentItems.RemoveAt(i);
             }
         }
 
@@ -59,26 +72,23 @@ public class ItemManager : MonoBehaviour
 
     public void Load(ItemManagerSaveData data)
     {
-        foreach(var item in savedItems)
+        //Change the load method such that it instantiates prefabs, then the whole save/load system should be done.
+        foreach(var item in currentItems)
         {
-            if(item == null)
+            if(item != null && !GameManager.Instance.Player.GetComponent<InteractionManager>().isItemInInventory(item))
             {
                 Debug.Log("Item destroyed");
-                Destroy(item);
+                Destroy(item.gameObject);
             }
         }
 
         foreach (var savedItem in data.Items)
         {
-            if (savedItem.item != null)
+            if (savedItem.itemPrefab != null)
             {
-                foreach(var existingItem in savedItems)
-                {
-                    if(existingItem == savedItem.item)
-                    {
-                        existingItem.transform.position = savedItem.itemPosition;
-                    }
-                }
+                GameObject spawnedItem = Instantiate(savedItem.itemPrefab, savedItem.itemPosition, Quaternion.identity);
+                currentItems.Add(spawnedItem.GetComponent<Default_Item>());
+                itemToPrefabMap[spawnedItem] = savedItem.itemPrefab;
             }
         }
 
@@ -89,7 +99,7 @@ public class ItemManager : MonoBehaviour
 [System.Serializable]
 public struct ItemSaveData
 {
-    public GameObject item;
+    public GameObject itemPrefab;
     public Vector3 itemPosition;
 }
 
