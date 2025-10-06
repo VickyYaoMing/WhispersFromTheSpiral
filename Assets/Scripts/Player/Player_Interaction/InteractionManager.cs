@@ -115,6 +115,7 @@ public class InteractionManager : MonoBehaviour
 
     private void OnItemCameraLock()
     {
+        if (itemArray[currentItemSpot]!=null) itemArray[currentItemSpot].SetActive(false);
         lockItem = true;
         inputManager.enabled = false;
         InteractableBase interactBase = currentItem.GetComponent<InteractableBase>();
@@ -138,6 +139,7 @@ public class InteractionManager : MonoBehaviour
             currentItem.GetComponent<InteractableBase>().enabled = false;
             lockItem = false;
             currentItem = itemArray[currentItemSpot];
+            if(currentItem != null) currentItem.SetActive(true);
         }
     }
 
@@ -193,7 +195,6 @@ public class InteractionManager : MonoBehaviour
 
     public void Load(PlayerInventoryData data) 
     {
-        //Works, but doesn't move the item into the character's hand.
         //Item position is memorized and the current item is too.
         //Item is teleported into the player's hand and works as intended. 
 
@@ -222,6 +223,18 @@ public class InteractionManager : MonoBehaviour
                 item.SetActive(false);
             }
         }
+    }
+
+    public bool isItemInInventory(InteractableBase item)
+    {
+        foreach (GameObject inventoryItem in itemArray)
+        {
+            if (inventoryItem == item.gameObject)
+            {
+                return true;
+            }
+        }
+        return false;
     }
     #endregion
 }
