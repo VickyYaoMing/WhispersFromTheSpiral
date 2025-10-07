@@ -284,5 +284,19 @@ namespace SanitySystem
             OnSanityStateChanged?.Invoke(_state);
         }
 
+        //-------------------- Helper method for getting the DoF -------------------- 
+        public bool TryGetDofSettings(out bool enabled, out float baseAperture)
+        {
+            enabled = false; baseAperture = 6f;
+
+            if (!phaseProfile || PhaseIndex < 0 || PhaseIndex >= phaseProfile.phases.Length)
+                return false;
+
+            var ph = phaseProfile.phases[PhaseIndex];
+            enabled = ph.dofEnabled;
+            baseAperture = Mathf.Max(0.1f, ph.dofAperturef);
+            return true;
+        }
+
     }
 }

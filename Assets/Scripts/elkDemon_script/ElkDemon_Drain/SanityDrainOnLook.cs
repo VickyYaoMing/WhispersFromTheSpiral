@@ -4,16 +4,20 @@ using SanitySystem;
 public class SanityDrainOnLook : MonoBehaviour
 {
     [Header("Sanity Drain Settings")]
-    [SerializeField] private float drainPerSecond = -0.15f;
+    [SerializeField] private float drainSanityPerSecond = -0.06f;
+    [Header("Stress Drain Settings")]
+    [SerializeField] private float addStressPerSecond = 0.1f;
 
-    private Sanity playerSanity;    
+    private ISanityProvider playerSanity;
+    private StressController stress;
 
     void Start()
     {
         var player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
-            playerSanity = player.GetComponent<Sanity>();
+            playerSanity = player.GetComponent<ISanityProvider>();
+            stress = player.GetComponent<StressController>();
         }
     }
 
@@ -24,7 +28,11 @@ public class SanityDrainOnLook : MonoBehaviour
             return;
         }
 
-        playerSanity.ApplyImpulse(drainPerSecond * Time.deltaTime);
+        stress.ApplyImpulse(addStressPerSecond * Time.deltaTime);
+        if(stress.Stress > 0.8f)
+        {
+            playerSanity.ApplyImpulse(drainSanityPerSecond * Time.deltaTime);
+        }
 
     } 
 }
