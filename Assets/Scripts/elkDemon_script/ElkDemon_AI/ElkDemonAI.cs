@@ -61,7 +61,7 @@ public class ElkDemonAI : MonoBehaviour
         _navAgent.speed = currentSpeed;
         _navAgent.SetDestination(targetPosition);
 
-        if(_navAgent.velocity.sqrMagnitude > 0.01f)
+        if (_navAgent.velocity.sqrMagnitude > 0.01f)
         {
             Quaternion lookRot = Quaternion.LookRotation(_navAgent.velocity.normalized);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * 8f);
