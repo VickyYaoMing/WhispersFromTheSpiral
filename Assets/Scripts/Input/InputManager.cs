@@ -46,6 +46,14 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
+        if (uiManager.IsPaused || uiManager.IsNotebookActive || uiManager.IsViewingCollectible)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+            return;
+        }
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
         player_movement.ProcessMove(on_foot.Walking.ReadValue<Vector2>());
         player_look.ProcessLook(on_foot.Looking.ReadValue<Vector2>());
     }
