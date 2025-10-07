@@ -10,7 +10,6 @@ public class SanityDrainOnLook : MonoBehaviour
 
     private ISanityProvider playerSanity;
     private StressController stress;
-    
 
     void Start()
     {
