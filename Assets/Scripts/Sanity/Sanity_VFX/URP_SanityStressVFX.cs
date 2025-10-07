@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using SanitySystem;
-
 public class URP_SanityStressVFX : MonoBehaviour
 {
     public Sanity _sanity;
@@ -23,8 +22,9 @@ public class URP_SanityStressVFX : MonoBehaviour
     [Range(0, 1)] public float caCalm = 0.00f, caEmpty = 0.15f, caOverlayStress = 0.35f;
 
     //Blur with stress (Depth of field)
-    public bool driveDoF = true;
-    [Range(0.1f, 32f)] public float dofAperatureCalm = 4f, dofAperatureStress = 12f;
+    public bool driveDoF;
+    [Range(0.1f, 32f)] public float dofAperatureCalm = 2f, dofAperatureStress = 10f;
+    [Range(0.0f, 32f)] public float dofApertureOverlayAtMaxStress = 1f;
     [Range(0.1f, 300f)] public float dofFocusDistance = 4f;
     [Range(1f, 300f)] public float dofFocalLength = 50f;
 
@@ -63,6 +63,11 @@ public class URP_SanityStressVFX : MonoBehaviour
                 dof = _volume.profile.Add<DepthOfField>(true);
 
             dof.mode.Override(DepthOfFieldMode.Bokeh);
+            dof.aperture.overrideState = true;
+            dof.focusDistance.overrideState = true;
+            dof.focalLength.overrideState = true;
+
+            dof.active = false;
         }
 
         // Enable and mark overrides
@@ -89,13 +94,13 @@ public class URP_SanityStressVFX : MonoBehaviour
             ca.intensity.overrideState = true;
         }
 
-        if (dof)
-        {
-            dof.active = true;
-            dof.aperture.overrideState = true;
-            dof.focusDistance.overrideState = true;
-            dof.focalLength.overrideState = true;
-        }
+        //if (dof)
+        //{
+        //    dof.active = true;
+        //    dof.aperture.overrideState = true;
+        //    dof.focusDistance.overrideState = true;
+        //    dof.focalLength.overrideState = true;
+        //}
     }
     void LateUpdate()
     {
@@ -110,12 +115,16 @@ public class URP_SanityStressVFX : MonoBehaviour
         // Vignette
         if (vig)
         {
-            float addV = Mathf.Lerp(0f, vigOverlayStress, tStress);
-            float target = Mathf.Clamp01(baseV + addV);
+            if(vig.intensity.value < 0.8f)
+            {
+                float addV = Mathf.Lerp(0f, vigOverlayStress, tStress);
+                float target = Mathf.Clamp01(baseV + addV);
 
-            vig.intensity.value = Smooth(vig.intensity.value, target, ref vVel);
-            vig.smoothness.value = vigSmoothness;
-            vig.rounded.value = vignetteRounded; // bool in URP
+                vig.intensity.value = Smooth(vig.intensity.value, target, ref vVel);
+                vig.smoothness.value = vigSmoothness;
+                vig.rounded.value = vignetteRounded; // bool in URP
+            }
+
         }
 
         // Lens Distortion
@@ -137,10 +146,23 @@ public class URP_SanityStressVFX : MonoBehaviour
         // Depth of Field
         if (dof && driveDoF)
         {
-            float targetA = Mathf.Lerp(dofAperatureCalm, dofAperatureStress, tStress);
-            dof.aperture.value = Smooth(dof.aperture.value, targetA, ref dofVel);
-            dof.focusDistance.value = dofFocusDistance;
-            dof.focalLength.value = dofFocalLength;
+            // read phase toggle + base aperture
+            bool phaseEnabled;
+            float baseAperture;
+            _sanity.TryGetDofSettings(out phaseEnabled, out baseAperture);
+
+            // your existing overlay from stress (keep as-is)
+            float overlayFromStress = Mathf.Lerp(0f, dofApertureOverlayAtMaxStress, tStress);
+
+            // only apply DoF if phase says so
+            dof.active = phaseEnabled;
+            if (phaseEnabled)
+            {
+                float targetAperture = Mathf.Max(0.1f, baseAperture + overlayFromStress);
+                dof.aperture.value = targetAperture;
+                dof.focusDistance.value = dofFocusDistance;
+                dof.focalLength.value = dofFocalLength;
+            }
         }
     }
     float Smooth(float current, float target, ref float vel)

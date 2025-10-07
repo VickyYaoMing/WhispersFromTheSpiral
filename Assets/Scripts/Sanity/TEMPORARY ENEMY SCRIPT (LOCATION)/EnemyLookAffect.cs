@@ -7,10 +7,10 @@ public class EnemyLookAffect : MonoBehaviour
 {
     [Header("Affect while the Player is looking at the enemy")]
     [Tooltip("Sanity drain per second (applies only when the stress is >= drainGateHigh and until stress is <= healGateLow)")]
-    [Range(0f, 1f)] public float _sanityDrainPerSecond = 0.12f;
+    [Range(0f, 1f)] public float _sanityDrainPerSecond = 0.06f;
 
     [Tooltip("Stress gain per second (applied whenever seen)")]
-    [Range(0f, 1f)] public float _stressGainPerSecond = 0.35f;
+    [Range(0f, 1f)] public float _stressGainPerSecond = 0.1f;
 
     [Header("High stress drain gate (with hysteresis)")]
     [Tooltip("Begin draining Sanity when _stress is at or above this value")]
@@ -45,7 +45,7 @@ public class EnemyLookAffect : MonoBehaviour
     //Call this when the player is seeing the enemy
     public void TickAffect(ISanityProvider sanity, StressController stress, Vector3 playerPos, float dt)
     {
-        if (sanity == null || stress || dt <= 0f) return;
+        if (sanity == null || stress == null || dt <= 0f) return;
 
         float w = DistanceWeight(playerPos);
         if (w <= 0f) return;
@@ -55,7 +55,7 @@ public class EnemyLookAffect : MonoBehaviour
         {
             stress.ApplyImpulse(_stressGainPerSecond * w * dt); //stress goes up to 0->1 scale
         }
-        float s = stress.Stress;
+        float s = Mathf.Clamp01(stress.Stress);
         if (!_draining && s >= _drainGateHigh)
         {
             _draining = true;
