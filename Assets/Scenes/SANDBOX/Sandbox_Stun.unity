@@ -9687,10 +9687,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visionRange: 20
   visionAngle: 30
+  viewportRadius: 0.18
+  useLineOfSight: 1
+  losBlockers:
+    serializedVersion: 2
+    m_Bits: 512
+  losSphereRadius: 0.25
   playerCam: {fileID: 1300927939}
   enemy: {fileID: 610036395}
-  showDebug: 1
-  coneColor: {r: 1, g: 0, b: 0, a: 0.2}
 --- !u!1001 &405620398
 PrefabInstance:
   m_ObjectHideFlags: 0
