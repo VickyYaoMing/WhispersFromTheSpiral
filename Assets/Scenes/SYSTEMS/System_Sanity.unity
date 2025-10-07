@@ -594,6 +594,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5804737246465924140, guid: a901be983c210274a8c2dc913053b233, type: 3}
+      propertyPath: _sanity
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804737246465924140, guid: a901be983c210274a8c2dc913053b233, type: 3}
+      propertyPath: _stress
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5864662687444926275, guid: a901be983c210274a8c2dc913053b233, type: 3}
       propertyPath: m_RenderPostProcessing
       value: 1
@@ -874,10 +882,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 75806692677558944, guid: a901be983c210274a8c2dc913053b233, type: 3}
       insertIndex: -1
       addedObject: {fileID: 611623119}
+    - targetCorrespondingSourceObject: {fileID: 75806692677558944, guid: a901be983c210274a8c2dc913053b233, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 611623120}
   m_SourcePrefab: {fileID: 100100000, guid: a901be983c210274a8c2dc913053b233, type: 3}
 --- !u!1 &611623095 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 75806692677558944, guid: a901be983c210274a8c2dc913053b233, type: 3}
+  m_PrefabInstance: {fileID: 611623094}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &611623096 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1333395779951691931, guid: a901be983c210274a8c2dc913053b233, type: 3}
   m_PrefabInstance: {fileID: 611623094}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &611623104
@@ -928,13 +944,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc006c1a3ed843340a5f2ba013bce327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sanityDrainPerSecond: 0.05
-  _stressGainPerSecond: 0.049999997
-  _drainGateHigh: 0.8
-  _healGateLow: 0.39999998
-  _useDistanceFalloff: 1
-  _maxAffectDistance: 20
-  falloff: 2
+  stressGainPerSecond: 0.35
+  sanityDrainPerSecond: 0.1
+  drainGateHigh: 0.8
+  healGateLow: 0.6
+  useDistanceFalloff: 0
+  maxAffectDistance: 20
 --- !u!114 &611623106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -981,11 +996,33 @@ MonoBehaviour:
   caEmpty: 0.15
   caOverlayStress: 0.35
   driveDoF: 1
-  dofAperatureCalm: 4
+  dofAperatureCalm: 2
   dofAperatureStress: 12
   dofApertureOverlayAtMaxStress: 3
   dofFocusDistance: 4
   dofFocalLength: 50
+--- !u!114 &611623120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611623095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d27527ff3e3abd43992a9976d8b4c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visionRange: 20
+  visionAngle: 55
+  viewportRadius: 0.18
+  useLineOfSight: 1
+  losBlockers:
+    serializedVersion: 2
+    m_Bits: 512
+  losSphereRadius: 0.25
+  playerCam: {fileID: 611623096}
+  enemy: {fileID: 0}
 --- !u!1 &677516734
 GameObject:
   m_ObjectHideFlags: 0

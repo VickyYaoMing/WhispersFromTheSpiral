@@ -115,16 +115,12 @@ public class URP_SanityStressVFX : MonoBehaviour
         // Vignette
         if (vig)
         {
-            if(vig.intensity.value < 0.8f)
-            {
-                float addV = Mathf.Lerp(0f, vigOverlayStress, tStress);
-                float target = Mathf.Clamp01(baseV + addV);
+            float addV = Mathf.Lerp(0f, vigOverlayStress, tStress);
+            float target = Mathf.Clamp01(baseV + addV);
 
-                vig.intensity.value = Smooth(vig.intensity.value, target, ref vVel);
-                vig.smoothness.value = vigSmoothness;
-                vig.rounded.value = vignetteRounded; // bool in URP
-            }
-
+            vig.intensity.value = Smooth(vig.intensity.value, target, ref vVel);
+            vig.smoothness.value = vigSmoothness;
+            vig.rounded.value = vignetteRounded;
         }
 
         // Lens Distortion
