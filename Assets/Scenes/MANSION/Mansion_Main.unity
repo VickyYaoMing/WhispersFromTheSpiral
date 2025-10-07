@@ -844,7 +844,6 @@ Transform:
   - {fileID: 232041376758476387}
   - {fileID: 3302545043402146360}
   - {fileID: 5657066329261398595}
-  - {fileID: 4382541164193516568}
   - {fileID: 3063240659460430344}
   - {fileID: 8761920580553500493}
   - {fileID: 7341520814620682497}
@@ -1044,6 +1043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 749644359}
+  Locked: 0
 --- !u!95 &749644359
 Animator:
   serializedVersion: 7
@@ -1143,7 +1143,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 768
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -1263,7 +1263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6e47d31b715d7264c9ba991606745407, type: 3}
       propertyPath: m_Name
-      value: doorAnimation (2)
+      value: StartRoomDoor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1466,9 +1466,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6e47d31b715d7264c9ba991606745407, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2001874927}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6e47d31b715d7264c9ba991606745407, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2001874930}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6e47d31b715d7264c9ba991606745407, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2001874929}
@@ -1898,15 +1895,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6330197989133451956, guid: a901be983c210274a8c2dc913053b233, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.3
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 6330197989133451956, guid: a901be983c210274a8c2dc913053b233, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 43.2
+      value: 1.99
       objectReference: {fileID: 0}
     - target: {fileID: 6330197989133451956, guid: a901be983c210274a8c2dc913053b233, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.6
+      value: 22.34
       objectReference: {fileID: 0}
     - target: {fileID: 6330197989133451956, guid: a901be983c210274a8c2dc913053b233, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2215,6 +2212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1459325742}
+  Locked: 1
 --- !u!95 &1459325742
 Animator:
   serializedVersion: 7
@@ -2303,6 +2301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1928097004}
+  Locked: 0
 --- !u!65 &1928097009
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2448,6 +2447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2001874921}
+  Locked: 0
 --- !u!65 &2001874927
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2511,27 +2511,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0409, y: 0.008, z: 0.0020000008}
   m_Center: {x: 0, y: 0.026, z: -0.000000004947651}
---- !u!65 &2001874930
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001874920}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0409, y: 0.03, z: 0.0020000008}
-  m_Center: {x: 0, y: 0.015, z: -0.000000004947651}
 --- !u!23 &173478336155384
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2816,7 +2795,7 @@ GameObject:
   - component: {fileID: 7246811427280306143}
   - component: {fileID: 5102964841682807030}
   - component: {fileID: 6262661348048180676}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_1.011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2868,7 +2847,7 @@ GameObject:
   - component: {fileID: 3938049956036949474}
   - component: {fileID: 1101766565743681886}
   - component: {fileID: 6750705480723475829}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shelf_mp_3_2.012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3007,7 +2986,7 @@ GameObject:
   - component: {fileID: 7131454692161195523}
   - component: {fileID: 6872402349856110863}
   - component: {fileID: 1426673878342101100}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_3.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3458,7 +3437,7 @@ GameObject:
   - component: {fileID: 1132206963502645958}
   - component: {fileID: 7462771367095237940}
   - component: {fileID: 8834241079901925112}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bedside_table_2_2.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3527,7 +3506,7 @@ Transform:
   m_GameObject: {fileID: 7571850991941139503}
   serializedVersion: 2
   m_LocalRotation: {x: 0.6999786, y: 0.100150734, z: -0.10015079, w: 0.6999783}
-  m_LocalPosition: {x: -14.35469, y: -4.6880274, z: -6.446268}
+  m_LocalPosition: {x: -14.56, y: -4.69, z: -6.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3652,7 +3631,7 @@ Transform:
   m_GameObject: {fileID: 2995953891121639406}
   serializedVersion: 2
   m_LocalRotation: {x: -0.34196672, y: -0.07460803, z: 0.93575454, w: -0.043079853}
-  m_LocalPosition: {x: 1.6645594, y: -4.6880274, z: 14.969328}
+  m_LocalPosition: {x: 1.6645594, y: -4.54, z: 14.969328}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3686,7 +3665,7 @@ GameObject:
   - component: {fileID: 7090710331945006443}
   - component: {fileID: 5607608935246448925}
   - component: {fileID: 7090710331945006444}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3808,7 +3787,7 @@ GameObject:
   - component: {fileID: 6712911325844396260}
   - component: {fileID: 5696040174299146802}
   - component: {fileID: 6712911325844396261}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bookcase.017
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4545,7 +4524,7 @@ GameObject:
   - component: {fileID: 8024372278267265817}
   - component: {fileID: 435672171735554981}
   - component: {fileID: 4455078837545113842}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_2.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4564,7 +4543,7 @@ GameObject:
   - component: {fileID: 5974091753988491025}
   - component: {fileID: 5449326033858423037}
   - component: {fileID: 5974091753988491026}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: table_large_2_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5211,7 +5190,7 @@ GameObject:
   - component: {fileID: 7729878937755413279}
   - component: {fileID: 2445573654086353341}
   - component: {fileID: 8690651211033291736}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_1.012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5375,8 +5354,8 @@ Transform:
   m_GameObject: {fileID: 919132148616296023}
   serializedVersion: 2
   m_LocalRotation: {x: 0.00000014106499, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5999999, y: 0, z: 20.3}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalPosition: {x: -1.5999999, y: 0.182, z: 20.3}
+  m_LocalScale: {x: 100, y: 500, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 933850903}
@@ -5528,10 +5507,6 @@ Transform:
   - {fileID: 2140010582509697889}
   - {fileID: 4753692963419835319}
   - {fileID: 2508493450178081735}
-  - {fileID: 8615677105584030645}
-  - {fileID: 5956458736318871142}
-  - {fileID: 1832200889257733047}
-  - {fileID: 1357623867911992700}
   - {fileID: 3199789429132972513}
   - {fileID: 7584641345191683815}
   - {fileID: 711627634096750685}
@@ -5802,7 +5777,7 @@ GameObject:
   - component: {fileID: 7837078782635325885}
   - component: {fileID: 5032124290985764938}
   - component: {fileID: 6725967604295570384}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_3.012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5865,7 +5840,7 @@ GameObject:
   - component: {fileID: 432860628570204032}
   - component: {fileID: 6748429241495752191}
   - component: {fileID: 4739964466197147105}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_1.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5883,7 +5858,7 @@ GameObject:
   - component: {fileID: 7744285394234788476}
   - component: {fileID: 4641662505541883736}
   - component: {fileID: 7203370533069791409}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ceiling_fan_mp_2_1_light_on.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6057,7 +6032,7 @@ GameObject:
   - component: {fileID: 4025186355699446468}
   - component: {fileID: 8119338027146589194}
   - component: {fileID: 7298433630935797826}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_1.011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6289,7 +6264,7 @@ GameObject:
   - component: {fileID: 5326426233718086789}
   - component: {fileID: 7293932038982777824}
   - component: {fileID: 7293932038982777825}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bookcase.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6689,7 +6664,7 @@ GameObject:
   - component: {fileID: 5585720043283522894}
   - component: {fileID: 7343609365348440437}
   - component: {fileID: 890856070831027504}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_3.016
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7177,7 +7152,7 @@ GameObject:
   - component: {fileID: 8249495132206530834}
   - component: {fileID: 5731522261951785420}
   - component: {fileID: 8249495132206530835}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bedside_table_2_2.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7433,7 +7408,7 @@ GameObject:
   - component: {fileID: 3454492060718817834}
   - component: {fileID: 7194659087836655476}
   - component: {fileID: 5133893242781136694}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_3.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8065,7 +8040,7 @@ GameObject:
   - component: {fileID: 6674169514905794332}
   - component: {fileID: 3030325143975032034}
   - component: {fileID: 8084996556489870421}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_1.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8420,7 +8395,7 @@ GameObject:
   - component: {fileID: 1641758043523104561}
   - component: {fileID: 8380041523415120714}
   - component: {fileID: 8380041523415120715}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chair_mp_3_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8484,7 +8459,7 @@ GameObject:
   - component: {fileID: 4825978134479466000}
   - component: {fileID: 1631125542359545257}
   - component: {fileID: 1712547292762835464}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_3.014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8782,7 +8757,7 @@ GameObject:
   - component: {fileID: 4414380316006234022}
   - component: {fileID: 9080785331050654268}
   - component: {fileID: 7923233951360503800}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_1.015
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9155,7 +9130,7 @@ GameObject:
   - component: {fileID: 7838569448031393083}
   - component: {fileID: 7644461770986671026}
   - component: {fileID: 7838569448031393084}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bookcase.021
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9482,7 +9457,7 @@ GameObject:
   - component: {fileID: 7836339912811763856}
   - component: {fileID: 6797490979018819670}
   - component: {fileID: 7836339912811763857}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shelf_mp_3_2.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9712,11 +9687,11 @@ Transform:
   m_GameObject: {fileID: 4833544008943380317}
   serializedVersion: 2
   m_LocalRotation: {x: -0.49999997, y: -0.50000006, z: 0.50000006, w: 0.49999994}
-  m_LocalPosition: {x: 59.399998, y: 4.7000003, z: -2.9000006}
+  m_LocalPosition: {x: 7.499996, y: 4.9252086, z: 9.799999}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 552031620901979592}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1368039954985746561
 GameObject:
@@ -9729,7 +9704,7 @@ GameObject:
   - component: {fileID: 9096871269845445303}
   - component: {fileID: 8268171677286525016}
   - component: {fileID: 4297074480772012489}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_3.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9849,7 +9824,7 @@ GameObject:
   - component: {fileID: 3914472031472137313}
   - component: {fileID: 5928471826222618497}
   - component: {fileID: 7459305589468295871}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: table_large_2_3.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9884,7 +9859,7 @@ Transform:
   m_GameObject: {fileID: 5632846382873528976}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071069, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 2.1885538, y: -4.6880274, z: 14.111107}
+  m_LocalPosition: {x: 2.1885538, y: -4.54, z: 14.111107}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9902,7 +9877,7 @@ GameObject:
   - component: {fileID: 2459125319088099640}
   - component: {fileID: 2017256445161208259}
   - component: {fileID: 4579125924557925390}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_1.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10385,7 +10360,7 @@ GameObject:
   - component: {fileID: 1293377733827666614}
   - component: {fileID: 7031208481785574128}
   - component: {fileID: 7031208481785574129}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bookcase.016
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10754,7 +10729,7 @@ Transform:
   m_GameObject: {fileID: 6596079800338577687}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.31497112, z: -0, w: 0.94910127}
-  m_LocalPosition: {x: 2.156476, y: -4.6880274, z: 13.660624}
+  m_LocalPosition: {x: 2.156476, y: -4.54, z: 13.660624}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10883,7 +10858,7 @@ GameObject:
   - component: {fileID: 672342036811587816}
   - component: {fileID: 444922135595675821}
   - component: {fileID: 6175256105832069409}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bookcase.025
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11990,7 +11965,7 @@ GameObject:
   - component: {fileID: 4853026443405751944}
   - component: {fileID: 7369318442764654644}
   - component: {fileID: 7941754712304029796}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_10.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12399,7 +12374,7 @@ GameObject:
   - component: {fileID: 6113311968030066188}
   - component: {fileID: 8362492680412606417}
   - component: {fileID: 8362492680412606418}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shelf_mp_3_2.015
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12686,11 +12661,11 @@ Transform:
   m_GameObject: {fileID: 5531503155621162881}
   serializedVersion: 2
   m_LocalRotation: {x: -0.49999997, y: -0.50000006, z: 0.50000006, w: 0.49999994}
-  m_LocalPosition: {x: 53.399998, y: 4.7000003, z: -7.8999996}
+  m_LocalPosition: {x: 1.4999962, y: 4.9252086, z: 4.8}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 552031620901979592}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1834031362588951480
 MeshFilter:
@@ -13082,7 +13057,7 @@ GameObject:
   - component: {fileID: 1585404428317880122}
   - component: {fileID: 8460780131654034841}
   - component: {fileID: 8460780131654034842}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2.012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13231,7 +13206,7 @@ GameObject:
   - component: {fileID: 1897609827249416506}
   - component: {fileID: 3261704783065889373}
   - component: {fileID: 7053660002835350473}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shelf_mp_3_2.016
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13309,7 +13284,7 @@ GameObject:
   - component: {fileID: 4467952957780748556}
   - component: {fileID: 7696118196958034239}
   - component: {fileID: 7159519122014547669}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_3.011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13374,7 +13349,7 @@ GameObject:
   - component: {fileID: 526635745871811879}
   - component: {fileID: 3535176083032404066}
   - component: {fileID: 3535176083032404067}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chair_mp_3_1.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13440,7 +13415,7 @@ GameObject:
   - component: {fileID: 7619695692497298074}
   - component: {fileID: 96471571033788260}
   - component: {fileID: 7619695692497298075}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chair_mp_2_2.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13631,7 +13606,7 @@ GameObject:
   - component: {fileID: 8388336462773353962}
   - component: {fileID: 1019836821423416909}
   - component: {fileID: 7952048173815240244}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_6.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13874,7 +13849,7 @@ GameObject:
   - component: {fileID: 2316559666861221285}
   - component: {fileID: 5854024644905702767}
   - component: {fileID: 6651798692521399982}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: table_large_2_3.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14213,7 +14188,7 @@ GameObject:
   - component: {fileID: 2623638240587296949}
   - component: {fileID: 1355669100568374158}
   - component: {fileID: 5404761014440861078}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bedside_table_2_2.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14754,7 +14729,7 @@ GameObject:
   - component: {fileID: 18516006226569454}
   - component: {fileID: 1018188615588550569}
   - component: {fileID: 1352074288303041588}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_1_door_1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15137,7 +15112,7 @@ GameObject:
   - component: {fileID: 7108440764402848452}
   - component: {fileID: 2986837578207885747}
   - component: {fileID: 9190080442592833101}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15198,7 +15173,7 @@ Transform:
   m_GameObject: {fileID: 4594345053790750338}
   serializedVersion: 2
   m_LocalRotation: {x: 0.51529914, y: -0.48421773, z: 0.48421788, w: 0.51529896}
-  m_LocalPosition: {x: 3.544198, y: -4.6880274, z: 14.300663}
+  m_LocalPosition: {x: 3.58, y: -4.6880274, z: 14.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15233,7 +15208,7 @@ GameObject:
   - component: {fileID: 1390811175382088247}
   - component: {fileID: 6251365918486315895}
   - component: {fileID: 6454879324937395795}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_1_door_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15431,7 +15406,7 @@ GameObject:
   - component: {fileID: 9034308092720290287}
   - component: {fileID: 520360259402949974}
   - component: {fileID: 9034308092720290288}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bed_3_a_made.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15521,7 +15496,7 @@ GameObject:
   - component: {fileID: 6421481998431791471}
   - component: {fileID: 6948270711319752767}
   - component: {fileID: 4171466794554055302}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_1.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15753,7 +15728,7 @@ GameObject:
   - component: {fileID: 2521461673622484608}
   - component: {fileID: 6485930040213503161}
   - component: {fileID: 6421196683694906577}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_2.011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15779,7 +15754,7 @@ GameObject:
   - component: {fileID: 4534271718744450848}
   - component: {fileID: 9077922087309087593}
   - component: {fileID: 3568880902566296883}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_3.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16060,7 +16035,7 @@ GameObject:
   - component: {fileID: 8075410987331595700}
   - component: {fileID: 1208072619121433474}
   - component: {fileID: 8572981747895314556}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_1.012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16257,7 +16232,7 @@ GameObject:
   - component: {fileID: 3234811375528028937}
   - component: {fileID: 140458445324844769}
   - component: {fileID: 7474387683198778793}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_1.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16857,7 +16832,7 @@ GameObject:
   - component: {fileID: 2288778123762189518}
   - component: {fileID: 7166134672610822167}
   - component: {fileID: 4184447819920501492}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17033,7 +17008,7 @@ GameObject:
   - component: {fileID: 2941511624302600237}
   - component: {fileID: 6604857004798302931}
   - component: {fileID: 6604857004798302932}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: sofa_2_1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17052,7 +17027,7 @@ GameObject:
   - component: {fileID: 6521878953560862476}
   - component: {fileID: 6790183942294034403}
   - component: {fileID: 6790183942294034404}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shelf_mp_3_2.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17070,7 +17045,7 @@ GameObject:
   - component: {fileID: 8424868674319071308}
   - component: {fileID: 2390985406348107426}
   - component: {fileID: 2182341472485417805}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ceiling_fan_mp_2_1_light_on.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17171,7 +17146,7 @@ GameObject:
   - component: {fileID: 5610115181748678209}
   - component: {fileID: 1315551613728290384}
   - component: {fileID: 998072358878161776}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_7.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17288,7 +17263,7 @@ GameObject:
   - component: {fileID: 4671118920037313863}
   - component: {fileID: 3031918301028208162}
   - component: {fileID: 762084743802026126}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_1_door_2.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17340,7 +17315,7 @@ GameObject:
   - component: {fileID: 912394858972892030}
   - component: {fileID: 3200289036956618508}
   - component: {fileID: 6815456558125890598}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17401,7 +17376,7 @@ Transform:
   m_GameObject: {fileID: 5060317140274868861}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071069, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 2.3074503, y: -4.913929, z: 14.674936}
+  m_LocalPosition: {x: 2.3074503, y: -4.678, z: 14.674936}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17433,7 +17408,7 @@ GameObject:
   - component: {fileID: 4742888903940890732}
   - component: {fileID: 1334340602125905656}
   - component: {fileID: 4990637909555556970}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17513,7 +17488,7 @@ GameObject:
   - component: {fileID: 3839070495213634883}
   - component: {fileID: 8290537745883497691}
   - component: {fileID: 8290537745883497692}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bookcase.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18128,7 +18103,7 @@ GameObject:
   - component: {fileID: 4029067012461108084}
   - component: {fileID: 7679916127412693673}
   - component: {fileID: 7679916127412693674}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shelf_mp_3_2.017
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18317,7 +18292,7 @@ GameObject:
   - component: {fileID: 4928886648721078617}
   - component: {fileID: 1719575103395969129}
   - component: {fileID: 4928886648721078618}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bedside_table_2_2.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18692,7 +18667,7 @@ GameObject:
   - component: {fileID: 2930872447696739948}
   - component: {fileID: 7831663473287494485}
   - component: {fileID: 7831663473287494486}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chair_mp_2_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18839,7 +18814,7 @@ GameObject:
   - component: {fileID: 8696404406757772469}
   - component: {fileID: 8708425096706434847}
   - component: {fileID: 1546182039078857388}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_1.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18997,7 +18972,6 @@ GameObject:
   - component: {fileID: 232041376758476387}
   - component: {fileID: 7623132798627462600}
   - component: {fileID: 7850062679569115057}
-  - component: {fileID: 7850062679569115058}
   m_Layer: 0
   m_Name: glass_bottle_1.009
   m_TagString: Untagged
@@ -19406,7 +19380,7 @@ GameObject:
   - component: {fileID: 5285525715693993310}
   - component: {fileID: 2202463113887451536}
   - component: {fileID: 5285525715693993311}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chair_mp_3_1.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19440,7 +19414,7 @@ GameObject:
   - component: {fileID: 942143581313484932}
   - component: {fileID: 1808592091290395051}
   - component: {fileID: 3233858681809736614}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: sofa_2_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19698,7 +19672,7 @@ GameObject:
   - component: {fileID: 3822856189920484783}
   - component: {fileID: 1488771926363751703}
   - component: {fileID: 2255300231273062504}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_3.015
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19762,7 +19736,7 @@ GameObject:
   - component: {fileID: 878807598063408355}
   - component: {fileID: 1012647586603213128}
   - component: {fileID: 3138205927259416486}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: table_large_2_3.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20058,7 +20032,7 @@ GameObject:
   - component: {fileID: 9053491305149176589}
   - component: {fileID: 8148891536208260178}
   - component: {fileID: 8270224629619402655}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_1.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20312,7 +20286,7 @@ Transform:
   m_GameObject: {fileID: 3097834773908775308}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5000001, y: -0.4999999, z: 0.5000001, w: 0.49999994}
-  m_LocalPosition: {x: 17.16388, y: -4.6880274, z: 2.1298885}
+  m_LocalPosition: {x: 15.71, y: -4.69, z: 0.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20348,7 +20322,7 @@ Transform:
   m_GameObject: {fileID: 2509344513236170019}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5417893, y: -0.45438358, z: 0.4543838, w: 0.541789}
-  m_LocalPosition: {x: -15.66155, y: -3.4754038, z: -5.902835}
+  m_LocalPosition: {x: -14.664553, y: -3.672, z: -4.339835}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20853,7 +20827,7 @@ Transform:
   m_GameObject: {fileID: 1934793246754246942}
   serializedVersion: 2
   m_LocalRotation: {x: 0.028880317, y: -0.70651674, z: 0.70651686, w: 0.02888031}
-  m_LocalPosition: {x: -14.339751, y: -4.6880274, z: -4.559573}
+  m_LocalPosition: {x: -13.322318, y: -4.69, z: -3.029298}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21269,7 +21243,7 @@ GameObject:
   - component: {fileID: 7187675094018842774}
   - component: {fileID: 386787945208335166}
   - component: {fileID: 7309265842373628477}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_6.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21417,7 +21391,7 @@ GameObject:
   - component: {fileID: 6882550151997860515}
   - component: {fileID: 4606346991972920620}
   - component: {fileID: 6882550151997860516}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bedside_table_2_2.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21627,7 +21601,7 @@ Transform:
   m_GameObject: {fileID: 904651497137349513}
   serializedVersion: 2
   m_LocalRotation: {x: 0.667711, y: -0.23272756, z: 0.23272763, w: 0.66771084}
-  m_LocalPosition: {x: -15.663114, y: -3.7210207, z: -5.9122696}
+  m_LocalPosition: {x: -14.027, y: -3.727, z: -4.035}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21644,7 +21618,7 @@ GameObject:
   - component: {fileID: 3961974639942178055}
   - component: {fileID: 8153221211785861940}
   - component: {fileID: 7085802215475612241}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_2.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21934,7 +21908,7 @@ GameObject:
   - component: {fileID: 8296244491131991447}
   - component: {fileID: 5532413192358878520}
   - component: {fileID: 990794280813426652}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_1.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22792,7 +22766,7 @@ GameObject:
   - component: {fileID: 6992330158052006571}
   - component: {fileID: 8918091325708770859}
   - component: {fileID: 8918091325708770860}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chair_mp_2_2.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23051,7 +23025,7 @@ GameObject:
   - component: {fileID: 4921368855196467122}
   - component: {fileID: 5366835351345841370}
   - component: {fileID: 7815253275149170232}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23166,7 +23140,7 @@ Transform:
   m_GameObject: {fileID: 3094399511990294734}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000038264265, y: 0.8909095, z: 0.000000019506924, w: 0.45418087}
-  m_LocalPosition: {x: -15.402743, y: -4.4684095, z: -4.559573}
+  m_LocalPosition: {x: -14.385309, y: -4.470382, z: -3.029298}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23191,7 +23165,6 @@ GameObject:
   - component: {fileID: 850505461859406595}
   - component: {fileID: 8847583378688275839}
   - component: {fileID: 7391206562850540825}
-  - component: {fileID: 8847583378688275840}
   m_Layer: 0
   m_Name: glass_bottle_1.001
   m_TagString: Untagged
@@ -23499,7 +23472,7 @@ GameObject:
   - component: {fileID: 9154464651568785151}
   - component: {fileID: 3734941339570281515}
   - component: {fileID: 9154464651568785152}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bookcase.020
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23876,7 +23849,7 @@ GameObject:
   - component: {fileID: 5070560765725490492}
   - component: {fileID: 3569498712467773028}
   - component: {fileID: 6773719246276417710}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_1.011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24013,7 +23986,7 @@ GameObject:
   - component: {fileID: 867515371173450515}
   - component: {fileID: 7547728175332415114}
   - component: {fileID: 7547728175332415115}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chair_mp_3_1.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24653,7 +24626,7 @@ GameObject:
   - component: {fileID: 8180618098274880897}
   - component: {fileID: 8089878581732955115}
   - component: {fileID: 8268915688419153160}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chair_mp_3_1.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24672,7 +24645,7 @@ GameObject:
   - component: {fileID: 7809337574398782674}
   - component: {fileID: 1433124244148608496}
   - component: {fileID: 7809337574398782675}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bookcase.028
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24835,7 +24808,7 @@ GameObject:
   - component: {fileID: 2942839208750989014}
   - component: {fileID: 5353820286786819786}
   - component: {fileID: 8404693950423997527}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bookcase.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25003,7 +24976,7 @@ GameObject:
   - component: {fileID: 4647533119641186715}
   - component: {fileID: 2858971145400946815}
   - component: {fileID: 2836802539679257700}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_2.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25022,7 +24995,7 @@ GameObject:
   - component: {fileID: 8001300904207344063}
   - component: {fileID: 6600580192374451532}
   - component: {fileID: 8470572430496693922}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_1.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25760,7 +25733,7 @@ GameObject:
   - component: {fileID: 313588087360883064}
   - component: {fileID: 5498613745653931206}
   - component: {fileID: 4067981950240507847}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_3.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26614,11 +26587,11 @@ Transform:
   m_GameObject: {fileID: 7944033587132365436}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5732578, y: -0.41397533, z: 0.4139755, w: 0.57325757}
-  m_LocalPosition: {x: 1.4988413, y: -3.719431, z: 15.598408}
+  m_LocalPosition: {x: -6.8165073, y: 1.3212357, z: 23.69221}
   m_LocalScale: {x: 1.8527377, y: 1.8527377, z: 1.8527375}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 614010219}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4383674207655094362
 MeshFilter:
@@ -27340,7 +27313,7 @@ GameObject:
   - component: {fileID: 8471373278356547677}
   - component: {fileID: 145639896764496120}
   - component: {fileID: 904423837281525044}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ceiling_fan_mp_2_1_light_on.017
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27390,7 +27363,7 @@ Transform:
   m_GameObject: {fileID: 7793832074474132811}
   serializedVersion: 2
   m_LocalRotation: {x: 0.43178627, y: -0.5534653, z: 0.38405907, w: 0.5997795}
-  m_LocalPosition: {x: -2.1119146, y: -4.6880274, z: -2.7720666}
+  m_LocalPosition: {x: -2.1119146, y: -4.678, z: -2.7720666}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27469,7 +27442,7 @@ GameObject:
   - component: {fileID: 2056196185861786301}
   - component: {fileID: 4096771033705955528}
   - component: {fileID: 4492988390974553063}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bookcase.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27554,7 +27527,6 @@ GameObject:
   - component: {fileID: 3302545043402146360}
   - component: {fileID: 7051438608266220340}
   - component: {fileID: 9130185089826546681}
-  - component: {fileID: 9130185089826546682}
   m_Layer: 0
   m_Name: glass_bottle_1.010
   m_TagString: Untagged
@@ -27714,7 +27686,7 @@ GameObject:
   - component: {fileID: 6002870308472208163}
   - component: {fileID: 8275158197552492865}
   - component: {fileID: 381651939382090405}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_2.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27730,7 +27702,7 @@ Transform:
   m_GameObject: {fileID: 2392267062731116390}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5218535, y: -0.47714666, z: 0.47714716, w: 0.5218531}
-  m_LocalPosition: {x: -15.662381, y: -3.574445, z: -5.9121027}
+  m_LocalPosition: {x: -14.026267, y: -3.635, z: -4.034833}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -28286,7 +28258,7 @@ GameObject:
   - component: {fileID: 5852631846597899821}
   - component: {fileID: 6738128641368243310}
   - component: {fileID: 6738128641368243311}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bed_3_a_made
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28411,7 +28383,7 @@ GameObject:
   - component: {fileID: 1918311333164220277}
   - component: {fileID: 3203034288141935282}
   - component: {fileID: 6760031876986683371}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chair_mp_3_1.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28531,7 +28503,7 @@ GameObject:
   - component: {fileID: 3792111254339008941}
   - component: {fileID: 8600785477404631602}
   - component: {fileID: 8600785477404631603}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shelf_mp_3_2.013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28876,7 +28848,7 @@ Transform:
   m_GameObject: {fileID: 7933668596852976496}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5417893, y: -0.45438358, z: 0.4543838, w: 0.541789}
-  m_LocalPosition: {x: -15.66155, y: -4.7205462, z: -3.5927467}
+  m_LocalPosition: {x: -13.763, y: -4.72, z: -3.416}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29045,7 +29017,7 @@ GameObject:
   - component: {fileID: 1049918490187503299}
   - component: {fileID: 8061580083360706727}
   - component: {fileID: 6196899781859442078}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ceiling_fan_mp_2_1_light_on.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29303,7 +29275,7 @@ GameObject:
   - component: {fileID: 5611890779740287795}
   - component: {fileID: 8600678058342813855}
   - component: {fileID: 6957479200888332860}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_1.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29695,7 +29667,6 @@ GameObject:
   - component: {fileID: 8397001230002919316}
   - component: {fileID: 2028670349421878060}
   - component: {fileID: 6201521612425750780}
-  - component: {fileID: 8397001230002919317}
   m_Layer: 0
   m_Name: glass_bottle_1.005
   m_TagString: Untagged
@@ -29810,7 +29781,7 @@ GameObject:
   - component: {fileID: 247453348445079440}
   - component: {fileID: 6552049212526611496}
   - component: {fileID: 6552049212526611497}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bookcase.013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30272,7 +30243,7 @@ GameObject:
   - component: {fileID: 6888655626388378799}
   - component: {fileID: 9112334115524517339}
   - component: {fileID: 2833788238604920699}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_6.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30419,7 +30390,7 @@ GameObject:
   - component: {fileID: 546322418348458147}
   - component: {fileID: 8613952674961523370}
   - component: {fileID: 7698896242845609199}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_1_door_2.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31234,7 +31205,6 @@ GameObject:
   - component: {fileID: 2735701448623373053}
   - component: {fileID: 5587653601442446763}
   - component: {fileID: 8288463552431638716}
-  - component: {fileID: 8288463552431638717}
   m_Layer: 0
   m_Name: glass_bottle_1.008
   m_TagString: Untagged
@@ -31870,7 +31840,6 @@ GameObject:
   - component: {fileID: 7547790865756520251}
   - component: {fileID: 4529517434988980843}
   - component: {fileID: 8389913649747380638}
-  - component: {fileID: 8389913649747380639}
   m_Layer: 0
   m_Name: glass_bottle_1.003
   m_TagString: Untagged
@@ -32166,7 +32135,7 @@ GameObject:
   - component: {fileID: 4856107227036818899}
   - component: {fileID: 4551800697825300766}
   - component: {fileID: 5829778299870590634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_2.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32245,7 +32214,6 @@ GameObject:
   - component: {fileID: 5657066329261398595}
   - component: {fileID: 5846008303752008201}
   - component: {fileID: 6709658797599477820}
-  - component: {fileID: 6709658797599477821}
   m_Layer: 0
   m_Name: glass_bottle_1.011
   m_TagString: Untagged
@@ -32390,7 +32358,7 @@ GameObject:
   - component: {fileID: 477449852797284183}
   - component: {fileID: 1280457198197767363}
   - component: {fileID: 5266326922844964567}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: table_large_2_3.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32512,7 +32480,7 @@ GameObject:
   - component: {fileID: 4861105441397657689}
   - component: {fileID: 2059463121759023546}
   - component: {fileID: 7820697091874451720}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33058,7 +33026,7 @@ GameObject:
   - component: {fileID: 3960046174308708634}
   - component: {fileID: 4953208810603948178}
   - component: {fileID: 5408378029100529069}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33937,7 +33905,7 @@ GameObject:
   - component: {fileID: 9038644277379822342}
   - component: {fileID: 6175076435941430263}
   - component: {fileID: 2465030450754700384}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ceiling_fan_mp_2_1_light_on.019
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34164,7 +34132,7 @@ Transform:
   m_GameObject: {fileID: 4743084440005809096}
   serializedVersion: 2
   m_LocalRotation: {x: 0.67705643, y: -0.20394789, z: 0.20394795, w: 0.67705625}
-  m_LocalPosition: {x: -15.655826, y: -3.6219792, z: -5.9064875}
+  m_LocalPosition: {x: -14.654, y: -3.711, z: -4.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -34265,7 +34233,6 @@ GameObject:
   - component: {fileID: 1412071103081818788}
   - component: {fileID: 6814543086149535932}
   - component: {fileID: 8733671147146133737}
-  - component: {fileID: 8733671147146133738}
   m_Layer: 0
   m_Name: glass_bottle_1
   m_TagString: Untagged
@@ -34476,7 +34443,7 @@ GameObject:
   - component: {fileID: 3155401570887542655}
   - component: {fileID: 5935947048371137843}
   - component: {fileID: 6089551871464609296}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_1_door_1.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35257,7 +35224,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7670362728683541410, guid: d2bf0e75cc2af364388a40b5c437e3dc, type: 3}
+  - {fileID: 2100000, guid: 0fb6c0acc7ef9b043b0ce355aaa26410, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -35343,7 +35310,7 @@ GameObject:
   - component: {fileID: 5204834548714336921}
   - component: {fileID: 8368488791012910810}
   - component: {fileID: 8368488791012910811}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2.011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35681,7 +35648,7 @@ GameObject:
   - component: {fileID: 5485942304559863534}
   - component: {fileID: 8132173594552183697}
   - component: {fileID: 8132173594552183698}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bedside_table_2_2.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35791,7 +35758,7 @@ GameObject:
   - component: {fileID: 1175511253357498234}
   - component: {fileID: 4367072609651435196}
   - component: {fileID: 5865764296913900267}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bookcase.012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36333,11 +36300,11 @@ Transform:
   m_GameObject: {fileID: 6625151973352603607}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.50000006, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 35, y: 4.7000003, z: -5}
+  m_LocalPosition: {x: -16.900002, y: 4.9252086, z: 7.7}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 552031620901979592}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &5960984376423209791
 Transform:
@@ -36457,7 +36424,7 @@ GameObject:
   - component: {fileID: 3020470951127749438}
   - component: {fileID: 372719760818916828}
   - component: {fileID: 3643390348599632051}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ceiling_fan_mp_2_1_light_on.018
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36820,7 +36787,7 @@ GameObject:
   - component: {fileID: 951709018776856389}
   - component: {fileID: 4383674207655094362}
   - component: {fileID: 3130602423784739113}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_1.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37062,7 +37029,7 @@ GameObject:
   - component: {fileID: 621968301684239912}
   - component: {fileID: 2522433185741345385}
   - component: {fileID: 6059315652754921602}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shelf_mp_3_2.014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37248,7 +37215,7 @@ GameObject:
   - component: {fileID: 6372886500170234284}
   - component: {fileID: 5979951315121996868}
   - component: {fileID: 6372886500170234285}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shelf_mp_3_2.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37312,7 +37279,7 @@ GameObject:
   - component: {fileID: 6706873712117314977}
   - component: {fileID: 2110483183322023215}
   - component: {fileID: 6706873712117314978}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37576,7 +37543,6 @@ GameObject:
   - component: {fileID: 3211161135962223621}
   - component: {fileID: 747560236012832917}
   - component: {fileID: 1324989916177298350}
-  - component: {fileID: 6150101231994079692}
   m_Layer: 0
   m_Name: glass_bottle_1.004
   m_TagString: Untagged
@@ -37584,27 +37550,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &6150101231994079692
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6150101231994079691}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.10368, y: 0.103680015, z: 0.35377446}
-  m_Center: {x: -2.8472677e-10, y: 0.0000000033798968, z: -0.17758085}
 --- !u!1 &6153463539183989403
 GameObject:
   m_ObjectHideFlags: 0
@@ -38544,7 +38489,7 @@ Transform:
   m_GameObject: {fileID: 2643201496475139174}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.49999997, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 13.512826, y: -4.6880274, z: 2.1298885}
+  m_LocalPosition: {x: 12.058947, y: -4.69, z: 0.3800001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39209,7 +39154,7 @@ GameObject:
   - component: {fileID: 7563540810266399500}
   - component: {fileID: 3583533997245294043}
   - component: {fileID: 9123474293993932075}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ceiling_fan_mp_2_1_light_on.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39310,7 +39255,7 @@ GameObject:
   - component: {fileID: 210390492716321572}
   - component: {fileID: 2324465818025313192}
   - component: {fileID: 6408548047279532983}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39589,7 +39534,7 @@ GameObject:
   - component: {fileID: 5547976794940806589}
   - component: {fileID: 5552609266043467006}
   - component: {fileID: 337599381944273126}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_6.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40483,7 +40428,6 @@ GameObject:
   - component: {fileID: 1573189455297617694}
   - component: {fileID: 4479025659756857903}
   - component: {fileID: 9102997460115614578}
-  - component: {fileID: 9102997460115614579}
   m_Layer: 0
   m_Name: glass_bottle_1.002
   m_TagString: Untagged
@@ -40681,7 +40625,6 @@ GameObject:
   - component: {fileID: 937775739104091647}
   - component: {fileID: 1532978692893758731}
   - component: {fileID: 5017617924536520286}
-  - component: {fileID: 6608131435263177534}
   m_Layer: 0
   m_Name: glass_bottle_1.007
   m_TagString: Untagged
@@ -40689,27 +40632,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &6608131435263177534
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6608131435263177533}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.10368001, y: 0.10368, z: 0.35377446}
-  m_Center: {x: 0, y: -0.000000007450581, z: -0.17758061}
 --- !u!4 &6611882061981040407
 Transform:
   m_ObjectHideFlags: 0
@@ -40719,7 +40641,7 @@ Transform:
   m_GameObject: {fileID: 1074232683862266174}
   serializedVersion: 2
   m_LocalRotation: {x: -0.00000006181724, y: -0.70710665, z: 0.7071069, w: 1.0845088e-14}
-  m_LocalPosition: {x: -2.0619574, y: -4.6880274, z: -0.4158368}
+  m_LocalPosition: {x: -2.0619574, y: -4.678, z: -0.4158368}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -40950,7 +40872,7 @@ Transform:
   m_GameObject: {fileID: 2049969364181550883}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071069, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -14.897433, y: -4.6880274, z: -5.480275}
+  m_LocalPosition: {x: -13.88, y: -4.69, z: -3.95}
   m_LocalScale: {x: 1.4603817, y: 1.8142042, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41201,7 +41123,7 @@ GameObject:
   - component: {fileID: 1754754158414135402}
   - component: {fileID: 331712227593968701}
   - component: {fileID: 6670617233287006584}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shelf_mp_3_2.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41424,7 +41346,7 @@ GameObject:
   - component: {fileID: 7298653365790393084}
   - component: {fileID: 5538115698800512246}
   - component: {fileID: 4848260161383367663}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41551,27 +41473,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6709658797599477821
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5250833198417629004}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.10368001, y: 0.10368, z: 0.35377446}
-  m_Center: {x: 0, y: -0.000000007450581, z: -0.17758073}
 --- !u!33 &6712911325844396260
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -42135,7 +42036,7 @@ GameObject:
   - component: {fileID: 3986078357666360480}
   - component: {fileID: 5435700612943799045}
   - component: {fileID: 6761576537547210331}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bedside_table_2_2.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42303,7 +42204,7 @@ GameObject:
   - component: {fileID: 1348598170176529942}
   - component: {fileID: 7588363152118813052}
   - component: {fileID: 8414773291440141757}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ceiling_fan_mp_2_1_light_on.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42887,7 +42788,7 @@ GameObject:
   - component: {fileID: 2101718842092429669}
   - component: {fileID: 4176276415001733302}
   - component: {fileID: 6818321878707417246}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chair_mp_3_1.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43147,7 +43048,7 @@ GameObject:
   - component: {fileID: 3805278008311434638}
   - component: {fileID: 1708175696840343907}
   - component: {fileID: 6863004686994868495}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_1.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43312,7 +43213,7 @@ Transform:
   m_GameObject: {fileID: 4916122311187719979}
   serializedVersion: 2
   m_LocalRotation: {x: 0.49940896, y: -0.5005904, z: 0.50060767, w: 0.4993916}
-  m_LocalPosition: {x: -15.664903, y: -3.5116544, z: -5.9190655}
+  m_LocalPosition: {x: -13.605, y: -3.719, z: -4.4594836}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -43595,7 +43496,7 @@ GameObject:
   - component: {fileID: 7754594027234684603}
   - component: {fileID: 5038820410238217399}
   - component: {fileID: 7754594027234684604}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: table_large_2_3.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43946,7 +43847,7 @@ GameObject:
   - component: {fileID: 5159139523400967841}
   - component: {fileID: 8913119856490245582}
   - component: {fileID: 8913119856490245583}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: table_large_2_3.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44541,7 +44442,7 @@ GameObject:
   - component: {fileID: 4853746616707129838}
   - component: {fileID: 3345102956754079815}
   - component: {fileID: 7079942883262180552}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shelf_mp_3_2.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45192,7 +45093,7 @@ Transform:
   m_GameObject: {fileID: 3377730257195826471}
   serializedVersion: 2
   m_LocalRotation: {x: 0.656324, y: -0.2631328, z: 0.2631329, w: 0.65632385}
-  m_LocalPosition: {x: -15.669894, y: -3.6582298, z: -5.915242}
+  m_LocalPosition: {x: -14.03378, y: -3.6642091, z: -4.0379725}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45426,7 +45327,7 @@ GameObject:
   - component: {fileID: 3868652854157406458}
   - component: {fileID: 5567196083959921135}
   - component: {fileID: 5204808274249088184}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_2.012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45541,7 +45442,7 @@ GameObject:
   - component: {fileID: 8094330230366639656}
   - component: {fileID: 174700442419386985}
   - component: {fileID: 8094330230366639657}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46673,7 +46574,7 @@ GameObject:
   - component: {fileID: 5953555907596546943}
   - component: {fileID: 5090464296807200072}
   - component: {fileID: 8229233020076282891}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: table_large_2_3.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47137,7 +47038,7 @@ GameObject:
   - component: {fileID: 4245124415725115077}
   - component: {fileID: 841552037761209304}
   - component: {fileID: 3159325787663652799}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_3.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47227,7 +47128,7 @@ Transform:
   m_GameObject: {fileID: 5164922940029892677}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071069, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 2.1350374, y: -4.6880274, z: 13.366409}
+  m_LocalPosition: {x: 2.1350374, y: -4.54, z: 13.366409}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47252,7 +47153,7 @@ GameObject:
   - component: {fileID: 7807224992529658803}
   - component: {fileID: 7512405321086475340}
   - component: {fileID: 7916152856898643975}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_6.014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47309,7 +47210,7 @@ GameObject:
   - component: {fileID: 3649600827757906765}
   - component: {fileID: 8022615563005424569}
   - component: {fileID: 8022615563005424570}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chair_mp_3_1.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48044,7 +47945,7 @@ GameObject:
   - component: {fileID: 1953971937155706020}
   - component: {fileID: 8350990699609573012}
   - component: {fileID: 8350990699609573013}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bookcase.024
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48167,7 +48068,7 @@ GameObject:
   - component: {fileID: 6265259347037760434}
   - component: {fileID: 6330814215870613861}
   - component: {fileID: 7685754244494569155}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shelf_mp_3_2.018
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48756,7 +48657,7 @@ GameObject:
   - component: {fileID: 8752073183204878661}
   - component: {fileID: 3394035622366356713}
   - component: {fileID: 8752073183204878662}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chair_mp_3_1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48838,7 +48739,7 @@ GameObject:
   - component: {fileID: 3955119081770849362}
   - component: {fileID: 4019275460839231840}
   - component: {fileID: 1755697609458274370}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48889,7 +48790,7 @@ GameObject:
   - component: {fileID: 6979811885526422170}
   - component: {fileID: 1473459102155238597}
   - component: {fileID: 8279702350533915364}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_1.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49302,27 +49203,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7850062679569115058
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2995953891121639406}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.10368007, y: 0.10368002, z: 0.35377446}
-  m_Center: {x: -0.0000009748436, y: -0.000000010096739, z: -0.17758061}
 --- !u!33 &7858515621085866925
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -49574,7 +49454,7 @@ GameObject:
   - component: {fileID: 4177528058783292405}
   - component: {fileID: 6929329563044224050}
   - component: {fileID: 27572638399285342}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ceiling_fan_mp_2_1_light_on.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49600,7 +49480,7 @@ GameObject:
   - component: {fileID: 4675116942889902939}
   - component: {fileID: 2665977692086367496}
   - component: {fileID: 7586009956344098342}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_1.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49827,9 +49707,12 @@ GameObject:
   - component: {fileID: 1639087319954097996}
   - component: {fileID: 5799553496432222400}
   - component: {fileID: 7944033587132365437}
+  - component: {fileID: 7944033587132365439}
+  - component: {fileID: 7944033587132365438}
+  - component: {fileID: 7944033587132365440}
   m_Layer: 0
   m_Name: key_mp_3_1.001
-  m_TagString: Untagged
+  m_TagString: KeyStartRoom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49853,8 +49736,72 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.1428304, y: 0.051417124, z: 0.007260022}
+  m_Size: {x: 0.09, y: 0.04, z: 0.006}
   m_Center: {x: 0.007243113, y: -0.000004601573, z: -0.0036301198}
+--- !u!65 &7944033587132365438
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7944033587132365436}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.9, y: 0.98, z: 1.08}
+  m_Center: {x: 0.007243113, y: -0.000004601573, z: -0.0036301198}
+--- !u!114 &7944033587132365439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7944033587132365436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 427a72496747b55469d5b253b2e909e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomFromFront: 0
+  howCloseFromFront: 1.5
+  upwardTilt: 0
+  aboveZoomClose: 1.1
+--- !u!54 &7944033587132365440
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7944033587132365436}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!23 &7950950199673273654
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -50443,7 +50390,7 @@ GameObject:
   - component: {fileID: 8631473194519066509}
   - component: {fileID: 6136717171554581491}
   - component: {fileID: 8631473194519066510}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chair_mp_3_1.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50903,7 +50850,7 @@ GameObject:
   - component: {fileID: 9166317897313592742}
   - component: {fileID: 9191704380045335878}
   - component: {fileID: 9191704380045335877}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_1_door_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51093,7 +51040,6 @@ GameObject:
   - component: {fileID: 8289686326269829452}
   - component: {fileID: 6970729652371939443}
   - component: {fileID: 4628963889048420398}
-  - component: {fileID: 8289686326269829453}
   m_Layer: 0
   m_Name: glass_bottle_1.006
   m_TagString: Untagged
@@ -51112,7 +51058,7 @@ GameObject:
   - component: {fileID: 6418908022746595604}
   - component: {fileID: 5701390360062101857}
   - component: {fileID: 567005067314682710}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_2.015
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51371,7 +51317,7 @@ GameObject:
   - component: {fileID: 7346455060754748821}
   - component: {fileID: 7759788045134259960}
   - component: {fileID: 8187894823039489371}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bookcase.034
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51750,7 +51696,7 @@ Transform:
   m_GameObject: {fileID: 7458458858101392514}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5000001, y: -0.4999999, z: 0.5000001, w: 0.49999994}
-  m_LocalPosition: {x: 15.353887, y: -4.6880274, z: 2.140993}
+  m_LocalPosition: {x: 13.900007, y: -4.69, z: 0.3911047}
   m_LocalScale: {x: 1.266068, y: 1.2468303, z: 0.6782353}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -52270,27 +52216,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8288463552431638717
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5060317140274868861}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.10368001, y: 0.10368, z: 0.35377446}
-  m_Center: {x: 0, y: -0.000000007450581, z: -0.17758058}
 --- !u!4 &8289686326269829452
 Transform:
   m_ObjectHideFlags: 0
@@ -52306,27 +52231,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 614010219}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8289686326269829453
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8137507245086940852}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.10368001, y: 0.10368, z: 0.35377446}
-  m_Center: {x: 0, y: 0.00000094622374, z: -0.17758061}
 --- !u!23 &8290537745883497691
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -53030,7 +52934,7 @@ GameObject:
   - component: {fileID: 5555987707979963695}
   - component: {fileID: 9134999014113968754}
   - component: {fileID: 9134999014113968755}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_1.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53229,27 +53133,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8389913649747380639
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5164922940029892677}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.10368001, y: 0.10368, z: 0.35377446}
-  m_Center: {x: 0, y: -0.000000007450581, z: -0.1775806}
 --- !u!33 &8393612705539812819
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -53284,7 +53167,7 @@ GameObject:
   - component: {fileID: 3153374383333642139}
   - component: {fileID: 2358460468186128378}
   - component: {fileID: 8196082125083956857}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_1_door_1.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53303,7 +53186,7 @@ GameObject:
   - component: {fileID: 74399121454414294}
   - component: {fileID: 1845427450516403344}
   - component: {fileID: 8396247905655599882}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2.015
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53340,33 +53223,12 @@ Transform:
   m_GameObject: {fileID: 4815257386240314998}
   serializedVersion: 2
   m_LocalRotation: {x: -7.6747915e-17, y: 0.95419127, z: 7.6747915e-17, w: 0.29919732}
-  m_LocalPosition: {x: 0.6850138, y: -4.6880274, z: 15.753651}
+  m_LocalPosition: {x: 0.6850138, y: -4.600126, z: 15.753651}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 614010219}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8397001230002919317
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4815257386240314998}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.10368001, y: 0.10368, z: 0.35377446}
-  m_Center: {x: -9.8607613e-32, y: -0.000000007450581, z: -0.17758252}
 --- !u!1 &8400846145747463287
 GameObject:
   m_ObjectHideFlags: 0
@@ -53527,7 +53389,7 @@ GameObject:
   - component: {fileID: 1807020668329920944}
   - component: {fileID: 2241205141473697655}
   - component: {fileID: 8411213199759825301}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53758,7 +53620,7 @@ GameObject:
   - component: {fileID: 6309037807767970754}
   - component: {fileID: 3118669006161735601}
   - component: {fileID: 8424257630995935099}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bedside_table_2_2.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54915,7 +54777,7 @@ GameObject:
   - component: {fileID: 4562114524382937309}
   - component: {fileID: 5288673085244571961}
   - component: {fileID: 8611109496066740270}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shelf_mp_3_2.011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55055,11 +54917,11 @@ Transform:
   m_GameObject: {fileID: 1881541977299827023}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.50000006, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 29, y: 4.7000003, z: -10}
+  m_LocalPosition: {x: -22.900002, y: 4.9252086, z: 2.6999998}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 552031620901979592}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &8618965229633742870
 MeshRenderer:
@@ -55294,7 +55156,7 @@ GameObject:
   - component: {fileID: 8078980904488391019}
   - component: {fileID: 2913887843136641617}
   - component: {fileID: 8678458913173143565}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bedside_table_2_2.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55582,27 +55444,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8733671147146133738
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5632846382873528976}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.10368001, y: 0.10368, z: 0.35377446}
-  m_Center: {x: 0, y: -0.000000007450581, z: -0.17758039}
 --- !u!33 &8743987184875186130
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -55859,7 +55700,7 @@ GameObject:
   - component: {fileID: 8169174361724375312}
   - component: {fileID: 3572448726130714764}
   - component: {fileID: 8766644450851471426}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shelf_mp_3_2.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55898,7 +55739,7 @@ GameObject:
   - component: {fileID: 3933083145820405585}
   - component: {fileID: 3722822129298191313}
   - component: {fileID: 1797403770957175166}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: book_mp_3.013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56076,7 +55917,7 @@ GameObject:
   - component: {fileID: 1874238088772033029}
   - component: {fileID: 5846332210421521791}
   - component: {fileID: 8796734973172247086}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bedside_table_2_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56220,7 +56061,7 @@ GameObject:
   - component: {fileID: 414150499560024366}
   - component: {fileID: 3522301090332185166}
   - component: {fileID: 8821975196725853649}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bookcase.032
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56386,7 +56227,7 @@ GameObject:
   - component: {fileID: 160374020852793632}
   - component: {fileID: 3226730330488223548}
   - component: {fileID: 8847421816294154936}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bookcase.029
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56422,27 +56263,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3755311759297234997}
   m_Mesh: {fileID: 2298165442447927021, guid: d2bf0e75cc2af364388a40b5c437e3dc, type: 3}
---- !u!65 &8847583378688275840
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3755311759297234997}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.10368001, y: 0.10368, z: 0.35377446}
-  m_Center: {x: 0, y: -0.000000007450581, z: -0.17758043}
 --- !u!23 &8854163318759591968
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -56531,7 +56351,7 @@ GameObject:
   - component: {fileID: 8598250445373232005}
   - component: {fileID: 3821042859064445339}
   - component: {fileID: 8861133063625725731}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bedside_table_2_2.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57400,7 +57220,7 @@ GameObject:
   - component: {fileID: 5645866647086810016}
   - component: {fileID: 913742924708722656}
   - component: {fileID: 9021958026337992100}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shelf_mp_3_2.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57545,7 +57365,7 @@ GameObject:
   - component: {fileID: 1686586882144659091}
   - component: {fileID: 274536376344410475}
   - component: {fileID: 9036469141788785729}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chair_mp_2_2.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57717,7 +57537,7 @@ GameObject:
   - component: {fileID: 4949447699746536481}
   - component: {fileID: 1154867109526924439}
   - component: {fileID: 3656212855285649078}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_2_2_door_2.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58121,27 +57941,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &9102997460115614579
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6596079800338577687}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.10368001, y: 0.10368, z: 0.35377446}
-  m_Center: {x: -0.0000019073486, y: -0.000000007450581, z: -0.17758061}
 --- !u!1 &9103841112693538586
 GameObject:
   m_ObjectHideFlags: 0
@@ -58154,7 +57953,7 @@ GameObject:
   - component: {fileID: 7565693628162913881}
   - component: {fileID: 9103841112693538587}
   - component: {fileID: 8423899080238061474}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wardrobe_mp_1_door_2.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58381,27 +58180,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &9130185089826546682
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4494292932239644137}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.10368001, y: 0.10368, z: 0.35377446}
-  m_Center: {x: -9.8607613e-32, y: -0.000000007450581, z: -0.17758061}
 --- !u!23 &9134752511834271479
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -58916,6 +58694,10 @@ SceneRoots:
   m_Roots:
   - {fileID: 543450653072698605}
   - {fileID: 554166089}
+  - {fileID: 8615677105584030645}
+  - {fileID: 5956458736318871142}
+  - {fileID: 1832200889257733047}
+  - {fileID: 1357623867911992700}
   - {fileID: 552031620901979592}
   - {fileID: 140041114}
   - {fileID: 614010219}
@@ -58926,3 +58708,4 @@ SceneRoots:
   - {fileID: 1164201594}
   - {fileID: 1082722441}
   - {fileID: 431938069}
+  - {fileID: 4382541164193516568}
