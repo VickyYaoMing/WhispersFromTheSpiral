@@ -15,8 +15,6 @@ public class HuntState : StateMachineBehaviour
 
         _timeSinceLastSeen = 0f;
 
-         
-
         animator.SetBool("IsHunting", true);
         animator.SetFloat("Speed", _elkDemon.HuntSpeed); 
         Debug.Log("Entered HUNT state!");
