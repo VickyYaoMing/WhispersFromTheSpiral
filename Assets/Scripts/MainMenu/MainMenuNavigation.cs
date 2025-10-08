@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuNavigation : MonoBehaviour
 {
     [SerializeField] CanvasGroup mainCanvasGroup;
     [SerializeField] CanvasGroup optionsCanvasGroup;
     [SerializeField] CanvasGroup creditsCanvasGroup;
+
     private FadeAnimator m_fadeAnimator;
     private MenuState m_currentState;
 
@@ -44,7 +46,7 @@ public class MainMenuNavigation : MonoBehaviour
 
     public void StartGame()
     {
-        Debug.Log("Start button pressed, would load the game but there isn't one :(");
+        SceneManager.LoadScene("Mansion_Main");
     }
 
     public void ViewOptions()

@@ -3,16 +3,15 @@ using SanitySystem;
 
 public class AttackState : StateMachineBehaviour
 {
+    [Header("Attack Settings")]
+    [SerializeField] private float attackCD = 2f;
+    [SerializeField] private float attackWindupTime = 0.5f;
+    [SerializeField] private float sanityDmg = 0.5f;
+
     private ElkDemonAI _elkDemon;
     private float _coolDownTimer;
     private bool _hasAttacked;
     private SanityEffectOnPlayer _playerSanityEffect;
-
-    [Header("Attack Settings")]
-    [SerializeField] private float attackCD = 2f;
-    [SerializeField] private float attackWindupTime = 0.5f;
-    [SerializeField] private float attackAnimationDuration = 1.5f;
-    [SerializeField] private float sanityDmg = 0.5f;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

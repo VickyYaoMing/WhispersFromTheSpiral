@@ -10,9 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject NotebookMenu;
     [SerializeField] GameObject CollectibleViewMenu;
     [SerializeField] GameObject DarkOverlay;
-    public bool IsPaused { get { return m_isPaused; } }
-    public bool IsNotebookActive { get { return m_isNotebookActive; } }
-    public bool IsViewingCollectible { get { return m_isViewingCollectible; } }
+    
     private CanvasGroup m_pauseGroup;
     private CanvasGroup m_notebookGroup;
     private CanvasGroup m_collectibleGroup;
@@ -25,6 +23,9 @@ public class UIManager : MonoBehaviour
     private bool m_isPaused;
     private bool m_isNotebookActive;
     private bool m_isViewingCollectible;
+    public bool IsPaused { get { return m_isPaused; } }
+    public bool IsNotebookActive { get { return m_isNotebookActive; } }
+    public bool IsViewingCollectible { get { return m_isViewingCollectible; } }
 
     #region Unity Methods
     void Start()

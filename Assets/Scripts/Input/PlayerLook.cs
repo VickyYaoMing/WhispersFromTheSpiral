@@ -10,10 +10,11 @@ public class PlayerLook : MonoBehaviour
     [SerializeField] private Renderer[] playerMesh;
 
     private float xRotation;
-    public bool lockCamera { get; set; } = false;
     private Transform camOriginalParent;
     private Vector3 camSavedLocalPos;
     private Quaternion camSavedLocalRot;
+    public bool lockCamera { get; set; } = false;
+
 
     private void Start()
     {

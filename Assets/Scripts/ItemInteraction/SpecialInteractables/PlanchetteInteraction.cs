@@ -6,8 +6,9 @@ public class PlanchetteInteraction : MonoBehaviour
     private float speed = 1f;
     private float stopDistance = 0.01f;
     private bool shouldMove = false;
-    public bool reachedTarget { get; private set; } = false;
     private Transform targetTransform = null;
+    public bool reachedTarget { get; private set; } = false;
+ 
     public void MoveToTarget(Transform target)
     {
            targetTransform = target;

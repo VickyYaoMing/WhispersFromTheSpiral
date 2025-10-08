@@ -6,9 +6,10 @@ using System.Collections;
 public class OuijaInteraction : InteractableBase
 {
     [SerializeField] private List<GameObject> anchors;
+    [SerializeField] private TMP_Text inputText;
+
     private PlanchetteInteraction planchette;
     private KeyCode[] allKeys;
-    [SerializeField] private TMP_Text inputText;
     private string questionText = string.Empty;
     private string sonName = "oliver";
     private string deathYear = "1969";

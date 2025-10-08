@@ -4,17 +4,19 @@ using System.Collections;
 
 public class InteractionManager : MonoBehaviour
 {
+    [SerializeField] private Transform handSlot;
+    [SerializeField] private GameObject currentItem = null;
+    [SerializeField] private GameObject[] itemArray;
+
     public delegate void CollectibleHandler(GameObject collectible);
     public event CollectibleHandler OnCollectibleFound;
+
     private int availableHoldingItems = 3;
     private int currentItemSpot = 0;
     private int currentTotalItems = 0;
     private bool itemTriggered = false;
     private bool currentHandAvailable = true;
     private Func<GameObject> currentItemCallback;
-    [SerializeField] private Transform handSlot;
-    [SerializeField] private GameObject currentItem = null;
-    [SerializeField] private GameObject[] itemArray;
     private Vector3 objectOffset = new Vector3(-0.001f, 0.0004f, 0);
     private bool lockItem = false;
     private bool isTriggerALockItem = false;

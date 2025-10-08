@@ -17,8 +17,6 @@ public class SafeInteraction : InteractableBase
     private void Start()
     {
         itemShouldBeCameraLocked = true;
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
         code = new int[4];
     }
    
