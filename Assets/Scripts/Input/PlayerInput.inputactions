@@ -43,7 +43,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pause",
+                    "name": "Exit",
                     "type": "Button",
                     "id": "fab5c19b-47f3-4650-b002-b0507b59e138",
                     "expectedControlType": "",
@@ -52,7 +52,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ViewInventory",
+                    "name": "OpenNotebook",
                     "type": "Button",
                     "id": "56351715-bef5-4d12-a1ec-cfbd4c837157",
                     "expectedControlType": "",
@@ -157,7 +157,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Pause",
+                    "action": "Exit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -168,7 +168,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ViewInventory",
+                    "action": "OpenNotebook",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

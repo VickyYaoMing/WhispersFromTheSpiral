@@ -1,62 +1,134 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.Profiling;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    //add inventory
     [SerializeField] Canvas m_playerUICanvas;
-    [SerializeField] CanvasGroup m_pauseMenu;
-    [SerializeField] CanvasGroup m_viewInventory;
-    [SerializeField] CanvasGroup m_viewCollectible;
-    FadeAnimator m_FadeAnimator;
-    bool m_isPaused;
-    bool m_isInventoryActive;
+    [SerializeField] GameObject PauseMenu;
+    [SerializeField] GameObject NotebookMenu;
+    [SerializeField] GameObject CollectibleViewMenu;
+    [SerializeField] GameObject DarkOverlay;
+    private CanvasGroup m_pauseGroup;
+    private CanvasGroup m_notebookGroup;
+    private CanvasGroup m_collectibleGroup;
+    private CanvasGroup m_darkOverlayGroup;
+    private readonly CanvasGroup[] m_canvasGroups = new CanvasGroup[4];
+    private InteractionManager m_interactionManager;
+    
+    private FadeAnimator m_fadeAnimator;
+    private Notebook m_notebook;
+    private bool m_isPaused;
+    private bool m_isNotebookActive;
+    private bool m_isViewingCollectible;
 
     #region Unity Methods
-    void Awake()
+    void Start()
     {
-        m_FadeAnimator = GetComponent<FadeAnimator>();
-    }
+        m_fadeAnimator = GetComponent<FadeAnimator>();
+        m_pauseGroup = PauseMenu.GetComponent<CanvasGroup>();
+        m_notebookGroup = NotebookMenu.GetComponent<CanvasGroup>();
+        m_collectibleGroup = CollectibleViewMenu.GetComponent<CanvasGroup>();
+        m_darkOverlayGroup = DarkOverlay.GetComponent<CanvasGroup>();
+        
+        m_canvasGroups[0] = m_pauseGroup;
+        m_canvasGroups[1] = m_notebookGroup;
+        m_canvasGroups[2] = m_collectibleGroup;
+        m_canvasGroups[3] = m_darkOverlayGroup;
 
-    private void Start()
+        for (int i = 0; i < m_canvasGroups.Length; i++)
+        {
+            m_canvasGroups[i].alpha = 0.0f;
+            m_canvasGroups[i].interactable = false;
+        }
+    }
+    void OnEnable()
     {
-        m_pauseMenu.alpha = 0.0f;
-        m_viewInventory.alpha = 0.0f;
-        m_viewCollectible.alpha = 0.0f;
-        m_isPaused = false;
+        m_interactionManager = GetComponent<InteractionManager>();
+        m_notebook = GetComponent<Notebook>();
+        if (m_interactionManager != null) 
+        { 
+            m_interactionManager.OnCollectibleFound += m_notebook.AddCollectibleToNotebook;  
+            m_interactionManager.OnCollectibleFound += ViewCollectible;  
+        }
+    }
+    void OnDisable()
+    {
+        if (m_interactionManager != null) 
+        { 
+            m_interactionManager.OnCollectibleFound -= m_notebook.AddCollectibleToNotebook;
+            m_interactionManager.OnCollectibleFound -= ViewCollectible;
+        }
     }
     #endregion 
 
-    public void Pause()
+    public void Exit()
     {
+        if (m_isViewingCollectible)
+        {
+            m_fadeAnimator.FadeOut(m_collectibleGroup, 0.1f);
+            m_fadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
+            m_isViewingCollectible = false;
+            return;
+        }
+
+        if (m_isNotebookActive)
+        {
+            m_fadeAnimator.FadeOut(m_notebookGroup, 0.1f);
+            m_fadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
+            m_isNotebookActive = false;
+            return;
+        }
+
         m_isPaused = !m_isPaused;
 
         if (m_isPaused)
         {
-            m_FadeAnimator.FadeIn(m_pauseMenu, 1.0f);
-            m_pauseMenu.interactable = true;
+            m_fadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
+            m_fadeAnimator.FadeIn(m_pauseGroup, 0.5f);
+            m_pauseGroup.interactable = true;
         }
         else
         {
-            m_pauseMenu.interactable = false;
-            m_FadeAnimator.FadeOut(m_pauseMenu, 1.0f);        
+            m_pauseGroup.interactable = false;
+            m_fadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
+            m_fadeAnimator.FadeOut(m_pauseGroup, 0.5f);        
         }
     }
 
-    public void ToggleInventory()
+    public void ToggleNotebook()
     {
-        m_isInventoryActive = !m_isInventoryActive;
+        if (m_isViewingCollectible) { return; }
 
-        if (m_isInventoryActive)
+        if (m_isPaused) {  return; }
+
+        m_isNotebookActive = !m_isNotebookActive;
+
+        if (m_isNotebookActive)
         {
-            m_FadeAnimator.FadeIn(m_viewInventory, 1.0f);
-            m_viewInventory.interactable = true;
+            m_fadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
+            m_fadeAnimator.FadeIn(m_notebookGroup, 0.5f);
+            m_notebookGroup.interactable = true;
         }
         else
         {
-            m_viewInventory.interactable = false;
-            m_FadeAnimator.FadeOut(m_viewInventory, 1.0f);
+            m_notebookGroup.interactable = false;
+            m_fadeAnimator.FadeOut(m_notebookGroup, 0.5f);
+            m_fadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
         }
     }
 
-
+    private void ViewCollectible(GameObject collectible)
+    {
+        m_isViewingCollectible = true;
+        if (m_isViewingCollectible)
+        {
+            CollectibleViewMenu.GetComponent<Image>().sprite = collectible.GetComponent<CollectibleItem>().SpriteInWorld;
+            TextMeshProUGUI descriptionText = CollectibleViewMenu.GetComponentInChildren<TextMeshProUGUI>();
+            descriptionText.text = collectible.GetComponent<CollectibleItem>().Description.text;
+            m_fadeAnimator.FadeIn(m_collectibleGroup, 0.5f);
+            m_fadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
+        }
+    }
 }

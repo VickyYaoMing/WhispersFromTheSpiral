@@ -1,21 +1,29 @@
 using UnityEngine;
+using SanitySystem;
 
 public class AttackState : StateMachineBehaviour
 {
     private ElkDemonAI _elkDemon;
     private float _coolDownTimer;
     private bool _hasAttacked;
+    private SanityEffectOnPlayer _playerSanityEffect;
 
     [Header("Attack Settings")]
     [SerializeField] private float attackCD = 2f;
     [SerializeField] private float attackWindupTime = 0.5f;
     [SerializeField] private float attackAnimationDuration = 1.5f;
+    [SerializeField] private float sanityDmg = 0.5f;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (_elkDemon == null)
         {
             _elkDemon = animator.GetComponent<ElkDemonAI>();
+        }
+
+        if (_playerSanityEffect == null && _elkDemon != null && _elkDemon.Player != null)
+        {
+            _playerSanityEffect = _elkDemon.Player.GetComponentInParent<SanityEffectOnPlayer>();
         }
 
         if (animator.GetBool("IsStun"))
@@ -35,6 +43,13 @@ public class AttackState : StateMachineBehaviour
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (_elkDemon == null) return;
+
+        //// Future Stuff
+        //if (_playerSanityEffect != null && _playerSanityEffect.IsDead)
+        //{
+        //    animator.SetTrigger("PlayerDead");
+        //    return;
+        //}
 
         _coolDownTimer += Time.deltaTime;
 
@@ -79,6 +94,13 @@ public class AttackState : StateMachineBehaviour
             return;
         }
 
+        //// Check if player is SLEEPING T_T
+        //if (_playerSanityEffect != null && _playerSanityEffect.IsDead)
+        //{
+        //    animator.SetTrigger("PlayerDead");
+        //    return;
+        //}
+
         if (_coolDownTimer >= attackCD)
         {
             animator.SetTrigger("AttackComplete");
@@ -101,9 +123,32 @@ public class AttackState : StateMachineBehaviour
             // Can be modify to balance the Elk demon attack range
             // Right now it seems a bit hard for the Elk demon to REALLY hit the player
             // Play Testing require!
+            // Need to fix so the ATTACK sync with ANIMATION
+            // Right now attack count even before animation finishes
             if (distance < _elkDemon.AttackRange)
             {
                 Debug.Log("Player got hit by Mario's Attack!");
+
+                var sanity = _elkDemon.Player.GetComponentInParent<SanitySystem.Sanity>();
+                if (sanity != null)
+                {
+                    sanity.ApplyImpulse(sanityDmg);
+
+                    Debug.Log($"Sanity reduced by {sanityDmg}. New sanity: {sanity.Sanity01}");
+                   
+                    if (sanity.Sanity01 <= 0f)
+                    {
+                        Debug.Log("Death is Running!");
+                        if (_playerSanityEffect != null)
+                        {
+                            _playerSanityEffect.ZeroSanityDeath();
+                        }
+                    }                  
+                }
+                else
+                {
+                    Debug.Log("No sanity was found so I'm Schizo as hell");
+                }
             }
         }
     }
@@ -123,6 +168,6 @@ public class AttackState : StateMachineBehaviour
         Vector3 direction = (_elkDemon.Player.position - _elkDemon.transform.position).normalized;
         float dot = Vector3.Dot(_elkDemon.transform.forward, direction);
 
-        Debug.Log($"Attack Info - Distance: {distance}, Dot: {dot}, CanSee: {_elkDemon.CanSeePlayer()}");
+        //Debug.Log($"Attack Info - Distance: {distance}, Dot: {dot}, CanSee: {_elkDemon.CanSeePlayer()}");
     }
 }

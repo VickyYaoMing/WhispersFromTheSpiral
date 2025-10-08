@@ -129,7 +129,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Pause"",
+                    ""name"": ""Exit"",
                     ""type"": ""Button"",
                     ""id"": ""fab5c19b-47f3-4650-b002-b0507b59e138"",
                     ""expectedControlType"": """",
@@ -138,7 +138,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ViewInventory"",
+                    ""name"": ""OpenNotebook"",
                     ""type"": ""Button"",
                     ""id"": ""56351715-bef5-4d12-a1ec-cfbd4c837157"",
                     ""expectedControlType"": """",
@@ -243,7 +243,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Pause"",
+                    ""action"": ""Exit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -254,7 +254,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ViewInventory"",
+                    ""action"": ""OpenNotebook"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -357,8 +357,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_On_Foot_Looking = m_On_Foot.FindAction("Looking", throwIfNotFound: true);
         m_On_Foot_Jump = m_On_Foot.FindAction("Jump", throwIfNotFound: true);
         m_On_Foot_Interact = m_On_Foot.FindAction("Interact", throwIfNotFound: true);
-        m_On_Foot_Pause = m_On_Foot.FindAction("Pause", throwIfNotFound: true);
-        m_On_Foot_ViewInventory = m_On_Foot.FindAction("ViewInventory", throwIfNotFound: true);
+        m_On_Foot_Exit = m_On_Foot.FindAction("Exit", throwIfNotFound: true);
+        m_On_Foot_OpenNotebook = m_On_Foot.FindAction("OpenNotebook", throwIfNotFound: true);
         // Inventory
         m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
         m_Inventory_Item1 = m_Inventory.FindAction("Item1", throwIfNotFound: true);
@@ -450,8 +450,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_On_Foot_Looking;
     private readonly InputAction m_On_Foot_Jump;
     private readonly InputAction m_On_Foot_Interact;
-    private readonly InputAction m_On_Foot_Pause;
-    private readonly InputAction m_On_Foot_ViewInventory;
+    private readonly InputAction m_On_Foot_Exit;
+    private readonly InputAction m_On_Foot_OpenNotebook;
     /// <summary>
     /// Provides access to input actions defined in input action map "On_Foot".
     /// </summary>
@@ -480,13 +480,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Interact => m_Wrapper.m_On_Foot_Interact;
         /// <summary>
-        /// Provides access to the underlying input action "On_Foot/Pause".
+        /// Provides access to the underlying input action "On_Foot/Exit".
         /// </summary>
-        public InputAction @Pause => m_Wrapper.m_On_Foot_Pause;
+        public InputAction @Exit => m_Wrapper.m_On_Foot_Exit;
         /// <summary>
-        /// Provides access to the underlying input action "On_Foot/ViewInventory".
+        /// Provides access to the underlying input action "On_Foot/OpenNotebook".
         /// </summary>
-        public InputAction @ViewInventory => m_Wrapper.m_On_Foot_ViewInventory;
+        public InputAction @OpenNotebook => m_Wrapper.m_On_Foot_OpenNotebook;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -525,12 +525,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @Pause.started += instance.OnPause;
-            @Pause.performed += instance.OnPause;
-            @Pause.canceled += instance.OnPause;
-            @ViewInventory.started += instance.OnViewInventory;
-            @ViewInventory.performed += instance.OnViewInventory;
-            @ViewInventory.canceled += instance.OnViewInventory;
+            @Exit.started += instance.OnExit;
+            @Exit.performed += instance.OnExit;
+            @Exit.canceled += instance.OnExit;
+            @OpenNotebook.started += instance.OnOpenNotebook;
+            @OpenNotebook.performed += instance.OnOpenNotebook;
+            @OpenNotebook.canceled += instance.OnOpenNotebook;
         }
 
         /// <summary>
@@ -554,12 +554,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @Pause.started -= instance.OnPause;
-            @Pause.performed -= instance.OnPause;
-            @Pause.canceled -= instance.OnPause;
-            @ViewInventory.started -= instance.OnViewInventory;
-            @ViewInventory.performed -= instance.OnViewInventory;
-            @ViewInventory.canceled -= instance.OnViewInventory;
+            @Exit.started -= instance.OnExit;
+            @Exit.performed -= instance.OnExit;
+            @Exit.canceled -= instance.OnExit;
+            @OpenNotebook.started -= instance.OnOpenNotebook;
+            @OpenNotebook.performed -= instance.OnOpenNotebook;
+            @OpenNotebook.canceled -= instance.OnOpenNotebook;
         }
 
         /// <summary>
@@ -758,19 +758,19 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteract(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Exit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnPause(InputAction.CallbackContext context);
+        void OnExit(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "ViewInventory" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "OpenNotebook" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnViewInventory(InputAction.CallbackContext context);
+        void OnOpenNotebook(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Inventory" which allows adding and removing callbacks.
