@@ -18,36 +18,23 @@ public class ChessPieceMover : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.CompareTag("ChessPiece") && !isSelected)
+                Debug.Log("Casting ray from camera: " + cam.name);
+
+                if (hit.collider.CompareTag("ChessPiece") )
                 {
-                    selectedPiece = hit.collider.gameObject;
-                    isSelected = true;
+                     selectedPiece = hit.collider.gameObject;                    selectedPiece = hit.collider.GetComponentInParent<Transform>().gameObject;
+                    
                     Debug.Log("Selected: " + selectedPiece.name);
+                    
                 }
                 else if (isSelected && hit.collider.CompareTag("ChessSquare"))
                 {
                     GameObject selectedSquare = hit.collider.gameObject;
+                    Debug.Log(selectedSquare.name);
+                   
 
                     // Use MovePoint child if available
-                    Vector3 targetWorld;
-                    if (selectedSquare.transform.childCount > 0)
-                        targetWorld = selectedSquare.transform.GetChild(0).position;
-                    else
-                        targetWorld = selectedSquare.transform.position;
 
-                    // Convert to board-local coordinates and back to world space
-                    Vector3 targetLocal = board.InverseTransformPoint(targetWorld);
-                    Vector3 finalWorldPos = board.TransformPoint(targetLocal);
-
-                    // Apply Y offset
-                    finalWorldPos.y += yOffset;
-
-                    selectedPiece.transform.position = finalWorldPos;
-                    Debug.Log($"Moved {selectedPiece.name} to {finalWorldPos}");
-
-                    // Reset selection
-                    selectedPiece = null;
-                    isSelected = false;
                 }
             }
         }
