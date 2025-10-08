@@ -345,9 +345,9 @@ MonoBehaviour:
   ldEmpty: -0.2
   ldOverlayStress: -0.1
   caCalm: 0
-  caEmpty: 0.15
-  caOverlayStress: 0.35
-  driveDoF: 0
+  caEmpty: 0.5
+  caOverlayStress: 0.65
+  driveDoF: 1
   dofAperatureCalm: 2
   dofAperatureStress: 10
   dofApertureOverlayAtMaxStress: 1
@@ -366,8 +366,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stress: 0
-  DecayAtLow: 0.1
-  DecayAtHigh: 0.3
+  DecayAtLow: 0.07
+  DecayAtHigh: 0.09
   EpisodeGate: 0.8
   EpisodeDuration: {x: 3, y: 6}
   EpisodeCooldown: 8
@@ -2747,8 +2747,8 @@ Camera:
   m_GameObject: {fileID: 3522602154839106092}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -6941,6 +6941,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: SanityAudio
       objectReference: {fileID: 0}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _sanity
+      value: 
+      objectReference: {fileID: 1710338143261066560}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _stress
+      value: 
+      objectReference: {fileID: 7426466792189668305}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _voices2D
+      value: 
+      objectReference: {fileID: 8707854563100488527}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _breathing2D
+      value: 
+      objectReference: {fileID: 1691932602843097327}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _heartbeat2D
+      value: 
+      objectReference: {fileID: 8063648807530202026}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _breathingVolAtMax
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _heartbeatPitchMax
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _heartbeatVolAtMax
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _heartbeatVolAtCalm
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 4095431702735566926, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.263445
@@ -6999,9 +7035,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6330197989133451956}
     m_Modifications:
+    - target: {fileID: 2357370829787824314, guid: 16a2c4f3bd7ad3744b6966fb1b83be60, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5107792841315643369, guid: 16a2c4f3bd7ad3744b6966fb1b83be60, type: 3}
       propertyPath: m_Name
       value: PlayerAudio
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698566927263996698, guid: 16a2c4f3bd7ad3744b6966fb1b83be60, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352949758500629503, guid: 16a2c4f3bd7ad3744b6966fb1b83be60, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8846365775717435688, guid: 16a2c4f3bd7ad3744b6966fb1b83be60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7048,8 +7096,23 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16a2c4f3bd7ad3744b6966fb1b83be60, type: 3}
+--- !u!82 &1691932602843097327 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2357370829787824314, guid: 16a2c4f3bd7ad3744b6966fb1b83be60, type: 3}
+  m_PrefabInstance: {fileID: 4021120710847129685}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5551101292300853629 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8846365775717435688, guid: 16a2c4f3bd7ad3744b6966fb1b83be60, type: 3}
+  m_PrefabInstance: {fileID: 4021120710847129685}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &8063648807530202026 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6352949758500629503, guid: 16a2c4f3bd7ad3744b6966fb1b83be60, type: 3}
+  m_PrefabInstance: {fileID: 4021120710847129685}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &8707854563100488527 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5698566927263996698, guid: 16a2c4f3bd7ad3744b6966fb1b83be60, type: 3}
   m_PrefabInstance: {fileID: 4021120710847129685}
   m_PrefabAsset: {fileID: 0}

@@ -15,6 +15,11 @@ public class PlayerLook : MonoBehaviour
     private Vector3 camSavedLocalPos;
     private Quaternion camSavedLocalRot;
 
+    private void Start()
+    {
+        SetMeshVisible(false);
+    }
+
     public void ProcessLook(Vector2 input)
     {
         if (lockCamera) return;
@@ -41,7 +46,8 @@ public class PlayerLook : MonoBehaviour
     {
         if (lockCamera) return;
         SetMeshVisible(false);
-
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         Vector3 targetPos;
         Quaternion targetRot;
 
@@ -93,7 +99,7 @@ public class PlayerLook : MonoBehaviour
 
     public void UnlockCamera()
     {
-        SetMeshVisible(true);
+        //SetMeshVisible(true);
         cam.transform.SetParent(camOriginalParent, worldPositionStays: false);
         cam.transform.localPosition = camSavedLocalPos;
         cam.transform.localRotation = camSavedLocalRot;

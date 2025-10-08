@@ -35,8 +35,6 @@ public class DoorInteraction : MonoBehaviour
             {
                 animator.SetTrigger("OpenDoorNeg");
             }
-            Destroy(other.gameObject);
-
         }
     }
 }
