@@ -1269,6 +1269,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _delta: 0
   _playerTag: Player
+--- !u!82 &1518560865 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6352949758500629503, guid: 16a2c4f3bd7ad3744b6966fb1b83be60, type: 3}
+  m_PrefabInstance: {fileID: 563862468554720206}
+  m_PrefabAsset: {fileID: 0}
 --- !u!82 &1811666446 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 5698566927263996698, guid: 16a2c4f3bd7ad3744b6966fb1b83be60, type: 3}
@@ -1749,6 +1754,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 796516637}
     - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _heartbeat2D
+      value: 
+      objectReference: {fileID: 1518560865}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
       propertyPath: _voicesAtBroken
       value: 0.102
       objectReference: {fileID: 0}
@@ -1757,8 +1766,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _heartbeatPitchMax
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _heartbeatVolAtMax
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
       propertyPath: _breathingVolAtCalm
       value: 0.072
+      objectReference: {fileID: 0}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _heartbeatVolAtCalm
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4095431702735566926, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
       propertyPath: m_LocalPosition.x
