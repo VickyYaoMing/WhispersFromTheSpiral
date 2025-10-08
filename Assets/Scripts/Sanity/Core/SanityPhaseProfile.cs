@@ -29,6 +29,10 @@ public class SanityPhaseProfile : ScriptableObject
         [Header("Lens Distortion base (optional)")]
         [Range(-1, 1)] public float lensDistAtCalm;  // e.g. -0.05 → -0.08 → -0.12
         [Range(-1, 1)] public float lensDistAtMin;   // e.g. -0.15 → -0.18 → -0.22
+
+        [Header("Depth of field")]
+        public bool dofEnabled;
+        [Range(0f, 32f)] public float dofAperturef; //Base blue (idk exact value, but play around with this.... I think
     }
     public Phase[] phases;
 
