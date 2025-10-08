@@ -240,6 +240,22 @@ PrefabInstance:
       propertyPath: _breathing2D
       value: 
       objectReference: {fileID: 908665446}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _heartbeat2D
+      value: 
+      objectReference: {fileID: 1538029440}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _heartbeatPitchMax
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _heartbeatVolAtMax
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1117693201162782535, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
+      propertyPath: _heartbeatVolAtCalm
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 4095431702735566926, guid: 3c83c1890c9853d46a4c59bf8e6ec654, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.263445
@@ -14555,6 +14571,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1531845708}
   m_Mesh: {fileID: -1892486611939870852, guid: 8db3dd82a960e394f9ff7f5b151b512b, type: 3}
+--- !u!82 &1538029440 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6352949758500629503, guid: 16a2c4f3bd7ad3744b6966fb1b83be60, type: 3}
+  m_PrefabInstance: {fileID: 908665444}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1542699907
 GameObject:
   m_ObjectHideFlags: 0
@@ -16321,6 +16342,14 @@ PrefabInstance:
     - target: {fileID: 1222530863251032288, guid: a901be983c210274a8c2dc913053b233, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1574024096539385561, guid: a901be983c210274a8c2dc913053b233, type: 3}
+      propertyPath: DecayAtLow
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 1574024096539385561, guid: a901be983c210274a8c2dc913053b233, type: 3}
+      propertyPath: DecayAtHigh
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2474768576574833494, guid: a901be983c210274a8c2dc913053b233, type: 3}
       propertyPath: m_AnchorMax.y
