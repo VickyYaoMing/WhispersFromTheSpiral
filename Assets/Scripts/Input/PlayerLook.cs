@@ -4,8 +4,8 @@ using UnityEngine;
 public class PlayerLook : MonoBehaviour
 {
     [SerializeField] private Camera cam;
-    [SerializeField] private float xSensitivity = 30f;
-    [SerializeField] private float ySensitivity = 30f;
+    [SerializeField] private float xSensitivity = 5f;
+    [SerializeField] private float ySensitivity = 5f;
     [SerializeField] private float duration = 1f;
     [SerializeField] private Renderer[] playerMesh;
 
@@ -15,25 +15,23 @@ public class PlayerLook : MonoBehaviour
     private Quaternion camSavedLocalRot;
     public bool lockCamera { get; set; } = false;
 
-
     private void Start()
     {
-        //SetMeshVisible(false);
+        SetMeshVisible(false);
     }
 
     public void ProcessLook(Vector2 input)
     {
         if (lockCamera) return;
-        SetMeshVisible(true);
 
         float mouseX = input.x;
         float mouseY = input.y;
 
         xRotation -= mouseY * Time.deltaTime * ySensitivity;
-        xRotation = Mathf.Clamp(xRotation, -80f, 80f);
+        xRotation = Mathf.Clamp(xRotation, -60f, 60f);
 
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) * xSensitivity);
+        transform.Rotate((mouseX * Time.deltaTime) * xSensitivity * Vector3.up);
     }
 
     private void SetMeshVisible(bool visible)
