@@ -18,12 +18,13 @@ public class PlayerLook : MonoBehaviour
 
     private void Start()
     {
-        SetMeshVisible(false);
+        //SetMeshVisible(false);
     }
 
     public void ProcessLook(Vector2 input)
     {
         if (lockCamera) return;
+        SetMeshVisible(true);
 
         float mouseX = input.x;
         float mouseY = input.y;
