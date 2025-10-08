@@ -136,7 +136,7 @@ public class AttackState : StateMachineBehaviour
 
                     Debug.Log($"Sanity reduced by {sanityDmg}. New sanity: {sanity.Sanity01}");
                    
-                    if (sanity.Sanity01 <= 0f)
+                    if (sanity.Sanity01 <= 0.4f)
                     {
                         Debug.Log("Death is Running!");
                         if (_playerSanityEffect != null)
