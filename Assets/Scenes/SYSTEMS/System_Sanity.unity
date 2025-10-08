@@ -867,7 +867,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 3566747129909392921, guid: a901be983c210274a8c2dc913053b233, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -894,6 +895,17 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 1333395779951691931, guid: a901be983c210274a8c2dc913053b233, type: 3}
   m_PrefabInstance: {fileID: 611623094}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &611623097 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7315562682628124747, guid: a901be983c210274a8c2dc913053b233, type: 3}
+  m_PrefabInstance: {fileID: 611623094}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &611623104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -962,7 +974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sanity: {fileID: 611623104}
   _stress: {fileID: 611623106}
-  _volume: {fileID: 0}
+  _volume: {fileID: 611623097}
   fadeTime: 0.12
   vigBaseCalm: 0.1
   vigBaseEmpty: 0.14999999

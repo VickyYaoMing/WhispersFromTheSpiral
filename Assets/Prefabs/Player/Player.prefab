@@ -20,10 +20,9 @@ GameObject:
   - component: {fileID: 4074944947487635860}
   - component: {fileID: 721965411107132971}
   - component: {fileID: 4477187546101689098}
-  - component: {fileID: 7644734736355001187}
   - component: {fileID: 1574024096539385561}
   - component: {fileID: 5804737246465924140}
-  - component: {fileID: 3566747129909392921}
+  - component: {fileID: -4624443559342622738}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -242,25 +241,6 @@ MonoBehaviour:
   _thresholdPanicked: 0.45
   _thresholdInsane: 0.2
   _hysteresis: 0.03
---- !u!114 &7644734736355001187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 75806692677558944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc006c1a3ed843340a5f2ba013bce327, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _sanityDrainPerSecond: 0.05
-  _stressGainPerSecond: 0.049999997
-  _drainGateHigh: 0.8
-  _healGateLow: 0.39999998
-  _useDistanceFalloff: 1
-  _maxAffectDistance: 20
-  falloff: 2
 --- !u!114 &1574024096539385561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,9 +289,10 @@ MonoBehaviour:
   driveDoF: 1
   dofAperatureCalm: 4
   dofAperatureStress: 12
+  dofApertureOverlayAtMaxStress: 1
   dofFocusDistance: 4
   dofFocalLength: 50
---- !u!114 &3566747129909392921
+--- !u!114 &-4624443559342622738
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -320,16 +301,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 75806692677558944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e63e15f6c47c1b24381f21168d3ceebd, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d27527ff3e3abd43992a9976d8b4c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   visionRange: 20
-  visionAngle: 30
-  playerCam: {fileID: 1333395779951691931}
+  visionAngle: 55
+  viewportRadius: 0.18
+  useLineOfSight: 1
+  losBlockers:
+    serializedVersion: 2
+    m_Bits: 512
+  losSphereRadius: 0.25
+  playerCam: {fileID: 0}
   enemy: {fileID: 0}
-  playerMovementScript: {fileID: 8031487114536000523}
-  showDebug: 1
-  coneColor: {r: 1, g: 0, b: 0, a: 0.2}
 --- !u!1 &123642937861977095
 GameObject:
   m_ObjectHideFlags: 0
