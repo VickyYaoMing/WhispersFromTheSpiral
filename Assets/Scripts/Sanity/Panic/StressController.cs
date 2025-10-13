@@ -6,7 +6,6 @@ public class StressController : MonoBehaviour
 {
     [Header("Stress (0...1)")]
     [SerializeField, Range(0f, 1f)] float _stress = 0f;
-    public float Stress => _stress;
 
     [Header("Decay (per second)")]
     [Range(0f, 1f)] public float DecayAtLow = 0.10f;
@@ -25,6 +24,7 @@ public class StressController : MonoBehaviour
     bool _episodeActive;
     float _epTimer;
     float _epCooldownTimer;
+    public float Stress => _stress;
 
     void Update()
     {

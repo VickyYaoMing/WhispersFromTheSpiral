@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     private CharacterController controller;
     private Vector3 velocity;
     private float speed = 5;

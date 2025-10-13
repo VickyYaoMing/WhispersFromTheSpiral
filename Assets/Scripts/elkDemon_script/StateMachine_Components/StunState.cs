@@ -6,8 +6,9 @@ public class StunState : StateMachineBehaviour
     [SerializeField] private float stunDuration = 3f;
     [SerializeField] private float stunTimer = 0f;
 
+    private bool _isStun;
     private ElkDemonAI _elkDemon;
-    private bool _isStun = false;
+    public bool IsStun { get { return _isStun; } }
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

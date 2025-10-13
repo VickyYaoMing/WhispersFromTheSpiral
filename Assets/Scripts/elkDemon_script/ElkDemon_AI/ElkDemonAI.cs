@@ -13,7 +13,7 @@ public class ElkDemonAI : MonoBehaviour
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float huntSpeed = 5f;
     [SerializeField] private float maxAnimSpeed = 6f;
-    [SerializeField] private float stalkSpeed = 1f;
+    //[SerializeField] private float stalkSpeed = 1f;
 
     [Header("Sight")]
     [SerializeField] private float sightRange = 15f;

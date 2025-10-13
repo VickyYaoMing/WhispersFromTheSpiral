@@ -108,6 +108,10 @@ PrefabInstance:
       propertyPath: m_AABB.m_Center.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4719662672148931069, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4bc79c94d69cf9c4a961aac10e48e813, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

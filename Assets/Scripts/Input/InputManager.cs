@@ -12,7 +12,6 @@ public class InputManager : MonoBehaviour
     private UIManager uiManager;
     private int currentScrollIndex = 0;
 
-
     void Awake()
     {
         player_input = new PlayerInput();
