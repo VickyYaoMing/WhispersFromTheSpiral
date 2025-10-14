@@ -20,6 +20,8 @@ public class UIManager : MonoBehaviour
     
     private FadeAnimator m_fadeAnimator;
     private Notebook m_notebook;
+    private GameObject m_currentCollectibleInView;
+    private int m_currentCollectibleDescriptionIndex;
     private bool m_isPaused;
     private bool m_isNotebookActive;
     private bool m_isViewingCollectible;
@@ -71,33 +73,18 @@ public class UIManager : MonoBehaviour
     {
         if (m_isViewingCollectible)
         {
-            m_fadeAnimator.FadeOut(m_collectibleGroup, 0.1f);
-            m_fadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
-            m_isViewingCollectible = false;
-            return;
+            ExitCollectible();
         }
-
-        if (m_isNotebookActive)
+        else if (m_isNotebookActive)
         {
             m_fadeAnimator.FadeOut(m_notebookGroup, 0.1f);
             m_fadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
             m_isNotebookActive = false;
             return;
         }
-
-        m_isPaused = !m_isPaused;
-
-        if (m_isPaused)
-        {
-            m_fadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
-            m_fadeAnimator.FadeIn(m_pauseGroup, 0.5f);
-            m_pauseGroup.interactable = true;
-        }
         else
         {
-            m_pauseGroup.interactable = false;
-            m_fadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
-            m_fadeAnimator.FadeOut(m_pauseGroup, 0.5f);        
+            TogglePause();
         }
     }
 
@@ -123,14 +110,47 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private void ExitCollectible()
+    {
+        if (m_currentCollectibleDescriptionIndex < m_currentCollectibleInView.GetComponent<CollectibleItem>().DescriptionAsPages.Length - 1)
+        {
+            m_currentCollectibleDescriptionIndex++;
+            TextMeshProUGUI descriptionText = CollectibleViewMenu.GetComponentInChildren<TextMeshProUGUI>();
+            descriptionText.text = m_currentCollectibleInView.GetComponent<CollectibleItem>().DescriptionAsPages[m_currentCollectibleDescriptionIndex]; return;
+        }
+        m_currentCollectibleInView.GetComponent<CollectibleItem>().OnCollect();
+        m_fadeAnimator.FadeOut(m_collectibleGroup, 0.1f);
+        m_fadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
+        m_isViewingCollectible = false;
+    }
+
+    private void TogglePause()
+    {
+        m_isPaused = !m_isPaused;
+
+        if (m_isPaused)
+        {
+            m_fadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
+            m_fadeAnimator.FadeIn(m_pauseGroup, 0.5f);
+            m_pauseGroup.interactable = true;
+        }
+        else
+        {
+            m_pauseGroup.interactable = false;
+            m_fadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
+            m_fadeAnimator.FadeOut(m_pauseGroup, 0.5f);
+        }
+    }
+
     private void ViewCollectible(GameObject collectible)
     {
         m_isViewingCollectible = true;
         if (m_isViewingCollectible)
         {
+            m_currentCollectibleInView = collectible;
             CollectibleViewMenu.GetComponent<Image>().sprite = collectible.GetComponent<CollectibleItem>().SpriteInWorld;
             TextMeshProUGUI descriptionText = CollectibleViewMenu.GetComponentInChildren<TextMeshProUGUI>();
-            descriptionText.text = collectible.GetComponent<CollectibleItem>().Description.text;
+            descriptionText.text = collectible.GetComponent<CollectibleItem>().DescriptionAsPages[0];
             m_fadeAnimator.FadeIn(m_collectibleGroup, 0.5f);
             m_fadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
         }

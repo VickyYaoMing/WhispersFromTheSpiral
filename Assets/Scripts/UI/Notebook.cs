@@ -46,7 +46,6 @@ public class Notebook : MonoBehaviour
         m_foundCollectibles[m_currentIndex] = m_currentCollectibleData;
         NotebookSlots[m_currentIndex].GetComponent<NotebookSlot>().UpdateCollectible(m_currentCollectibleData);
         m_currentIndex++;
-        collectible.GetComponent<CollectibleItem>().OnCollect();
     }
 
     public void DisplayCollectibleInfo(NotebookSlot slot)

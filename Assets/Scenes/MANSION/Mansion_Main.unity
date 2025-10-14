@@ -1068,10 +1068,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 13
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -1079,12 +1079,20 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u201CI won\u2019t let your judgement imprison the few pieces that remain
-    of who I once was. Whisper your shallow pity if you must. Fear the tragic alleyway
+  m_Text: "I won\u2019t let your judgement imprison the few pieces that remain of
+    who I once was. Whisper your shallow pity if you must. Fear the tragic alleyway
     that led my soul to fracture or pretend that you understand, it has no consequence.
     I alone dictate what remains behind in these final moments. Feed your superstitions
-    with whatever filth spills from your corrupted minds, but know this,  the truth
-    is mine to command.\r\n"
+    with whatever filth spills from your corrupted minds, but know this, the truth
+    is mine to command. \n\nMy name is * and I killed them. Fragile lives held in
+    the palms of my hands through all my life, all of them saved just to relinquish
+    the one that mattered most. That is why I killed them. It was my spiral of despair.
+    It should have been me, yet it claimed the life of another. Another whose life
+    was mine to protect.\n\nI write not from a position of weakness but from one
+    of power. The path I chose was my own and I alone choose where it ends. The blood
+    of my actions stains the hands of those who kept me from what I loved. The only
+    regret I bear is failing to keep the darkness from my boy. \n\nI will not be
+    your prisoner. I am my own master."
 --- !u!114 &137959721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6092,6 +6100,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 857006226637204946, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1067064717630808074, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6591,6 +6603,14 @@ PrefabInstance:
     - target: {fileID: 8062693929181306961, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8477079491518349509, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8477079491518349509, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8613972868914304329, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchorMax.y
