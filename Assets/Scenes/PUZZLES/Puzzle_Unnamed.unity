@@ -757,7 +757,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1318445047}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae25dfe8b36c45240a3c7a5f3b8e8cc1, type: 3}
   m_Name: 
@@ -766,18 +766,6 @@ MonoBehaviour:
   topDownCamera: {fileID: 1883254407}
   gameObjectPlayer: {fileID: 2050985909}
   activationDistance: 3
---- !u!114 &1318445052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1318445047}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e875c0f82bfa2f64d871612ece4b07e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1318445053 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 49731e705c83c964486f7aedea418db2, type: 3}
@@ -790,7 +778,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1318445047}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01c24a0c09988ee43a4eb519b4a4ad64, type: 3}
   m_Name: 
@@ -1038,9 +1026,6 @@ PrefabInstance:
       addedObject: {fileID: 1318445050}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1318445052}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 49731e705c83c964486f7aedea418db2, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1318445054}
     - targetCorrespondingSourceObject: {fileID: 5979964962624981217, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       insertIndex: -1
@@ -1229,6 +1214,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handSlot: {fileID: 0}
+  currentItem: {fileID: 0}
+  itemArray: []
 --- !u!23 &2050985912
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1310,7 +1297,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 029c6b87e3b2cde499f618dda393495c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 400826075}
+  cam: {fileID: 0}
+  xSensitivity: 30
+  ySensitivity: 30
+  duration: 1
+  playerMesh: []
 --- !u!114 &2050985916
 MonoBehaviour:
   m_ObjectHideFlags: 0
