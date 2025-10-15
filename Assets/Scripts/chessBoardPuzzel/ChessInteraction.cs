@@ -8,7 +8,7 @@ public class ChessInteraction : InteractableBase
     void Start()
     {
         itemShouldBeCameraLocked = true;
-        pieceMask = StringLiterals.CHESS_PIECE_LAYER;
+        //pieceMask = StringLiterals.CHESS_PIECE_LAYER;
     }
 
     void Update()
