@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 828927767}
   m_Layer: 0
   m_Name: H6
-  m_TagString: ChessSquare
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -796,11 +796,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -9049888576669043988, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessPiece
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -8949545843610114296, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessPiece
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -848,7 +848,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 71ea1ded26b38574caa0321362a9ce59, type: 2}
     - target: {fileID: -6837579227697384226, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessPiece
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -6132553276772351767, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -856,7 +856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6111934479569795917, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessPiece
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -5879458529816069555, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -864,7 +864,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 71ea1ded26b38574caa0321362a9ce59, type: 2}
     - target: {fileID: -5393081659778307915, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessPiece
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -5024695578719720253, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -884,7 +884,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 71ea1ded26b38574caa0321362a9ce59, type: 2}
     - target: {fileID: -2440833985835071850, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessPiece
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -1487502064261822613, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -896,7 +896,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 71ea1ded26b38574caa0321362a9ce59, type: 2}
     - target: {fileID: -1035414816639774534, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessPiece
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -987057327935009535, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -920,11 +920,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -50090112356937193, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessPiece
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 388048816263693877, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessPiece
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 803871422039671536, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -944,15 +944,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 71ea1ded26b38574caa0321362a9ce59, type: 2}
     - target: {fileID: 1529516311917462560, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessPiece
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1667268135789064737, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessPiece
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2650565066639863077, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessPiece
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2895115682546721434, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -976,19 +976,19 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 71ea1ded26b38574caa0321362a9ce59, type: 2}
     - target: {fileID: 5193552613812583497, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessPiece
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5591457067081077251, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessPiece
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5979964962624981217, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessPiece
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6042440375891814596, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessPiece
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8433580689502319588, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -1012,7 +1012,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 71ea1ded26b38574caa0321362a9ce59, type: 2}
     - target: {fileID: 8864921961866828734, guid: 49731e705c83c964486f7aedea418db2, type: 3}
       propertyPath: m_TagString
-      value: ChessBoard
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
