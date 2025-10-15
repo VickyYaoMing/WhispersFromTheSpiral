@@ -6,6 +6,8 @@ TagManager:
   tags:
   - KeyStartRoom
   - Enemy
+  - ChessPiece
+  - ChessSquare
   layers:
   - Default
   - TransparentFX

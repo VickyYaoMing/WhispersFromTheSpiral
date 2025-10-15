@@ -4,7 +4,9 @@ public class ChessPieceMover : MonoBehaviour
 {
     [SerializeField] private Camera cam;
     [SerializeField] private float yOffset = 0.5f;
-    [SerializeField] private Transform board;    // Parent board object
+    [SerializeField] private Transform board;
+    [SerializeField] public bool wonthegame = false;
+    // Parent board object
 
     private GameObject selectedPiece = null;
     private bool isSelected = false;
@@ -31,6 +33,12 @@ public class ChessPieceMover : MonoBehaviour
                 {
                     GameObject selectedSquare = hit.collider.gameObject;
                     Debug.Log(selectedSquare.name);
+                    
+                    if(selectedSquare.name== "F7")
+                    {
+                        wonthegame=true;
+                        Debug.Log(wonthegame);
+                    }
                    
 
                     // Use MovePoint child if available
