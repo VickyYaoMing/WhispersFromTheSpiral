@@ -186,6 +186,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SafeThingy
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d6ba3b3f5f1af3541be7b7fa2fc7e968, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 1934580431494509874, guid: d6ba3b3f5f1af3541be7b7fa2fc7e968, type: 3}
       propertyPath: m_Layer
       value: 15
@@ -259,9 +263,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6ba3b3f5f1af3541be7b7fa2fc7e968, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8764040852426246409}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6ba3b3f5f1af3541be7b7fa2fc7e968, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2689082439437836085}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6ba3b3f5f1af3541be7b7fa2fc7e968, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5635019771477011694}
@@ -431,27 +432,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.1689606, y: 2.9437535, z: 2.9437532}
   m_Center: {x: 0.023923874, y: 0, z: 0.000000059604645}
---- !u!65 &2689082439437836085
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2698186738985913579}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 5.99, y: 4.78, z: 6.75}
-  m_Center: {x: 0.023923874, y: 0.8, z: 0.000000059604645}
 --- !u!114 &5635019771477011694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,7 +445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoomFromFront: 1
-  howCloseFromFront: 1
+  howCloseFromFront: 1.2
   upwardTilt: 0.2
   aboveZoomClose: 1.1
   anchors:
@@ -485,7 +465,6 @@ MonoBehaviour:
   keypadMask:
     serializedVersion: 2
     m_Bits: 32768
-  correctCode: 01000000090000000900000009000000
 --- !u!4 &3331030020572091985 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d6ba3b3f5f1af3541be7b7fa2fc7e968, type: 3}
