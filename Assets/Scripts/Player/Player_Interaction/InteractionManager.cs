@@ -1,25 +1,26 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Drawing;
 
 public class InteractionManager : MonoBehaviour
 {
     [SerializeField] private Transform handSlot;
     [SerializeField] private GameObject currentItem = null;
     [SerializeField] private GameObject[] itemArray;
+    [SerializeField] private LayerMask interactableLayer;
+    [SerializeField] private int howFarYouCanPlaceItem = 3;
+
+    private InteractableBase currentItemInteractBase = null;
 
     public delegate void CollectibleHandler(GameObject collectible);
     public event CollectibleHandler OnCollectibleFound;
 
-    private int availableHoldingItems = 3;
     private int currentItemSpot = 0;
     private int currentTotalItems = 0;
-    private bool itemTriggered = false;
     private bool currentHandAvailable = true;
-    private Func<GameObject> currentItemCallback;
     private Vector3 objectOffset = new Vector3(-0.001f, 0.0004f, 0);
     private bool lockItem = false;
-    private bool isTriggerALockItem = false;
     private InputManager inputManager;
     private PlayerLook playerLook;
 
@@ -35,35 +36,20 @@ public class InteractionManager : MonoBehaviour
         GameManager.Instance.InteractionManager = this;
     }
 
-    public void OnItemTriggered(bool isItemTriggered, Func<GameObject> callback, bool isTriggerALockItem)
-
-    {
-        itemTriggered = isItemTriggered;
-        this.isTriggerALockItem = isTriggerALockItem;
-        currentItemCallback = callback;
-
-    }
-    public void OnPlayerLeaveTrigger(bool isItemTriggered)
-    {
-        itemTriggered = isItemTriggered;
-    }
     public void GetItemInInventory(int spot)
     {
         if (lockItem) return;
-        Debug.Log("Inventory spot: " + spot);
         if(currentItemSpot != spot)
         {
             if(currentItem != null)
             {
                 currentItem.SetActive(false);
-                
             }
             if (itemArray[spot] != null)
             {
                 currentItem = itemArray[spot];
                 currentItem.SetActive(true);
                 currentHandAvailable = false;
-
             }
             if (itemArray[spot] == null)
             {
@@ -74,42 +60,40 @@ public class InteractionManager : MonoBehaviour
             currentItemSpot = spot;
         }
     }
-    public void OnInteractWithItem()
+    public void OnInteractWithItem(GameObject detectedItem)
     {
-        if(itemTriggered && currentHandAvailable && currentTotalItems < availableHoldingItems) 
+        if (currentHandAvailable) 
         {
-            OnPickUp();  
+            OnPickUp(detectedItem);  
         }
-        else if (!currentHandAvailable && !itemTriggered)
+      
+        else if (!currentHandAvailable)
         {
-            OnDrop();
-        }
-        else if(itemTriggered && !currentHandAvailable)
-        {
-            OnSwap();
+            OnSwap(detectedItem);
         }
     }
 
-    private void OnPickUp()
+    private void OnPickUp(GameObject rayHitObject)
     {
-        currentItem = currentItemCallback?.Invoke();
+        currentItem = rayHitObject;
+        currentItemInteractBase = currentItem.GetComponent<InteractableBase>();
+        lockItem = currentItemInteractBase.itemShouldBeCameraLocked;
         if (currentItem == null) return;
-        if (currentItem.GetComponent<InteractableBase>().IsCollectible)
+        currentItemInteractBase.PickedUp();
+        if (currentItemInteractBase.IsCollectible)
         {
             OnCollectibleFound?.Invoke(currentItem);
-            itemTriggered = false;
             return;
         }
-        if (currentItem.GetComponent<InteractableBase>().itemShouldBeCameraLocked)
+        if (lockItem)
         {
             OnItemCameraLock();
             return;
         }
-        currentItem.GetComponent<InteractableBase>().enabled = true;
+        currentItemInteractBase.enabled = true;
         itemArray[currentItemSpot] = currentItem;
         currentTotalItems++;
         currentHandAvailable = false;
-        itemTriggered = false;
         ItemPhysics(true);
         currentItem.transform.SetParent(handSlot.transform);
         currentItem.transform.localPosition = objectOffset;
@@ -118,53 +102,77 @@ public class InteractionManager : MonoBehaviour
     private void OnItemCameraLock()
     {
         if (itemArray[currentItemSpot]!=null) itemArray[currentItemSpot].SetActive(false);
-        lockItem = true;
         inputManager.enabled = false;
-        InteractableBase interactBase = currentItem.GetComponent<InteractableBase>();
-        playerLook.LockCameraOnItem(currentItem.transform, interactBase.howCloseFromFront, interactBase.aboveZoomClose, interactBase.upwardTilt, interactBase.zoomFromFront);
-        StartCoroutine(EnableAfterRelease());
-    }
-
-    private IEnumerator EnableAfterRelease()
-    {
-        yield return null;
+        playerLook.LockCameraOnItem(currentItem.transform, currentItemInteractBase.howCloseFromFront, currentItemInteractBase.aboveZoomClose, currentItemInteractBase.upwardTilt, currentItemInteractBase.zoomFromFront);
         currentItem.GetComponent<InteractableBase>().enabled = true;
-
     }
 
     private void Update()
     {
-        if(lockItem && Input.GetKeyDown(KeyCode.Escape))
+        AbortCameraLock();
+        RayCastItem();
+    }
+
+    private void AbortCameraLock()
+    {
+        if (lockItem && Input.GetKeyDown(KeyCode.Escape))
         {
             inputManager.enabled = true;
             playerLook.UnlockCamera();
             currentItem.GetComponent<InteractableBase>().enabled = false;
             lockItem = false;
             currentItem = itemArray[currentItemSpot];
-            if(currentItem != null) currentItem.SetActive(true);
+            if (currentItem != null) currentItem.SetActive(true);
         }
     }
 
-    private void OnDrop()
+    private void RayCastItem()
+    {
+        if (Input.GetMouseButtonDown(0) && !lockItem)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            RaycastHit hit;
+
+            if (!Physics.Raycast(ray, out hit, howFarYouCanPlaceItem)) return;
+
+            bool isHitAnInteractable = (interactableLayer.value & (1 << hit.collider.gameObject.layer)) != 0;
+            if(isHitAnInteractable)
+            {
+                GameObject currentInteractable = hit.collider.gameObject;
+                if (currentInteractable != null)
+                {
+                    OnInteractWithItem(currentInteractable);
+                }
+            }
+            else if(!currentHandAvailable)
+            {
+                Vector3 placePos = hit.point + hit.normal * 0.01f;
+                OnDrop(placePos);
+            }
+        }
+    }
+
+    private void OnDrop(Vector3 placePos)
     {
         currentHandAvailable = true;
         itemArray[currentItemSpot] = null;
         currentTotalItems--;
         currentItem.transform.SetParent(null);
-        currentItem.transform.position = transform.position + transform.forward * 1f;
+        currentItem.transform.position = placePos;
         ItemPhysics(false);
-        currentItem.GetComponent<InteractableBase>().enabled = false;
+        currentItemInteractBase.enabled = false;
         currentItem = null;
     }
-    private void OnSwap()
+    private void OnSwap(GameObject detectedItem)
     {
-        if(isTriggerALockItem)
+        if (detectedItem.GetComponent<InteractableBase>().itemShouldBeCameraLocked)
         {
-            OnPickUp();
+            OnPickUp(detectedItem);
             return;
         }
-        OnDrop();
-        OnPickUp();
+        OnDrop(detectedItem.transform.position);
+        OnPickUp(detectedItem);
     }
 
     private void ItemPhysics(bool isGoingToBePickedUp)

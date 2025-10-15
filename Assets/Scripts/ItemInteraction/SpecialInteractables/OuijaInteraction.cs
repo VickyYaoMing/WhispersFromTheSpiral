@@ -22,11 +22,6 @@ public class OuijaInteraction : InteractableBase
         this.enabled = false;
     }
 
-    public override GameObject PickedUp()
-    {
-        return base.PickedUp();
-    }
-
     public void Update()
     {
 
