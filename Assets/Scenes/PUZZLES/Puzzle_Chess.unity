@@ -134,7 +134,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4194304
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -143,7 +143,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7790281996989099063, guid: 49731e705c83c964486f7aedea418db2, type: 3}
 --- !u!1 &721238523 stripped
@@ -170,7 +170,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -9199088851693500218, guid: 49731e705c83c964486f7aedea418db2, type: 3}
 --- !u!1 &828927765
@@ -1262,7 +1262,7 @@ MonoBehaviour:
   zoomFromFront: 0
   howCloseFromFront: 1.5
   upwardTilt: 0
-  aboveZoomClose: 0.8
+  aboveZoomClose: 0.5
 --- !u!65 &1318445056
 BoxCollider:
   m_ObjectHideFlags: 0
