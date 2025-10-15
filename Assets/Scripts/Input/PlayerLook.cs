@@ -4,16 +4,21 @@ using UnityEngine;
 public class PlayerLook : MonoBehaviour
 {
     [SerializeField] private Camera cam;
-    [SerializeField] private float xSensitivity = 30f;
-    [SerializeField] private float ySensitivity = 30f;
+    [SerializeField] private float xSensitivity = 5f;
+    [SerializeField] private float ySensitivity = 5f;
     [SerializeField] private float duration = 1f;
     [SerializeField] private Renderer[] playerMesh;
 
     private float xRotation;
-    public bool lockCamera { get; set; } = false;
     private Transform camOriginalParent;
     private Vector3 camSavedLocalPos;
     private Quaternion camSavedLocalRot;
+    public bool lockCamera { get; set; } = false;
+
+    private void Start()
+    {
+        SetMeshVisible(false);
+    }
 
     public void ProcessLook(Vector2 input)
     {
@@ -23,10 +28,10 @@ public class PlayerLook : MonoBehaviour
         float mouseY = input.y;
 
         xRotation -= mouseY * Time.deltaTime * ySensitivity;
-        xRotation = Mathf.Clamp(xRotation, -80f, 80f);
+        xRotation = Mathf.Clamp(xRotation, -60f, 60f);
 
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) * xSensitivity);
+        transform.Rotate((mouseX * Time.deltaTime) * xSensitivity * Vector3.up);
     }
 
     private void SetMeshVisible(bool visible)
@@ -41,7 +46,8 @@ public class PlayerLook : MonoBehaviour
     {
         if (lockCamera) return;
         SetMeshVisible(false);
-
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         Vector3 targetPos;
         Quaternion targetRot;
 
@@ -93,7 +99,7 @@ public class PlayerLook : MonoBehaviour
 
     public void UnlockCamera()
     {
-        SetMeshVisible(true);
+        //SetMeshVisible(true);
         cam.transform.SetParent(camOriginalParent, worldPositionStays: false);
         cam.transform.localPosition = camSavedLocalPos;
         cam.transform.localRotation = camSavedLocalRot;
