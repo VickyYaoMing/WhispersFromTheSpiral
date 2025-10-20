@@ -22,7 +22,8 @@ public class InputManager : MonoBehaviour
         on_foot = player_input.On_Foot;
         inventoryActions = player_input.Inventory;
         on_foot.Jump.performed += ctx => player_movement.Jump();
-        //on_foot.Interact.performed += ctx => interactionManager.OnInteractWithItem();
+        on_foot.Crouch.performed += ctx => player_movement.Crouch();
+        on_foot.Crouch.performed += ctx => player_look.Crouch();
         on_foot.Exit.performed += ctx => uiManager.Exit();
         on_foot.OpenNotebook.performed += ctx => uiManager.ToggleNotebook();
         inventoryActions.Item1.performed += ctx => interactionManager.GetItemInInventory(0);
@@ -39,8 +40,7 @@ public class InputManager : MonoBehaviour
             if (currentScrollIndex > 2) currentScrollIndex = 0;
 
             interactionManager.GetItemInInventory(currentScrollIndex);
-        };
-        
+        };   
     }
 
     private void Update()
@@ -49,10 +49,11 @@ public class InputManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
+            Reticle.Instance.SetActivity(false);
             return;
         }
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
+        Reticle.Instance.SetActivity(true);
         player_movement.ProcessMove(on_foot.Walking.ReadValue<Vector2>());
         player_look.ProcessLook(on_foot.Looking.ReadValue<Vector2>());
     }

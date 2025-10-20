@@ -4,8 +4,8 @@ using UnityEngine;
 public class PlayerLook : MonoBehaviour
 {
     [SerializeField] private Camera cam;
-    [SerializeField] private float xSensitivity = 5f;
-    [SerializeField] private float ySensitivity = 5f;
+    [SerializeField] private float xSensitivity;
+    [SerializeField] private float ySensitivity;
     [SerializeField] private float duration = 1f;
     [SerializeField] private Renderer[] playerMesh;
 
@@ -32,6 +32,10 @@ public class PlayerLook : MonoBehaviour
 
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate((mouseX * Time.deltaTime) * xSensitivity * Vector3.up);
+    }
+    public void Crouch()
+    {
+
     }
 
     private void SetMeshVisible(bool visible)
