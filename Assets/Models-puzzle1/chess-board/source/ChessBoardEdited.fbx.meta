@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 49731e705c83c964486f7aedea418db2
+guid: 642b9addf138d0f4f97c5144a02b1b43
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chessboard_MTL
+    second: {fileID: 2100000, guid: 4a5801ef8bb39c24b9868e6de4bf4b3a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

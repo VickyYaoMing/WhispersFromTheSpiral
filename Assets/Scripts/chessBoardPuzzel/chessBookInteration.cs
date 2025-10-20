@@ -11,6 +11,6 @@ public class chessBookInteration : InteractableBase
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("found the book");
+        //Debug.Log("found the book");
     }
 }

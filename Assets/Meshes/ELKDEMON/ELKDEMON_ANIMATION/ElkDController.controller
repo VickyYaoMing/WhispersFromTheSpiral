@@ -282,7 +282,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCD: 2
   attackWindupTime: 0.5
-  attackAnimationDuration: 1.5
   sanityDmg: -0.5
 --- !u!1101 &-2862760320379415541
 AnimatorStateTransition:
@@ -566,7 +565,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCD: 3
   attackWindupTime: 0.5
-  attackAnimationDuration: 1.5
   sanityDmg: -0.5
 --- !u!1102 &2857299517591312493
 AnimatorState:
