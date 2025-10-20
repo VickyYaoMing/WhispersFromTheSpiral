@@ -70,14 +70,6 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Speed
     m_Mirror: 0
-  - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: e20d0255781d4d64f9aef41ed364ccc8, type: 3}
-    m_Threshold: 0.5
-    m_Position: {x: 0, y: 0}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: Speed
-    m_Mirror: 0
   m_BlendParameter: Speed
   m_BlendParameterY: Speed
   m_MinThreshold: 0
@@ -282,7 +274,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCD: 2
   attackWindupTime: 0.5
-  attackAnimationDuration: 1.5
   sanityDmg: -0.5
 --- !u!1101 &-2862760320379415541
 AnimatorStateTransition:
@@ -566,7 +557,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCD: 3
   attackWindupTime: 0.5
-  attackAnimationDuration: 1.5
   sanityDmg: -0.5
 --- !u!1102 &2857299517591312493
 AnimatorState:
