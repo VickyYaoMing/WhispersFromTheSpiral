@@ -1279,6 +1279,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ouija_board
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b865d45f879eb314885b9e7f1ab3775f, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 1329380249762036386, guid: b865d45f879eb314885b9e7f1ab3775f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.332
@@ -1299,13 +1303,10 @@ PrefabInstance:
       addedObject: {fileID: 2201641232291115053}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b865d45f879eb314885b9e7f1ab3775f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1759517306938484504}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b865d45f879eb314885b9e7f1ab3775f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7506661184788811875}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b865d45f879eb314885b9e7f1ab3775f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1754884940622802490}
+      addedObject: {fileID: 6826892332921861355}
     - targetCorrespondingSourceObject: {fileID: -3868710468543803471, guid: b865d45f879eb314885b9e7f1ab3775f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 329177313343136120}
@@ -1387,27 +1388,6 @@ MonoBehaviour:
   - {fileID: 4238325702469937909}
   - {fileID: 2725687330859354537}
   inputText: {fileID: 0}
---- !u!65 &1759517306938484504
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6077866641333854073}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.5, y: 1.2, z: 1.5}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7506661184788811875
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1435,7 +1415,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &1754884940622802490
+--- !u!65 &6826892332921861355
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1454,8 +1434,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.9, y: 0.04, z: 0.6}
-  m_Center: {x: 0, y: 0.01, z: 0}
+  m_Size: {x: 0.98, y: 0.07, z: 0.63}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &7025294620700017304 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4172407413395300528, guid: b865d45f879eb314885b9e7f1ab3775f, type: 3}

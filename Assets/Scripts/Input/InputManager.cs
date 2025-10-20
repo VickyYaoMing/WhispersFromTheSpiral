@@ -22,7 +22,7 @@ public class InputManager : MonoBehaviour
         on_foot = player_input.On_Foot;
         inventoryActions = player_input.Inventory;
         on_foot.Jump.performed += ctx => player_movement.Jump();
-        on_foot.Interact.performed += ctx => interactionManager.OnInteractWithItem();
+        //on_foot.Interact.performed += ctx => interactionManager.OnInteractWithItem();
         on_foot.Exit.performed += ctx => uiManager.Exit();
         on_foot.OpenNotebook.performed += ctx => uiManager.ToggleNotebook();
         inventoryActions.Item1.performed += ctx => interactionManager.GetItemInInventory(0);
