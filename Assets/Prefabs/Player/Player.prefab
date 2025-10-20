@@ -167,6 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5412a6287cb24254993ee56e3dd73c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_standingSpeed: 5
+  m_crouchingSpeed: 2
 --- !u!114 &2850495403160462639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,13 +181,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 029c6b87e3b2cde499f618dda393495c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 1333395779951691931}
-  xSensitivity: 5
-  ySensitivity: 5
-  duration: 1
-  playerMesh:
-  - {fileID: 1875875114568967981}
+  m_cam: {fileID: 1333395779951691931}
+  m_defaultSensitivity: 10
+  m_crouchSensitivity: 8
+  m_duration: 1
+  m_playerMesh:
   - {fileID: 8091885287105699501}
+  - {fileID: 1875875114568967981}
 --- !u!114 &469979764050871393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +206,7 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 65536
-  howFarYouCanPlaceItem: 3
+  howFarYouCanPlaceItem: 5
 --- !u!114 &243505681456416465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6811,8 +6813,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
