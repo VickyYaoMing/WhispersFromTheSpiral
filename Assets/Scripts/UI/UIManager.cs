@@ -144,15 +144,16 @@ public class UIManager : MonoBehaviour
 
     private void ViewCollectible(GameObject collectible)
     {
-        m_isViewingCollectible = true;
         if (m_isViewingCollectible)
         {
-            m_currentCollectibleInView = collectible;
-            CollectibleViewMenu.GetComponent<Image>().sprite = collectible.GetComponent<CollectibleItem>().SpriteInWorld;
-            TextMeshProUGUI descriptionText = CollectibleViewMenu.GetComponentInChildren<TextMeshProUGUI>();
-            descriptionText.text = collectible.GetComponent<CollectibleItem>().DescriptionAsPages[0];
-            m_fadeAnimator.FadeIn(m_collectibleGroup, 0.5f);
-            m_fadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
+            return;
         }
+        m_isViewingCollectible = true;
+        m_currentCollectibleInView = collectible;
+        CollectibleViewMenu.GetComponent<Image>().sprite = collectible.GetComponent<CollectibleItem>().SpriteInWorld;
+        TextMeshProUGUI descriptionText = CollectibleViewMenu.GetComponentInChildren<TextMeshProUGUI>();
+        descriptionText.text = collectible.GetComponent<CollectibleItem>().DescriptionAsPages[0];
+        m_fadeAnimator.FadeIn(m_collectibleGroup, 0.5f);
+        m_fadeAnimator.FadeIn(m_darkOverlayGroup, 0.5f);
     }
 }

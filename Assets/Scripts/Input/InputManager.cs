@@ -39,8 +39,7 @@ public class InputManager : MonoBehaviour
             if (currentScrollIndex > 2) currentScrollIndex = 0;
 
             interactionManager.GetItemInInventory(currentScrollIndex);
-        };
-        
+        };   
     }
 
     private void Update()
@@ -49,10 +48,11 @@ public class InputManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
+            Reticle.Instance.SetActivity(false);
             return;
         }
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
+        Reticle.Instance.SetActivity(true);
         player_movement.ProcessMove(on_foot.Walking.ReadValue<Vector2>());
         player_look.ProcessLook(on_foot.Looking.ReadValue<Vector2>());
     }

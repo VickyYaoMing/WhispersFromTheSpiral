@@ -36,6 +36,7 @@ public class Notebook : MonoBehaviour
     public void AddCollectibleToNotebook(GameObject collectible)
     {
         if (gameObject == null) { return; }
+        if(m_currentIndex >= m_maximumCollectibles) { return; }
 
         m_currentCollectibleData = new()
         {

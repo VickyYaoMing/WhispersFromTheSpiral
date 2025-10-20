@@ -101,6 +101,7 @@ public class InteractionManager : MonoBehaviour
 
     private void OnItemCameraLock()
     {
+        Reticle.Instance.SetActivity(false);
         if (itemArray[currentItemSpot]!=null) itemArray[currentItemSpot].SetActive(false);
         inputManager.enabled = false;
         playerLook.LockCameraOnItem(currentItem.transform, currentItemInteractBase.howCloseFromFront, currentItemInteractBase.aboveZoomClose, currentItemInteractBase.upwardTilt, currentItemInteractBase.zoomFromFront);
@@ -123,21 +124,26 @@ public class InteractionManager : MonoBehaviour
             lockItem = false;
             currentItem = itemArray[currentItemSpot];
             if (currentItem != null) currentItem.SetActive(true);
+            Reticle.Instance.SetActivity(true);
         }
     }
 
     private void RayCastItem()
     {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        RaycastHit hit;
+
+        if (!Physics.Raycast(ray, out hit, howFarYouCanPlaceItem)) return;
+
+        bool isHitAnInteractable = (interactableLayer.value & (1 << hit.collider.gameObject.layer)) != 0;
+
+        if (isHitAnInteractable) { Reticle.Instance.SetSprite(ReticleState.InteractableItem); }
+        else { Reticle.Instance.SetSprite(ReticleState.Default); }
+
         if (Input.GetMouseButtonDown(0) && !lockItem)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            RaycastHit hit;
-
-            if (!Physics.Raycast(ray, out hit, howFarYouCanPlaceItem)) return;
-
-            bool isHitAnInteractable = (interactableLayer.value & (1 << hit.collider.gameObject.layer)) != 0;
-            if(isHitAnInteractable)
+            if (isHitAnInteractable)
             {
                 GameObject currentInteractable = hit.collider.gameObject;
                 if (currentInteractable != null)
@@ -145,7 +151,7 @@ public class InteractionManager : MonoBehaviour
                     OnInteractWithItem(currentInteractable);
                 }
             }
-            else if(!currentHandAvailable)
+            else if (!currentHandAvailable)
             {
                 Vector3 placePos = hit.point + hit.normal * 0.01f;
                 OnDrop(placePos);
