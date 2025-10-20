@@ -180,8 +180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 1333395779951691931}
-  xSensitivity: 30
-  ySensitivity: 30
+  xSensitivity: 5
+  ySensitivity: 5
   duration: 1
   playerMesh:
   - {fileID: 1875875114568967981}
