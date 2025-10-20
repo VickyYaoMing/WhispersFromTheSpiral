@@ -21,7 +21,6 @@ public class InputManager : MonoBehaviour
         uiManager = GetComponent<UIManager>();
         on_foot = player_input.On_Foot;
         inventoryActions = player_input.Inventory;
-        on_foot.Jump.performed += ctx => player_movement.Jump();
         on_foot.Crouch.performed += ctx => player_movement.Crouch();
         on_foot.Crouch.performed += ctx => player_look.Crouch();
         on_foot.Exit.performed += ctx => uiManager.Exit();
