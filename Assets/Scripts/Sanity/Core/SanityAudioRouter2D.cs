@@ -23,6 +23,9 @@ public class SanityAudioRouter2D : MonoBehaviour
     [Range(0.1f, 3f)] public float _breathingPitchCalm = 1.00f;
     [Range(0.1f, 3f)] public float _breathingPitchMax = 1.12f;
 
+    [Header("Boot fade in")]
+    [Range(0f, 1f)] public float bootFadeSeconds = 0.15f;
+
     [Header("Debug")]
     public bool logDebug = false;
 
@@ -34,6 +37,19 @@ public class SanityAudioRouter2D : MonoBehaviour
         if (!_sanity) _sanity = GetComponentInParent<Sanity>();
         if (!_stress) _stress = GetComponentInParent<StressController>();
     }
+    // void Awake()
+    // {
+    //     PreMute(_heartbeat2D);
+    //     PreMute(_breathing2D);
+    //     PreMute(_voices2D);
+    // }
+    // void PreMute(AudioSource s)
+    // {
+    //     if (!s) return;
+    //     s.playOnAwake = false;
+    //     s.volume = 0f;
+    //     s.Stop();
+    // }
 
     void OnEnable()
     {
@@ -41,7 +57,19 @@ public class SanityAudioRouter2D : MonoBehaviour
         Setup2D(_heartbeat2D);
         Setup2D(_breathing2D);
         Setup2D(_voices2D);
+
     }
+    // void PreLoop(AudioSource s, float initialPitch)
+    // {
+    //     if (!s) return;
+    //     s.playOnAwake = false;
+    //     s.loop = true;
+    //     s.spatialBlend = 0f;
+    //     s.pitch = initialPitch;
+    //     s.volume = 0f;          // still muted at start
+    //     if (!s.isPlaying) s.Play(); // start silent, router will fade up
+
+    // }
 
     void Update()
     {
@@ -75,12 +103,11 @@ public class SanityAudioRouter2D : MonoBehaviour
             _breathing2D.pitch = Smooth(_breathing2D.pitch, p, ref _breathingPitchVel);
         }
 
-        if (logDebug)
+        if (logDebug && Time.frameCount % 30 == 0)
         {
             float calmRel = CapRelative(_sanity.Sanity01, _sanity.Cap01);
             float tSanity = 1f - calmRel;
-            Debug.Log($"[Router2D] cap={_sanity.Cap01:F2} sanity={_sanity.Sanity01:F2} tSanity={tSanity:F2} stress={tStress:F2} " +
-                      $"VO={(_voices2D ? _voices2D.volume : -1f):F2} HB={(_heartbeat2D ? _heartbeat2D.volume : -1f):F2} BR={(_breathing2D ? _breathing2D.volume : -1f):F2}");
+            Debug.Log($"[Router2D] cap={_sanity.Cap01:F2} sanity={_sanity.Sanity01:F2} tSanity={tSanity:F2} stress={tStress:F2}");
         }
     }
 

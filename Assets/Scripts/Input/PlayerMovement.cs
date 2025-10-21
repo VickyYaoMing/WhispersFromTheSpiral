@@ -2,42 +2,42 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private float m_standingSpeed = 5;
+    [SerializeField] private float m_crouchingSpeed = 2;
+    private float m_standingHeight = 2f;
+    private float m_crouchingHeight = 0.5f;
+    private float m_standingColliderCenterY = 0;
+    private float m_crouchingColliderCenterY = -0.5f;
     private CharacterController controller;
-    private Vector3 velocity;
-    private float speed = 5;
-    private bool isGrounded;
-    private float gravity = -9.8f;
-    private float jumpHeight = 1.5f;
+    private bool m_isCrouching;
 
+    #region Unity Methods
     private void Start()
     {
         controller = GetComponent<CharacterController>();
     }
-    private void Update()
-    {
-        isGrounded = controller.isGrounded;
-    }
+    #endregion
+
     public void ProcessMove(Vector2 input)
     {
         if (GameManager.Instance.IsSaving || GameManager.Instance.IsLoading) return;
         Vector3 moveDir = Vector3.zero;
         moveDir.x = input.x;
         moveDir.z = input.y;
-        controller.Move(transform.TransformDirection(moveDir) * speed * Time.deltaTime);
-        velocity.y += gravity * Time.deltaTime;
-        if(isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2;
-        }
 
-        controller.Move(velocity * Time.deltaTime);
+        float speed = m_isCrouching ? m_crouchingSpeed : m_standingSpeed;
+        controller.Move(speed * Time.deltaTime * transform.TransformDirection(moveDir));
     }
-
-    public void Jump()
+    public void Crouch()
     {
-        if(isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -(jumpHeight) * gravity);
-        }
+        m_isCrouching = !m_isCrouching;
+        float height = m_isCrouching ? m_crouchingHeight : m_standingHeight;
+        float centerY = m_isCrouching ? m_crouchingColliderCenterY : m_standingColliderCenterY;
+
+        Vector3 controllerCenter = controller.center;
+        controllerCenter.y = centerY;
+
+        controller.height = height;
+        controller.center = controllerCenter;
     }
 }
