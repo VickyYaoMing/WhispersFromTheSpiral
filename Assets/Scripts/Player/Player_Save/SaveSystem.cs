@@ -14,6 +14,7 @@ public class SaveSystem
         public PlayerSaveData PlayerData;
         public PlayerInventoryData InventoryData;
         public ItemManagerSaveData ItemManagerSaveData;
+        public bool hasSaved;
     }
     
     public static string SaveFileName()
@@ -74,6 +75,10 @@ public class SaveSystem
         GameManager.Instance.CheckpointManager.Save(ref _saveData.PlayerData);
         GameManager.Instance.InteractionManager.Save(ref _saveData.InventoryData);
         GameManager.Instance.ItemManager.Save(ref _saveData.ItemManagerSaveData);
+        if (_saveData.hasSaved)
+        {
+            _saveData.hasSaved = true;
+        }
     }
 
     public static void Load()
@@ -88,8 +93,16 @@ public class SaveSystem
 
     public static void HandleLoadData()
     {
-        GameManager.Instance.InteractionManager.Load(_saveData.InventoryData);
-        GameManager.Instance.ItemManager.Load(_saveData.ItemManagerSaveData);
+        if (_saveData.hasSaved) 
+        {
+            GameManager.Instance.InteractionManager.Load(_saveData.InventoryData);
+            GameManager.Instance.ItemManager.Load(_saveData.ItemManagerSaveData);
+        }
+    }
+
+    public bool DoesSaveExist()
+    {
+        return _saveData.hasSaved;
     }
 
 }
