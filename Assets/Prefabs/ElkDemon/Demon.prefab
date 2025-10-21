@@ -54,15 +54,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.37
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.123
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_LocalRotation.w
@@ -131,6 +131,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7047561757618068723}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2281787650835469173}
   m_SourcePrefab: {fileID: 100100000, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
 --- !u!4 &6213767349117250653 stripped
 Transform:
@@ -223,10 +226,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 2
   attackAngleThreshold: 0.7
-  moveSpeed: 3
-  huntSpeed: 5
+  moveSpeed: 1
+  huntSpeed: 1.5
   maxAnimSpeed: 6
-  stalkSpeed: 1
   sightRange: 15
   sightAngle: 270
   obstructionMask:
@@ -248,9 +250,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc006c1a3ed843340a5f2ba013bce327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stressGainPerSecond: 0.35
+  stressGainPerSecond: 0.25
   sanityDrainPerSecond: 0.1
   drainGateHigh: 0.8
   healGateLow: 0.6
   useDistanceFalloff: 0
   maxAffectDistance: 20
+--- !u!114 &2281787650835469173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6733001117681956583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce1d5a1da9c2894d908ccceafdd93b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
