@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 6689342750392235621}
   - component: {fileID: 7426466792189668305}
   - component: {fileID: 698089569364793979}
-  - component: {fileID: 2573373577210971977}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -359,40 +358,12 @@ MonoBehaviour:
   m_playerMesh:
   - {fileID: 8091885287105699501}
   - {fileID: 1875875114568967981}
-  m_camera: {fileID: 0}
+  m_camera: {fileID: 1333395779951691931}
   m_defaultSensitivity: 10
   m_crouchSensitivity: 5
   m_trippingValue: 20
   m_isTripping: 0
   m_isHeadBanging: 0
-  m_headBangAmount: 0.1
-  m_headBangFrequency: 10
-  m_headBangSmoothing: 10
-  m_duration: 1
-  m_crouchSpeed: 5
-  m_standingSpeed: 5
-  m_crouchingSpeed: 2
---- !u!114 &2573373577210971977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 75806692677558944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f108a505c6837548ab0c28bfa69ac87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_playerMesh:
-  - {fileID: 8091885287105699501}
-  - {fileID: 1875875114568967981}
-  m_camera: {fileID: 0}
-  m_defaultSensitivity: 10
-  m_crouchSensitivity: 8
-  m_trippingValue: 20
-  m_isTripping: 1
-  m_isHeadBanging: 1
   m_headBangAmount: 0.1
   m_headBangFrequency: 10
   m_headBangSmoothing: 10
