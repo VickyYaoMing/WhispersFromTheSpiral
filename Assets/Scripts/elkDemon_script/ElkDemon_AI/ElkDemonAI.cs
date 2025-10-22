@@ -25,6 +25,8 @@ public class ElkDemonAI : MonoBehaviour
     [SerializeField] private Transform[] patrolPoints;
     [SerializeField] private Transform[] observationPoints;
     [SerializeField] private Transform player;
+    [SerializeField] private BehaviorType currentBehavior;
+    [SerializeField] private AudioSource elkRoar;
 
     private NavMeshAgent _navAgent;
     private Animator _stateMachine;
@@ -33,6 +35,8 @@ public class ElkDemonAI : MonoBehaviour
     private float _playerLastSeenTime;
     private bool _hasRecentPlayerInfo;
     private int _currentObservationIndex;
+
+
 
     public bool HasRecentPlayerInfo { get { return _hasRecentPlayerInfo; } }
     public Vector3 PlayerLastKnownPosition { get { return _playerLastKnownPosition; } }
@@ -160,16 +164,6 @@ public class ElkDemonAI : MonoBehaviour
         _hasRecentPlayerInfo = true;
     }
 
-    //public Transform GetObservationPoint()
-    //{
-    //    if (observationPoints == null || observationPoints.Length == 0)
-    //        return player;
-
-    //    // Simple round-robin selection
-    //    _currentObservationIndex = (_currentObservationIndex + 1) % observationPoints.Length;
-    //    return observationPoints[_currentObservationIndex];
-    //}
-
     public void GetStunned()
     {
         _stateMachine.SetTrigger("Stunned");
@@ -186,5 +180,21 @@ public class ElkDemonAI : MonoBehaviour
         Vector3 rightDir = Quaternion.Euler(0, sightAngle / 2, 0) * transform.forward;
         Gizmos.DrawRay(transform.position + Vector3.up * eyeHeight, leftDir * sightRange);
         Gizmos.DrawRay(transform.position + Vector3.up * eyeHeight, rightDir * sightRange);
+    }
+
+    public enum BehaviorType { Roar }
+
+    public void ChangeBehavior(BehaviorType newBehavior)
+    {
+        currentBehavior = newBehavior;
+        Debug.Log($"Elk Demon behavior changed to: {currentBehavior}");
+        // Here you can plug in animation, navmesh movement, or sound triggers
+        switch (newBehavior)
+        {
+            case BehaviorType.Roar:
+                // play roar anim
+                elkRoar.Play();
+                break;
+        }
     }
 }
