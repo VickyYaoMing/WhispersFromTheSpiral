@@ -7,8 +7,8 @@ public class Movement : MonoBehaviour
 
     [Header("Camera Effects & Sensitivity")]
     [SerializeField] private Camera m_camera;
-    [SerializeField] private float m_defaultSensitivity = 10f;
-    [SerializeField] private float m_crouchSensitivity = 8f;
+    [SerializeField] private float m_defaultSensitivity = 0.1f;
+    [SerializeField] private float m_crouchSensitivity = 0.05f;
     [SerializeField] private float m_trippingValue = 1f;
     [SerializeField] private bool m_isTripping;
 
@@ -69,8 +69,8 @@ public class Movement : MonoBehaviour
             Quaternion targetXRotation;
             Quaternion targetYRotation;
 
-            m_yRotation += mouseX * Time.deltaTime * sensitivity;
-            m_xRotation -= mouseY * Time.deltaTime * sensitivity;
+            m_yRotation += mouseX * sensitivity;
+            m_xRotation -= mouseY * sensitivity;
             m_xRotation = Mathf.Clamp(m_xRotation, -60f, 60f);
 
             targetYRotation = Quaternion.Euler(0f, m_yRotation, 0f);
@@ -81,11 +81,11 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            m_xRotation -= mouseY * Time.deltaTime * sensitivity;
+            m_xRotation -= mouseY * sensitivity;
             m_xRotation = Mathf.Clamp(m_xRotation, -60f, 60f);
 
             m_camera.transform.localRotation = Quaternion.Euler(m_xRotation, 0f, 0f);
-            transform.Rotate((mouseX * Time.deltaTime) * sensitivity * Vector3.up);
+            transform.Rotate(mouseX * sensitivity * Vector3.up);
         }
 
         m_camera.transform.localPosition = Vector3.Lerp(m_camera.transform.localPosition, camPos, Time.deltaTime * m_crouchSpeed);
