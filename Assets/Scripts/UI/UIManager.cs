@@ -116,8 +116,10 @@ public class UIManager : MonoBehaviour
         {
             m_currentCollectibleDescriptionIndex++;
             TextMeshProUGUI descriptionText = CollectibleViewMenu.GetComponentInChildren<TextMeshProUGUI>();
-            descriptionText.text = m_currentCollectibleInView.GetComponent<CollectibleItem>().DescriptionAsPages[m_currentCollectibleDescriptionIndex]; return;
+            descriptionText.text = m_currentCollectibleInView.GetComponent<CollectibleItem>().DescriptionAsPages[m_currentCollectibleDescriptionIndex]; 
+            return;
         }
+        m_currentCollectibleDescriptionIndex = 0;
         m_currentCollectibleInView.GetComponent<CollectibleItem>().OnCollect();
         m_fadeAnimator.FadeOut(m_collectibleGroup, 0.1f);
         m_fadeAnimator.FadeOut(m_darkOverlayGroup, 0.5f);
@@ -144,10 +146,7 @@ public class UIManager : MonoBehaviour
 
     private void ViewCollectible(GameObject collectible)
     {
-        if (m_isViewingCollectible)
-        {
-            return;
-        }
+        if (m_isViewingCollectible) { return; }
         m_isViewingCollectible = true;
         m_currentCollectibleInView = collectible;
         CollectibleViewMenu.GetComponent<Image>().sprite = collectible.GetComponent<CollectibleItem>().SpriteInWorld;
