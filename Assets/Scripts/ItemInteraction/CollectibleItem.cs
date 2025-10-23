@@ -1,3 +1,6 @@
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,18 +10,31 @@ public class CollectibleItem : InteractableBase
     public Sprite SpriteInWorld { get { return m_sprites[0]; } }
     public Sprite SpriteInNotebook { get { return m_sprites[1]; } }
     public Text Description { get; private set; }
+    public string[] DescriptionAsPages { get; private set; }
 
     #region Unity Methods
     private void Start()
     {
         Description = GetComponent<Text>();
         IsCollectible = true;
+        DescriptionAsPages = SplitDescription(Description.text);
     }
     #endregion
 
     public void OnCollect()
     {
         Destroy(gameObject);
+    }
+
+    private string[] SplitDescription(string description)
+    {
+        List<string> pages = new();
+        string[] lines = description.Split(new[] { "\n\n" }, StringSplitOptions.None);
+        foreach (string line in lines)
+        {
+            pages.Add(line);
+        }
+        return pages.ToArray();
     }
 
 }

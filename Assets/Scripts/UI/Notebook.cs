@@ -36,6 +36,7 @@ public class Notebook : MonoBehaviour
     public void AddCollectibleToNotebook(GameObject collectible)
     {
         if (gameObject == null) { return; }
+        if(m_currentIndex >= m_maximumCollectibles) { return; }
 
         m_currentCollectibleData = new()
         {
@@ -46,7 +47,6 @@ public class Notebook : MonoBehaviour
         m_foundCollectibles[m_currentIndex] = m_currentCollectibleData;
         NotebookSlots[m_currentIndex].GetComponent<NotebookSlot>().UpdateCollectible(m_currentCollectibleData);
         m_currentIndex++;
-        collectible.GetComponent<CollectibleItem>().OnCollect();
     }
 
     public void DisplayCollectibleInfo(NotebookSlot slot)
