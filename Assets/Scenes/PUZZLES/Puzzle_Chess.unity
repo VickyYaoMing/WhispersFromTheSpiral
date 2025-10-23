@@ -2269,6 +2269,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: m_defaultSensitivity
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 771196179692006720, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5821,27 +5825,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.54, y: 0.17, z: 0.55}
   m_Center: {x: 0, y: 0.03, z: 0}
---- !u!65 &2139142999
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132147939116549}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.71, y: 0.45, z: 1.41}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2139143000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6296,10 +6279,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 543450651594448063}
-  - component: {fileID: 2139142999}
   - component: {fileID: 2139142998}
   - component: {fileID: 2139143000}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: ChessBoardEdited
   m_TagString: Untagged
   m_Icon: {fileID: 0}
