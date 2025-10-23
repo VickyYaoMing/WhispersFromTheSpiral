@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class ItemManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public List<Default_Item> currentItems;
     private Dictionary<GameObject, GameObject> itemToPrefabMap = new Dictionary<GameObject, GameObject>();
+    [SerializeField] private List<GameObject> itemPrefabs;
 
     void Start()
     {
@@ -17,15 +19,14 @@ public class ItemManager : MonoBehaviour
     void Awake()
     {
         GameManager.Instance.ItemManager = this;
-        currentItems = FindObjectsByType<Default_Item>(default).ToList();
+        RefreshItemList();
         foreach (var item in currentItems)
         {
-            Debug.Log(item);
-            itemToPrefabMap[item.gameObject] = item.gameObject;
-            //if (GameManager.Instance.Player.GetComponent<InteractionManager>().isItemInInventory(item))
-            //{
-            //    currentItems.Remove(item);
-            //}
+            GameObject prefab = GetPrefabForItem(item.gameObject);
+            if (prefab != null)
+            {
+                itemToPrefabMap[item.gameObject] = prefab;
+            }
         }
     }
 
@@ -34,12 +35,43 @@ public class ItemManager : MonoBehaviour
     {
     }
 
+    private void RefreshItemList()
+    {
+        currentItems = FindObjectsByType<Default_Item>(default).ToList();
+    }
+
+    private GameObject GetPrefabForItem(GameObject sceneItem)
+    {
+        //Find the prefab for the item
+        foreach (var prefab in itemPrefabs)
+        {
+            if (prefab.name == sceneItem.name.Replace("(Clone)", ""))
+            {
+                return prefab;
+            }
+        }
+        return null;
+    }
+
+
     public void Save(ref ItemManagerSaveData data)
     {
+        Debug.Log("saving");
         List<ItemSaveData> ItemSaveDataList = new List<ItemSaveData>();
+        RefreshItemList();
 
+        itemToPrefabMap.Clear();
+
+        foreach (var item in currentItems)
+        {
+            GameObject prefab = GetPrefabForItem(item.gameObject);
+            if (prefab != null)
+            {
+                itemToPrefabMap[item.gameObject] = prefab;
+            }
+        }
         //Decrement so we can remove items that are null or exist in the inventory
-        for(int i = currentItems.Count() - 1; i >= 0; i--)
+        for (int i = currentItems.Count() - 1; i >= 0; i--)
         {
             //If item is not null and is not in the player inventory, make an ItemSaveData instance for it and add it to the list. Else, remove it from the currentItems list
             if (currentItems[i] != null && !GameManager.Instance.Player.GetComponent<InteractionManager>().isItemInInventory(currentItems[i]))
@@ -71,9 +103,10 @@ public class ItemManager : MonoBehaviour
     }
 
     public void Load(ItemManagerSaveData data)
-    {
-        //Change the load method such that it instantiates prefabs, then the whole save/load system should be done.
-        foreach(var item in currentItems)
+    {    
+        RefreshItemList();
+    
+        foreach (var item in currentItems)
         {
             if(item != null && !GameManager.Instance.Player.GetComponent<InteractionManager>().isItemInInventory(item))
             {
@@ -81,19 +114,24 @@ public class ItemManager : MonoBehaviour
                 Destroy(item.gameObject);
             }
         }
-
+    
+        RefreshItemList();
+    
         foreach (var savedItem in data.Items)
         {
             if (savedItem.itemPrefab != null)
             {
                 GameObject spawnedItem = Instantiate(savedItem.itemPrefab, savedItem.itemPosition, Quaternion.identity);
+                spawnedItem.name.Replace("(Clone)", "");
                 currentItems.Add(spawnedItem.GetComponent<Default_Item>());
+                Debug.Log("Item loaded");
                 itemToPrefabMap[spawnedItem] = savedItem.itemPrefab;
             }
         }
 
+        RefreshItemList();
+    
     }
-
 }
 
 [System.Serializable]
