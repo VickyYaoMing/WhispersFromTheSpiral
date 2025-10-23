@@ -8,6 +8,6 @@ public static class StringLiterals
     //Layers
     public static string CHESS_PIECE_LAYER = "ChessPieces";
     public static string CHESS_BOARD_LAYER = "ChessBoard";
-
-
+    public static string INTERACTABLE_LAYER = "InteractableLayer";
+    
 }

@@ -429,7 +429,7 @@ PrefabInstance:
     - target: {fileID: 5635019771477011694, guid: b46a4f006ebbc404fb9a1e7dad634ff3, type: 3}
       propertyPath: trigger
       value: 
-      objectReference: {fileID: 58555182}
+      objectReference: {fileID: 0}
     - target: {fileID: 5635019771477011694, guid: b46a4f006ebbc404fb9a1e7dad634ff3, type: 3}
       propertyPath: upwardTilt
       value: 0.2
@@ -443,11 +443,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b46a4f006ebbc404fb9a1e7dad634ff3, type: 3}
---- !u!65 &58555182 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 2689082439437836085, guid: b46a4f006ebbc404fb9a1e7dad634ff3, type: 3}
-  m_PrefabInstance: {fileID: 58555181}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &65602865
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -997,7 +992,7 @@ GameObject:
   - component: {fileID: 137959720}
   - component: {fileID: 137959719}
   - component: {fileID: 137959718}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Collectible
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1068,10 +1063,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 13
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -1079,12 +1074,20 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u201CI won\u2019t let your judgement imprison the few pieces that remain
-    of who I once was. Whisper your shallow pity if you must. Fear the tragic alleyway
+  m_Text: "I won\u2019t let your judgement imprison the few pieces that remain of
+    who I once was. Whisper your shallow pity if you must. Fear the tragic alleyway
     that led my soul to fracture or pretend that you understand, it has no consequence.
     I alone dictate what remains behind in these final moments. Feed your superstitions
-    with whatever filth spills from your corrupted minds, but know this,  the truth
-    is mine to command.\r\n"
+    with whatever filth spills from your corrupted minds, but know this, the truth
+    is mine to command. \n\nMy name is * and I killed them. Fragile lives held in
+    the palms of my hands through all my life, all of them saved just to relinquish
+    the one that mattered most. That is why I killed them. It was my spiral of despair.
+    It should have been me, yet it claimed the life of another. Another whose life
+    was mine to protect.\n\nI write not from a position of weakness but from one
+    of power. The path I chose was my own and I alone choose where it ends. The blood
+    of my actions stains the hands of those who kept me from what I loved. The only
+    regret I bear is failing to keep the darkness from my boy. \n\nI will not be
+    your prisoner. I am my own master."
 --- !u!114 &137959721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2857,6 +2860,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4110565d5a0a8df4c81cf497352270b2, type: 3}
       propertyPath: m_Name
       value: candle1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4110565d5a0a8df4c81cf497352270b2, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6068,6 +6075,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: m_isTripping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: m_isHeadBanging
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: m_crouchSensitivity
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: m_defaultSensitivity
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 771196179692006720, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6540,10 +6563,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7463144061129777672, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7565467208170540664, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6844,6 +6863,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d0711cbaa5ffc6e4294fae3d86657095, type: 3}
       propertyPath: m_Name
       value: book2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d0711cbaa5ffc6e4294fae3d86657095, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7650,6 +7673,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: dcd6b07ee76161f499d634ab64c2d2b8, type: 3}
       propertyPath: m_Name
       value: mug
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dcd6b07ee76161f499d634ab64c2d2b8, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9091,35 +9118,13 @@ GameObject:
   - component: {fileID: 2132814751}
   - component: {fileID: 2132814750}
   - component: {fileID: 2132814749}
-  - component: {fileID: 2132814748}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Collectible (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!135 &2132814748
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2132814747}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &2132814749
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9264,7 +9269,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2132814747}
   m_LocalRotation: {x: -0, y: -0.26675993, z: -0, w: 0.963763}
-  m_LocalPosition: {x: 0, y: 0, z: 20.765}
+  m_LocalPosition: {x: 0, y: 0, z: 20.874}
   m_LocalScale: {x: 1, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14476,6 +14481,7 @@ GameObject:
   - component: {fileID: 3469287837056443208}
   - component: {fileID: 1711813856214767490}
   - component: {fileID: 661386594}
+  - component: {fileID: 3469287837056443209}
   m_Layer: 8
   m_Name: Floor
   m_TagString: Untagged
@@ -27329,8 +27335,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.4680977, y: 0.9157158, z: 1.1675413}
-  m_Center: {x: 0.00000006115147, y: 0.4421779, z: -0.58377033}
+  m_Size: {x: 2.4680977, y: 0.9157158, z: 1.7779769}
+  m_Center: {x: 0.00000011920929, y: 0.4421779, z: -0.8889881}
 --- !u!4 &3234811375528028937
 Transform:
   m_ObjectHideFlags: 0
@@ -28674,6 +28680,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148616296023}
   m_Mesh: {fileID: -421091168088490288, guid: 383ab8bd540a808478628acc5daeba3a, type: 3}
+--- !u!114 &3469287837056443209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148616296023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 290263d022e5bb94f9b1ed1b60b4b7ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &3474436525093986904
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -47567,8 +47585,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.4680972, y: 0.9157157, z: 1.1675411}
-  m_Center: {x: 0.0000009842499, y: 0.4421775, z: -0.5837705}
+  m_Size: {x: 2.4680972, y: 0.9157157, z: 2.0015461}
+  m_Center: {x: 0.0000009536743, y: 0.44217753, z: -1.0007731}
 --- !u!23 &6606660423918218740
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -56729,10 +56747,9 @@ GameObject:
   - component: {fileID: 1639087319954097996}
   - component: {fileID: 5799553496432222400}
   - component: {fileID: 7944033587132365437}
-  - component: {fileID: 7944033587132365439}
-  - component: {fileID: 7944033587132365438}
   - component: {fileID: 7944033587132365440}
-  m_Layer: 0
+  - component: {fileID: 7944033587132365441}
+  m_Layer: 16
   m_Name: Key
   m_TagString: KeyStartRoom
   m_Icon: {fileID: 0}
@@ -56760,43 +56777,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.09, y: 0.04, z: 0.006}
   m_Center: {x: 0.007243113, y: -0.000004601573, z: -0.0036301198}
---- !u!65 &7944033587132365438
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7944033587132365436}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.9, y: 0.98, z: 1.08}
-  m_Center: {x: 0.007243113, y: -0.000004601573, z: -0.0036301198}
---- !u!114 &7944033587132365439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7944033587132365436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 427a72496747b55469d5b253b2e909e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zoomFromFront: 0
-  howCloseFromFront: 1.5
-  upwardTilt: 0
-  aboveZoomClose: 1.1
 --- !u!54 &7944033587132365440
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -56824,6 +56804,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7944033587132365441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7944033587132365436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 642627146c5891144a498f71aae809b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomFromFront: 0
+  howCloseFromFront: 1.5
+  upwardTilt: 0
+  aboveZoomClose: 1.1
 --- !u!23 &7950950199673273654
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -58743,8 +58739,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.7000017, y: 0.90000015, z: 0.97000045}
-  m_Center: {x: 0.0000023996724, y: -0.00000018750039, z: -0.48499992}
+  m_Size: {x: 1.7000017, y: 0.90000015, z: 1.8080568}
+  m_Center: {x: 0.0000023539278, y: -0.00000019121974, z: -0.90402806}
 --- !u!1 &8230459963174897518
 GameObject:
   m_ObjectHideFlags: 0
@@ -58857,8 +58853,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.50400347, y: 0.38400018, z: 0.588}
-  m_Center: {x: 0.0000020561934, y: 0.060000688, z: -0.29400033}
+  m_Size: {x: 0.5040034, y: 0.38400018, z: 0.6660416}
+  m_Center: {x: 0.000002066545, y: 0.06000085, z: -0.33302128}
 --- !u!23 &8251738650849816540
 MeshRenderer:
   m_ObjectHideFlags: 0

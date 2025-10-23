@@ -145,6 +145,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""be682633-5ccb-48d8-a6d8-bc6a72371daf"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -228,7 +237,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0d871d5a-8ef4-4bce-b02a-fbb5ec9f6d21"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -255,6 +264,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""OpenNotebook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8b65fe8e-81ee-4a13-877c-7dfb4feb1af3"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -359,6 +379,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_On_Foot_Interact = m_On_Foot.FindAction("Interact", throwIfNotFound: true);
         m_On_Foot_Exit = m_On_Foot.FindAction("Exit", throwIfNotFound: true);
         m_On_Foot_OpenNotebook = m_On_Foot.FindAction("OpenNotebook", throwIfNotFound: true);
+        m_On_Foot_Crouch = m_On_Foot.FindAction("Crouch", throwIfNotFound: true);
         // Inventory
         m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
         m_Inventory_Item1 = m_Inventory.FindAction("Item1", throwIfNotFound: true);
@@ -452,6 +473,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_On_Foot_Interact;
     private readonly InputAction m_On_Foot_Exit;
     private readonly InputAction m_On_Foot_OpenNotebook;
+    private readonly InputAction m_On_Foot_Crouch;
     /// <summary>
     /// Provides access to input actions defined in input action map "On_Foot".
     /// </summary>
@@ -487,6 +509,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "On_Foot/OpenNotebook".
         /// </summary>
         public InputAction @OpenNotebook => m_Wrapper.m_On_Foot_OpenNotebook;
+        /// <summary>
+        /// Provides access to the underlying input action "On_Foot/Crouch".
+        /// </summary>
+        public InputAction @Crouch => m_Wrapper.m_On_Foot_Crouch;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -531,6 +557,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @OpenNotebook.started += instance.OnOpenNotebook;
             @OpenNotebook.performed += instance.OnOpenNotebook;
             @OpenNotebook.canceled += instance.OnOpenNotebook;
+            @Crouch.started += instance.OnCrouch;
+            @Crouch.performed += instance.OnCrouch;
+            @Crouch.canceled += instance.OnCrouch;
         }
 
         /// <summary>
@@ -560,6 +589,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @OpenNotebook.started -= instance.OnOpenNotebook;
             @OpenNotebook.performed -= instance.OnOpenNotebook;
             @OpenNotebook.canceled -= instance.OnOpenNotebook;
+            @Crouch.started -= instance.OnCrouch;
+            @Crouch.performed -= instance.OnCrouch;
+            @Crouch.canceled -= instance.OnCrouch;
         }
 
         /// <summary>
@@ -771,6 +803,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnOpenNotebook(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Crouch" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCrouch(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Inventory" which allows adding and removing callbacks.

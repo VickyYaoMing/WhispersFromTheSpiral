@@ -6,8 +6,10 @@ public class InputManager : MonoBehaviour
     private PlayerInput.On_FootActions on_foot;
     private PlayerInput.InventoryActions inventoryActions;
 
-    private PlayerMovement player_movement;
-    private PlayerLook player_look;
+    private Movement playerMovement;
+
+    //private PlayerMovement player_movement;
+    //private PlayerLook player_look;
     private InteractionManager interactionManager;
     private UIManager uiManager;
     private int currentScrollIndex = 0;
@@ -15,14 +17,14 @@ public class InputManager : MonoBehaviour
     void Awake()
     {
         player_input = new PlayerInput();
-        player_movement = GetComponent<PlayerMovement>();
-        player_look = GetComponent<PlayerLook>();
+        //player_movement = GetComponent<PlayerMovement>();
+        //player_look = GetComponent<PlayerLook>();
+        playerMovement = GetComponent<Movement>();
         interactionManager = GetComponent<InteractionManager>();
         uiManager = GetComponent<UIManager>();
         on_foot = player_input.On_Foot;
         inventoryActions = player_input.Inventory;
-        on_foot.Jump.performed += ctx => player_movement.Jump();
-        on_foot.Interact.performed += ctx => interactionManager.OnInteractWithItem();
+        on_foot.Crouch.performed += ctx => playerMovement.Crouch();
         on_foot.Exit.performed += ctx => uiManager.Exit();
         on_foot.OpenNotebook.performed += ctx => uiManager.ToggleNotebook();
         inventoryActions.Item1.performed += ctx => interactionManager.GetItemInInventory(0);
@@ -39,8 +41,7 @@ public class InputManager : MonoBehaviour
             if (currentScrollIndex > 2) currentScrollIndex = 0;
 
             interactionManager.GetItemInInventory(currentScrollIndex);
-        };
-        
+        };   
     }
 
     private void Update()
@@ -49,12 +50,16 @@ public class InputManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
+            Reticle.Instance.SetActivity(false);
             return;
         }
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
-        player_movement.ProcessMove(on_foot.Walking.ReadValue<Vector2>());
-        player_look.ProcessLook(on_foot.Looking.ReadValue<Vector2>());
+        Reticle.Instance.SetActivity(true);
+        playerMovement.ProcessLook(on_foot.Looking.ReadValue<Vector2>());
+        playerMovement.ProcessMove(on_foot.Walking.ReadValue<Vector2>());
+
+        //player_movement.ProcessMove(on_foot.Walking.ReadValue<Vector2>());
+        //player_look.ProcessLook(on_foot.Looking.ReadValue<Vector2>());
     }
 
     private void LateUpdate()
