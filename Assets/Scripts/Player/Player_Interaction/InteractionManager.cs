@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Drawing;
+using UnityEngine.InputSystem.XR.Haptics;
 
 public class InteractionManager : MonoBehaviour
 {
@@ -202,6 +203,11 @@ public class InteractionManager : MonoBehaviour
     }
 
     #region Methods for save and load
+
+    public GameObject GetCurrentItem()
+    {
+        return currentItem;
+    }
 
     public void Save(ref PlayerInventoryData data)
     {
