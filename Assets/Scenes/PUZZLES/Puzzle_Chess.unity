@@ -3858,6 +3858,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a6c5897aabfb1624f9c63d92dc25bec2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1494693045}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a6c5897aabfb1624f9c63d92dc25bec2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1494693048}
   m_SourcePrefab: {fileID: 100100000, guid: a6c5897aabfb1624f9c63d92dc25bec2, type: 3}
 --- !u!1 &1356478733
 GameObject:
@@ -4147,6 +4150,18 @@ MonoBehaviour:
   yOffset: 0.5
   board: {fileID: 0}
   wonthegame: 0
+--- !u!114 &1494693048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494693043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b082f57a752fc4ea54e3306f26f6a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1496562498
 GameObject:
   m_ObjectHideFlags: 0
@@ -5845,10 +5860,35 @@ MonoBehaviour:
   aboveZoomClose: 1.1
   pieceMask:
     serializedVersion: 2
-    m_Bits: 4194304
+    m_Bits: 1048576
   boardMask:
     serializedVersion: 2
     m_Bits: 2097152
+  whitePieces:
+  - {fileID: 1814995920880208047}
+  - {fileID: 2435339822325870728}
+  - {fileID: 3478113810664301512}
+  - {fileID: 2992933529079511357}
+  - {fileID: 4967169517395018991}
+  - {fileID: 6768757566831846621}
+  - {fileID: 6521564373774009803}
+  - {fileID: 3972332020217117267}
+  - {fileID: 3099717460816530156}
+  - {fileID: 5566506618689631813}
+  - {fileID: 2882414695080253782}
+  - {fileID: 4222999480048030242}
+  - {fileID: 3300508467741037269}
+  - {fileID: 2497520306435544579}
+  - {fileID: 5753324264145355999}
+  - {fileID: 3268676508414584889}
+  whitePiecesThatShouldBeMoved:
+  - {fileID: 2497520306435544579}
+  - {fileID: 5753324264145355999}
+  - {fileID: 6768757566831846621}
+  placesWhitePiecesShouldBeMovedTo:
+  - {fileID: 1858389535}
+  - {fileID: 457929607}
+  - {fileID: 15791869}
 --- !u!65 &2139143033
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6437,7 +6477,7 @@ GameObject:
   - component: {fileID: 8801350840507819281}
   - component: {fileID: 6312612669037069252}
   - component: {fileID: 1655309081}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: White_Pawn_G2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6656,7 +6696,7 @@ GameObject:
   - component: {fileID: 1562657280957812120}
   - component: {fileID: 1566083026317262438}
   - component: {fileID: 961189649}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: White_Pawn_H2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6698,7 +6738,7 @@ GameObject:
   - component: {fileID: 7868249548328764584}
   - component: {fileID: 417174838712597246}
   - component: {fileID: 2069595234}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: White_Pawn_D2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6834,7 +6874,7 @@ GameObject:
   - component: {fileID: 3886755458258535115}
   - component: {fileID: 5622440145325580742}
   - component: {fileID: 1977977356}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: White_Pawn_A2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6906,7 +6946,7 @@ GameObject:
   - component: {fileID: 6794570040739818382}
   - component: {fileID: 5194121836351731453}
   - component: {fileID: 1155634672}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: White_Knight_B1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6955,7 +6995,7 @@ GameObject:
   - component: {fileID: 1928421021667330685}
   - component: {fileID: 3107216900547975200}
   - component: {fileID: 1379559494}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: White_Knight_G1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7038,7 +7078,7 @@ GameObject:
   - component: {fileID: 782381019148347789}
   - component: {fileID: 8073171332665950272}
   - component: {fileID: 1578823738}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: White_Pawn_F2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7102,7 +7142,7 @@ GameObject:
   - component: {fileID: 7115016350423023563}
   - component: {fileID: 2263643059736842097}
   - component: {fileID: 1230762715}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: White_Pawn_C2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7204,7 +7244,7 @@ GameObject:
   - component: {fileID: 6774552420825499459}
   - component: {fileID: 2264569950273825323}
   - component: {fileID: 450153237}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: White_Rook_A1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7363,7 +7403,7 @@ GameObject:
   - component: {fileID: 2380552535387816775}
   - component: {fileID: 2817472964849596373}
   - component: {fileID: 399087012}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: White_Bishop_F1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7458,7 +7498,7 @@ GameObject:
   - component: {fileID: 3457164021931262591}
   - component: {fileID: 7084757422375899451}
   - component: {fileID: 1086935274}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: White_Pawn_B2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7613,7 +7653,7 @@ GameObject:
   - component: {fileID: 9085306859230516140}
   - component: {fileID: 8620408335040669032}
   - component: {fileID: 380680003}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: White_Bishop_C1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7735,7 +7775,7 @@ GameObject:
   - component: {fileID: 7187445783165864264}
   - component: {fileID: 5664194929806118569}
   - component: {fileID: 71036953}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: White_Rook_H1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7878,7 +7918,7 @@ GameObject:
   - component: {fileID: 8988136898456823053}
   - component: {fileID: 2375748097007367602}
   - component: {fileID: 373586852}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: White_Pawn_E2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8040,7 +8080,7 @@ GameObject:
   - component: {fileID: 4097027546591033138}
   - component: {fileID: 6196428211513921902}
   - component: {fileID: 1311097734}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: White_King_E1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8119,7 +8159,7 @@ GameObject:
   - component: {fileID: 7956787410777393197}
   - component: {fileID: 7826750139836170090}
   - component: {fileID: 1256218331}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: White_Queen_D1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

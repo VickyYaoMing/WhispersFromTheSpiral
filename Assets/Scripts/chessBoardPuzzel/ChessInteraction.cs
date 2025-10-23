@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -6,13 +8,44 @@ public class ChessInteraction : InteractableBase
 {
     [SerializeField] private LayerMask pieceMask;
     [SerializeField] private LayerMask boardMask;
+    [SerializeField] private List<GameObject> whitePieces;
+    [SerializeField] private List<GameObject> whitePiecesThatShouldBeMoved;
+    [SerializeField] private List<GameObject> placesWhitePiecesShouldBeMovedTo;
+
 
     private bool chessPieceSelected = false;
     private Vector3 currentPieceOriginalPosition;
+    private GameObject originalParent = null;
     private GameObject currentGameObject = null;
+    private Dictionary<GameObject, GameObject> whitePiecesWinningPosition;
+    private Dictionary<GameObject, GameObject> whitePiecesCurrentPosition;
+
+    public static EventHandler ChessPuzzleCompleted;
+
+
     void Start()
     {
+        whitePiecesWinningPosition = new Dictionary<GameObject, GameObject>();
+        whitePiecesCurrentPosition = new Dictionary<GameObject, GameObject>();
         itemShouldBeCameraLocked = true;
+        for (int i = 0; i < whitePieces.Count; i++) 
+        {
+            whitePiecesCurrentPosition[whitePieces[i]] = whitePieces[i].transform.parent.gameObject;
+
+            for (int j = 0; j <  whitePiecesThatShouldBeMoved.Count; j++)
+            {
+                if (whitePieces[i] == whitePiecesThatShouldBeMoved[j])
+                {
+                    whitePiecesWinningPosition[whitePieces[i]] = placesWhitePiecesShouldBeMovedTo[j];
+                    break;
+                }
+                else
+                {
+                    whitePiecesWinningPosition[whitePieces[i]] = whitePieces[i].transform.parent.gameObject;
+                }
+            }
+
+        }
     }
     void Update()
     {
@@ -28,6 +61,7 @@ public class ChessInteraction : InteractableBase
         if (distance <= 0.001f)
         {
             currentGameObject.transform.position = currentPieceOriginalPosition;
+            currentGameObject.transform.SetParent(originalParent.transform, true);
             chessPieceSelected = false;
             currentGameObject = null;
             return;
@@ -66,10 +100,10 @@ public class ChessInteraction : InteractableBase
 
             if (Physics.Raycast(ray, out hit, 20f, pieceMask))
             {
-                Debug.Log(hit.collider.gameObject.name);
                 currentGameObject = hit.collider.gameObject;
                 chessPieceSelected = true;
                 currentPieceOriginalPosition = currentGameObject.transform.position;
+                originalParent = currentGameObject.transform.gameObject;
                 currentGameObject.transform.SetParent(transform, true);
             }
         }
@@ -88,8 +122,20 @@ public class ChessInteraction : InteractableBase
                 currentGameObject.transform.SetParent(hitTransform, false);
                 currentGameObject.transform.position = new Vector3(hitTransform.position.x, currentPieceOriginalPosition.y, hitTransform.position.z);
                 chessPieceSelected = false;
+                whitePiecesCurrentPosition[currentGameObject] = hitTransform.gameObject;
+                if (whitePiecesWinningPosition[currentGameObject] == hitTransform.gameObject) WinningCondition();
                 currentGameObject = null;
             }
         }
+    }
+
+    private void WinningCondition()
+    {
+        bool hasCompletedPuzzle = whitePiecesWinningPosition.All(kvp => whitePiecesCurrentPosition.TryGetValue(kvp.Key, out var v) && EqualityComparer<GameObject>.Default.Equals(kvp.Value, v));
+        if (hasCompletedPuzzle)
+        {
+            ChessPuzzleCompleted?.Invoke(this, EventArgs.Empty);
+        }
+     
     }
 }
