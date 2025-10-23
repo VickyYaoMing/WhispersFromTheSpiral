@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
     private bool isSaving;
     private bool isLoading;
 
+    public bool saveExists;
+
     private void Awake()
     {
         if (instance == null)
@@ -92,12 +94,16 @@ public class GameManager : MonoBehaviour
     }
 
     private async void LoadAsync()
-        
     {
         isLoading = true;
         await SaveSystem.LoadAsynchronously();
         Debug.Log("Loaded!");
         isLoading = false;
+    }
+
+    public bool DoesSaveExist()
+    {
+        return SaveSystem.DoesSaveExist();
     }
 
     public bool IsSaving { get { return isSaving; } }
