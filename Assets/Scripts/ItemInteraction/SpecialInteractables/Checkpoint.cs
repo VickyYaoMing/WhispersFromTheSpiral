@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Checkpoint : InteractableBase
+public class Checkpoint : MonoBehaviour
 {
     int ID;
     [SerializeField] Vector3 spawnPosition;
@@ -15,12 +15,11 @@ public class Checkpoint : InteractableBase
 
     }
 
-    public override GameObject PickedUp()
+    private void OnTriggerEnter()
     {
-        //Works as intended, however due to the way the interaction manager is built the checkpoint gameobject is disabled when the player scrolls their inventory.
         GameManager.Instance.CheckpointManager.SetCurrentCheckpointID(ID);
         GameManager.Instance.SaveAsync();
-        return base.PickedUp();
+        gameObject.SetActive(false);
     }
 
     public void SetID(int number)

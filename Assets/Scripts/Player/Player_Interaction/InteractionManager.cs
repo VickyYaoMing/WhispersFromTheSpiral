@@ -23,13 +23,15 @@ public class InteractionManager : MonoBehaviour
     private Vector3 objectOffset = new Vector3(-0.001f, 0.0004f, 0);
     private bool lockItem = false;
     private InputManager inputManager;
-    private PlayerLook playerLook;
+    //private PlayerLook playerLook;
+    private Movement playerMovement;
 
     private void Start()
     {
         itemArray = new GameObject[3];
         inputManager = GetComponent<InputManager>();
-        playerLook = GetComponent<PlayerLook>();
+        playerMovement = GetComponent<Movement>();
+        //playerLook = GetComponent<PlayerLook>();
     }
 
     private void Awake()
@@ -105,7 +107,7 @@ public class InteractionManager : MonoBehaviour
         Reticle.Instance.SetActivity(false);
         if (itemArray[currentItemSpot]!=null) itemArray[currentItemSpot].SetActive(false);
         inputManager.enabled = false;
-        playerLook.LockCameraOnItem(currentItem.transform, currentItemInteractBase.howCloseFromFront, currentItemInteractBase.aboveZoomClose, currentItemInteractBase.upwardTilt, currentItemInteractBase.zoomFromFront);
+        playerMovement.LockCameraOnItem(currentItem.transform, currentItemInteractBase.howCloseFromFront, currentItemInteractBase.aboveZoomClose, currentItemInteractBase.upwardTilt, currentItemInteractBase.zoomFromFront);
         currentItem.GetComponent<InteractableBase>().enabled = true;
     }
 
@@ -120,7 +122,7 @@ public class InteractionManager : MonoBehaviour
         if (lockItem && Input.GetKeyDown(KeyCode.Escape))
         {
             inputManager.enabled = true;
-            playerLook.UnlockCamera();
+            playerMovement.UnlockCamera();
             currentItem.GetComponent<InteractableBase>().enabled = false;
             lockItem = false;
             currentItem = itemArray[currentItemSpot];
