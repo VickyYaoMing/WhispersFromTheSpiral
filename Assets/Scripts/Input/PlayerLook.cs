@@ -3,19 +3,29 @@ using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
 {
+    [SerializeField] private Renderer[] m_playerMesh;
+
+    [Header("Camera Effects & Sensitivity")]
     [SerializeField] private Camera m_cam;
     [SerializeField] private float m_defaultSensitivity = 10f;
     [SerializeField] private float m_crouchSensitivity = 8f;
+    [SerializeField] private float m_trippingValue = 1f;
+    [SerializeField] private bool m_isTripping;
+    [SerializeField] private bool m_isHeadBanging;
+
+    [Header("Zoom")]
     [SerializeField] private float m_duration = 1f;
-    [SerializeField] private Renderer[] m_playerMesh;
+
+    [Header("Crouch")]
+    [SerializeField] private float m_crouchSpeed = 5f;
 
     private float m_xRotation;
+    private float m_yRotation;
     private Transform m_camOriginalParent;
     private Vector3 m_camSavedLocalPos;
     private Quaternion m_camSavedLocalRot;
     private Vector3 m_standingCamPos;
     private Vector3 m_crouchingCamPos;
-    private readonly float m_crouchSpeed = 5f;
     private bool m_isCrouching;
     public bool LockCamera { get; set; } = false;
 
@@ -38,12 +48,30 @@ public class PlayerLook : MonoBehaviour
         float sensitivity = m_isCrouching ? m_crouchSensitivity : m_defaultSensitivity;
         Vector3 camPos = m_isCrouching ? m_crouchingCamPos : m_standingCamPos;
 
-        m_xRotation -= mouseY * Time.deltaTime * sensitivity;
-        m_xRotation = Mathf.Clamp(m_xRotation, -60f, 60f);
+        if (m_isTripping)
+        {
+            Quaternion targetXRotation;
+            Quaternion targetYRotation;
 
-        m_cam.transform.localRotation = Quaternion.Euler(m_xRotation, 0f, 0f);
-        transform.Rotate((mouseX * Time.deltaTime) * sensitivity * Vector3.up);
+            m_yRotation += mouseX * Time.deltaTime * sensitivity;
+            m_xRotation -= mouseY * Time.deltaTime * sensitivity;
+            m_xRotation = Mathf.Clamp(m_xRotation, -60f, 60f);
 
+            targetYRotation = Quaternion.Euler(0f, m_yRotation, 0f);
+            targetXRotation = Quaternion.Euler(m_xRotation, 0f, 0f);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetYRotation, Time.deltaTime * m_trippingValue);
+            m_cam.transform.localRotation = Quaternion.Slerp(m_cam.transform.localRotation, targetXRotation, Time.deltaTime * m_trippingValue);
+        }
+        else
+        {
+            m_xRotation -= mouseY * Time.deltaTime * sensitivity;
+            m_xRotation = Mathf.Clamp(m_xRotation, -60f, 60f);
+
+            m_cam.transform.localRotation = Quaternion.Euler(m_xRotation, 0f, 0f);
+            transform.Rotate((mouseX * Time.deltaTime) * sensitivity * Vector3.up);
+        }
+        
         m_cam.transform.localPosition = Vector3.Lerp(m_cam.transform.localPosition, camPos, Time.deltaTime * m_crouchSpeed);
     }
     public void Crouch()

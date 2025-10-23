@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Player Speed")]
     [SerializeField] private float m_standingSpeed = 5;
     [SerializeField] private float m_crouchingSpeed = 2;
-    private float m_standingHeight = 2f;
-    private float m_crouchingHeight = 0.5f;
-    private float m_standingColliderCenterY = 0;
-    private float m_crouchingColliderCenterY = -0.5f;
+
+    private readonly float m_standingColliderHeight = 2f;
+    private readonly float m_crouchingColliderHeight = 0.5f;
+    private readonly float m_standingColliderCenterY = 0;
+    private readonly float m_crouchingColliderCenterY = -0.5f;
     private CharacterController controller;
     private bool m_isCrouching;
 
@@ -31,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     public void Crouch()
     {
         m_isCrouching = !m_isCrouching;
-        float height = m_isCrouching ? m_crouchingHeight : m_standingHeight;
+        float height = m_isCrouching ? m_crouchingColliderHeight : m_standingColliderHeight;
         float centerY = m_isCrouching ? m_crouchingColliderCenterY : m_standingColliderCenterY;
 
         Vector3 controllerCenter = controller.center;
