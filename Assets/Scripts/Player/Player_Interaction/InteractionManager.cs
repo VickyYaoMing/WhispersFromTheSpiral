@@ -22,13 +22,15 @@ public class InteractionManager : MonoBehaviour
     private Vector3 objectOffset = new Vector3(-0.001f, 0.0004f, 0);
     private bool lockItem = false;
     private InputManager inputManager;
-    private PlayerLook playerLook;
+    //private PlayerLook playerLook;
+    private Movement playerMovement;
 
     private void Start()
     {
         itemArray = new GameObject[3];
         inputManager = GetComponent<InputManager>();
-        playerLook = GetComponent<PlayerLook>();
+        playerMovement = GetComponent<Movement>();
+        //playerLook = GetComponent<PlayerLook>();
     }
 
     private void Awake()
@@ -101,9 +103,10 @@ public class InteractionManager : MonoBehaviour
 
     private void OnItemCameraLock()
     {
+        Reticle.Instance.SetActivity(false);
         if (itemArray[currentItemSpot]!=null) itemArray[currentItemSpot].SetActive(false);
         inputManager.enabled = false;
-        playerLook.LockCameraOnItem(currentItem.transform, currentItemInteractBase.howCloseFromFront, currentItemInteractBase.aboveZoomClose, currentItemInteractBase.upwardTilt, currentItemInteractBase.zoomFromFront);
+        playerMovement.LockCameraOnItem(currentItem.transform, currentItemInteractBase.howCloseFromFront, currentItemInteractBase.aboveZoomClose, currentItemInteractBase.upwardTilt, currentItemInteractBase.zoomFromFront);
         currentItem.GetComponent<InteractableBase>().enabled = true;
     }
 
@@ -118,26 +121,31 @@ public class InteractionManager : MonoBehaviour
         if (lockItem && Input.GetKeyDown(KeyCode.Escape))
         {
             inputManager.enabled = true;
-            playerLook.UnlockCamera();
+            playerMovement.UnlockCamera();
             currentItem.GetComponent<InteractableBase>().enabled = false;
             lockItem = false;
             currentItem = itemArray[currentItemSpot];
             if (currentItem != null) currentItem.SetActive(true);
+            Reticle.Instance.SetActivity(true);
         }
     }
 
     private void RayCastItem()
     {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        RaycastHit hit;
+
+        if (!Physics.Raycast(ray, out hit, howFarYouCanPlaceItem)) return;
+
+        bool isHitAnInteractable = (interactableLayer.value & (1 << hit.collider.gameObject.layer)) != 0;
+
+        if (isHitAnInteractable) { Reticle.Instance.SetSprite(ReticleState.InteractableItem); }
+        else { Reticle.Instance.SetSprite(ReticleState.Default); }
+
         if (Input.GetMouseButtonDown(0) && !lockItem)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            RaycastHit hit;
-
-            if (!Physics.Raycast(ray, out hit, howFarYouCanPlaceItem)) return;
-
-            bool isHitAnInteractable = (interactableLayer.value & (1 << hit.collider.gameObject.layer)) != 0;
-            if(isHitAnInteractable)
+            if (isHitAnInteractable)
             {
                 GameObject currentInteractable = hit.collider.gameObject;
                 if (currentInteractable != null)
@@ -145,7 +153,7 @@ public class InteractionManager : MonoBehaviour
                     OnInteractWithItem(currentInteractable);
                 }
             }
-            else if(!currentHandAvailable)
+            else if (!currentHandAvailable)
             {
                 Vector3 placePos = hit.point + hit.normal * 0.01f;
                 OnDrop(placePos);
