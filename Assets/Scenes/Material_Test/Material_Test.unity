@@ -34600,10 +34600,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4209003169865437071, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6330197989133451956, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.9
@@ -55664,9 +55660,8 @@ GameObject:
   - component: {fileID: 1832588951}
   - component: {fileID: 1832588950}
   - component: {fileID: 1832588949}
-  - component: {fileID: 1832588948}
   - component: {fileID: 1832588947}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Key
   m_TagString: KeyStartRoom
   m_Icon: {fileID: 0}
@@ -55700,27 +55695,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &1832588948
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1832588946}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.9, y: 0.98, z: 1.08}
-  m_Center: {x: 0.007243113, y: -0.000004601573, z: -0.0036301198}
 --- !u!114 &1832588949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55820,7 +55794,7 @@ Transform:
   m_GameObject: {fileID: 1832588946}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5732578, y: -0.41397533, z: 0.4139755, w: 0.57325757}
-  m_LocalPosition: {x: -6.9750137, y: 1.196, z: 23.69221}
+  m_LocalPosition: {x: -6.9750137, y: 1.205, z: 23.69221}
   m_LocalScale: {x: 1.8527377, y: 1.8527377, z: 1.8527375}
   m_ConstrainProportionsScale: 0
   m_Children: []
