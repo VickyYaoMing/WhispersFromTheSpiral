@@ -39,6 +39,13 @@ public class CheckpointManager : MonoBehaviour
         RefreshCheckpointList();
     }
 
+    public void CreateNewCheckpoint(Vector3 position, Vector3 scale)
+    {
+        GameObject temp = Instantiate(checkpointPrefab, position, Quaternion.identity, checkpointParent.transform);
+        temp.transform.localScale = scale;
+        RefreshCheckpointList();
+    }
+
     public void SetCurrentCheckpointID(int checkpointID)
     {
         currentCheckpointID = checkpointID;
