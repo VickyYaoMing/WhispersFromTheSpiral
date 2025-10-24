@@ -26,6 +26,10 @@ public class LightSocket : CameraLock_Item
                 GameObject itemInPlayerHand = GameManager.Instance.InteractionManager.GetCurrentItem();
                 if(itemInPlayerHand.GetComponent<Lightbulb>() != null)
                 {
+                    if(lightbulb)
+                    {
+                        lightbulb.GetComponent<Light>().enabled = false;
+                    }
                     lightbulb = itemInPlayerHand.GetComponent<Lightbulb>();
                     lightbulb.GetComponent<Light>().enabled = true;
                 }
