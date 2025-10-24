@@ -14,7 +14,7 @@ public class CheckpointManager : MonoBehaviour
 
     void Awake()
     {
-        Checkpoints = FindObjectsByType<Checkpoint>(default);
+        RefreshCheckpointList();
         for (int i = 0; i < Checkpoints.Length; i++)
         {
             Checkpoints[i].SetID(i);
@@ -28,9 +28,15 @@ public class CheckpointManager : MonoBehaviour
         
     }
 
+    public void RefreshCheckpointList()
+    {
+        Checkpoints = FindObjectsByType<Checkpoint>(default);
+    }
+
     public void CreateNewCheckpoint(Vector3 position)
     {
         Instantiate(checkpointPrefab, position, Quaternion.identity, checkpointParent.transform);
+        RefreshCheckpointList();
     }
 
     public void SetCurrentCheckpointID(int checkpointID)

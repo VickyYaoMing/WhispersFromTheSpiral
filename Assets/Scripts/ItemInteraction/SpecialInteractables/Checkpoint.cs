@@ -19,8 +19,7 @@ public class Checkpoint : MonoBehaviour
             spawnPosition = presetSpawn;
             return;
         }
-            spawnPosition = transform.position + spawnOffset;
-        
+        spawnPosition = transform.position + spawnOffset;
     }
 
     private void OnTriggerEnter()

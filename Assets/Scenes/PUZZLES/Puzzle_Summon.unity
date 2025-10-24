@@ -383,6 +383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e0383801fffc3a4cb772e92458fb8fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkpointPrefab: {fileID: 9139617889882530917, guid: 9de193ce4be1c154d95ac4564b09f17e, type: 3}
+  checkpointParent: {fileID: 1537962782}
 --- !u!4 &623784522 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4389518557522354430, guid: 9de193ce4be1c154d95ac4564b09f17e, type: 3}
@@ -629,6 +631,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UV Lightbulb
       objectReference: {fileID: 0}
+    - target: {fileID: 4219855871556100006, guid: e58325d0ac5005341ad983d47c1424d8, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 4326479755294291989, guid: e58325d0ac5005341ad983d47c1424d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -725,6 +731,10 @@ PrefabInstance:
     - target: {fileID: 7107099799864093909, guid: e11c33b39288e0d46a6abfa29d9ed69f, type: 3}
       propertyPath: m_Name
       value: Lightbulb
+      objectReference: {fileID: 0}
+    - target: {fileID: 7107099799864093909, guid: e11c33b39288e0d46a6abfa29d9ed69f, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
