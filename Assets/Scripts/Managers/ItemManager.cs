@@ -1,19 +1,27 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public List<Default_Item> currentItems;
     private Dictionary<GameObject, GameObject> itemToPrefabMap = new Dictionary<GameObject, GameObject>();
-    [SerializeField] private List<GameObject> itemPrefabs;
+    private List<GameObject> itemPrefabs;
 
     void Start()
     {
-        
+        //Add all prefabs into the itemPrefabs list so we can load them later.
+        string[] files = Directory.GetFiles("Assets/Prefabs/ItemPrefabs", "*.prefab", SearchOption.TopDirectoryOnly);
+        foreach (var file in files)
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath(file, typeof(GameObject));
+            itemPrefabs.Add(prefab.GameObject());
+        }
     }
 
     void Awake()
@@ -104,19 +112,22 @@ public class ItemManager : MonoBehaviour
 
     public void Load(ItemManagerSaveData data)
     {    
+        //Make sure item list is up to date
         RefreshItemList();
     
+        //Clean up all current items on the map
         foreach (var item in currentItems)
         {
             if(item != null && !GameManager.Instance.Player.GetComponent<InteractionManager>().isItemInInventory(item))
             {
-                Debug.Log("Item destroyed");
                 Destroy(item.gameObject);
             }
         }
     
         RefreshItemList();
     
+        //Load up items from save. Replace the word "Clone" in the name to make sure the items can be referenced properly and to
+        //keep the editor clean.
         foreach (var savedItem in data.Items)
         {
             if (savedItem.itemPrefab != null)
@@ -124,19 +135,18 @@ public class ItemManager : MonoBehaviour
                 GameObject spawnedItem = Instantiate(savedItem.itemPrefab, savedItem.itemPosition, Quaternion.identity);
                 spawnedItem.name.Replace("(Clone)", "");
                 currentItems.Add(spawnedItem.GetComponent<Default_Item>());
-                Debug.Log("Item loaded");
                 itemToPrefabMap[spawnedItem] = savedItem.itemPrefab;
             }
         }
 
         RefreshItemList();
-    
     }
 }
 
 [System.Serializable]
 public struct ItemSaveData
 {
+    //Consider saving transform values? or position and rotation, at least.
     public GameObject itemPrefab;
     public Vector3 itemPosition;
 }

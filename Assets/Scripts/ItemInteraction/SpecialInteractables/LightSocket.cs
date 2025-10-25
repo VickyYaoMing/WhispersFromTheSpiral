@@ -26,28 +26,32 @@ public class LightSocket : CameraLock_Item
                 GameObject itemInPlayerHand = GameManager.Instance.InteractionManager.GetCurrentItem();
                 if(itemInPlayerHand.GetComponent<Lightbulb>() != null)
                 {
+                    //Check if lightbulb in hand; If lightbulb, disable current bulb, and enable the new one.
                     if(lightbulb)
                     {
                         lightbulb.GetComponent<Light>().enabled = false;
                     }
                     lightbulb = itemInPlayerHand.GetComponent<Lightbulb>();
                     lightbulb.GetComponent<Light>().enabled = true;
-                }
 
-                //if (lightbulb == null)
-                //{
-                //    lightbulb = GameObject.Find("Lightbulb 1").GetComponent<Lightbulb>();
-                //    Debug.Log(lightbulb);
-                //}
-                //if (lightbulb != null && lightOn == true)
-                //{
-                //    lightbulb.GetComponent<Light>().enabled = false;
-                //    lightbulb = GameObject.Find("UV Lightbulb").GetComponent<Lightbulb>();
-                //    Debug.Log(lightbulb);
-                //}
-                //
-                //lightbulb.GetComponent<Light>().enabled = true;
-                //lightOn = true;
+                    UVVisibleObject[] UVVisibleObjects = GetComponentsInChildren<UVVisibleObject>(true);
+
+                    //If lightbulb is the UV bulb, show the details visible under UV light.
+                    if (!lightbulb.IsUV)
+                    {
+                        foreach(var  UVObject in UVVisibleObjects)
+                        {
+                            UVObject.gameObject.SetActive(false);
+                        }
+                        return;
+                    }
+
+
+                    foreach(var UVObject in UVVisibleObjects)
+                    {
+                        UVObject.gameObject.SetActive(true);
+                    }
+                }
             }
         }
     }
