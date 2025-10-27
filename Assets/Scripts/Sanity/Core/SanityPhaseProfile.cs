@@ -33,6 +33,15 @@ public class SanityPhaseProfile : ScriptableObject
         [Header("Depth of field")]
         public bool dofEnabled;
         [Range(0f, 32f)] public float dofAperturef; //Base blue (idk exact value, but play around with this.... I think
+
+        //Hallucination code
+        [Header("Hallucination Spawns")]
+        public bool allowHallucinationSpawn;
+        [Min(0.1f)] public float baseInterval; //
+        [Min(0.1f)] public float minInterval;
+        [Range(0, 24)] public int maxActive; //Can be increased depending on which phase you are in
+        [Min(0.5f)] public float minRadius; //
+        [Min(1f)] public float maxRadius; //
     }
     public Phase[] phases;
 

@@ -28,6 +28,12 @@ MonoBehaviour:
     lensDistAtMin: 0
     dofEnabled: 0
     dofAperturef: 0
+    allowHallucinationSpawn: 0
+    baseInterval: 0
+    minInterval: 0
+    maxActive: 0
+    minRadius: 0
+    maxRadius: 0
   - id: s_Phase1
     maxSanityCap: 0.8
     vignetteBase: 0.1
@@ -43,6 +49,12 @@ MonoBehaviour:
     lensDistAtMin: -0.2
     dofEnabled: 1
     dofAperturef: 0
+    allowHallucinationSpawn: 1
+    baseInterval: 60
+    minInterval: 30
+    maxActive: 1
+    minRadius: 8
+    maxRadius: 30
   - id: s_Phase2
     maxSanityCap: 0.65
     vignetteBase: 0.2
@@ -58,3 +70,9 @@ MonoBehaviour:
     lensDistAtMin: -0.2
     dofEnabled: 1
     dofAperturef: 0.2
+    allowHallucinationSpawn: 1
+    baseInterval: 45
+    minInterval: 30
+    maxActive: 3
+    minRadius: 6
+    maxRadius: 32
