@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class GrandFatherTrigger : MonoBehaviour
 {
+    Animator animator;
 
     private void OnEnable()
     {
@@ -16,7 +17,8 @@ public class GrandFatherTrigger : MonoBehaviour
     }
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
+
     }
 
     void Update()
@@ -27,5 +29,6 @@ public class GrandFatherTrigger : MonoBehaviour
     private void PuzzleTrigger(object e, EventArgs args)
     {
         Debug.Log("Grandfather clock triggered");
+        animator.SetBool("winningCondition", true);
     }
 }
