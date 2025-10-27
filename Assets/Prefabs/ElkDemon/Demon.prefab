@@ -298,7 +298,7 @@ MonoBehaviour:
   huntSpeed: 1.5
   maxAnimSpeed: 6
   sightRange: 15
-  sightAngle: 270
+  sightAngle: 360
   obstructionMask:
     serializedVersion: 2
     m_Bits: 512

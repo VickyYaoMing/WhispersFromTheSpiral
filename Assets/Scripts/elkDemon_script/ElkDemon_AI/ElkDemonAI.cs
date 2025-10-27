@@ -182,7 +182,7 @@ public class ElkDemonAI : MonoBehaviour
         Gizmos.DrawRay(transform.position + Vector3.up * eyeHeight, rightDir * sightRange);
     }
 
-    public enum BehaviorType { Roar }
+    public enum BehaviorType { Roar, Idle }
 
     public void ChangeBehavior(BehaviorType newBehavior)
     {
@@ -194,6 +194,9 @@ public class ElkDemonAI : MonoBehaviour
             case BehaviorType.Roar:
                 // play roar anim
                 elkRoar.Play();
+                break;
+            case BehaviorType.Idle:
+                _stateMachine.SetTrigger("Idle");
                 break;
         }
     }
