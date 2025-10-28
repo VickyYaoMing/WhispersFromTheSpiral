@@ -8,19 +8,19 @@ public enum FireMode { Single, Automatic }
 public class GunStats : ScriptableObject
 {
     [Header("General")]
-    public FireMode fireMode = FireMode.Single;   // Tekli / otomatik ate?
-    public int maxAmmo = 12;                      // ?arjör kapasitesi
-    public float fireRate = 0.25f;                // At?? h?z? (saniye ba??na)
-    public float reloadTime = 1.5f;               // ?arjör doldurma süresi
-    public float damage = 10f;                    // Hasar (ileride enemy olursa laz?m)
-    public float range = 50f;                     // Raycast menzili
+    public FireMode fireMode = FireMode.Single;     // Fire mode: Single or Automatic
+    public int maxAmmo = 20;                        // Magazine capacity
+    public float fireRate = 0.25f;                  // Time between shots
+    public float reloadTime = 1.5f;                 // Time to reload
+    public float damage = 10f;                      // Damage per shot
+    public float range = 50f;                       // Max raycast distance
 
     [Header("Effects")]
-    public GameObject muzzleFlashPrefab;          // Namlu ç?k?? efekti
-    public GameObject bulletHolePrefab;           // Duvar izi prefab’?
-    public GameObject hitEffectPrefab;            // K?v?lc?m/toz efekti (opsiyonel)
+    public GameObject muzzleFlashPrefab;            // Muzzle flash effect
+    public GameObject bulletHolePrefab;             // Bullet hole decal prefab
+    public GameObject hitEffectPrefab;              // Optional hit effect (e.g. sparks, dust)
 
     [Header("Audio")]
-    public AudioClip shootSound;                  // Ate? sesi
-    public AudioClip reloadSound;                 // ?arjör sesi (opsiyonel)
+    public AudioClip shootSound;                    // Sound played when shooting
+    public AudioClip reloadSound;                   // Optional reload sound
 }
