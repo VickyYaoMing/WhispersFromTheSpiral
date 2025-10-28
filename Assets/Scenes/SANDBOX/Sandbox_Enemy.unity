@@ -226,6 +226,64 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1271549388}
   m_SourcePrefab: {fileID: 100100000, guid: 8287ce08aa87c1d4faff5fbdfbaea243, type: 3}
+--- !u!1 &259790343
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 259790344}
+  - component: {fileID: 259790345}
+  m_Layer: 0
+  m_Name: AimPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &259790344
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259790343}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.94, y: -0.35, z: -4.26}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 271859797}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &259790345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259790343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0da5335168cc446b47097d8186d5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: 2c9d75e8b48d45843be1ce9dae78ba2c, type: 2}
+  muzzle: {fileID: 63502833}
+  cam: {fileID: 2144666976}
+  audioSrc: {fileID: 271859799}
+  anim: {fileID: 300653626}
+  hitEffectPrefab: {fileID: 5334228485563152753, guid: a4448d28d145a034280476afd710033d, type: 3}
+  normalFOV: 60
+  aimFOV: 40
+  aimSpeed: 10
+  gunTransform: {fileID: 0}
+  hipPosition: {x: 0.01, y: -0.02, z: 0}
+  hipRotation: {x: 0, y: 0, z: 0}
+  aimPosition: {x: 0, y: -0.01, z: 0.1}
+  aimRotation: {x: 0, y: 0, z: 0}
 --- !u!1 &271859796 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 00aa05f094d725149a33ff49ce7596bd, type: 3}
@@ -254,6 +312,14 @@ MonoBehaviour:
   audioSrc: {fileID: 271859799}
   anim: {fileID: 300653626}
   hitEffectPrefab: {fileID: 5334228485563152753, guid: a4448d28d145a034280476afd710033d, type: 3}
+  normalFOV: 60
+  aimFOV: 40
+  aimSpeed: 10
+  gunTransform: {fileID: 0}
+  hipPosition: {x: 0, y: 0, z: 0}
+  hipRotation: {x: 0, y: 0, z: 0}
+  aimPosition: {x: 0, y: -0.01, z: 0.1}
+  aimRotation: {x: 0, y: 0, z: 0}
 --- !u!82 &271859799
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1659,6 +1725,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 00aa05f094d725149a33ff49ce7596bd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 259790344}
     - targetCorrespondingSourceObject: {fileID: -7314745045437555281, guid: 00aa05f094d725149a33ff49ce7596bd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 63502833}
