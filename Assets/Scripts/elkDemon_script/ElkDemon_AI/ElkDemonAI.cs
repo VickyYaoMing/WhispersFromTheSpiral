@@ -73,7 +73,7 @@ public class ElkDemonAI : MonoBehaviour
 
         // Normalize speed and update animator
         float normalizedSpeed = Mathf.Clamp01(currentSpeed / maxAnimSpeed);
-        _stateMachine.SetFloat("Speed", normalizedSpeed);
+        _stateMachine.SetFloat("Speed", normalizedSpeed, 0.2f, Time.deltaTime);
     }
 
     public void StopMoving()
@@ -192,7 +192,6 @@ public class ElkDemonAI : MonoBehaviour
         switch (newBehavior)
         {
             case BehaviorType.Roar:
-                // play roar anim
                 elkRoar.Play();
                 break;
             case BehaviorType.Idle:
