@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 3928276715364656354}
   - component: {fileID: 8293889322296292045}
   - component: {fileID: 6603406557928961125}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Lightbulb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,6 +218,7 @@ MonoBehaviour:
   howCloseFromFront: 1.5
   upwardTilt: 0
   aboveZoomClose: 1.1
+  isUV: 0
 --- !u!54 &3928276715364656354
 Rigidbody:
   m_ObjectHideFlags: 0

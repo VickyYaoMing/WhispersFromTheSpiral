@@ -11,17 +11,11 @@ public class ItemManager : MonoBehaviour
 {
     public List<Default_Item> currentItems;
     private Dictionary<GameObject, GameObject> itemToPrefabMap = new Dictionary<GameObject, GameObject>();
-    private List<GameObject> itemPrefabs;
+    [SerializeField] private List<GameObject> itemPrefabs;
 
     void Start()
     {
-        //Add all prefabs into the itemPrefabs list so we can load them later.
-        string[] files = Directory.GetFiles("Assets/Prefabs/ItemPrefabs", "*.prefab", SearchOption.TopDirectoryOnly);
-        foreach (var file in files)
-        {
-            var prefab = AssetDatabase.LoadAssetAtPath(file, typeof(GameObject));
-            itemPrefabs.Add(prefab.GameObject());
-        }
+        PopulatePrefabList();
     }
 
     void Awake()
@@ -46,6 +40,24 @@ public class ItemManager : MonoBehaviour
     private void RefreshItemList()
     {
         currentItems = FindObjectsByType<Default_Item>(default).ToList();
+    }
+
+    private void PopulatePrefabList()
+    {
+        //This code only works in the editor. Now fixed using Resources.LoadAll!
+        //string[] files = Directory.GetFiles("Assets/Prefabs/ItemPrefabs", "*.prefab", SearchOption.TopDirectoryOnly);
+        //foreach (var file in files)
+        //{
+        //    var prefab = AssetDatabase.LoadAssetAtPath(file, typeof(GameObject));
+        //    itemPrefabs.Add(prefab.GameObject());
+        //}
+
+        //Add all prefabs into the itemPrefabs list so we can load them later.
+        var prefabsToLoad = Resources.LoadAll("ItemPrefabs");
+        foreach (var prefab in prefabsToLoad) 
+        {
+            itemPrefabs.Add(prefab.GameObject());
+        }
     }
 
     private GameObject GetPrefabForItem(GameObject sceneItem)
