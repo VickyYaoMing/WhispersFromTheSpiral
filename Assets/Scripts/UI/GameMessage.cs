@@ -13,23 +13,39 @@ public enum MessageType
 [RequireComponent (typeof(Text))]
 public class GameMessage : MonoBehaviour
 {
+    [SerializeField] public AudioClip[] AudioClips;
     [SerializeField] float m_duration;
     [SerializeField] MessageType m_type;
     [SerializeField] GameMessageManager PlayerMessageManager;
     public Text Description { get; private set; }
     public string[] DescriptionAsPages { get; private set; }
-    public AudioClip[] AudioClips { get; private set; }
+    public float[] Durations { get; private set; }
     public MessageType Type { get; private set; }
-    public float Duration { get { return m_duration; } }
+
     private bool m_isTriggered;
 
     #region Unity Methods
     private void Start()
     {
         Description = GetComponent<Text>();
+        Type = m_type;
         if(m_type == MessageType.Subtitle)
         {
             DescriptionAsPages = SplitDescription(Description.text);            
+        }
+        Durations = new float[AudioClips.Length];
+        if(AudioClips.Length != 0)
+        {
+            Durations = new float[AudioClips.Length];
+            for (int i = 0; i < AudioClips.Length; i++)
+            {
+                Durations[i] = AudioClips[i].length;
+            }
+        }
+        else
+        {
+            Durations = new float[1];
+            Durations[0] = m_duration;
         }
         m_isTriggered = false;
     }

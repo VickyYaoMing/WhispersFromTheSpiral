@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameMessageManager : MonoBehaviour
 {
     [SerializeField] GameObject GameMessageOverlay;
+    [SerializeField] GameObject AudioObject;
+    private AudioSource m_subtitleAudio;
     private UIManager m_uiManager;
     private CanvasGroup m_gameMessageOverlayGroup;
     private FadeAnimator m_fadeAnimator;
@@ -20,6 +22,7 @@ public class GameMessageManager : MonoBehaviour
     private bool m_isSubtitleMessagePlaying;
     private float m_currentTutorialTimeLeft;
     private float m_currentSubtitleTimeLeft;
+    private int currentSubtitleMsgIndex;
 
     private Queue<GameObject> m_tutorialQueue;
     private Queue<GameObject> m_subtitleQueue;
@@ -30,10 +33,11 @@ public class GameMessageManager : MonoBehaviour
     private void Start()
     {
         m_gameMessageOverlayGroup = GameMessageOverlay.GetComponent<CanvasGroup>();
+        m_subtitleAudio = AudioObject.GetComponent<AudioSource>();
         m_uiManager = GetComponent<UIManager>();
         m_fadeAnimator = GetComponent<FadeAnimator>();
         m_tutorialMsgTextObj = GameMessageOverlay.GetComponent<TextMeshProUGUI>();
-        m_subtitleMsgTextObj = GameMessageOverlay.GetComponentInChildren<TextMeshProUGUI>();
+        m_subtitleMsgTextObj = GameMessageOverlay.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         m_tutorialQueue = new Queue<GameObject>();
         m_subtitleQueue = new Queue<GameObject>();
         m_currentTutorialMsgObj = null;
@@ -44,6 +48,8 @@ public class GameMessageManager : MonoBehaviour
         if (m_uiManager.IsPaused || m_uiManager.IsNotebookActive || m_uiManager.IsViewingCollectible)
         {
             m_shouldPauseExecution = true;
+            m_gameMessageOverlayGroup.alpha = 0.0f;
+            m_subtitleAudio.Pause();
             return;
         }
 
@@ -71,9 +77,8 @@ public class GameMessageManager : MonoBehaviour
         {
             m_isTutorialMessagePlaying = true;
             m_currentTutorialMsgObj = m_tutorialQueue.Peek();
-
             m_tutorialMsgTextObj.text = m_currentTutorialMsgObj.GetComponent<GameMessage>().Description.text;
-            m_currentTutorialTimeLeft = m_currentTutorialMsgObj.GetComponent<GameMessage>().Duration;    
+            m_currentTutorialTimeLeft = m_currentTutorialMsgObj.GetComponent<GameMessage>().Durations[0];    
         }
         if (!m_shouldPauseExecution)
         {
@@ -91,10 +96,39 @@ public class GameMessageManager : MonoBehaviour
     }
     private void UpdateCurrentSubtitleMessage()
     {
-        if (m_subtitleQueue.Peek())
+        
+        if (m_subtitleQueue.Peek() != null && m_currentSubtitleMsgObj == null)
         {
+            m_isSubtitleMessagePlaying = true;
+            m_currentSubtitleMsgObj = m_subtitleQueue.Peek();
+            m_subtitleMsgTextObj.text = m_currentSubtitleMsgObj.GetComponent<GameMessage>().DescriptionAsPages[currentSubtitleMsgIndex];
+            m_currentSubtitleTimeLeft = m_currentSubtitleMsgObj.GetComponent<GameMessage>().Durations[currentSubtitleMsgIndex];
+            m_subtitleAudio.resource = m_currentSubtitleMsgObj.GetComponent<GameMessage>().AudioClips[currentSubtitleMsgIndex];
+            m_subtitleAudio.Play();
+        }
+        if (!m_shouldPauseExecution)
+        {
+            m_currentSubtitleTimeLeft -= Time.deltaTime;
+        }
+        if (m_currentSubtitleTimeLeft <= 0 && currentSubtitleMsgIndex < m_currentSubtitleMsgObj.GetComponent<GameMessage>().DescriptionAsPages.Length - 1)
+        {
+            currentSubtitleMsgIndex++;
+            m_subtitleMsgTextObj.text = m_currentSubtitleMsgObj.GetComponent<GameMessage>().DescriptionAsPages[currentSubtitleMsgIndex];
+            m_currentSubtitleTimeLeft = m_currentSubtitleMsgObj.GetComponent<GameMessage>().Durations[currentSubtitleMsgIndex];
+            m_subtitleAudio.resource = m_currentSubtitleMsgObj.GetComponent<GameMessage>().AudioClips[currentSubtitleMsgIndex];
+            m_subtitleAudio.Play();
+            return;
+        }
+        if (m_currentSubtitleTimeLeft <= 0 && currentSubtitleMsgIndex >= m_currentSubtitleMsgObj.GetComponent<GameMessage>().DescriptionAsPages.Length - 1)
+        {
+            m_subtitleMsgTextObj.text = string.Empty;
+            m_isSubtitleMessagePlaying = false;
+            m_currentSubtitleTimeLeft = 0;
+            currentSubtitleMsgIndex = 0;
+            m_subtitleQueue.Dequeue();
+            m_currentSubtitleMsgObj.GetComponent<GameMessage>().OnFinishedPlaying();
+            m_currentSubtitleMsgObj = null;
         }
     }
-
 
 }
