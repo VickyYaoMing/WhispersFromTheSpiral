@@ -1782,7 +1782,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.25, y: 0.25, z: 0.25}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!224 &337392437
 RectTransform:
@@ -2024,7 +2024,7 @@ GameObject:
   - component: {fileID: 361956965}
   - component: {fileID: 361956964}
   m_Layer: 0
-  m_Name: TutorialMessageObject (3)
+  m_Name: SubtitleMessage (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2080,7 +2080,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'once upon a time, i had 3 winning lanes. Then i woke up
+  m_Text: 'Can a brotha get three winning lanes, please 3 winning lanes. Can I, can
+    I?
 
 '
 --- !u!222 &361956966
@@ -2110,7 +2111,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.25, y: 0.25, z: 0.25}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!224 &361956968
 RectTransform:
@@ -2120,7 +2121,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 361956963}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 4.91}
+  m_LocalPosition: {x: 0, y: 0, z: 6.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2128,7 +2129,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.303, y: 0.9120362}
+  m_AnchoredPosition: {x: -7.6, y: 0.74}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &370246234
@@ -2598,6 +2599,108 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 450977969}
   m_Mesh: {fileID: -1810996481419489653, guid: d2bf0e75cc2af364388a40b5c437e3dc, type: 3}
+--- !u!1 &480516340 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8155849040788228028, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+  m_PrefabInstance: {fileID: 1810690081}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &480516341
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480516340}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &501175459
 GameObject:
   m_ObjectHideFlags: 0
@@ -5438,6 +5541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameMessageOverlay: {fileID: 1744274305}
+  AudioObject: {fileID: 480516340}
 --- !u!1 &943674590
 GameObject:
   m_ObjectHideFlags: 0
@@ -5902,7 +6006,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.25, y: 0.25, z: 0.25}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!224 &996684856
 RectTransform:
@@ -10968,7 +11072,7 @@ GameObject:
   - component: {fileID: 1809957495}
   - component: {fileID: 1809957494}
   m_Layer: 0
-  m_Name: TutorialMessageObject (2)
+  m_Name: SubtitleMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10988,7 +11092,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioClips:
   - {fileID: 8300000, guid: 21d0bf4157291ed4d9b5a34ede7627a3, type: 3}
-  - {fileID: 8300000, guid: 86bdb103abe6f2a4eb427273473cc4cb, type: 3}
+  - {fileID: 8300000, guid: eede110544d9d1045a76f1086fab27ec, type: 3}
+  - {fileID: 8300000, guid: ff6c5aa31ab7c2f43857bfa2801b1f8a, type: 3}
   m_duration: 5
   m_type: 1
   PlayerMessageManager: {fileID: 941247398}
@@ -11025,14 +11130,15 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'testing if subtitles work, though the current implementation needs audio
-    clips to work, that is on me
+  m_Text: 'This is a test for subtitles, hopefully multiple lines in the array will
+    work
 
 
-    another line to check if having multiple lines
-    works
+    (random de"bug" noise)
 
-'
+
+    if that worked lets try pausing, if i
+    didn''t pause there i''m a goofball'
 --- !u!222 &1809957496
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11060,7 +11166,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.25, y: 0.25, z: 0.25}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!224 &1809957498
 RectTransform:
@@ -11070,7 +11176,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809957493}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 4.91}
+  m_LocalPosition: {x: 0, y: 0, z: 8.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11078,7 +11184,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.06, y: 0.9120362}
+  m_AnchoredPosition: {x: -1.18, y: 0.9120362}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1810690081
@@ -11780,6 +11886,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 75806692677558944, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 941247398}
+    - targetCorrespondingSourceObject: {fileID: 8155849040788228028, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 480516341}
   m_SourcePrefab: {fileID: 100100000, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
 --- !u!1 &1818919001
 GameObject:
@@ -14924,12 +15033,12 @@ SceneRoots:
   - {fileID: 889100269}
   - {fileID: 1234728570}
   - {fileID: 1350502603857056403}
+  - {fileID: 1832558764}
+  - {fileID: 720621183}
   - {fileID: 1957359350}
   - {fileID: 1829326348}
   - {fileID: 1970391476}
   - {fileID: 1810690081}
-  - {fileID: 720621183}
-  - {fileID: 1832558764}
   - {fileID: 337392437}
   - {fileID: 996684856}
   - {fileID: 1809957498}

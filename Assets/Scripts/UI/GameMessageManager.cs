@@ -52,7 +52,10 @@ public class GameMessageManager : MonoBehaviour
             m_subtitleAudio.Pause();
             return;
         }
-
+        if(m_subtitleAudio.resource != null && !m_subtitleAudio.isPlaying)
+        {
+            m_subtitleAudio.Play();
+        }
         m_shouldPauseExecution = false;
         if (m_isSubtitleMessagePlaying || m_isTutorialMessagePlaying)
         {
@@ -78,7 +81,7 @@ public class GameMessageManager : MonoBehaviour
             m_isTutorialMessagePlaying = true;
             m_currentTutorialMsgObj = m_tutorialQueue.Peek();
             m_tutorialMsgTextObj.text = m_currentTutorialMsgObj.GetComponent<GameMessage>().Description.text;
-            m_currentTutorialTimeLeft = m_currentTutorialMsgObj.GetComponent<GameMessage>().Durations[0];    
+            m_currentTutorialTimeLeft = m_currentTutorialMsgObj.GetComponent<GameMessage>().Durations[0]; 
         }
         if (!m_shouldPauseExecution)
         {
@@ -95,40 +98,43 @@ public class GameMessageManager : MonoBehaviour
         }
     }
     private void UpdateCurrentSubtitleMessage()
-    {
-        
+    {   
         if (m_subtitleQueue.Peek() != null && m_currentSubtitleMsgObj == null)
         {
             m_isSubtitleMessagePlaying = true;
             m_currentSubtitleMsgObj = m_subtitleQueue.Peek();
-            m_subtitleMsgTextObj.text = m_currentSubtitleMsgObj.GetComponent<GameMessage>().DescriptionAsPages[currentSubtitleMsgIndex];
-            m_currentSubtitleTimeLeft = m_currentSubtitleMsgObj.GetComponent<GameMessage>().Durations[currentSubtitleMsgIndex];
-            m_subtitleAudio.resource = m_currentSubtitleMsgObj.GetComponent<GameMessage>().AudioClips[currentSubtitleMsgIndex];
-            m_subtitleAudio.Play();
+            UpdateSubtitle();
         }
         if (!m_shouldPauseExecution)
         {
             m_currentSubtitleTimeLeft -= Time.deltaTime;
         }
-        if (m_currentSubtitleTimeLeft <= 0 && currentSubtitleMsgIndex < m_currentSubtitleMsgObj.GetComponent<GameMessage>().DescriptionAsPages.Length - 1)
+        if(m_currentSubtitleTimeLeft <= 0)
         {
-            currentSubtitleMsgIndex++;
-            m_subtitleMsgTextObj.text = m_currentSubtitleMsgObj.GetComponent<GameMessage>().DescriptionAsPages[currentSubtitleMsgIndex];
-            m_currentSubtitleTimeLeft = m_currentSubtitleMsgObj.GetComponent<GameMessage>().Durations[currentSubtitleMsgIndex];
-            m_subtitleAudio.resource = m_currentSubtitleMsgObj.GetComponent<GameMessage>().AudioClips[currentSubtitleMsgIndex];
-            m_subtitleAudio.Play();
-            return;
-        }
-        if (m_currentSubtitleTimeLeft <= 0 && currentSubtitleMsgIndex >= m_currentSubtitleMsgObj.GetComponent<GameMessage>().DescriptionAsPages.Length - 1)
-        {
-            m_subtitleMsgTextObj.text = string.Empty;
-            m_isSubtitleMessagePlaying = false;
-            m_currentSubtitleTimeLeft = 0;
-            currentSubtitleMsgIndex = 0;
-            m_subtitleQueue.Dequeue();
-            m_currentSubtitleMsgObj.GetComponent<GameMessage>().OnFinishedPlaying();
-            m_currentSubtitleMsgObj = null;
+            if(currentSubtitleMsgIndex < m_currentSubtitleMsgObj.GetComponent<GameMessage>().DescriptionAsPages.Length - 1)
+            {
+                currentSubtitleMsgIndex++;
+                UpdateSubtitle();
+            }
+            else
+            {
+                m_subtitleMsgTextObj.text = string.Empty;
+                m_isSubtitleMessagePlaying = false;
+                m_currentSubtitleTimeLeft = 0;
+                currentSubtitleMsgIndex = 0;
+                m_subtitleQueue.Dequeue();
+                m_currentSubtitleMsgObj.GetComponent<GameMessage>().OnFinishedPlaying();
+                m_currentSubtitleMsgObj = null;
+                m_subtitleAudio.resource = null;
+            }
         }
     }
 
+    private void UpdateSubtitle()
+    {
+        m_subtitleAudio.resource = m_currentSubtitleMsgObj.GetComponent<GameMessage>().AudioClips[currentSubtitleMsgIndex];
+        m_subtitleAudio.Play();
+        m_subtitleMsgTextObj.text = m_currentSubtitleMsgObj.GetComponent<GameMessage>().DescriptionAsPages[currentSubtitleMsgIndex];
+        m_currentSubtitleTimeLeft = m_currentSubtitleMsgObj.GetComponent<GameMessage>().Durations[currentSubtitleMsgIndex];
+    }
 }
