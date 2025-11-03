@@ -17,9 +17,9 @@ public class GameMessage : MonoBehaviour
     [SerializeField] GameMessageManager PlayerMessageManager;
     public Text Description { get; private set; }
     public string[] DescriptionAsPages { get; private set; }
+    public AudioClip[] AudioClips { get; private set; }
     public MessageType Type { get; private set; }
     public float Duration { get { return m_duration; } }
-    //public bool HasAudio { get; set; }
     private bool m_isTriggered;
 
     #region Unity Methods
@@ -28,13 +28,13 @@ public class GameMessage : MonoBehaviour
         Description = GetComponent<Text>();
         if(m_type == MessageType.Subtitle)
         {
-            DescriptionAsPages = SplitDescription(Description.text);
+            DescriptionAsPages = SplitDescription(Description.text);            
         }
         m_isTriggered = false;
     }
     #endregion
 
-    public void OnTriggered()
+    public void OnFinishedPlaying()
     {
         Destroy(this);
     }
