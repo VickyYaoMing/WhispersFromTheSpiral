@@ -10,6 +10,7 @@ public enum MessageType
 }
 
 [RequireComponent(typeof(Collider))]
+[RequireComponent (typeof(Text))]
 public class GameMessage : MonoBehaviour
 {
     [SerializeField] float m_duration;
@@ -36,7 +37,7 @@ public class GameMessage : MonoBehaviour
 
     public void OnFinishedPlaying()
     {
-        Destroy(this);
+        Destroy(gameObject);
     }
 
     private string[] SplitDescription(string description)
@@ -50,10 +51,10 @@ public class GameMessage : MonoBehaviour
         return pages.ToArray();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (!collision.collider.CompareTag(StringLiterals.PLAYER_TAG) && m_isTriggered) {  return; }
-
+        if (!collider.CompareTag(StringLiterals.PLAYER_TAG) || m_isTriggered)
+            return;
         if (m_type == MessageType.Tutorial)
         {
             PlayerMessageManager.TutorialQueue.Enqueue(gameObject);
@@ -64,5 +65,4 @@ public class GameMessage : MonoBehaviour
         }
         m_isTriggered = true;
     }
-
 }

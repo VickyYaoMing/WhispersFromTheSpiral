@@ -30,6 +30,7 @@ public class GameMessageManager : MonoBehaviour
     private void Start()
     {
         m_gameMessageOverlayGroup = GameMessageOverlay.GetComponent<CanvasGroup>();
+        m_uiManager = GetComponent<UIManager>();
         m_fadeAnimator = GetComponent<FadeAnimator>();
         m_tutorialMsgTextObj = GameMessageOverlay.GetComponent<TextMeshProUGUI>();
         m_subtitleMsgTextObj = GameMessageOverlay.GetComponentInChildren<TextMeshProUGUI>();
@@ -49,11 +50,11 @@ public class GameMessageManager : MonoBehaviour
         m_shouldPauseExecution = false;
         if (m_isSubtitleMessagePlaying || m_isTutorialMessagePlaying)
         {
-            m_fadeAnimator.FadeIn(m_gameMessageOverlayGroup, 0.3f);
+            m_fadeAnimator.FadeIn(m_gameMessageOverlayGroup, 0.5f);
         }
-        if(!m_isTutorialMessagePlaying && !m_isSubtitleMessagePlaying)
+        if (!m_isTutorialMessagePlaying && !m_isSubtitleMessagePlaying)
         {
-            m_fadeAnimator.FadeOut(m_gameMessageOverlayGroup, 0.3f);
+            m_fadeAnimator.FadeOut(m_gameMessageOverlayGroup, 0.5f);
         }
         if (m_tutorialQueue.Count > 0)
             UpdateCurrentTutorialMessage();
@@ -66,23 +67,26 @@ public class GameMessageManager : MonoBehaviour
 
     private void UpdateCurrentTutorialMessage()
     {
-        if (m_tutorialQueue.Peek())
+        if (m_tutorialQueue.Peek() != null && m_currentTutorialMsgObj == null)
         {
             m_isTutorialMessagePlaying = true;
-            m_currentTutorialMsgObj = m_tutorialQueue.Dequeue();
-            m_tutorialMsgTextObj.text = m_currentTutorialMsgObj.GetComponent<GameMessage>().Description.text;
-            m_currentTutorialTimeLeft = m_currentTutorialMsgObj.GetComponent<GameMessage>().Duration;
-            if (!m_shouldPauseExecution)
-            {
-                m_currentTutorialTimeLeft -= Time.deltaTime;
-            }
-            if (m_currentTutorialTimeLeft < 0)
-            {
-                m_tutorialMsgTextObj.text = string.Empty;
-                m_isTutorialMessagePlaying = false;
-                m_currentTutorialMsgObj.GetComponent<GameMessage>().OnFinishedPlaying();
-            }
+            m_currentTutorialMsgObj = m_tutorialQueue.Peek();
 
+            m_tutorialMsgTextObj.text = m_currentTutorialMsgObj.GetComponent<GameMessage>().Description.text;
+            m_currentTutorialTimeLeft = m_currentTutorialMsgObj.GetComponent<GameMessage>().Duration;    
+        }
+        if (!m_shouldPauseExecution)
+        {
+            m_currentTutorialTimeLeft -= Time.deltaTime;
+        }
+        if (m_currentTutorialTimeLeft < 0)
+        {
+            m_tutorialMsgTextObj.text = string.Empty;
+            m_isTutorialMessagePlaying = false;
+            m_currentTutorialTimeLeft = 0;
+            m_tutorialQueue.Dequeue();
+            m_currentTutorialMsgObj.GetComponent<GameMessage>().OnFinishedPlaying();
+            m_currentTutorialMsgObj = null;
         }
     }
     private void UpdateCurrentSubtitleMessage()
