@@ -131,6 +131,18 @@ public class InteractionManager : MonoBehaviour
         }
     }
 
+    //Dupe code, maybe make the two into one method? - ibrahim (sorry vicky it didnt work with abort camera lock)
+    public void AutoReleaseCameraLock()
+    {
+        inputManager.enabled = true;
+        playerMovement.UnlockCamera();
+        currentItem.GetComponent<InteractableBase>().enabled = false;
+        lockItem = false;
+        currentItem = itemArray[currentItemSpot];
+        if (currentItem != null) currentItem.SetActive(true);
+        Reticle.Instance.SetActivity(true);
+    }
+
     private void RayCastItem()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -157,30 +169,41 @@ public class InteractionManager : MonoBehaviour
             else if (!currentHandAvailable)
             {
                 Vector3 placePos = hit.point + hit.normal * 0.01f;
-                OnDrop(placePos);
+                OnDrop(placePos, true);
             }
         }
     }
 
-    private void OnDrop(Vector3 placePos)
+    private void OnDrop(Vector3 placePos, bool hasPhysics)
     {
         currentHandAvailable = true;
         itemArray[currentItemSpot] = null;
         currentTotalItems--;
         currentItem.transform.SetParent(null);
         currentItem.transform.position = placePos;
-        ItemPhysics(false);
+        if(hasPhysics) ItemPhysics(false);
         currentItemInteractBase.enabled = false;
         currentItem = null;
     }
     private void OnSwap(GameObject detectedItem)
     {
+        if (detectedItem.GetComponent<InteractableBase>().canBePlacedUpon)
+        {
+            CanBePlacedUpon(detectedItem);
+            return;
+        }
         if (detectedItem.GetComponent<InteractableBase>().itemShouldBeCameraLocked)
         {
             OnPickUp(detectedItem);
             return;
         }
-        OnDrop(detectedItem.transform.position);
+        OnDrop(detectedItem.transform.position, true);
+        OnPickUp(detectedItem);
+    }
+
+    private void CanBePlacedUpon(GameObject detectedItem)
+    {
+        OnDrop(detectedItem.GetComponent<InteractableBase>().placementArea, false);
         OnPickUp(detectedItem);
     }
 
@@ -206,9 +229,20 @@ public class InteractionManager : MonoBehaviour
 
     #region Methods for save and load
 
-    public GameObject GetCurrentItem()
+    public GameObject GetItemInHand()
     {
-        return currentItem;
+        return itemArray[currentItemSpot];
+    }
+
+    public void DropItemInHand()
+    {
+        currentHandAvailable = true;
+        itemArray[currentItemSpot] = null;
+        currentTotalItems--;
+        currentItem.transform.SetParent(null);
+        ItemPhysics(false);
+        currentItemInteractBase.enabled = false;
+        currentItem = null;
     }
 
     public void Save(ref PlayerInventoryData data)

@@ -107,7 +107,7 @@ public class SanityAudioRouter2D : MonoBehaviour
         {
             float calmRel = CapRelative(_sanity.Sanity01, _sanity.Cap01);
             float tSanity = 1f - calmRel;
-            Debug.Log($"[Router2D] cap={_sanity.Cap01:F2} sanity={_sanity.Sanity01:F2} tSanity={tSanity:F2} stress={tStress:F2}");
+            //Debug.Log($"[Router2D] cap={_sanity.Cap01:F2} sanity={_sanity.Sanity01:F2} tSanity={tSanity:F2} stress={tStress:F2}");
         }
     }
 

@@ -13,7 +13,13 @@ public abstract class InteractableBase : MonoBehaviour
     [SerializeField] public float upwardTilt = 0;
 
     //How close from above zoom
+    [Header("Placed Upon behaviour")]
     [SerializeField] public float aboveZoomClose = 1.1f;
+    [SerializeField] public bool canBePlacedUpon = false;
+    [SerializeField] public Vector3 placementArea = Vector3.zero;
+    [SerializeField] public GameObject keyToActivate = null;
+
+
 
     public bool IsCollectible { get; protected set; } = false;
     protected bool isActive = false;
