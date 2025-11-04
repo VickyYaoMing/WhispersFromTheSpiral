@@ -13,10 +13,10 @@ public enum MessageType
 [RequireComponent (typeof(Text))]
 public class GameMessage : MonoBehaviour
 {
-    [SerializeField] public AudioClip[] AudioClips;
     [SerializeField] float m_duration;
     [SerializeField] MessageType m_type;
     [SerializeField] GameMessageManager PlayerMessageManager;
+    public AudioClip[] AudioClips;
     public Text Description { get; private set; }
     public string[] DescriptionAsPages { get; private set; }
     public float[] Durations { get; private set; }

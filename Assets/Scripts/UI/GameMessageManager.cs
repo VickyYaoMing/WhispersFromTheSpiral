@@ -11,7 +11,7 @@ public class GameMessageManager : MonoBehaviour
     private CanvasGroup m_gameMessageOverlayGroup;
     private FadeAnimator m_fadeAnimator;
 
-    private bool m_shouldPauseExecution;
+    private bool m_isExecutionPaused;
 
     private TextMeshProUGUI m_tutorialMsgTextObj;
     private TextMeshProUGUI m_subtitleMsgTextObj;
@@ -47,7 +47,7 @@ public class GameMessageManager : MonoBehaviour
     {
         if (m_uiManager.IsPaused || m_uiManager.IsNotebookActive || m_uiManager.IsViewingCollectible)
         {
-            m_shouldPauseExecution = true;
+            m_isExecutionPaused = true;
             m_gameMessageOverlayGroup.alpha = 0.0f;
             m_subtitleAudio.Pause();
             return;
@@ -56,7 +56,7 @@ public class GameMessageManager : MonoBehaviour
         {
             m_subtitleAudio.Play();
         }
-        m_shouldPauseExecution = false;
+        m_isExecutionPaused = false;
         if (m_isSubtitleMessagePlaying || m_isTutorialMessagePlaying)
         {
             m_fadeAnimator.FadeIn(m_gameMessageOverlayGroup, 0.5f);
@@ -83,7 +83,7 @@ public class GameMessageManager : MonoBehaviour
             m_tutorialMsgTextObj.text = m_currentTutorialMsgObj.GetComponent<GameMessage>().Description.text;
             m_currentTutorialTimeLeft = m_currentTutorialMsgObj.GetComponent<GameMessage>().Durations[0]; 
         }
-        if (!m_shouldPauseExecution)
+        if (!m_isExecutionPaused)
         {
             m_currentTutorialTimeLeft -= Time.deltaTime;
         }
@@ -105,7 +105,7 @@ public class GameMessageManager : MonoBehaviour
             m_currentSubtitleMsgObj = m_subtitleQueue.Peek();
             UpdateSubtitle();
         }
-        if (!m_shouldPauseExecution)
+        if (!m_isExecutionPaused)
         {
             m_currentSubtitleTimeLeft -= Time.deltaTime;
         }
