@@ -28,6 +28,12 @@ public class LightSocket : SecondaryInteractionItem
         {
             UVObjectActivation(lightbulb.IsUV);
         }
+        else
+        {
+            //Band-aid fix for the time being, until I find a better way to
+            //turn off all UV objects when no lightbulb is in the socket
+            UVObjectActivation(false);
+        }
     }
 
     public override void SecondaryInteraction()
