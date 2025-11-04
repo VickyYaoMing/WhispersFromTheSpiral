@@ -1,140 +1,122 @@
 using JetBrains.Annotations;
 using System.Collections;
+using UnityEditor.SearchService;
 using UnityEngine;
 
-public class LightSocket : CameraLock_Item
+public class LightSocket : SecondaryInteractionItem
 {
     private Lightbulb lightbulb;
     [SerializeField] private LayerMask socketMask;
-    bool lightOn;
+    Vector3 lightPosition;
+    Quaternion lightRotation;
+    UVVisibleObject[] UVVisibleObjects;
+    bool objectsActivated;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        itemShouldBeCameraLocked = true;
+        HasSecondaryInteraction = true;
+        lightPosition = new Vector3(0f, 4.2f, 0.049f);
+        lightRotation = Quaternion.identity;
+        UVVisibleObjects = GetComponentsInChildren<UVVisibleObject>(true);
     }
 
-    public override GameObject PickedUp()
+    private void Update()
     {
-        GameObject itemInPlayerHand = GameManager.Instance.InteractionManager.GetItemInHand();
-        lightbulb.GetComponent<Light>().enabled = true;
-
-        if (itemInPlayerHand == null) return base.PickedUp();
-
-
-        Debug.Log("This is how far we got last time");
-        if (itemInPlayerHand.GetComponent<Lightbulb>() != null)
+        if (lightbulb)
         {
-            Debug.Log("Please tell me this code ran twice");
-            //Check if lightbulb in hand; If lightbulb, disable current bulb, and enable the new one.
+            UVObjectActivation(lightbulb.IsUV);
+        }
+    }
+
+    public override void SecondaryInteraction()
+    {
+        //This if-tree is a little messier than i'd like but if it works dont fix it or something
+
+        GameObject itemInPlayerHand = GameManager.Instance.InteractionManager.GetItemInHand();
+
+        //player holding item
+        if (itemInPlayerHand != null)
+        {
+            //if item is not a lightbulb, return
+            if (itemInPlayerHand.GetComponent<Lightbulb>() == null) return;
+
+            //if there is a lightbulb in the socket, swap them
             if (lightbulb)
             {
-                lightbulb.GetComponent<Light>().enabled = false;
-            }
-            lightbulb = itemInPlayerHand.GetComponent<Lightbulb>();
-            lightbulb.enabled = false;
-
-            UVVisibleObject[] UVVisibleObjects = GetComponentsInChildren<UVVisibleObject>(true);
-            Debug.Log("We are looking at all the UV Visible objects");
-
-            PlaceObjectInLightSocket(itemInPlayerHand);
-            StartCoroutine(AwaitBulbAnimation());
-
-
-            //If lightbulb is the UV bulb, show the details visible under UV light.
-            if (!lightbulb.IsUV)
-            {
-                foreach (var UVObject in UVVisibleObjects)
-                {
-                    UVObject.gameObject.SetActive(false);
-                }
+                SwapLightbulbs(lightbulb, itemInPlayerHand.GetComponent<Lightbulb>());
             }
             else
             {
-                foreach (var UVObject in UVVisibleObjects)
-                {
-                    UVObject.gameObject.SetActive(true);
-                }
+                ScrewLightbulbInSocket(itemInPlayerHand.GetComponent<Lightbulb>());
             }
         }
-        Debug.Log("Last thing before dropping");
-        //GameManager.Instance.InteractionManager.DropItemInHand();
-        return base.PickedUp();
+        else
+        {
+            //Player *not* holding lightbulb
+            if (lightbulb)
+            {
+                //pick up the lightbulb
+                TakeLightbulbFromSocket(lightbulb);
+            }
+        }
+        
+        //Coroutine to wait for an animation to happen or finish.
+        //StartCoroutine(AwaitBulbAnimation());
     }
 
-    public void PlaceObjectInLightSocket(GameObject bulbObject)
+    public void SwapLightbulbs(Lightbulb currentBulb, Lightbulb playerBulb)
     {
-        //Next steps:
-        //Set lightbulb gameobject to active;
-        //Parent its position to the socket;
-        //Remove it from the player inventory;
+        ScrewLightbulbInSocket(playerBulb);
+        TakeLightbulbFromSocket(currentBulb);
+        lightbulb = playerBulb;
+    }
 
-        bulbObject.SetActive(true);
-        //this transform position is a bum and a fraud (rewrite with a proper preset vector3)
-        bulbObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 1, gameObject.transform.position.z);
+    public void ScrewLightbulbInSocket(Lightbulb bulb)
+    {
+        //If the player is holding a lightbulb, place it into the socket.
+        bulb.IsInUse = true;
+        bulb.GetComponent<Light>().enabled = true;
+        bulb.enabled = false;
+        GameManager.Instance.InteractionManager.PlaceItemInHand(lightPosition, lightRotation);
+        lightbulb = bulb;
+    }
+
+    public void TakeLightbulbFromSocket(Lightbulb bulb)
+    {
+        bulb.IsInUse = true;
+        bulb.GetComponent<Light>().enabled = false;
+        GameManager.Instance.InteractionManager.OnPickUp(bulb.gameObject);
+        lightbulb = null;
+        bulb.IsInUse = false;
+    }
+
+    public void UVObjectActivation(bool isUV)
+    {
+        //If lightbulb is the UV bulb, show the details visible under UV light.
+        if (!isUV && objectsActivated)
+        {
+            foreach (var UVObject in UVVisibleObjects)
+            {
+                UVObject.gameObject.SetActive(false);
+            }
+            objectsActivated = false;
+        }
+        else if (isUV && !objectsActivated)
+        {
+            foreach (var UVObject in UVVisibleObjects)
+            {
+                UVObject.gameObject.SetActive(true);
+            }
+            objectsActivated = true;
+        }
     }
 
     IEnumerator AwaitBulbAnimation()
     {
         yield return new WaitForSeconds(3);
-        GameManager.Instance.InteractionManager.AutoReleaseCameraLock();
-
+        GameManager.Instance.InteractionManager.ReleaseCameraLock();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //    RaycastHit hit;
-        //    GameObject itemInPlayerHand = GameManager.Instance.InteractionManager.GetItemInHand();
-        //
-        //    if (Physics.Raycast(ray, out hit, 20f, socketMask) && hit.collider.gameObject == gameObject)
-        //    {
-        //        if (itemInPlayerHand == null) return;
-        //
-        //        Debug.Log("This is how far we got last time");
-        //        if(itemInPlayerHand.GetComponent<Lightbulb>() != null)
-        //        {
-        //            Debug.Log("Please tell me this code ran twice");
-        //            //Check if lightbulb in hand; If lightbulb, disable current bulb, and enable the new one.
-        //            if(lightbulb)
-        //            {
-        //                lightbulb.GetComponent<Light>().enabled = false;
-        //            }
-        //            lightbulb = itemInPlayerHand.GetComponent<Lightbulb>();
-        //
-        //            //Next steps:
-        //            //Set lightbulb gameobject to active;
-        //            //Parent its position to the socket;
-        //            //Remove it from the player inventory;
-        //            lightbulb.gameObject.SetActive(true);
-        //            lightbulb.gameObject.transform.position = gameObject.transform.position;
-        //            lightbulb.GetComponent<Light>().enabled = true;
-        //
-        //            UVVisibleObject[] UVVisibleObjects = GetComponentsInChildren<UVVisibleObject>(true);
-        //            Debug.Log("We are looking at all the UV Visible objects");
-        //
-        //            //If lightbulb is the UV bulb, show the details visible under UV light.
-        //            if (!lightbulb.IsUV)
-        //            {
-        //                foreach(var  UVObject in UVVisibleObjects)
-        //                {
-        //                    UVObject.gameObject.SetActive(false);
-        //                    GameManager.Instance.InteractionManager.AutoReleaseCameraLock();
-        //                }
-        //                return;
-        //            }
-        //
-        //            foreach(var UVObject in UVVisibleObjects)
-        //            {
-        //                UVObject.gameObject.SetActive(true);
-        //            }
-        //
-        //            GameManager.Instance.InteractionManager.AutoReleaseCameraLock();
-        //        }
-        //    }
-        //}
-    }
 }

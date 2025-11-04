@@ -963,11 +963,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2646798654810060564, guid: e11c33b39288e0d46a6abfa29d9ed69f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.9
+      value: 4.89
       objectReference: {fileID: 0}
     - target: {fileID: 2646798654810060564, guid: e11c33b39288e0d46a6abfa29d9ed69f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.7340001
+      value: 1.78
       objectReference: {fileID: 0}
     - target: {fileID: 2646798654810060564, guid: e11c33b39288e0d46a6abfa29d9ed69f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1931,7 +1931,9 @@ MonoBehaviour:
   howCloseFromFront: 1.5
   upwardTilt: 0.2
   aboveZoomClose: 1.1
-  canBePlacedUpon: 1
+  canBePlacedUpon: 0
+  placementArea: {x: 0, y: 0, z: 0}
+  keyToActivate: {fileID: 0}
   socketMask:
     serializedVersion: 2
     m_Bits: 65536

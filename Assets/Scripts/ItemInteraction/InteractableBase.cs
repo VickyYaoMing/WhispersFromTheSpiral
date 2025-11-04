@@ -20,9 +20,11 @@ public abstract class InteractableBase : MonoBehaviour
     [SerializeField] public GameObject keyToActivate = null;
 
 
-
+    public bool HasSecondaryInteraction { get; protected set; } = false;
+    public bool IsInUse { get; set; } = false;
     public bool IsCollectible { get; protected set; } = false;
     protected bool isActive = false;
+    
    
 
     public virtual GameObject PickedUp()

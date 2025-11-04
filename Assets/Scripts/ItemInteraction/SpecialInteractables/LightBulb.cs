@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Lightbulb : Default_Item
@@ -15,6 +16,8 @@ public class Lightbulb : Default_Item
     }
 
     public bool IsUV {  get { return isUV; } }
+
+    
 
     // Update is called once per frame
     void Update()
