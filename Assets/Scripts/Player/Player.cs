@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
 
         //Disable the player movement and controller so that the loaded position data isn't overwritten.
         var characterController = GetComponent<CharacterController>();
-        var playerMovement = GetComponent<PlayerMovement>();
+        var playerMovement = GetComponent<Movement>();
 
         if (characterController != null) characterController.enabled = false;
         if (playerMovement != null) playerMovement.enabled = false;
