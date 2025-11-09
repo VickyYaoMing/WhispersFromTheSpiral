@@ -60,21 +60,25 @@ public class MainMenuNavigation : MonoBehaviour
     public void ViewOptions()
     {
         m_mainCanvasGroup.interactable = false;
+        m_creditsCanvasGroup.blocksRaycasts = false;
         m_currentState = MenuState.OptionsView;
 
         m_fadeAnimator.FadeOut(m_mainCanvasGroup, 0.5f);
         m_fadeAnimator.FadeIn(m_optionsCanvasGroup, 0.5f);
         m_optionsCanvasGroup.interactable = true;
+        m_optionsCanvasGroup.blocksRaycasts = true;
     }
 
     public void ViewCredits()
     {
         m_mainCanvasGroup.interactable = false;
+        m_optionsCanvasGroup.blocksRaycasts = false;
         m_currentState = MenuState.CreditsView;
 
         m_fadeAnimator.FadeOut(m_mainCanvasGroup, 0.5f);
         m_fadeAnimator.FadeIn(m_creditsCanvasGroup, 0.5f);
         m_creditsCanvasGroup.interactable = true;
+        m_creditsCanvasGroup.blocksRaycasts = true;
     }
 
     public void QuitGame()

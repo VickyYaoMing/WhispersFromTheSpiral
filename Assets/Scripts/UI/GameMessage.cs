@@ -29,10 +29,8 @@ public class GameMessage : MonoBehaviour
     {
         Description = GetComponent<Text>();
         Type = m_type;
-        if(m_type == MessageType.Subtitle)
-        {
-            DescriptionAsPages = SplitDescription(Description.text);            
-        }
+        DescriptionAsPages = SplitDescription(Description.text);
+
         Durations = new float[AudioClips.Length];
         if(AudioClips.Length != 0)
         {
@@ -44,8 +42,11 @@ public class GameMessage : MonoBehaviour
         }
         else
         {
-            Durations = new float[1];
-            Durations[0] = m_duration;
+            Durations = new float[DescriptionAsPages.Length];
+            for (int i = 0; i < DescriptionAsPages.Length; i++)
+            {
+                Durations[i] = m_duration;
+            }
         }
         m_isTriggered = false;
     }
