@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
         if (Keyboard.current.qKey.wasPressedThisFrame)
         {
             //Save();
-            
+            //CheckpointManager.CreateNewCheckpoint(new Vector3(-1.07f, 4.39f, -3.92f)); just a debug to test creating new checkpoints
         }
         if (Keyboard.current.fKey.wasPressedThisFrame) 
         {

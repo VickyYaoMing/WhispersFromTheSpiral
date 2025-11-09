@@ -2,38 +2,89 @@ using UnityEngine;
 
 public class DoorInteraction : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
-    [SerializeField] private bool Locked = false;
-    float dot;
-
-    private void OnTriggerEnter(Collider other)
+    //REWRITE THIS 
+    [SerializeField] LayerMask doorLayer;
+    [SerializeField] Camera cam;
+    private Transform selectedDoor;
+    private GameObject dragPointGameobject;
+    private int leftDoor = 0;
+    
+    void Update()
     {
-        if (other.tag == StringLiterals.PLAYER_TAG && Locked == false)
-        {
-            Vector3 doorToPlayer = other.transform.position - transform.position;
-            dot = Vector3.Dot(transform.forward, doorToPlayer);
+        //Raycast
+        RaycastHit hit;
 
-            if (dot > 0)
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 20, doorLayer))
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                animator.SetTrigger("OpenDoorPos");
-            }
-            else
-            {
-                animator.SetTrigger("OpenDoorNeg");
+                selectedDoor = hit.collider.gameObject.transform;
             }
         }
-        if (other.tag == StringLiterals.KEYSTARTROOM_TAG)
+
+        if (selectedDoor != null)
         {
+            HingeJoint joint = selectedDoor.GetComponent<HingeJoint>();
+            JointMotor motor = joint.motor;
 
-            Locked = false;
-
-            if (dot > 0)
+            //Create drag point object for reference where players mouse is pointing
+            if (dragPointGameobject == null)
             {
-                animator.SetTrigger("OpenDoorPos");
+                dragPointGameobject = new GameObject("Ray door");
+                dragPointGameobject.transform.parent = selectedDoor;
+            }
+
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            dragPointGameobject.transform.position = ray.GetPoint(Vector3.Distance(selectedDoor.position, transform.position));
+            dragPointGameobject.transform.rotation = selectedDoor.rotation;
+
+
+            float delta = Mathf.Pow(Vector3.Distance(dragPointGameobject.transform.position, selectedDoor.position), 3);
+
+            // Deciding if it is left or right door
+            if (selectedDoor.GetComponent<MeshRenderer>().localBounds.center.x > selectedDoor.localPosition.x)
+            {
+                leftDoor = -1;
             }
             else
             {
-                animator.SetTrigger("OpenDoorNeg");
+                leftDoor = 1;
+            }
+
+            // Applying velocity to door motor
+            float speedMultiplier = 60000;
+
+            if (Mathf.Abs(selectedDoor.parent.forward.z) > 0.5f)
+            {
+                if (dragPointGameobject.transform.position.x > selectedDoor.position.x)
+                {
+                    motor.targetVelocity = delta * speedMultiplier * Time.deltaTime * leftDoor;
+                }
+                else
+                {
+                    motor.targetVelocity = delta * -speedMultiplier * Time.deltaTime * leftDoor;
+                }
+            }
+            else if (Mathf.Abs(selectedDoor.parent.forward.x) > 0.5f)
+            {
+                if (dragPointGameobject.transform.position.z > selectedDoor.position.z)
+                {
+                    motor.targetVelocity = delta * speedMultiplier * Time.deltaTime * leftDoor;
+                }
+                else
+                {
+                    motor.targetVelocity = delta * -speedMultiplier * Time.deltaTime * leftDoor;
+                }
+            }
+
+            joint.motor = motor;
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                selectedDoor = null;
+                motor.targetVelocity = 0;
+                joint.motor = motor;
+                Destroy(dragPointGameobject);
             }
         }
     }
