@@ -1,0 +1,140 @@
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+
+public class GameMessageManager : MonoBehaviour
+{
+    [SerializeField] GameObject GameMessageOverlay;
+    [SerializeField] GameObject AudioObject;
+    private AudioSource m_subtitleAudio;
+    private UIManager m_uiManager;
+    private CanvasGroup m_gameMessageOverlayGroup;
+    private FadeAnimator m_fadeAnimator;
+
+    private bool m_isExecutionPaused;
+
+    private TextMeshProUGUI m_tutorialMsgTextObj;
+    private TextMeshProUGUI m_subtitleMsgTextObj;
+
+    private GameObject m_currentTutorialMsgObj;
+    private GameObject m_currentSubtitleMsgObj;
+    private bool m_isTutorialMessagePlaying;
+    private bool m_isSubtitleMessagePlaying;
+    private float m_currentTutorialTimeLeft;
+    private float m_currentSubtitleTimeLeft;
+    private int currentSubtitleMsgIndex;
+
+    private Queue<GameObject> m_tutorialQueue;
+    private Queue<GameObject> m_subtitleQueue;
+    public Queue<GameObject> TutorialQueue { get { return m_tutorialQueue; } }
+    public Queue<GameObject> SubtitleQueue { get { return m_subtitleQueue; } }
+
+    #region Unity Methods
+    private void Start()
+    {
+        m_gameMessageOverlayGroup = GameMessageOverlay.GetComponent<CanvasGroup>();
+        m_subtitleAudio = AudioObject.GetComponent<AudioSource>();
+        m_uiManager = GetComponent<UIManager>();
+        m_fadeAnimator = GetComponent<FadeAnimator>();
+        m_tutorialMsgTextObj = GameMessageOverlay.GetComponent<TextMeshProUGUI>();
+        m_subtitleMsgTextObj = GameMessageOverlay.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        m_tutorialQueue = new Queue<GameObject>();
+        m_subtitleQueue = new Queue<GameObject>();
+        m_currentTutorialMsgObj = null;
+        m_currentSubtitleMsgObj = null;
+    }
+    private void Update()
+    {
+        if (m_uiManager.IsPaused || m_uiManager.IsNotebookActive || m_uiManager.IsViewingCollectible)
+        {
+            m_isExecutionPaused = true;
+            m_gameMessageOverlayGroup.alpha = 0.0f;
+            m_subtitleAudio.Pause();
+            return;
+        }
+        if(m_subtitleAudio.resource != null && !m_subtitleAudio.isPlaying)
+        {
+            m_subtitleAudio.Play();
+        }
+        m_isExecutionPaused = false;
+        if (m_isSubtitleMessagePlaying || m_isTutorialMessagePlaying)
+        {
+            m_fadeAnimator.FadeIn(m_gameMessageOverlayGroup, 0.5f);
+        }
+        if (!m_isTutorialMessagePlaying && !m_isSubtitleMessagePlaying)
+        {
+            m_fadeAnimator.FadeOut(m_gameMessageOverlayGroup, 0.5f);
+        }
+        if (m_tutorialQueue.Count > 0)
+            UpdateCurrentTutorialMessage();
+
+        if (m_subtitleQueue.Count > 0)
+            UpdateCurrentSubtitleMessage();
+    }
+    #endregion
+
+
+    private void UpdateCurrentTutorialMessage()
+    {
+        if (m_tutorialQueue.Peek() != null && m_currentTutorialMsgObj == null)
+        {
+            m_isTutorialMessagePlaying = true;
+            m_currentTutorialMsgObj = m_tutorialQueue.Peek();
+            m_tutorialMsgTextObj.text = m_currentTutorialMsgObj.GetComponent<GameMessage>().Description.text;
+            m_currentTutorialTimeLeft = m_currentTutorialMsgObj.GetComponent<GameMessage>().Durations[0]; 
+        }
+        if (!m_isExecutionPaused)
+        {
+            m_currentTutorialTimeLeft -= Time.deltaTime;
+        }
+        if (m_currentTutorialTimeLeft < 0)
+        {
+            m_tutorialMsgTextObj.text = string.Empty;
+            m_isTutorialMessagePlaying = false;
+            m_currentTutorialTimeLeft = 0;
+            m_tutorialQueue.Dequeue();
+            m_currentTutorialMsgObj.GetComponent<GameMessage>().OnFinishedPlaying();
+            m_currentTutorialMsgObj = null;
+        }
+    }
+    private void UpdateCurrentSubtitleMessage()
+    {   
+        if (m_subtitleQueue.Peek() != null && m_currentSubtitleMsgObj == null)
+        {
+            m_isSubtitleMessagePlaying = true;
+            m_currentSubtitleMsgObj = m_subtitleQueue.Peek();
+            UpdateSubtitle();
+        }
+        if (!m_isExecutionPaused)
+        {
+            m_currentSubtitleTimeLeft -= Time.deltaTime;
+        }
+        if(m_currentSubtitleTimeLeft <= 0)
+        {
+            if(currentSubtitleMsgIndex < m_currentSubtitleMsgObj.GetComponent<GameMessage>().DescriptionAsPages.Length - 1)
+            {
+                currentSubtitleMsgIndex++;
+                UpdateSubtitle();
+            }
+            else
+            {
+                m_subtitleMsgTextObj.text = string.Empty;
+                m_isSubtitleMessagePlaying = false;
+                m_currentSubtitleTimeLeft = 0;
+                currentSubtitleMsgIndex = 0;
+                m_subtitleQueue.Dequeue();
+                m_currentSubtitleMsgObj.GetComponent<GameMessage>().OnFinishedPlaying();
+                m_currentSubtitleMsgObj = null;
+                m_subtitleAudio.resource = null;
+            }
+        }
+    }
+
+    private void UpdateSubtitle()
+    {
+        m_subtitleAudio.resource = m_currentSubtitleMsgObj.GetComponent<GameMessage>().AudioClips[currentSubtitleMsgIndex];
+        m_subtitleAudio.Play();
+        m_subtitleMsgTextObj.text = m_currentSubtitleMsgObj.GetComponent<GameMessage>().DescriptionAsPages[currentSubtitleMsgIndex];
+        m_currentSubtitleTimeLeft = m_currentSubtitleMsgObj.GetComponent<GameMessage>().Durations[currentSubtitleMsgIndex];
+    }
+}
