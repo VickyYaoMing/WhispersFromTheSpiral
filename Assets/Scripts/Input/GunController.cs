@@ -1,11 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
-public class GunController : MonoBehaviour
+public class GunController : InteractableBase
 {
     public GunStats stats;
     public Transform muzzle;
-    public Camera cam;
+    [SerializeField] private Camera cam;
+    [SerializeField] private Camera pixelFOVCam;
+
     public AudioSource audioSrc;
     public Animator anim;
 
@@ -21,23 +24,32 @@ public class GunController : MonoBehaviour
     public Vector3 hipRotation = new Vector3(0f, 0f, 0f);
     public Vector3 aimPosition = new Vector3(0f, -0.01f, 0.1f);
     public Vector3 aimRotation = new Vector3(0f, 0f, 0f);
+    private bool isAiming = false;
+    public static Action<bool> disableBaseInteraction;
 
     float nextFire;
-    int currentAmmo;
+    //How much ammo is currently in gun
+    int currentAmmoInGun;
 
     void Start()
     {
-        currentAmmo = stats.maxAmmo;
+        currentAmmoInGun = stats.maxAmmo;
 
         // Hide the cursor for immersion
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
+    private void OnEnable()
+    {
+        itemShouldBeRotatedWhenHeld = Quaternion.Euler(0, 90, -40);
+    }
+
     void Update()
     {
         HandleAiming();
-
+        if (Input.GetKeyDown(KeyCode.R)) StartCoroutine(Reload());
+        if (!isAiming) return;
         if (Input.GetButton("Fire1") && Time.time >= nextFire)
         {
             if (stats.fireMode == FireMode.Single)
@@ -50,17 +62,17 @@ public class GunController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
-            StartCoroutine(Reload());
     }
 
     void HandleAiming()
     {
-        bool isAiming = Input.GetButton("Fire2");
+        isAiming = Input.GetMouseButton(1);
 
-        // Camera FOV zoom
+        if(Input.GetMouseButtonDown(1)) disableBaseInteraction?.Invoke(isAiming);
+        if(Input.GetMouseButtonUp(1)) disableBaseInteraction?.Invoke(isAiming);
+
         float targetFOV = isAiming ? aimFOV : normalFOV;
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetFOV, Time.deltaTime * aimSpeed);
+        pixelFOVCam.fieldOfView = Mathf.Lerp(pixelFOVCam.fieldOfView, targetFOV, Time.deltaTime * aimSpeed);
 
         // Move and rotate gun
         if (gunTransform != null)
@@ -75,17 +87,16 @@ public class GunController : MonoBehaviour
 
     void TryShoot()
     {
-        if (currentAmmo <= 0) return;
+        if (currentAmmoInGun <= 0) return;
 
         nextFire = Time.time + stats.fireRate;
-        currentAmmo--;
+        currentAmmoInGun--;
+        Debug.Log(currentAmmoInGun);
         Shoot();
     }
 
     void Shoot()
     {
-        Debug.Log("FIRE!");
-
         if (anim != null) anim.SetTrigger("Shoot");
         if (audioSrc != null && stats.shootSound != null)
             audioSrc.PlayOneShot(stats.shootSound);
@@ -98,20 +109,25 @@ public class GunController : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, stats.range, layerMask, QueryTriggerInteraction.Ignore))
         {
-            Debug.Log("HIT!");
             SpawnImpact(hit);
-        }
-        else
-        {
-            Debug.Log("NO HIT!");
         }
     }
 
     IEnumerator Reload()
     {
+        Debug.Log("Reloading");
         if (anim != null) anim.SetTrigger("Reload");
         yield return new WaitForSeconds(stats.reloadTime);
-        currentAmmo = stats.maxAmmo;
+        if (!(currentAmmoInGun >= stats.maxAmmo) || !(stats.pickedUpAmmo <= 0))
+        {
+            int needed = stats.maxAmmo - currentAmmoInGun;
+            int bulletsToLoad = Mathf.Min(needed, stats.pickedUpAmmo);
+            currentAmmoInGun += bulletsToLoad;
+            stats.pickedUpAmmo -= bulletsToLoad;
+        }
+
+        Debug.Log("Reloaded " + " " + currentAmmoInGun);
+
     }
 
     void SpawnImpact(RaycastHit hit)
@@ -122,8 +138,8 @@ public class GunController : MonoBehaviour
             Vector3 pos = hit.point + hit.normal * 0.01f;
             var hole = Instantiate(stats.bulletHolePrefab, pos, rot);
 
-            hole.transform.localScale = Vector3.one * Random.Range(0.08f, 0.12f);
-            hole.transform.Rotate(0, 0, Random.Range(0f, 360f));
+            hole.transform.localScale = Vector3.one * UnityEngine.Random.Range(0.08f, 0.12f);
+            hole.transform.Rotate(0, 0, UnityEngine.Random.Range(0f, 360f));
             Destroy(hole, 15f);
         }
 

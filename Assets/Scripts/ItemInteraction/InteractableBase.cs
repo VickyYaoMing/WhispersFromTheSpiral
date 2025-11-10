@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public abstract class InteractableBase : MonoBehaviour
 {
@@ -11,6 +12,12 @@ public abstract class InteractableBase : MonoBehaviour
     //Ignore if it isnt a camera zoom item
     [SerializeField] public float howCloseFromFront = 1.5f;
     [SerializeField] public float upwardTilt = 0;
+    [SerializeField] public bool isAmmo { get; protected set; } = false;
+
+
+    [SerializeField] public Quaternion itemShouldBeRotatedWhenHeld { get; protected set; } = Quaternion.identity;
+    [SerializeField] public Vector3 itemShouldBePositionedWhenHeld { get; protected set; } = Vector3.zero;
+
 
     //How close from above zoom
     [Header("Placed Upon behaviour")]
@@ -18,6 +25,9 @@ public abstract class InteractableBase : MonoBehaviour
     [SerializeField] public bool canBePlacedUpon = false;
     [SerializeField] public Vector3 placementArea = Vector3.zero;
     [SerializeField] public GameObject keyToActivate = null;
+
+
+
 
 
     public bool HasSecondaryInteraction { get; protected set; } = false;
