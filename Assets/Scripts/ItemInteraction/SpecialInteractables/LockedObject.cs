@@ -1,15 +1,24 @@
 using UnityEngine;
 
-public class LockedObject : InteractableBase
+public class LockedObject : SecondaryInteractionItem
 {
+    //change this to an object with a key class
+    //This is the key that will open this door
+    [SerializeField] GameObject key;
+    bool locked;
+
+    public bool Locked { get { return locked; } }
+
     void Start()
     {
+        HasSecondaryInteraction = true;
     }
 
-    public override GameObject PickedUp()
+    public override void SecondaryInteraction()
     {
-        isActive = true;
-        return gameObject;
+        if (!GameManager.Instance.InteractionManager.GetItemInHand() == key) return;
+
+        locked = false;
     }
 
     // Update is called once per frame
