@@ -6,11 +6,6 @@ public class PatrolState : StateMachineBehaviour
     private ElkDemonAI _elkDemon;
     private NavMeshAgent _agent;
 
-    private bool _isLookingAround = false;
-    private float _lookAroundTimer = 0f;
-    private float _lookAroundDuration = 16f;
-
-
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if(_elkDemon == null)
@@ -25,33 +20,15 @@ public class PatrolState : StateMachineBehaviour
 
         animator.SetBool("IsHunting", false);
         animator.SetFloat("Speed", _elkDemon.MoveSpeed);
-        _isLookingAround = false;
-        _lookAroundTimer = 0f;
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (!_agent.pathPending && _agent.remainingDistance < 1f)
         {
-            if (!_isLookingAround)
-            {
-                _elkDemon.StopMoving();
+            _elkDemon.StopMoving();
 
-                animator.SetTrigger("LookAround");
-                _isLookingAround = true;
-                _lookAroundTimer = 0f;
-            }
-            else
-            {
-                _lookAroundTimer += Time.deltaTime;
-                if (_lookAroundTimer >= _lookAroundDuration)
-                {
-                    Vector3 newTarget = GetRandomNavMeshPoint(100f);
-                    _elkDemon.MoveTowards(newTarget, _elkDemon.MoveSpeed);
-                    _isLookingAround = false;
-                    _lookAroundTimer = 0f;
-                }
-            }
+            animator.SetTrigger("LookAround");
         }
 
         if (_elkDemon.CanSeePlayer())
