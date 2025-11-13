@@ -32,6 +32,8 @@ public class Movement : MonoBehaviour
     private readonly float m_crouchingColliderHeight = 0.5f;
     private readonly float m_standingColliderCenterY = 0;
     private readonly float m_crouchingColliderCenterY = -0.5f;
+    private readonly float gravity = -9.8f;
+    private Vector3 velocity;
     private CharacterController controller;
 
     private float m_xRotation;
@@ -44,6 +46,7 @@ public class Movement : MonoBehaviour
     private bool m_isCrouching;
 
     public bool LockCamera { get; set; } = false;
+    public bool IsGrounded { get; set; }
    
     #region Unity Methods
     private void Start()
@@ -54,7 +57,14 @@ public class Movement : MonoBehaviour
         m_crouchingCamPos = m_standingCamPos + new Vector3(0, -1f, 0);
     }
     #endregion
-    public void ProcessLook(Vector2 input)
+
+    public void UpdatePlayer(Vector2 lookInput, Vector2 moveInput)
+    {
+        IsGrounded = controller.isGrounded;
+        ProcessLook(lookInput);
+        ProcessMove(moveInput);
+    }
+    private void ProcessLook(Vector2 input)
     {
         if (LockCamera) return;
 
@@ -90,7 +100,7 @@ public class Movement : MonoBehaviour
 
         m_camera.transform.localPosition = Vector3.Lerp(m_camera.transform.localPosition, camPos, Time.deltaTime * m_crouchSpeed);
     }
-    public void ProcessMove(Vector2 input)
+    private void ProcessMove(Vector2 input)
     {
         if (GameManager.Instance.IsSaving || GameManager.Instance.IsLoading) return;
         Vector3 moveDir = Vector3.zero;
@@ -99,12 +109,17 @@ public class Movement : MonoBehaviour
 
         float speed = m_isCrouching ? m_crouchingSpeed : m_standingSpeed;
         controller.Move(speed * Time.deltaTime * transform.TransformDirection(moveDir));
-
+        velocity.y += gravity * Time.deltaTime;
+        if (IsGrounded && velocity.y < 0)
+        {
+            velocity.y = -2;
+        }
         if (m_isHeadBanging)
         {
             CheckMovement(input);
             StopHeadBob();
         }
+        controller.Move(velocity * Time.deltaTime);
     }
     public void Crouch()
     {
