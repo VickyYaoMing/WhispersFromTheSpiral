@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 6689342750392235621}
   - component: {fileID: 7426466792189668305}
   - component: {fileID: 698089569364793979}
+  - component: {fileID: 7204132318348937314}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -189,7 +190,6 @@ MonoBehaviour:
   PauseMenu: {fileID: 3679047058460814275}
   NotebookMenu: {fileID: 1332955544186675861}
   CollectibleViewMenu: {fileID: 4443254709528348303}
-  GameMessageOverlay: {fileID: 7865298240244170216}
 --- !u!114 &2373844301533983331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,10 +360,10 @@ MonoBehaviour:
   - {fileID: 1875875114568967981}
   m_camera: {fileID: 1333395779951691931}
   m_defaultSensitivity: 0.1
-  m_crouchSensitivity: 0.1
+  m_crouchSensitivity: 0.05
   m_trippingValue: 20
-  m_isTripping: 0
-  m_isHeadBanging: 0
+  m_isTripping: 1
+  m_isHeadBanging: 1
   m_headBangAmount: 0.1
   m_headBangFrequency: 10
   m_headBangSmoothing: 10
@@ -371,6 +371,22 @@ MonoBehaviour:
   m_crouchSpeed: 5
   m_standingSpeed: 5
   m_crouchingSpeed: 2
+--- !u!114 &7204132318348937314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75806692677558944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d04fe5360dee4b48bef333910e93659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorLayer:
+    serializedVersion: 2
+    m_Bits: 2147483648
+  cam: {fileID: 1333395779951691931}
 --- !u!1 &123642937861977095
 GameObject:
   m_ObjectHideFlags: 0
