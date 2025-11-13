@@ -122,8 +122,6 @@ public class AttackState : StateMachineBehaviour
             // Can be modify to balance the Elk demon attack range
             // Right now it seems a bit hard for the Elk demon to REALLY hit the player
             // Play Testing require!
-            // Need to fix so the ATTACK sync with ANIMATION
-            // Right now attack count even before animation finishes
             if (distance < _elkDemon.AttackRange)
             {
                 Debug.Log("Player got hit by Mario's Attack!");

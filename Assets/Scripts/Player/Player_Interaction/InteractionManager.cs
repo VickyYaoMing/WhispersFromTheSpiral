@@ -23,15 +23,26 @@ public class InteractionManager : MonoBehaviour
     private Vector3 objectOffset = new Vector3(-0.001f, 0.0004f, 0);
     private bool lockItem = false;
     private InputManager inputManager;
-    //private PlayerLook playerLook;
+    private bool disableInteraction = false;
     private Movement playerMovement;
+    private bool isCurrentItemAmo = false;
 
     private void Start()
     {
         itemArray = new GameObject[3];
         inputManager = GetComponent<InputManager>();
         playerMovement = GetComponent<Movement>();
-        //playerLook = GetComponent<PlayerLook>();
+    }
+
+    private void OnEnable()
+    {
+        GunController.disableBaseInteraction += DisableInteractionTemporarily;
+    }
+
+    private void OnDisable()
+    {
+        GunController.disableBaseInteraction -= DisableInteractionTemporarily;
+
     }
 
     private void Awake()
@@ -45,8 +56,14 @@ public class InteractionManager : MonoBehaviour
         RayCastItem();
     }
 
+    private void DisableInteractionTemporarily(bool aim)
+    {
+        disableInteraction = aim;
+    }
+
     public void GetItemInInventory(int spot)
     {
+        if (disableInteraction) return;
         if (lockItem) return;
         if(currentItemSpot != spot)
         {
@@ -76,7 +93,12 @@ public class InteractionManager : MonoBehaviour
             OnSecondaryInteraction(detectedItem);
             return;
         }
-
+        if (detectedItem.GetComponent<InteractableBase>().isAmmo)
+        {
+            detectedItem.GetComponent<InteractableBase>().PickedUp();
+            Destroy(detectedItem);
+            return;
+        }
         if (currentHandAvailable) 
         {
             OnPickUp(detectedItem);  
@@ -93,6 +115,7 @@ public class InteractionManager : MonoBehaviour
         currentItem = rayHitObject;
         currentItemInteractBase = currentItem.GetComponent<InteractableBase>();
         lockItem = currentItemInteractBase.itemShouldBeCameraLocked;
+
         if (currentItem == null) return;
         currentItemInteractBase.PickedUp();
         if (currentItemInteractBase.IsCollectible)
@@ -112,6 +135,7 @@ public class InteractionManager : MonoBehaviour
         ItemPhysics(true);
         currentItem.transform.SetParent(handSlot.transform);
         currentItem.transform.localPosition = objectOffset;
+        currentItem.transform.localRotation = currentItemInteractBase.itemShouldBeRotatedWhenHeld;
     }
 
     private void OnDrop(Vector3 placePos, bool hasPhysics)
@@ -181,6 +205,7 @@ public class InteractionManager : MonoBehaviour
 
     private void RayCastItem()
     {
+        if (disableInteraction) return;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hit;
