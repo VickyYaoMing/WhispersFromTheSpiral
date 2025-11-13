@@ -6,7 +6,7 @@ public class LookAroundState : StateMachineBehaviour
     private ElkDemonAI _elkDemon;
     private NavMeshAgent _agent;
     private float _lookTimer;
-    private float _lookDuration = 16f; 
+    private float _lookDuration = 1f; 
     private float _turnSpeed = 60f;   
 
     private int _rotationDirection;   
