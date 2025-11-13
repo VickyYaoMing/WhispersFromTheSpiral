@@ -9,17 +9,12 @@ public class LockedObject : SecondaryInteractionItem
 
     public bool Locked { get { return locked; } }
 
-    void Start()
-    {
-        HasSecondaryInteraction = true;
-    }
-
     public override void SecondaryInteraction()
     {
         
-        if (!GameManager.Instance.InteractionManager.GetItemInHand() == key) return;
+        if (!interactionManager.GetItemInHand() == key) return;
 
-        GameManager.Instance.InteractionManager.PlaceItemInHand(Vector3.zero, Quaternion.identity);
+        interactionManager.PlaceItemInHand(Vector3.zero, Quaternion.identity);
         Destroy(key);
         locked = false;
     }

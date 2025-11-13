@@ -6,7 +6,6 @@ using UnityEngine;
 public class LightSocket : SecondaryInteractionItem
 {
     private Lightbulb lightbulb;
-    [SerializeField] private LayerMask socketMask;
     Vector3 lightPosition;
     Quaternion lightRotation;
     UVVisibleObject[] UVVisibleObjects;
@@ -40,7 +39,7 @@ public class LightSocket : SecondaryInteractionItem
     {
         //This if-tree is a little messier than i'd like but if it works dont fix it or something
 
-        GameObject itemInPlayerHand = GameManager.Instance.InteractionManager.GetItemInHand();
+        GameObject itemInPlayerHand = interactionManager.GetItemInHand();
 
         //player holding item
         if (itemInPlayerHand != null)
@@ -85,7 +84,7 @@ public class LightSocket : SecondaryInteractionItem
         bulb.IsInUse = true;
         bulb.GetComponent<Light>().enabled = true;
         bulb.enabled = false;
-        GameManager.Instance.InteractionManager.PlaceItemInHand(lightPosition, lightRotation);
+        interactionManager.PlaceItemInHand(lightPosition, lightRotation);
         lightbulb = bulb;
     }
 
@@ -93,7 +92,7 @@ public class LightSocket : SecondaryInteractionItem
     {
         bulb.IsInUse = true;
         bulb.GetComponent<Light>().enabled = false;
-        GameManager.Instance.InteractionManager.OnPickUp(bulb.gameObject);
+        interactionManager.OnPickUp(bulb.gameObject);
         lightbulb = null;
         bulb.IsInUse = false;
     }
@@ -122,7 +121,7 @@ public class LightSocket : SecondaryInteractionItem
     IEnumerator AwaitBulbAnimation()
     {
         yield return new WaitForSeconds(3);
-        GameManager.Instance.InteractionManager.ReleaseCameraLock();
+        interactionManager.ReleaseCameraLock();
     }
 
 }
