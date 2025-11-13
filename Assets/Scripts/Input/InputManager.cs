@@ -55,8 +55,9 @@ public class InputManager : MonoBehaviour
         }
         Cursor.lockState = CursorLockMode.Locked;
         Reticle.Instance.SetActivity(true);
-        playerMovement.ProcessLook(on_foot.Looking.ReadValue<Vector2>());
-        playerMovement.ProcessMove(on_foot.Walking.ReadValue<Vector2>());
+        playerMovement.UpdatePlayer(on_foot.Looking.ReadValue<Vector2>(), on_foot.Walking.ReadValue<Vector2>());
+        //playerMovement.ProcessLook(on_foot.Looking.ReadValue<Vector2>());
+        //playerMovement.ProcessMove(on_foot.Walking.ReadValue<Vector2>());
 
         //player_movement.ProcessMove(on_foot.Walking.ReadValue<Vector2>());
         //player_look.ProcessLook(on_foot.Looking.ReadValue<Vector2>());
