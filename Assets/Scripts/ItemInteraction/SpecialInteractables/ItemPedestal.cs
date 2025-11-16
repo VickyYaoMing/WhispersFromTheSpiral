@@ -83,11 +83,13 @@ public class ItemPedestal : SecondaryInteractionItem
 
         if(itemOnPedestal == correctItem)
         {
-            isCorrectItem = true; 
+            isCorrectItem = true;
+            EnableParticles();
         }
         else
         {
             isCorrectItem = false;
+            DisableParticles();
         }
     }
 
@@ -97,6 +99,7 @@ public class ItemPedestal : SecondaryInteractionItem
         interactionManager.OnPickUp(item.gameObject);
         itemOnPedestal = null;
         isCorrectItem = false;
+        DisableParticles();
         item.IsInUse = false;
     }
 
@@ -105,6 +108,17 @@ public class ItemPedestal : SecondaryInteractionItem
         PlaceItemUsingColliderBounds(playerItem.gameObject);
         TakeItemFromPedestal(item);
         itemOnPedestal = playerItem;
+    }
+
+    void EnableParticles()
+    {
+        gameObject.GetComponentInChildren<ParticleSystem>().Play();
+    }
+
+    void DisableParticles()
+    {
+        gameObject.GetComponentInChildren<ParticleSystem>().Clear();
+        gameObject.GetComponentInChildren<ParticleSystem>().Pause();
     }
 
 }
