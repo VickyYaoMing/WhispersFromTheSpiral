@@ -224,6 +224,7 @@ public class InteractionManager : MonoBehaviour
             if (isHitAnInteractable)
             {
                 GameObject currentInteractable = hit.collider.gameObject;
+                if (currentInteractable == null) return;
 
                 //make sure this doesnt create edge cases when interacting with an item that is in use
                 //it shouldn't since this is per item
