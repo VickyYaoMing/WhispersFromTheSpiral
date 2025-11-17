@@ -5,7 +5,7 @@ public class LockedObject : SecondaryInteractionItem
     //change this to an object with a key class
     //This is the key that will open this door
     [SerializeField] GameObject key;
-    bool locked;
+    bool locked = true;
 
     public bool Locked { get { return locked; } }
 
