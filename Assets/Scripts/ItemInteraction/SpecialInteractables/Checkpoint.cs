@@ -3,21 +3,27 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     int ID;
-    [SerializeField] Vector3 spawnPosition;
+    Vector3 spawnPosition;
+    Vector3 spawnOffset;
+    [SerializeField] Vector3 presetSpawn;
 
     private void Start()
     {
-        
+        spawnOffset = new Vector3(0, 2, 0);
     }
 
     private void Awake()
     {
-
+        if (presetSpawn != Vector3.zero)
+        {
+            spawnPosition = presetSpawn;
+            return;
+        }
+        spawnPosition = transform.position + spawnOffset;
     }
 
     private void OnTriggerEnter()
     {
-        //Works as intended, however due to the way the interaction manager is built the checkpoint gameobject is disabled when the player scrolls their inventory.
         GameManager.Instance.CheckpointManager.SetCurrentCheckpointID(ID);
         GameManager.Instance.SaveAsync();
         gameObject.SetActive(false);

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
@@ -9,7 +10,17 @@ public class GunController : MonoBehaviour
     public Animator anim;
 
     [Header("Hit VFX Settings")]
-    public GameObject hitEffectPrefab; // Inspector connetted (exp. Bullet_Hit.prefab)
+    public GameObject hitEffectPrefab;
+
+    [Header("Aiming Settings")]
+    public float normalFOV = 60f;
+    public float aimFOV = 40f;
+    public float aimSpeed = 10f;
+    public Transform gunTransform;
+    public Vector3 hipPosition = new Vector3(0.01f, -0.02f, 0.0f);
+    public Vector3 hipRotation = new Vector3(0f, 0f, 0f);
+    public Vector3 aimPosition = new Vector3(0f, -0.01f, 0.1f);
+    public Vector3 aimRotation = new Vector3(0f, 0f, 0f);
 
     float nextFire;
     int currentAmmo;
@@ -17,11 +28,16 @@ public class GunController : MonoBehaviour
     void Start()
     {
         currentAmmo = stats.maxAmmo;
+
+        // Hide the cursor for immersion
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
     {
-        // Otomatic and single fire control
+        HandleAiming();
+
         if (Input.GetButton("Fire1") && Time.time >= nextFire)
         {
             if (stats.fireMode == FireMode.Single)
@@ -34,12 +50,27 @@ public class GunController : MonoBehaviour
             }
         }
 
-        // reload
         if (Input.GetKeyDown(KeyCode.R))
             StartCoroutine(Reload());
+    }
 
-        
-    
+    void HandleAiming()
+    {
+        bool isAiming = Input.GetButton("Fire2");
+
+        // Camera FOV zoom
+        float targetFOV = isAiming ? aimFOV : normalFOV;
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetFOV, Time.deltaTime * aimSpeed);
+
+        // Move and rotate gun
+        if (gunTransform != null)
+        {
+            Vector3 targetPos = isAiming ? aimPosition : hipPosition;
+            Vector3 targetRot = isAiming ? aimRotation : hipRotation;
+
+            gunTransform.localPosition = Vector3.Lerp(gunTransform.localPosition, targetPos, Time.deltaTime * aimSpeed);
+            gunTransform.localRotation = Quaternion.Lerp(gunTransform.localRotation, Quaternion.Euler(targetRot), Time.deltaTime * aimSpeed);
+        }
     }
 
     void TryShoot()
@@ -61,9 +92,8 @@ public class GunController : MonoBehaviour
 
         if (stats.muzzleFlashPrefab != null && muzzle != null)
             Instantiate(stats.muzzleFlashPrefab, muzzle.position, muzzle.rotation, muzzle);
-        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
-        // Layer mask: HER ŞEYE çarpabilir
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         int layerMask = Physics.DefaultRaycastLayers;
 
         if (Physics.Raycast(ray, out RaycastHit hit, stats.range, layerMask, QueryTriggerInteraction.Ignore))
@@ -75,41 +105,28 @@ public class GunController : MonoBehaviour
         {
             Debug.Log("NO HIT!");
         }
-
-
     }
 
-    System.Collections.IEnumerator Reload()
+    IEnumerator Reload()
     {
         if (anim != null) anim.SetTrigger("Reload");
         yield return new WaitForSeconds(stats.reloadTime);
         currentAmmo = stats.maxAmmo;
     }
 
-    // --- Impact (Bullet Hole + VFX) ---
     void SpawnImpact(RaycastHit hit)
     {
-        // Bullet hole instantiate
         if (stats.bulletHolePrefab != null && !hit.collider.CompareTag("Enemy"))
         {
-            // Doğru rotasyon (yüzeye yapışsın)
             Quaternion rot = Quaternion.LookRotation(hit.normal);
-
-            // Yüzeye çok hafif mesafeli yerleştir (gömülmesin)
             Vector3 pos = hit.point + hit.normal * 0.01f;
-
-            // Parent YOK! Dünya koordinatına instantiate
             var hole = Instantiate(stats.bulletHolePrefab, pos, rot);
 
-            // Rastgele ölçek ve rotasyon (daha doğal görünüm)
             hole.transform.localScale = Vector3.one * Random.Range(0.08f, 0.12f);
             hole.transform.Rotate(0, 0, Random.Range(0f, 360f));
-
-            // 15 saniye sonra otomatik sil
             Destroy(hole, 15f);
         }
 
-        // Hit VFX (kıvılcım, toz)
         if (hitEffectPrefab != null)
         {
             var fx = Instantiate(hitEffectPrefab, hit.point, Quaternion.LookRotation(hit.normal));

@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - ChessPiece
   - ChessSquare
+  - UV Visible
   layers:
   - Default
   - TransparentFX
@@ -24,6 +25,7 @@ TagManager:
   - 
   - 
   - Glock
+  - Socket
   - KeyPad
   - InteractableLayer
   - 
@@ -33,6 +35,7 @@ TagManager:
   - ChessBoard
   - 
   - 
+  - Door
   - 
   - 
   - 
@@ -41,6 +44,7 @@ TagManager:
   - 
   - 
   - 
+  - Doors
   m_SortingLayers:
   - name: Default
     uniqueID: 0

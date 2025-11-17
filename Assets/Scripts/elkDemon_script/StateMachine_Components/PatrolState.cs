@@ -4,8 +4,12 @@ using UnityEngine.AI;
 public class PatrolState : StateMachineBehaviour
 {
     private ElkDemonAI _elkDemon;
-    private Transform[] _patrolRoutes;
-    private int _currentPatrolIndex;
+    private NavMeshAgent _agent;
+
+    private bool _isLookingAround = false;
+    private float _lookAroundTimer = 0f;
+    private float _lookAroundDuration = 16f;
+
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -14,29 +18,40 @@ public class PatrolState : StateMachineBehaviour
             _elkDemon = animator.GetComponent<ElkDemonAI>();
         }
 
-        if (_elkDemon == null)
-        {
-            Debug.LogError("Could not find ElkDemonAI component on " + animator.gameObject.name);
-            return;
-        }
+        _agent = _elkDemon.GetComponent<NavMeshAgent>();
 
-        //_patrolRoutes = _elkDemon.PatrolPoints;
-        //_currentPatrolIndex = 0;
-
-        Vector3 wanderTarget = GetRandomNavMeshPoint(10f);
+        Vector3 wanderTarget = GetRandomNavMeshPoint(100f);
         _elkDemon.MoveTowards(wanderTarget, _elkDemon.MoveSpeed);
 
         animator.SetBool("IsHunting", false);
-        animator.SetFloat("Speed", _elkDemon.MoveSpeed); 
-        //Debug.Log("Patrol Mode Activated");
+        animator.SetFloat("Speed", _elkDemon.MoveSpeed);
+        _isLookingAround = false;
+        _lookAroundTimer = 0f;
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (!_elkDemon.GetComponent<NavMeshAgent>().pathPending && _elkDemon.GetComponent<NavMeshAgent>().remainingDistance < 0.5f)
+        if (!_agent.pathPending && _agent.remainingDistance < 1f)
         {
-            Vector3 newTarget = GetRandomNavMeshPoint(10f);
-            _elkDemon.MoveTowards(newTarget, _elkDemon.MoveSpeed);
+            if (!_isLookingAround)
+            {
+                _elkDemon.StopMoving();
+
+                animator.SetTrigger("LookAround");
+                _isLookingAround = true;
+                _lookAroundTimer = 0f;
+            }
+            else
+            {
+                _lookAroundTimer += Time.deltaTime;
+                if (_lookAroundTimer >= _lookAroundDuration)
+                {
+                    Vector3 newTarget = GetRandomNavMeshPoint(100f);
+                    _elkDemon.MoveTowards(newTarget, _elkDemon.MoveSpeed);
+                    _isLookingAround = false;
+                    _lookAroundTimer = 0f;
+                }
+            }
         }
 
         if (_elkDemon.CanSeePlayer())
