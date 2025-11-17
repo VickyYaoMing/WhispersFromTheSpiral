@@ -9,6 +9,7 @@ TagManager:
   - ChessPiece
   - ChessSquare
   - UV Visible
+  - ItemInsideSafe
   layers:
   - Default
   - TransparentFX
@@ -42,9 +43,6 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - Doors
   m_SortingLayers:
   - name: Default
     uniqueID: 0
