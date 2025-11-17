@@ -6,6 +6,8 @@ TagManager:
   tags:
   - KeyStartRoom
   - Enemy
+  - ChessPiece
+  - ChessSquare
   - UV Visible
   layers:
   - Default
@@ -22,12 +24,15 @@ TagManager:
   - 
   - 
   - 
+  - Glock
   - Socket
   - KeyPad
   - InteractableLayer
   - 
   - 
   - 
+  - ChessPieces
+  - ChessBoard
   - 
   - 
   - Door
