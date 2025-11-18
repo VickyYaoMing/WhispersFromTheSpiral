@@ -1,6 +1,5 @@
 using JetBrains.Annotations;
 using System.Collections;
-using UnityEditor.SearchService;
 using UnityEngine;
 
 public class LightSocket : SecondaryInteractionItem

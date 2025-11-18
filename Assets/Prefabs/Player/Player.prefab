@@ -385,7 +385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorLayer:
     serializedVersion: 2
-    m_Bits: 2147483648
+    m_Bits: 33554432
   cam: {fileID: 1333395779951691931}
 --- !u!1 &123642937861977095
 GameObject:
