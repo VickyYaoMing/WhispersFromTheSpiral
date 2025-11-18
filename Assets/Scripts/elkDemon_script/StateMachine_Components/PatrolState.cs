@@ -15,7 +15,7 @@ public class PatrolState : StateMachineBehaviour
 
         _agent = _elkDemon.GetComponent<NavMeshAgent>();
 
-        Vector3 wanderTarget = GetRandomNavMeshPoint(100f);
+        Vector3 wanderTarget = GetRandomNavMeshPoint(10f);
         _elkDemon.MoveTowards(wanderTarget, _elkDemon.MoveSpeed);
 
         animator.SetBool("IsHunting", false);
@@ -28,14 +28,24 @@ public class PatrolState : StateMachineBehaviour
         //{
         //    _elkDemon.StopMoving();
         //
+        //    animator.SetTrigger("Patrol");
+        //
         //    animator.SetTrigger("LookAround");
         //}
+
+        if (!_elkDemon.GetComponent<NavMeshAgent>().pathPending && _elkDemon.GetComponent<NavMeshAgent>().remainingDistance < 0.5f)
+        {
+            //_currentPatrolIndex = Random.Range(0, _patrolRoutes.Length);
+            Vector3 newTarget = GetRandomNavMeshPoint(10f);
+            _elkDemon.MoveTowards(newTarget, _elkDemon.MoveSpeed);
+        }
 
         if (_elkDemon.CanSeePlayer())
         {
             animator.SetTrigger("PlayerSpotted");
         }
     }
+
 
     private Vector3 GetRandomNavMeshPoint(float radius)
     {
