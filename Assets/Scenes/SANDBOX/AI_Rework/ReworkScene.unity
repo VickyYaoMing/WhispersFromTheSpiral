@@ -31117,7 +31117,7 @@ MonoBehaviour:
   sightAngle: 270
   obstructionMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 512
   eyeHeight: 1.5
   patrolPoints: []
   observationPoints: []
