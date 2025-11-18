@@ -18,6 +18,8 @@ public class PatrolState : StateMachineBehaviour
         Vector3 wanderTarget = GetRandomNavMeshPoint(10f);
         _elkDemon.MoveTowards(wanderTarget, _elkDemon.MoveSpeed);
 
+        Debug.Log("Entered patrol state");
+
         animator.SetBool("IsHunting", false);
         animator.SetFloat("Speed", _elkDemon.MoveSpeed);
     }
