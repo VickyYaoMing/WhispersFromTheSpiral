@@ -15,7 +15,7 @@ public class toolKindaScript : MonoBehaviour
 
     [SerializeField] List<GameObject> placeableItems = new List<GameObject>();//list of all objects 
     List<GameObject> chosenItems = new List<GameObject>();//list of chosen items to place
-
+    [SerializeField] private List<Vector3> placedPositions = new List<Vector3>();
     //rename probs and not serilized but make it make sense
     //[SerializeField] float hitboxBottom;
     //[SerializeField] float hitboxHeight;
@@ -99,8 +99,9 @@ public class toolKindaScript : MonoBehaviour
         {
             int amountOftries = 0;
             bool placed = false;
-
             
+
+
             while (amountOftries < 5 && !placed)
             {
                 Vector3 randomSpawnPlace = RandomPos();
@@ -108,7 +109,7 @@ public class toolKindaScript : MonoBehaviour
                 if (CheckIfSpace(randomSpawnPlace,item) == true)
                 {
                     Instantiate(item, randomSpawnPlace, Quaternion.identity);
-                    Debug.Log("Could be placed, yaaay");
+                    Debug.Log("Could be placed, yaaay"); 
                     placed = true;
                 }
                 else
@@ -142,26 +143,33 @@ public class toolKindaScript : MonoBehaviour
     {
         Collider itemCollider = item.GetComponent<Collider>();
 
-        Vector3 halfsize = itemCollider.bounds.extents;
+       
         if (itemCollider == null)
         {
             Debug.LogWarning("Item has no collider: " + item.name);
             return false;
         }
-        float padding = 0.005f;
+        Vector3 halfsize = itemCollider.bounds.extents;
+        float padding = 0.05f;
         halfsize += Vector3.one * padding;
 
         Collider[] hits = Physics.OverlapBox(pos, halfsize, Quaternion.identity);
         Debug.Log(item.name + " checking at " + pos + ", hits count: " + hits.Length);
 
-
-
-        if (hits.Length==0) return true;
-        else return false;
+        foreach(var hit in hits)
+        {
+            if(hit != hitbox)
+            {
+                Debug.Log(item.name + " blocked by " + hit.name);
+                return false;
+            }
+        }
+        return true;
+        //if (hits.Length==0) return true;
+        //else return false;
 
     }
-
-    // Update is called once per frame
+   
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -169,4 +177,5 @@ public class toolKindaScript : MonoBehaviour
             PlaceOnWall();
         }
     }
+    
 }
