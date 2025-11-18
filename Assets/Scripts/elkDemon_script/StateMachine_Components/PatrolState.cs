@@ -24,12 +24,12 @@ public class PatrolState : StateMachineBehaviour
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (!_agent.pathPending && _agent.remainingDistance < 1f)
-        {
-            _elkDemon.StopMoving();
-
-            animator.SetTrigger("LookAround");
-        }
+        //if (!_agent.pathPending && _agent.remainingDistance < 1f)
+        //{
+        //    _elkDemon.StopMoving();
+        //
+        //    animator.SetTrigger("LookAround");
+        //}
 
         if (_elkDemon.CanSeePlayer())
         {
