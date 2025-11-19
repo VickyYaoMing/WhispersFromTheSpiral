@@ -276,8 +276,6 @@ public class InteractionManager : MonoBehaviour
 
     public void PlaceItemInHand(Vector3 position, Quaternion rotation)
     {
-        //This code is running on the Light Socket instead of the bulb
-        //How curious
         currentItem = itemArray[currentItemSpot];
         currentHandAvailable = true;
         itemArray[currentItemSpot] = null;
