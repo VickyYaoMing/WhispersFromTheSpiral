@@ -9,6 +9,7 @@ TagManager:
   - ChessPiece
   - ChessSquare
   - UV Visible
+  - ItemInsideSafe
   - Summoning_Puzzle
   layers:
   - Default
@@ -43,9 +44,6 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - Doors
   m_SortingLayers:
   - name: Default
     uniqueID: 0
