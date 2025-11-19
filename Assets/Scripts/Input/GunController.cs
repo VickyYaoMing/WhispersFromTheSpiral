@@ -40,10 +40,10 @@ public class GunController : InteractableBase
         Cursor.visible = false;
     }
 
-    private void OnEnable()
-    {
-        itemShouldBeRotatedWhenHeld = Quaternion.Euler(0, 90, -40);
-    }
+    //private void OnEnable()
+    //{
+    //    itemShouldBeRotatedWhenHeld = Quaternion.Euler(0, 90, -40);
+    //}
 
     void Update()
     {

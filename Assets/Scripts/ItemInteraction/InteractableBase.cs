@@ -15,8 +15,8 @@ public abstract class InteractableBase : MonoBehaviour
     [SerializeField] public bool isAmmo { get; protected set; } = false;
 
 
-    [SerializeField] public Quaternion itemShouldBeRotatedWhenHeld { get; protected set; } = Quaternion.identity;
-    [SerializeField] public Vector3 itemShouldBePositionedWhenHeld { get; protected set; } = Vector3.zero;
+    [SerializeField] public Quaternion itemShouldBeRotatedWhenHeld = Quaternion.identity;
+    [SerializeField] public Vector3 itemShouldBePositionedWhenHeld = Vector3.zero;
 
 
     //How close from above zoom
