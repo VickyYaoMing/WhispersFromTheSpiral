@@ -1,16 +1,26 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuNavigation : MonoBehaviour
 {
+    [Header("Canvas Groups")]
     [SerializeField] CanvasGroup m_mainCanvasGroup;
     [SerializeField] CanvasGroup m_optionsCanvasGroup;
     [SerializeField] CanvasGroup m_creditsCanvasGroup;
+
+    [Header("Camera")]
     [SerializeField] Camera m_cameraObject; 
     [SerializeField] float m_zoomAmount = 1f;
     [SerializeField] float m_zoomSpeed = 4f;
 
+    [Header("Buttons")]
+    [SerializeField] GameObject m_startButton;
+    [SerializeField] GameObject m_loadButton;
+
+    private Vector3 m_defaultStartButtonPos = new Vector3(-592, -197, 0);
+    private Vector3 m_startButtonPosIfSaveExists;
     private Transform m_camTransform;
     private Vector3 m_initialPosition;
     private FadeAnimator m_fadeAnimator;
@@ -24,6 +34,17 @@ public class MainMenuNavigation : MonoBehaviour
     #region Unity Functions
     void Start()
     {
+        m_loadButton.SetActive(false);
+        m_startButton.transform.localPosition = m_defaultStartButtonPos;
+        if (GameManager.Instance.SaveSystem != null)
+        {
+            if (GameManager.Instance.SaveSystem.DoesSaveExist())
+            {
+                m_loadButton.SetActive(true);
+                m_startButtonPosIfSaveExists = m_defaultStartButtonPos + new Vector3(0, -90, 0);
+                m_startButton.transform.localPosition = m_startButtonPosIfSaveExists;
+            }
+        }    
         m_camTransform = m_cameraObject.transform;
         m_initialPosition = m_cameraObject.transform.position;
         m_fadeAnimator = GetComponent<FadeAnimator>();
@@ -55,6 +76,11 @@ public class MainMenuNavigation : MonoBehaviour
     public void StartGame()
     {
         StartCoroutine(ChangeToGameScene());
+    }
+
+    public void LoadGame()
+    {
+        //Implement logic for loading save and necessary scene + data
     }
 
     public void ViewOptions()
