@@ -5,6 +5,7 @@ public class DoorInteraction : MonoBehaviour
     //REWRITE THIS 
     [SerializeField] LayerMask doorLayer;
     [SerializeField] Camera cam;
+    private LockedObject doorLock;
     private Transform selectedDoor;
     private GameObject dragPointGameobject;
     private int leftDoor = 0;
@@ -26,6 +27,14 @@ public class DoorInteraction : MonoBehaviour
         {
             HingeJoint joint = selectedDoor.GetComponent<HingeJoint>();
             JointMotor motor = joint.motor;
+
+            if (selectedDoor.GetComponent<LockedObject>() != null)
+            {
+                doorLock = selectedDoor.GetComponent<LockedObject>();
+            }
+
+            //If door is locked, just stop running
+            if (doorLock != null && doorLock.Locked) return;
 
             //Create drag point object for reference where players mouse is pointing
             if (dragPointGameobject == null)
