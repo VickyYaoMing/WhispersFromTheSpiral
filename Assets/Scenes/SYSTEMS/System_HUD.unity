@@ -810,6 +810,9 @@ MonoBehaviour:
   howCloseFromFront: 1.5
   upwardTilt: 0
   aboveZoomClose: 1.1
+  canBePlacedUpon: 0
+  placementArea: {x: 0, y: 0, z: 0}
+  keyToActivate: {fileID: 0}
 --- !u!54 &154493580
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5443,6 +5446,9 @@ MonoBehaviour:
   howCloseFromFront: 1.5
   upwardTilt: 0
   aboveZoomClose: 1.1
+  canBePlacedUpon: 0
+  placementArea: {x: 0, y: 0, z: 0}
+  keyToActivate: {fileID: 0}
 --- !u!1 &802957415
 GameObject:
   m_ObjectHideFlags: 0
@@ -5791,7 +5797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorLayer:
     serializedVersion: 2
-    m_Bits: 2147483648
+    m_Bits: 33554432
   cam: {fileID: 1810690082}
 --- !u!1 &943674590
 GameObject:
@@ -11981,6 +11987,10 @@ PrefabInstance:
       propertyPath: m_Alpha
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7204132318348937314, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: doorLayer.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7463144061129777672, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -12899,6 +12909,9 @@ MonoBehaviour:
   howCloseFromFront: 1.5
   upwardTilt: 0
   aboveZoomClose: 1.1
+  canBePlacedUpon: 0
+  placementArea: {x: 0, y: 0, z: 0}
+  keyToActivate: {fileID: 0}
 --- !u!54 &1920084251
 Rigidbody:
   m_ObjectHideFlags: 0
