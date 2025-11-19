@@ -24,7 +24,7 @@ public abstract class InteractableBase : MonoBehaviour
     [SerializeField] public float aboveZoomClose = 1.1f;
     [SerializeField] public bool canBePlacedUpon = false;
     [SerializeField] public Vector3 placementArea = Vector3.zero;
-    [SerializeField] public GameObject keyToActivate = null;
+    //[SerializeField] public GameObject keyToActivate = null; Only need this for objects with secondary interaction, uncomment if this changes
 
 
 
