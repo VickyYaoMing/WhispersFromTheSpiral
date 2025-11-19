@@ -61,7 +61,8 @@ public class AttackState : StateMachineBehaviour
 
         if (!_hasAttacked && _coolDownTimer >= attackWindupTime)
         {
-            animator.SetTrigger("PerformAttack"); 
+            //animator.SetTrigger("PerformAttack"); 
+            PerformAttack();
             _hasAttacked = true;
         }
 
@@ -109,31 +110,56 @@ public class AttackState : StateMachineBehaviour
         }
     }
 
+    //private void PerformAttack()
+    //{
+    //    Debug.Log("Elk Demon Attempts Grab!");
+
+    //    // Check basic angle & distance as before
+    //    Vector3 directionToPlayer = (_elkDemon.Player.position - _elkDemon.transform.position).normalized;
+    //    float dotProduct = Vector3.Dot(_elkDemon.transform.forward, directionToPlayer);
+
+    //    if (dotProduct > _elkDemon.AttackAngleThreshold)
+    //    {
+    //        float distance = Vector3.Distance(_elkDemon.transform.position, _elkDemon.Player.position);
+
+    //        if (distance < _elkDemon.AttackRange)
+    //        {
+    //            var grab = _elkDemon.Player.GetComponentInParent<PlayerGrabController>();
+    //            if (grab != null)
+    //            {
+    //                grab.StartGrabCutscene(_elkDemon);
+    //            }
+    //            else
+    //            {
+    //                Debug.LogWarning("PlayerGrabController not found on player root or parent.");
+    //            }
+    //        }
+    //    }
+    //}
+
     private void PerformAttack()
     {
-        Debug.Log("Elk Demon Attempts Grab!");
-
-        // Check basic angle & distance as before
-        Vector3 directionToPlayer = (_elkDemon.Player.position - _elkDemon.transform.position).normalized;
-        float dotProduct = Vector3.Dot(_elkDemon.transform.forward, directionToPlayer);
-
-        if (dotProduct > _elkDemon.AttackAngleThreshold)
+        Debug.Log("Elk Demon Attacks!"); Vector3 directionToPlayer = (_elkDemon.Player.position - _elkDemon.transform.position).normalized; float dotProduct = Vector3.Dot(_elkDemon.transform.forward, directionToPlayer); if (dotProduct > _elkDemon.AttackAngleThreshold)
         {
-            float distance = Vector3.Distance(_elkDemon.transform.position, _elkDemon.Player.position);
-
-            if (distance < _elkDemon.AttackRange)
-            {
-                var grab = _elkDemon.Player.GetComponentInParent<PlayerGrabController>();
-                if (grab != null)
-                {
-                    grab.StartGrabCutscene(_elkDemon);
-                }
-                else
-                {
-                    Debug.LogWarning("PlayerGrabController not found on player root or parent.");
-                }
-            }
-        }
+            float distance = Vector3.Distance(_elkDemon.transform.position, _elkDemon.Player.position); 
+            // Can be modify to balance the Elk demon attack range 
+            // Right now it seems a bit hard for the Elk demon to REALLY hit the player 
+            // Play Testing require!
+            if (distance < _elkDemon.AttackRange) 
+            { 
+                Debug.Log("Player got hit by Mario's Attack!"); 
+                var sanity = _elkDemon.Player.GetComponentInParent<SanitySystem.Sanity>(); 
+                if (sanity != null) { 
+                    sanity.ApplyImpulse(sanityDmg); Debug.Log($"Sanity reduced by {sanityDmg}. New sanity: {sanity.Sanity01}"); 
+                    
+                    if (sanity.Sanity01 <= 0.4f) { Debug.Log("Death is Running!"); if (_playerSanityEffect != null) { _playerSanityEffect.ZeroSanityDeath(); } } 
+                } 
+                else 
+                { 
+                    Debug.Log("No sanity was found so I'm Schizo as hell");      
+                } 
+            } 
+        } 
     }
 
     private void ResetTriggers(Animator animator)
