@@ -3,14 +3,15 @@ using UnityEngine;
 
 public class GrandFatherTrigger : MonoBehaviour
 {
-    Animator animator;
-    private InteractionManager interactionManager;
-    private bool hasClockBeenOpened = false;
-    private bool hasGunBeenTaken = false;
-
     [SerializeField] private LayerMask itemMask;
     [SerializeField] private float rayHitDistance;
     [SerializeField] private GameObject returnGameObject;
+
+    private AudioSource m_source;
+    private Animator animator;
+    private InteractionManager interactionManager;
+    private bool hasClockBeenOpened = false;
+    private bool hasGunBeenTaken = false;
 
     private void OnEnable()
     {
@@ -26,6 +27,8 @@ public class GrandFatherTrigger : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
         interactionManager = GameManager.Instance.InteractionManager;
+        m_source = GetComponent<AudioSource>();
+        if(m_source != null ) { m_source.Play(); }
     }
 
     void Update()
@@ -57,5 +60,6 @@ public class GrandFatherTrigger : MonoBehaviour
         Debug.Log("Grandfather clock triggered");
         animator.SetBool("winningCondition", true);
         hasClockBeenOpened = true;
+        m_source.Stop();
     }
 }
