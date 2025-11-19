@@ -36,7 +36,7 @@ public class ElkDemonAI : MonoBehaviour
     private bool _hasRecentPlayerInfo;
     private int _currentObservationIndex;
 
-
+    [SerializeField] Vector3 Destination;
 
     public bool HasRecentPlayerInfo { get { return _hasRecentPlayerInfo; } }
     public Vector3 PlayerLastKnownPosition { get { return _playerLastKnownPosition; } }
@@ -64,6 +64,8 @@ public class ElkDemonAI : MonoBehaviour
 
         _navAgent.speed = currentSpeed;
         _navAgent.SetDestination(targetPosition);
+
+        Destination = _navAgent.destination;
 
         if(_navAgent.velocity.sqrMagnitude > 0.01f)
         {

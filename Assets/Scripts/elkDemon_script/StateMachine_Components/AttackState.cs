@@ -100,6 +100,8 @@ public class AttackState : StateMachineBehaviour
         //    return;
         //}
 
+
+        //Same timer used for cooldown and for windup?
         if (_coolDownTimer >= attackCD)
         {
             animator.SetTrigger("AttackComplete");
