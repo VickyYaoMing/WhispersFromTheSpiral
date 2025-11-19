@@ -1035,7 +1035,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1632230020266357106, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1509977553}
   m_SourcePrefab: {fileID: 100100000, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
 --- !u!1 &137959717
 GameObject:
@@ -1164,7 +1167,11 @@ MonoBehaviour:
   zoomFromFront: 0
   howCloseFromFront: 1.5
   upwardTilt: 0
+  itemShouldBeRotatedWhenHeld: {x: 0, y: 0, z: 0, w: 1}
+  itemShouldBePositionedWhenHeld: {x: 0, y: 0, z: 0}
   aboveZoomClose: 1.1
+  canBePlacedUpon: 0
+  placementArea: {x: 0, y: 0, z: 0}
   m_sprites:
   - {fileID: 21300000, guid: 6e75897208cc18b4396f3af40c9eb8af, type: 3}
   - {fileID: 21300000, guid: b0c4f31ed6a3f2444a45f0285e0e3e52, type: 3}
@@ -2859,7 +2866,11 @@ MonoBehaviour:
   zoomFromFront: 0
   howCloseFromFront: 1.5
   upwardTilt: 0
+  itemShouldBeRotatedWhenHeld: {x: 0, y: 0, z: 0, w: 1}
+  itemShouldBePositionedWhenHeld: {x: 0, y: 0, z: 0}
   aboveZoomClose: 1.1
+  canBePlacedUpon: 0
+  placementArea: {x: 0, y: 0, z: 0}
 --- !u!54 &592974860
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4134,7 +4145,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7459127646964805706, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1418954751}
   m_SourcePrefab: {fileID: 100100000, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
 --- !u!1 &856024347
 GameObject:
@@ -4862,32 +4876,33 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 803e0d75da545ea4890a013f9aab5fa0, type: 3}
---- !u!1 &986503599 stripped
+--- !u!1 &1024637446 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 75806692677558944, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-  m_PrefabInstance: {fileID: 1276148542}
+  m_CorrespondingSourceObject: {fileID: 1632230020266357106, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+  m_PrefabInstance: {fileID: 1933225133}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &986503616
+--- !u!114 &1024637448
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 986503599}
+  m_GameObject: {fileID: 1024637446}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d04fe5360dee4b48bef333910e93659, type: 3}
+  m_Script: {fileID: 11500000, guid: db104e4d8a879bb458599c8a20978e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorLayer:
-    serializedVersion: 2
-    m_Bits: 2147483648
-  cam: {fileID: 1020094808}
---- !u!20 &1020094808 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 1333395779951691931, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-  m_PrefabInstance: {fileID: 1276148542}
-  m_PrefabAsset: {fileID: 0}
+  zoomFromFront: 0
+  howCloseFromFront: 1.5
+  upwardTilt: 0
+  itemShouldBeRotatedWhenHeld: {x: 0, y: 0, z: 0, w: 1}
+  itemShouldBePositionedWhenHeld: {x: 0, y: 0, z: 0}
+  aboveZoomClose: 1.1
+  canBePlacedUpon: 0
+  placementArea: {x: 0, y: 0, z: 0}
+  key: {fileID: 0}
+  locked: 1
 --- !u!1 &1042427225
 GameObject:
   m_ObjectHideFlags: 0
@@ -5704,22 +5719,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-      propertyPath: m_isTripping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-      propertyPath: m_isHeadBanging
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-      propertyPath: m_crouchSensitivity
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-      propertyPath: m_defaultSensitivity
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 771196179692006720, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6192,6 +6191,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7463144061129777672, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7565467208170540664, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6358,6 +6361,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368408163}
   m_Mesh: {fileID: -8367231247473855917, guid: d2bf0e75cc2af364388a40b5c437e3dc, type: 3}
+--- !u!1 &1418954743 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7459127646964805706, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+  m_PrefabInstance: {fileID: 846637602}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1418954751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418954743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db104e4d8a879bb458599c8a20978e5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomFromFront: 0
+  howCloseFromFront: 1.5
+  upwardTilt: 0
+  itemShouldBeRotatedWhenHeld: {x: 0, y: 0, z: 0, w: 1}
+  itemShouldBePositionedWhenHeld: {x: 0, y: 0, z: 0}
+  aboveZoomClose: 1.1
+  canBePlacedUpon: 0
+  placementArea: {x: 0, y: 0, z: 0}
+  key: {fileID: 1452885364}
+  locked: 1
 --- !u!1 &1446528382
 GameObject:
   m_ObjectHideFlags: 0
@@ -6454,15 +6484,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d0711cbaa5ffc6e4294fae3d86657095, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.45
+      value: -7.19
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d0711cbaa5ffc6e4294fae3d86657095, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.304
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d0711cbaa5ffc6e4294fae3d86657095, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.96
+      value: 22.91
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d0711cbaa5ffc6e4294fae3d86657095, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6537,7 +6567,11 @@ MonoBehaviour:
   zoomFromFront: 0
   howCloseFromFront: 1.5
   upwardTilt: 0
+  itemShouldBeRotatedWhenHeld: {x: 0, y: 0, z: 0, w: 1}
+  itemShouldBePositionedWhenHeld: {x: 0, y: 0, z: 0}
   aboveZoomClose: 1.1
+  canBePlacedUpon: 0
+  placementArea: {x: 0, y: 0, z: 0}
 --- !u!54 &1452885366
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6607,6 +6641,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0008840194, y: 0.003084285, z: 0.004016761}
   m_Center: {x: -1.4551915e-10, y: -2.910383e-10, z: -8.673617e-18}
+--- !u!1 &1509977551 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1632230020266357106, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+  m_PrefabInstance: {fileID: 130666692}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1509977553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509977551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db104e4d8a879bb458599c8a20978e5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomFromFront: 0
+  howCloseFromFront: 1.5
+  upwardTilt: 0
+  itemShouldBeRotatedWhenHeld: {x: 0, y: 0, z: 0, w: 1}
+  itemShouldBePositionedWhenHeld: {x: 0, y: 0, z: 0}
+  aboveZoomClose: 1.1
+  canBePlacedUpon: 0
+  placementArea: {x: 0, y: 0, z: 0}
+  key: {fileID: 1452885364}
+  locked: 1
 --- !u!1 &1553577346
 GameObject:
   m_ObjectHideFlags: 0
@@ -7301,7 +7362,11 @@ MonoBehaviour:
   zoomFromFront: 0
   howCloseFromFront: 1.5
   upwardTilt: 0
+  itemShouldBeRotatedWhenHeld: {x: 0, y: 0, z: 0, w: 1}
+  itemShouldBePositionedWhenHeld: {x: 0, y: 0, z: 0}
   aboveZoomClose: 1.1
+  canBePlacedUpon: 0
+  placementArea: {x: 0, y: 0, z: 0}
 --- !u!65 &1785181064
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7703,7 +7768,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1632230020266357106, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1024637448}
   m_SourcePrefab: {fileID: 100100000, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
 --- !u!1 &1948279729
 GameObject:
@@ -8541,7 +8609,11 @@ MonoBehaviour:
   zoomFromFront: 0
   howCloseFromFront: 1.5
   upwardTilt: 0
+  itemShouldBeRotatedWhenHeld: {x: 0, y: 0, z: 0, w: 1}
+  itemShouldBePositionedWhenHeld: {x: 0, y: 0, z: 0}
   aboveZoomClose: 1.1
+  canBePlacedUpon: 0
+  placementArea: {x: 0, y: 0, z: 0}
   m_sprites:
   - {fileID: 21300000, guid: 6e75897208cc18b4396f3af40c9eb8af, type: 3}
   - {fileID: 21300000, guid: b0c4f31ed6a3f2444a45f0285e0e3e52, type: 3}
@@ -56164,7 +56236,11 @@ MonoBehaviour:
   zoomFromFront: 0
   howCloseFromFront: 1.5
   upwardTilt: 0
+  itemShouldBeRotatedWhenHeld: {x: 0, y: 0, z: 0, w: 1}
+  itemShouldBePositionedWhenHeld: {x: 0, y: 0, z: 0}
   aboveZoomClose: 1.1
+  canBePlacedUpon: 0
+  placementArea: {x: 0, y: 0, z: 0}
 --- !u!23 &7950950199673273654
 MeshRenderer:
   m_ObjectHideFlags: 0

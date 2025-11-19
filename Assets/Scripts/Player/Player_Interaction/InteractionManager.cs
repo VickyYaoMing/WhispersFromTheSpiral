@@ -170,6 +170,7 @@ public class InteractionManager : MonoBehaviour
     {
         currentItem = detectedItem;
         detectedItem.GetComponent<SecondaryInteractionItem>().SecondaryInteraction();
+        Debug.Log("Secondary interaction baybee");
         currentItem = itemArray[currentItemSpot];
     }
 

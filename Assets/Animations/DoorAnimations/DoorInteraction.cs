@@ -19,6 +19,18 @@ public class DoorInteraction : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 selectedDoor = hit.collider.gameObject.transform;
+                
+                if (selectedDoor.parent.GetComponentInParent<LockedObject>() != null)
+                {
+                    doorLock = selectedDoor.parent.GetComponentInParent<LockedObject>();
+                    Debug.Log(doorLock);
+                }
+
+                //If door is locked, just stop running
+                if (doorLock != null && doorLock.Locked)
+                {
+                    doorLock.SecondaryInteraction();
+                }
             }
         }
 
@@ -26,6 +38,12 @@ public class DoorInteraction : MonoBehaviour
         {
             HingeJoint joint = selectedDoor.GetComponent<HingeJoint>();
             JointMotor motor = joint.motor;
+
+            if (doorLock && doorLock.Locked)
+            {
+                return;
+            }
+
 
             //Create drag point object for reference where players mouse is pointing
             if (dragPointGameobject == null)
