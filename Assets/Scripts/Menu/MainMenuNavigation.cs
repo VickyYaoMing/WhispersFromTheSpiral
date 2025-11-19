@@ -38,7 +38,7 @@ public class MainMenuNavigation : MonoBehaviour
         m_startButton.transform.localPosition = m_defaultStartButtonPos;
         if (GameManager.Instance.SaveSystem != null)
         {
-            if (GameManager.Instance.SaveSystem.DoesSaveExist())
+            if (GameManager.Instance.DoesSaveExist())
             {
                 m_loadButton.SetActive(true);
                 m_startButtonPosIfSaveExists = m_defaultStartButtonPos + new Vector3(0, -90, 0);

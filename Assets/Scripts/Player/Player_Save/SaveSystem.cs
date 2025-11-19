@@ -97,7 +97,7 @@ public class SaveSystem
             GameManager.Instance.ItemManager.Load(_saveData.ItemManagerSaveData);   
     }
 
-    public bool DoesSaveExist()
+    public static bool DoesSaveExist()
     {
         return _saveData.hasSaved;
     }
