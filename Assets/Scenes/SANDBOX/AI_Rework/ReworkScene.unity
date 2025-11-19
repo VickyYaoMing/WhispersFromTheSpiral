@@ -31062,7 +31062,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1.75
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -31124,6 +31124,8 @@ MonoBehaviour:
   player: {fileID: 0}
   currentBehavior: 0
   elkRoar: {fileID: 0}
+  _animator: {fileID: 0}
+  _handAttach: {fileID: 0}
   Destination: {x: 0, y: 0, z: 0}
 --- !u!1 &966318095
 GameObject:
@@ -54637,7 +54639,7 @@ Animator:
   m_GameObject: {fileID: 1697492991}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6e5e63dfaf499c446a9b38d1d0163fcb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
