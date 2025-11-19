@@ -5,6 +5,7 @@ public class DoorInteraction : MonoBehaviour
     //REWRITE THIS 
     [SerializeField] LayerMask doorLayer;
     [SerializeField] Camera cam;
+    private LockedObject doorLock;
     private Transform selectedDoor;
     private GameObject dragPointGameobject;
     private int leftDoor = 0;
