@@ -154,6 +154,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleLamp"",
+                    ""type"": ""Button"",
+                    ""id"": ""fc4b3190-ebd2-403a-a8e8-a456bb08801c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -277,6 +286,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bc17b7f4-9542-448e-a69d-4a8bc404181f"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleLamp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -380,6 +400,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_On_Foot_Exit = m_On_Foot.FindAction("Exit", throwIfNotFound: true);
         m_On_Foot_OpenNotebook = m_On_Foot.FindAction("OpenNotebook", throwIfNotFound: true);
         m_On_Foot_Crouch = m_On_Foot.FindAction("Crouch", throwIfNotFound: true);
+        m_On_Foot_ToggleLamp = m_On_Foot.FindAction("ToggleLamp", throwIfNotFound: true);
         // Inventory
         m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
         m_Inventory_Item1 = m_Inventory.FindAction("Item1", throwIfNotFound: true);
@@ -474,6 +495,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_On_Foot_Exit;
     private readonly InputAction m_On_Foot_OpenNotebook;
     private readonly InputAction m_On_Foot_Crouch;
+    private readonly InputAction m_On_Foot_ToggleLamp;
     /// <summary>
     /// Provides access to input actions defined in input action map "On_Foot".
     /// </summary>
@@ -513,6 +535,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "On_Foot/Crouch".
         /// </summary>
         public InputAction @Crouch => m_Wrapper.m_On_Foot_Crouch;
+        /// <summary>
+        /// Provides access to the underlying input action "On_Foot/ToggleLamp".
+        /// </summary>
+        public InputAction @ToggleLamp => m_Wrapper.m_On_Foot_ToggleLamp;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -560,6 +586,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Crouch.started += instance.OnCrouch;
             @Crouch.performed += instance.OnCrouch;
             @Crouch.canceled += instance.OnCrouch;
+            @ToggleLamp.started += instance.OnToggleLamp;
+            @ToggleLamp.performed += instance.OnToggleLamp;
+            @ToggleLamp.canceled += instance.OnToggleLamp;
         }
 
         /// <summary>
@@ -592,6 +621,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Crouch.started -= instance.OnCrouch;
             @Crouch.performed -= instance.OnCrouch;
             @Crouch.canceled -= instance.OnCrouch;
+            @ToggleLamp.started -= instance.OnToggleLamp;
+            @ToggleLamp.performed -= instance.OnToggleLamp;
+            @ToggleLamp.canceled -= instance.OnToggleLamp;
         }
 
         /// <summary>
@@ -810,6 +842,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCrouch(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleLamp" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleLamp(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Inventory" which allows adding and removing callbacks.
