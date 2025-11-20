@@ -17,20 +17,20 @@ public class OpenDoorState : MonoBehaviour
     {
         if (openingDoor) return;
 
-        SmartDoorInteraction door = other.GetComponent<SmartDoorInteraction>();
-        if (door != null)
-        {
-            openingDoor = true;
-            _navAgent.isStopped = true;
+        //SmartDoorInteraction door = other.GetComponent<SmartDoorInteraction>();
+        //if (door != null)
+        //{
+        //    openingDoor = true;
+        //    _navAgent.isStopped = true;
 
-            Vector3 lookPos = other.transform.position - transform.position;
-            lookPos.y = 0;
-            transform.rotation = Quaternion.LookRotation(lookPos);
+        //    Vector3 lookPos = other.transform.position - transform.position;
+        //    lookPos.y = 0;
+        //    transform.rotation = Quaternion.LookRotation(lookPos);
 
-            door.TryOpen(transform, true);
+        //    door.TryOpen(transform, true);
 
-            Invoke(nameof(ResumeMovement), 2.5f);
-        }
+        //    Invoke(nameof(ResumeMovement), 2.5f);
+        //}
     }
 
     private void ResumeMovement()

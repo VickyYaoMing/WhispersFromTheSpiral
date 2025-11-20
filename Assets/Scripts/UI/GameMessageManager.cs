@@ -132,8 +132,11 @@ public class GameMessageManager : MonoBehaviour
 
     private void UpdateSubtitle()
     {
-        m_subtitleAudio.resource = m_currentSubtitleMsgObj.GetComponent<GameMessage>().AudioClips[currentSubtitleMsgIndex];
-        m_subtitleAudio.Play();
+        if (m_currentSubtitleMsgObj.GetComponent<GameMessage>().HasAudio)
+        {
+            m_subtitleAudio.resource = m_currentSubtitleMsgObj.GetComponent<GameMessage>().AudioClips[currentSubtitleMsgIndex];
+            m_subtitleAudio.Play();
+        }
         m_subtitleMsgTextObj.text = m_currentSubtitleMsgObj.GetComponent<GameMessage>().DescriptionAsPages[currentSubtitleMsgIndex];
         m_currentSubtitleTimeLeft = m_currentSubtitleMsgObj.GetComponent<GameMessage>().Durations[currentSubtitleMsgIndex];
     }
