@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
     private PlayerInput.InventoryActions inventoryActions;
 
     private Movement playerMovement;
+    private PlayerLight playerLight;
 
     //private PlayerMovement player_movement;
     //private PlayerLook player_look;
@@ -22,8 +23,10 @@ public class InputManager : MonoBehaviour
         playerMovement = GetComponent<Movement>();
         interactionManager = GetComponent<InteractionManager>();
         uiManager = GetComponent<UIManager>();
+        playerLight = GetComponent<PlayerLight>();
         on_foot = player_input.On_Foot;
         inventoryActions = player_input.Inventory;
+        on_foot.ToggleLamp.performed += ctx => playerLight.ToggleLight();
         on_foot.Crouch.performed += ctx => playerMovement.Crouch();
         on_foot.Exit.performed += ctx => uiManager.Exit();
         on_foot.OpenNotebook.performed += ctx => uiManager.ToggleNotebook();
