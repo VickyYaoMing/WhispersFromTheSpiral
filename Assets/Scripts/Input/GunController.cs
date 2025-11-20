@@ -140,7 +140,7 @@ public class GunController : InteractableBase
 
             hole.transform.localScale = Vector3.one * UnityEngine.Random.Range(0.08f, 0.12f);
             hole.transform.Rotate(0, 0, UnityEngine.Random.Range(0f, 360f));
-            Destroy(hole, 15f);
+            Destroy(hole, 1f);
         }
 
         if (hitEffectPrefab != null)
