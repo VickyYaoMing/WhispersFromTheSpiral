@@ -47,7 +47,10 @@ public class InteractionManager : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.Instance.InteractionManager = this;
+        if(GameManager.Instance != null)
+        {
+            GameManager.Instance.InteractionManager = this;
+        }
     }
 
     private void Update()

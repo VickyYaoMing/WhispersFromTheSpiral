@@ -11,17 +11,25 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-#if UNITY_EDITOR
-            if(!Application.isPlaying)
-            {
-                return null;
-            }
+//#if UNITY_EDITOR
+//            if (!Application.isPlaying)
+//            {
+//                return null;
+//            }
 
-            if(instance == null)
+//            if (instance == null)
+//            {
+//                Instantiate(Resources.Load<GameManager>("GameManager"));
+//            }
+//#endif
+            if (instance == null)
             {
-                Instantiate(Resources.Load<GameManager>("GameManager"));
+                var prefab = Resources.Load<GameManager>("GameManager");
+                if(prefab != null)
+                {
+                    instance = Instantiate(prefab);
+                }
             }
-#endif
             return instance;
         }
     }
@@ -47,10 +55,8 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
-
-
-
     }
     void Start()
     {
