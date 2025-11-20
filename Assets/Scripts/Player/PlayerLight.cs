@@ -4,7 +4,7 @@ public class PlayerLight : MonoBehaviour
 {
     [Header("GameObjects")]
     [SerializeField] private GameObject m_playerLightObj;
-    //[SerializeField] private GameObject m_lampPickupObj;
+    [SerializeField] private GameObject m_lanternPickupObj;
 
     [Header("Light Settings")]
     [SerializeField] private float m_minIntensity;
