@@ -5,6 +5,7 @@ public class DoorInteraction : MonoBehaviour
     //REWRITE THIS 
     [SerializeField] LayerMask doorLayer;
     [SerializeField] Camera cam;
+    [SerializeField] float m_interactionDistance;
     private LockedObject doorLock;
     private Transform selectedDoor;
     private GameObject dragPointGameobject;
@@ -15,7 +16,7 @@ public class DoorInteraction : MonoBehaviour
         //Raycast
         RaycastHit hit;
 
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 20, doorLayer))
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, m_interactionDistance, doorLayer))
         {
             if (Input.GetMouseButtonDown(0))
             {
