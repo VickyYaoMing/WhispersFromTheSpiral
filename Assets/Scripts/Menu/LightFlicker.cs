@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 
 [RequireComponent(typeof(Light))]
 public class LightFlicker : MonoBehaviour
@@ -11,7 +10,6 @@ public class LightFlicker : MonoBehaviour
 
     private Light m_light;
     private float m_timer;
-
 
     #region Unity Methods
     private void Start()
