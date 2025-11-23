@@ -150,11 +150,11 @@ public class toolKindaScript : MonoBehaviour
         Collider itemCollider = item.GetComponent<Collider>();
         Vector3 spawnPos = Vector3.zero;//why tho??
 
-        if (itemCollider == null)
-        {
-            Debug.Log("is null");
-            return false;
-        }
+        //if (itemCollider == null)
+        //{
+        //    Debug.Log("is null");
+        //    return false;
+        //}
         Vector3 halfsize = itemCollider.bounds.extents;
         float padding = 0.05f;
         halfsize += Vector3.one * padding;
