@@ -364,7 +364,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorToMainMap
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8966827183290508800, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+    - {fileID: 5838723791314560561, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -776,7 +778,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorObj
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5838723791314560561, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1429,6 +1432,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3562061527195699708, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+    - {fileID: 8966827183290508800, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -1998,7 +2002,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &738791524
 Transform:
   m_ObjectHideFlags: 0
@@ -2871,7 +2875,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: CorridorDoor
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8966827183290508800, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+    - {fileID: 5838723791314560561, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3198,7 +3204,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorObj (4)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8966827183290508800, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+    - {fileID: 5838723791314560561, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3607,7 +3615,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorObj (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5838723791314560561, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+    - {fileID: 8966827183290508800, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5990,7 +6000,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: PuzzleRoomDoor
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8966827183290508800, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+    - {fileID: 5838723791314560561, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -6239,7 +6251,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorObj (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8966827183290508800, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+    - {fileID: 5838723791314560561, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
