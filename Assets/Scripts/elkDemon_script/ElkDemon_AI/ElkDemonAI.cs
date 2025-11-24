@@ -111,7 +111,6 @@ public class ElkDemonAI : MonoBehaviour
         Vector3 rayStart = transform.position + Vector3.up * eyeHeight;
         Vector3 playerTargetPoint = player.position + Vector3.up * 1.0f;
 
-        // Fix upward direction issue
         Vector3 toTarget = (playerTargetPoint - rayStart);
         toTarget.y = Mathf.Clamp(toTarget.y, -0.5f, 0.5f);
         Vector3 direction = toTarget.normalized;
@@ -166,70 +165,56 @@ public class ElkDemonAI : MonoBehaviour
         Debug.Log("Elk Demon got Stunned!");
     }
 
-// Call this from PlayerGrabController when the grab starts
-public void BeginGrabSequence(PlayerGrabController playerController)
-{
-    // Stop moving and face the player
-    if (_navAgent != null)
+    public void BeginGrabSequence(PlayerGrabController playerController)
     {
-        _navAgent.isStopped = true;
-    }
-
-    // Optional: smoothly rotate to face player
-    Vector3 lookDirection = (playerController.transform.position - transform.position);
-    lookDirection.y = 0f;
-    if (lookDirection.sqrMagnitude > 0.001f)
-    {
-        Quaternion targetRot = Quaternion.LookRotation(lookDirection);
-        transform.rotation = targetRot; // or Slerp for smoothness
-    }
-
-    // Trigger demon animator to play grab animation
-    if (_animator != null)
-        _animator.SetTrigger("GrabPlayer");
-
-    // Optional: If you want the demon to hold the player, you can set up an animation event
-    // in the demon's grab animation that calls ElkDemonAI.OnDemonGrabAttach to parent the player.
-}
-
-// Called by demon animation event (when demon animation reaches the moment where player should be attached)
-public void OnDemonGrabAttach()
-{
-    // Find player grab controller and parent player to demon bone (if desired)
-    var playerGrab = player.GetComponentInParent<PlayerGrabController>();
-    if (playerGrab != null)
-    {
-        // Example: parent player to a demon hand bone (create a bone reference in inspector if needed)
-        // transformOfHand should be set in inspector; here we use a serialized field:
-        if (_handAttach != null)
+        if (_navAgent != null)
         {
-            // Choose a proper local offset (tweak in editor)
-            playerGrab.ParentTo(_handAttach, Vector3.zero, Vector3.zero);
+            _navAgent.isStopped = true;
+        }
+
+        Vector3 lookDirection = (playerController.transform.position - transform.position);
+        lookDirection.y = 0f;
+        if (lookDirection.sqrMagnitude > 0.001f)
+        {
+            Quaternion targetRot = Quaternion.LookRotation(lookDirection);
+            transform.rotation = targetRot; 
+        }
+
+        if (_animator != null)
+            _animator.SetTrigger("GrabPlayer");
+
+
+    }
+
+    public void OnDemonGrabAttach()
+    {
+        var playerGrab = player.GetComponentInParent<PlayerGrabController>();
+        if (playerGrab != null)
+        {
+            if (_handAttach != null)
+            {
+                playerGrab.ParentTo(_handAttach, Vector3.zero, Vector3.zero);
+            }
         }
     }
-}
-
-// Called by player when cutscene ends so demon can resume
-public void OnPlayerReleased()
-{
-    if (_navAgent != null)
+    public void OnPlayerReleased()
     {
-        _navAgent.isStopped = false;
-        // optionally set a small cooldown or wander behaviour
-    }
+        if (_navAgent != null)
+        {
+            _navAgent.isStopped = false;
+        }
 
-    if (_animator != null)
-    {
-        _animator.ResetTrigger("GrabPlayer");
-    }
+        if (_animator != null)
+        {
+            _animator.ResetTrigger("GrabPlayer");
+        }
 
-    // If you parented the player to hand, unparent
-    var playerGrab = player.GetComponentInParent<PlayerGrabController>();
-    if (playerGrab != null)
-    {
-        playerGrab.Unparent();
+        var playerGrab = player.GetComponentInParent<PlayerGrabController>();
+        if (playerGrab != null)
+        {
+            playerGrab.Unparent();
+        }
     }
-}
 
     public enum BehaviorType { Roar, Idle }
 
@@ -237,7 +222,7 @@ public void OnPlayerReleased()
     {
         currentBehavior = newBehavior;
         Debug.Log($"Elk Demon behavior changed to: {currentBehavior}");
-        // Here you can plug in animation, navmesh movement, or sound triggers
+
         switch (newBehavior)
         {
             case BehaviorType.Roar:
@@ -249,7 +234,6 @@ public void OnPlayerReleased()
         }
     }
 
-    // Draw sight range and angle
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;

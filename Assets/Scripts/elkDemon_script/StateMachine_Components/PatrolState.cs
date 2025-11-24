@@ -15,7 +15,7 @@ public class PatrolState : StateMachineBehaviour
 
         _agent = _elkDemon.GetComponent<NavMeshAgent>();
 
-        Vector3 wanderTarget = GetRandomNavMeshPoint(10f);
+        Vector3 wanderTarget = GetCenteredRandomNavMeshPoint(10f);
         _elkDemon.MoveTowards(wanderTarget, _elkDemon.MoveSpeed);
 
         Debug.Log("Entered patrol state");
@@ -38,7 +38,7 @@ public class PatrolState : StateMachineBehaviour
         if (!_elkDemon.GetComponent<NavMeshAgent>().pathPending && _elkDemon.GetComponent<NavMeshAgent>().remainingDistance < 0.5f)
         {
             //_currentPatrolIndex = Random.Range(0, _patrolRoutes.Length);
-            Vector3 newTarget = GetRandomNavMeshPoint(2f);
+            Vector3 newTarget = GetCenteredRandomNavMeshPoint(10f);
             _elkDemon.MoveTowards(newTarget, _elkDemon.MoveSpeed);
         }
 
@@ -49,15 +49,22 @@ public class PatrolState : StateMachineBehaviour
     }
 
 
-    private Vector3 GetRandomNavMeshPoint(float radius)
+    private Vector3 GetCenteredRandomNavMeshPoint(float radius)
     {
-        Vector3 randomDir = Random.insideUnitSphere * radius;
-        randomDir += _elkDemon.transform.position;
-
-        if (NavMesh.SamplePosition(randomDir, out NavMeshHit hit, radius, NavMesh.AllAreas))
+        for (int i = 0; i < 30; i++) 
         {
-            return hit.position;
+            Vector3 randomDir = Random.insideUnitSphere * radius;
+            randomDir += _elkDemon.transform.position;
+
+            if (NavMesh.SamplePosition(randomDir, out NavMeshHit hit, radius, NavMesh.AllAreas))
+            {
+                if (hit.distance > 1.0f) 
+                {
+                    return hit.position;
+                }
+            }
         }
-        return _elkDemon.transform.position; 
+
+        return _elkDemon.transform.position;
     }
 }
