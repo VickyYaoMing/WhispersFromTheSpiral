@@ -16,17 +16,8 @@ public class LockedObject : SecondaryInteractionItem
 
     public override void SecondaryInteraction()
     {
-        //interactionManager = GameManager.Instance.InteractionManager;
-
-        //if (interactionManager.GetItemInHand() != key) return;
-        //interactionManager.PlaceItemInHand(Vector3.zero, Quaternion.identity);
-        //Destroy(key);
-        //locked = false;
-        if (interactionManager == null) { Debug.Log("AAAAAAAAA");  return; }
-        Debug.Log(interactionManager.GetItemInHand());
-        Debug.Log(key);
-        var itemInHand = interactionManager.GetItemInHand();
-        if(itemInHand != key) { return; }
+        if (interactionManager.GetItemInHand() != key) return;
+        interactionManager.GetItemInHand().GetComponent<Default_Item>().IsInUse = true;
         interactionManager.PlaceItemInHand(Vector3.zero, Quaternion.identity);
         Destroy(key);
         locked = false;
