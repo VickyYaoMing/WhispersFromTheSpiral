@@ -364,6 +364,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorToMainMap
       objectReference: {fileID: 0}
+    - target: {fileID: 7459127646964805706, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8966827183290508800, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
     - {fileID: 5838723791314560561, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
@@ -777,6 +781,10 @@ PrefabInstance:
     - target: {fileID: 7459127646964805706, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
       propertyPath: m_Name
       value: DoorObj
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459127646964805706, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5838723791314560561, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
@@ -1429,6 +1437,10 @@ PrefabInstance:
     - target: {fileID: 7459127646964805706, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
       propertyPath: m_Name
       value: DoorToAct2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459127646964805706, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3562061527195699708, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
@@ -2476,7 +2488,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 0.5283019, g: 0.03821047, b: 0.03821047, a: 1}
-  m_Intensity: 100
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2875,6 +2887,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CorridorDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 7459127646964805706, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8966827183290508800, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
     - {fileID: 5838723791314560561, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
@@ -3203,6 +3219,10 @@ PrefabInstance:
     - target: {fileID: 7459127646964805706, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
       propertyPath: m_Name
       value: DoorObj (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459127646964805706, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8966827183290508800, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
@@ -3614,6 +3634,10 @@ PrefabInstance:
     - target: {fileID: 7459127646964805706, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
       propertyPath: m_Name
       value: DoorObj (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459127646964805706, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5838723791314560561, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
@@ -6000,6 +6024,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PuzzleRoomDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 7459127646964805706, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8966827183290508800, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
     - {fileID: 5838723791314560561, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
@@ -6250,6 +6278,10 @@ PrefabInstance:
     - target: {fileID: 7459127646964805706, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
       propertyPath: m_Name
       value: DoorObj (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459127646964805706, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8966827183290508800, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
