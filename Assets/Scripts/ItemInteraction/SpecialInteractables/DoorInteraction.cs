@@ -28,7 +28,7 @@ public class DoorInteraction : MonoBehaviour
                     Debug.Log(doorLock);
                 }
 
-                //If door is locked, just stop running
+                //If door is locked, run secondary interaction
                 if (doorLock != null && doorLock.Locked)
                 {
                     doorLock.SecondaryInteraction();
@@ -41,6 +41,7 @@ public class DoorInteraction : MonoBehaviour
             HingeJoint joint = selectedDoor.GetComponent<HingeJoint>();
             JointMotor motor = joint.motor;
 
+            //if door is locked just dont open it
             if (doorLock != null && doorLock.Locked)
             {
                 return;
