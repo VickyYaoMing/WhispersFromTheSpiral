@@ -24,6 +24,7 @@ namespace Assets.Scripts.AudioSystem
         SFX_ClockDong,
         Amb_WhisperVoices,
         Amb_RandomNoise,
+        SFX_PlayerSteps,
 
         // --- Whips / Stingers / Instruments ---
         SFX_Piano_MenacingThumps,
