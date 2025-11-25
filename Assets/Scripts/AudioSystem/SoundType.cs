@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AudioSystem
+namespace Assets.Scripts.AudioSystem
 {
     public enum SoundType
     {
