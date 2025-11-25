@@ -35,10 +35,22 @@ public class PatrolState : StateMachineBehaviour
         //    animator.SetTrigger("LookAround");
         //}
 
+        // DEBUG: Draw the path
+        if (_agent.hasPath)
+        {
+            for (int i = 0; i < _agent.path.corners.Length - 1; i++)
+            {
+                Debug.DrawLine(_agent.path.corners[i], _agent.path.corners[i + 1], Color.white);
+            }
+        }
+
+        // DEBUG: Show current destination
+        Debug.DrawLine(_elkDemon.transform.position, _agent.destination, Color.green);
+
         if (!_elkDemon.GetComponent<NavMeshAgent>().pathPending && _elkDemon.GetComponent<NavMeshAgent>().remainingDistance < 0.5f)
         {
             //_currentPatrolIndex = Random.Range(0, _patrolRoutes.Length);
-            Vector3 newTarget = GetCenteredRandomNavMeshPoint(10f);
+            Vector3 newTarget = GetCenteredRandomNavMeshPoint(100f);
             _elkDemon.MoveTowards(newTarget, _elkDemon.MoveSpeed);
         }
 

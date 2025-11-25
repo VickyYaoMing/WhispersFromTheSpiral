@@ -33757,7 +33757,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 268efb9dd9f38314593385c112db5927, type: 2}
   m_BuildHeightMesh: 0
@@ -67415,8 +67415,20 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: moveSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: sightAngle
+      value: 340
+      objectReference: {fileID: 0}
+    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: sightRange
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: maxAnimSpeed
-      value: 4
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 399825340937420778, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -67461,6 +67473,10 @@ PrefabInstance:
     - target: {fileID: 1065004193543513424, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: m_Name
       value: Demon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2756012791499241304, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: m_Speed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2756012791499241304, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: m_Radius

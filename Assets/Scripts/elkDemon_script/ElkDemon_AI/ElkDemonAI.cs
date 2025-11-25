@@ -182,8 +182,6 @@ public class ElkDemonAI : MonoBehaviour
 
         if (_animator != null)
             _animator.SetTrigger("GrabPlayer");
-
-
     }
 
     public void OnDemonGrabAttach()
