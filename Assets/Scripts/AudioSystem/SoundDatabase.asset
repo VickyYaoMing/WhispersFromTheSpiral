@@ -27,18 +27,16 @@ MonoBehaviour:
     loop: 0
   - type: 13
     clips:
-    - {fileID: 8300000, guid: 9665f824970d56941a53efa46c516d00, type: 3}
-    - {fileID: 8300000, guid: f1a2c951e524a0d48bbb69d78e041786, type: 3}
-    - {fileID: 8300000, guid: 3408067b52efe004f9fa289c9bfdea22, type: 3}
-    - {fileID: 8300000, guid: 162ac41dd69e55d4b919c352b5f21a98, type: 3}
-    - {fileID: 8300000, guid: a60897135b016c249b97882fa060ebb2, type: 3}
-    - {fileID: 8300000, guid: 19047396088331f48993389ed3bf2e97, type: 3}
+    - {fileID: 8300000, guid: 359ec8dc4a83c8c49b45ffda81f363f5, type: 3}
+    - {fileID: 8300000, guid: ca850e3bbe3054843bb5c08ee117104c, type: 3}
+    - {fileID: 8300000, guid: 07587a63328375745a01d6d44cc4ea92, type: 3}
+    - {fileID: 8300000, guid: ba21aaedf186f7347aee09eec18ed930, type: 3}
     mixerGroup: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
-    baseVolume: 0.5
-    minPitch: 0
-    maxPitch: 0
+    baseVolume: 0.2
+    minPitch: 0.95
+    maxPitch: 1.05
     spatial: 1
-    spatialBlend: 0
-    maxDistance: 0
+    spatialBlend: 1
+    maxDistance: 1
     rolloffMode: 0
     loop: 0

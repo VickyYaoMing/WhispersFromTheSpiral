@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &304503043843942281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5658786401611199044}
+  - component: {fileID: 7337497043389238835}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5658786401611199044
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304503043843942281}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7337497043389238835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304503043843942281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 497d19eef446c9f43834524758d70619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundDatabase: {fileID: 11400000, guid: 0daf190b76ab76741a0259b97e2e8f9f, type: 2}
+  audioMixer: {fileID: 24100000, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
+  masterVolumeParam: Master
+  musicVolumeParam: Music
+  sfxVolumeParam: SFX
+  initialSfxSources: 8
+  maxSfxSources: 16
+  defaultSfxGroup: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
+  uiAudioSource: {fileID: 0}
+  uiMixerGroup: {fileID: 8942667938887694334, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
+  musicSource: {fileID: 0}
+  musicMixerGroup: {fileID: 7413692854867692767, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
+  defaultMusicVolume: 1
