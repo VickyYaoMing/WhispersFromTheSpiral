@@ -15,9 +15,9 @@ namespace Assets.Scripts.AudioSystem
         [Header("Mixer")]
         public AudioMixer audioMixer;
         [Tooltip("Exposed parameter name for master volume, e.g. \"MasterVolume\"")]
-        public string masterVolumeParam = "MasterVolume";
-        public string musicVolumeParam = "MusicVolume";
-        public string sfxVolumeParam = "SFXVolume";
+        public string masterVolumeParam = "Master";
+        public string musicVolumeParam = "Music";
+        public string sfxVolumeParam = "SFX";
 
         [Header("SFX pool")]
         [SerializeField] private int initialSfxSources = 8;
