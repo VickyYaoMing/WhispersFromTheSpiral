@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-[RequireComponent (typeof(Animator))]
+[RequireComponent(typeof(Animator))]
 public class ElkDemonAI : MonoBehaviour
 {
     [Header("Atack Settings")]
@@ -21,6 +21,9 @@ public class ElkDemonAI : MonoBehaviour
     [SerializeField] private LayerMask obstructionMask;
     [SerializeField] private float eyeHeight = 1.5f;
 
+    [Header("Grab Settings")]
+    [SerializeField] private Vector3 grabOffset = new Vector3(0, 1.5f, 1f);
+
     [Header("References")]
     [SerializeField] private Transform[] patrolPoints;
     [SerializeField] private Transform[] observationPoints;
@@ -31,6 +34,8 @@ public class ElkDemonAI : MonoBehaviour
 
     [Header("Cutscene Attach")]
     [SerializeField] private Transform _handAttach;
+    [SerializeField] private Vector3 grabLocalOffset = new Vector3(0, 0, 0.5f);
+    [SerializeField] private Vector3 grabRotationOffset = new Vector3(0, 0, 0);
 
     private NavMeshAgent _navAgent;
     private Animator _stateMachine;
@@ -43,7 +48,8 @@ public class ElkDemonAI : MonoBehaviour
     private bool _hasRecentPlayerInfo;
     private int _currentObservationIndex;
 
-
+    // Track grab state
+    private bool _isGrabbingPlayer = false;
 
     public System.Action OnGrabPlayer;
 
@@ -57,8 +63,8 @@ public class ElkDemonAI : MonoBehaviour
     public float AttackRange { get { return attackRange; } }
     public float AttackAngleThreshold { get { return attackAngleThreshold; } }
     public Transform Player { get { return player; } }
-    public Transform[] PatrolPoints { get { return patrolPoints;  } }
-
+    public Transform[] PatrolPoints { get { return patrolPoints; } }
+    public bool IsGrabbingPlayer => _isGrabbingPlayer;
 
     private void Start()
     {
@@ -70,16 +76,26 @@ public class ElkDemonAI : MonoBehaviour
         _navAgent.updatePosition = true;
     }
 
+    private void Update()
+    {
+        // If we're grabbing player, make sure we stay stopped
+        if (_isGrabbingPlayer && _navAgent != null && _navAgent.isActiveAndEnabled)
+        {
+            _navAgent.isStopped = true;
+        }
+
+    }
+
     public void MoveTowards(Vector3 targetPosition, float currentSpeed)
     {
-        if(_navAgent == null) return;
+        if (_navAgent == null || _isGrabbingPlayer) return; // Don't move while grabbing
 
         _navAgent.speed = currentSpeed;
         _navAgent.SetDestination(targetPosition);
 
         Destination = _navAgent.destination;
 
-        if(_navAgent.velocity.sqrMagnitude > 0.01f)
+        if (_navAgent.velocity.sqrMagnitude > 0.01f)
         {
             Quaternion lookRot = Quaternion.LookRotation(_navAgent.velocity.normalized);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * 8f);
@@ -100,7 +116,7 @@ public class ElkDemonAI : MonoBehaviour
 
     public bool CanSeePlayer()
     {
-        if (player == null)
+        if (player == null || _isGrabbingPlayer)
             return false;
 
         Vector3 toPlayerRaw = player.position - transform.position;
@@ -137,10 +153,10 @@ public class ElkDemonAI : MonoBehaviour
 
     public bool CanAttackPlayer()
     {
-        if (player == null) return false;
+        if (player == null || _isGrabbingPlayer) return false;
 
         float distance = Vector3.Distance(transform.position, player.position);
-        if (distance > attackRange) return false; 
+        if (distance > attackRange) return false;
 
         Vector3 direction = (player.position - transform.position).normalized;
         float dot = Vector3.Dot(transform.forward, direction);
@@ -150,14 +166,14 @@ public class ElkDemonAI : MonoBehaviour
 
     public void CheckForAttack(Animator animator)
     {
-        if (CanAttackPlayer())
+        if (CanAttackPlayer() && playerGrab != null && !playerGrab.IsGrabbed)
         {
             animator.SetTrigger("Attack");
 
-            if (playerGrab != null)
-                playerGrab.StartGrab(transform.position);
+            // Use the new StartGrab signature that requires the grabber transform
+            playerGrab.StartGrab(transform, transform.position);
 
-            BeginGrabSequence(playerGrab);
+            BeginGrabSequence();
         }
     }
 
@@ -172,51 +188,105 @@ public class ElkDemonAI : MonoBehaviour
     public void GetStunned()
     {
         _stateMachine.SetTrigger("Stunned");
+
+        // If stunned while grabbing, release player
+        if (_isGrabbingPlayer)
+        {
+            ForceReleasePlayer();
+        }
+
         Debug.Log("Elk Demon got Stunned!");
     }
 
-    public void BeginGrabSequence(PlayerGrabController playerController)
+    public void BeginGrabSequence()
     {
         if (_navAgent != null)
         {
             _navAgent.isStopped = true;
         }
 
-        Vector3 lookDirection = (playerController.transform.position - transform.position);
+        _isGrabbingPlayer = true;
+
+        // Face player
+        Vector3 lookDirection = (player.position - transform.position);
         lookDirection.y = 0f;
         if (lookDirection.sqrMagnitude > 0.001f)
         {
             Quaternion targetRot = Quaternion.LookRotation(lookDirection);
-            transform.rotation = targetRot; 
+            transform.rotation = targetRot;
         }
 
         if (_animator != null)
             _animator.SetTrigger("Grabbed");
+
+        // Start grab with offset position
+        Vector3 grabPosition = transform.position + transform.TransformDirection(grabOffset);
+        playerGrab.StartGrab(transform, grabPosition);
+
+        OnGrabPlayer?.Invoke();
     }
 
+    // Called when demon's hand makes contact in animation
     public void OnDemonGrabAttach()
     {
-        if (playerGrab != null && _handAttach != null)
+        // No parenting needed in new system
+        Debug.Log("Grab attachment point reached");
+    }
+
+    // Called when throw should happen in animation
+    public void OnPlayerThrow()
+    {
+        if (playerGrab != null && _isGrabbingPlayer)
         {
-            playerGrab.ParentTo(_handAttach, Vector3.zero, Vector3.zero);
+            Debug.Log("Demon executing throw!");
+            playerGrab.ApplyThrow(transform.forward);
+            OnPlayerReleased();
         }
     }
+
     public void OnPlayerReleased()
     {
         if (_navAgent != null)
             _navAgent.isStopped = false;
 
         if (_animator != null)
+        {
             _animator.ResetTrigger("Grabbed");
+            _animator.SetTrigger("Idle"); // Or whatever state you want
+        }
 
-        if (playerGrab != null)
-            playerGrab.Unparent();
+        _isGrabbingPlayer = false;
+        Debug.Log("Player released by demon");
+    }
+
+    // Force release player (for stuns, damage, etc.)
+    public void ForceReleasePlayer()
+    {
+        if (_isGrabbingPlayer && playerGrab != null)
+        {
+            // Use the force release method if available
+            var forceReleaseMethod = playerGrab.GetType().GetMethod("ForceRelease");
+            if (forceReleaseMethod != null)
+            {
+                forceReleaseMethod.Invoke(playerGrab, null);
+            }
+            else
+            {
+                // Fallback to regular release
+                playerGrab.Unparent();
+            }
+
+            OnPlayerReleased();
+        }
     }
 
     public enum BehaviorType { Roar, Idle }
 
     public void ChangeBehavior(BehaviorType newBehavior)
     {
+        // Don't change behavior while grabbing player
+        if (_isGrabbingPlayer) return;
+
         currentBehavior = newBehavior;
         Debug.Log($"Elk Demon behavior changed to: {currentBehavior}");
 
@@ -231,6 +301,23 @@ public class ElkDemonAI : MonoBehaviour
         }
     }
 
+    // Clean up when disabled or destroyed
+    private void OnDisable()
+    {
+        if (_isGrabbingPlayer)
+        {
+            ForceReleasePlayer();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_isGrabbingPlayer)
+        {
+            ForceReleasePlayer();
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
@@ -240,5 +327,9 @@ public class ElkDemonAI : MonoBehaviour
         Vector3 rightDir = Quaternion.Euler(0, sightAngle / 2, 0) * transform.forward;
         Gizmos.DrawRay(transform.position + Vector3.up * eyeHeight, leftDir * sightRange);
         Gizmos.DrawRay(transform.position + Vector3.up * eyeHeight, rightDir * sightRange);
+
+        // Draw grab range
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
