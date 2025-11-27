@@ -34,11 +34,15 @@ public class ElkDemonAI : MonoBehaviour
 
     private NavMeshAgent _navAgent;
     private Animator _stateMachine;
+    private PlayerGrabController playerGrab;
+
     private Vector3 _playerLastKnownPosition;
     private Vector3 _playerLastKnownDirection;
+
     private float _playerLastSeenTime;
     private bool _hasRecentPlayerInfo;
     private int _currentObservationIndex;
+
 
 
     public System.Action OnGrabPlayer;
@@ -61,6 +65,7 @@ public class ElkDemonAI : MonoBehaviour
         _navAgent = GetComponent<NavMeshAgent>();
         _stateMachine = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerGrab = player.GetComponent<PlayerGrabController>();
 
         _navAgent.updatePosition = true;
     }
@@ -148,6 +153,11 @@ public class ElkDemonAI : MonoBehaviour
         if (CanAttackPlayer())
         {
             animator.SetTrigger("Attack");
+
+            if (playerGrab != null)
+                playerGrab.StartGrab(transform.position);
+
+            BeginGrabSequence(playerGrab);
         }
     }
 
@@ -181,37 +191,26 @@ public class ElkDemonAI : MonoBehaviour
         }
 
         if (_animator != null)
-            _animator.SetTrigger("GrabPlayer");
+            _animator.SetTrigger("Grabbed");
     }
 
     public void OnDemonGrabAttach()
     {
-        var playerGrab = player.GetComponentInParent<PlayerGrabController>();
-        if (playerGrab != null)
+        if (playerGrab != null && _handAttach != null)
         {
-            if (_handAttach != null)
-            {
-                playerGrab.ParentTo(_handAttach, Vector3.zero, Vector3.zero);
-            }
+            playerGrab.ParentTo(_handAttach, Vector3.zero, Vector3.zero);
         }
     }
     public void OnPlayerReleased()
     {
         if (_navAgent != null)
-        {
             _navAgent.isStopped = false;
-        }
 
         if (_animator != null)
-        {
-            _animator.ResetTrigger("GrabPlayer");
-        }
+            _animator.ResetTrigger("Grabbed");
 
-        var playerGrab = player.GetComponentInParent<PlayerGrabController>();
         if (playerGrab != null)
-        {
             playerGrab.Unparent();
-        }
     }
 
     public enum BehaviorType { Roar, Idle }

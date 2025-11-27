@@ -1,82 +1,102 @@
+using System;
 using UnityEngine;
 
 public class PlayerGrabController : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Animator playerAnimator;
-    [SerializeField] private CharacterController characterController; // or your player movement script type
-    [SerializeField] private Transform grabAttachPoint; // optional: demon hand attach target on player (local)
-    [SerializeField] private MonoBehaviour[] scriptsToDisableDuringCutscene;
+    [SerializeField] private CharacterController characterController;
+    [SerializeField] private Animator animator;
+    [SerializeField] private PlayerMovement movement;    
+    [SerializeField] private Rigidbody rb;
 
+    [Header("Grab Settings")]
+    [SerializeField] private float disableControlTime = 1.5f;
+    [SerializeField] private float throwForce = 12f;
+    [SerializeField] private float verticalForce = 2f;
+
+    private bool isGrabbed = false;
     private Transform originalParent;
-    private bool inCutscene = false;
-    private ElkDemonAI currentDemon;
 
-    // Called by the demon to start the cutscene
-    public void StartGrabCutscene(ElkDemonAI demon)
+    // Called by the enemy when the grab starts
+    public void StartGrab(Vector3 grabberPosition)
     {
-        if (inCutscene) return;
-        inCutscene = true;
-        currentDemon = demon;
+        if (isGrabbed) return;
 
-        // Disable player movement / input
+        isGrabbed = true;
+
+        if (movement != null)
+            movement.enabled = false;
+
         if (characterController != null)
             characterController.enabled = false;
+ 
+        Vector3 lookDir = (grabberPosition - transform.position);
+        lookDir.y = 0;
+        transform.rotation = Quaternion.LookRotation(lookDir);
 
-        foreach (var s in scriptsToDisableDuringCutscene)
-            if (s != null) s.enabled = false;
-
-        // Trigger player animator "Grabbed" state
-        if (playerAnimator != null)
-            playerAnimator.SetTrigger("Grabbed");
-
-        // Call demon hook so it can play its grab animation and align
-        demon?.BeginGrabSequence(this);
+        animator.SetTrigger("Grabbed");
     }
 
-    // Called by an animation event in the player's "grabbed" animation once cutscene ends
-    // Name must match the event string in the animation timeline
-    public void OnPlayerGrabAnimationComplete()
+    public void ApplyThrow(Vector3 grabberForward)
     {
-        EndGrabCutscene();
-    }
-
-    // Undo the cutscene lock and notify demon
-    public void EndGrabCutscene()
-    {
-        if (!inCutscene) return;
-        inCutscene = false;
-
-        // Re-enable player movement / input
-        if (characterController != null)
-            characterController.enabled = true;
-
-        foreach (var s in scriptsToDisableDuringCutscene)
-            if (s != null) s.enabled = true;
-
-        // Reset animator trigger if needed
-        if (playerAnimator != null)
-            playerAnimator.ResetTrigger("Grabbed");
-
-        // notify demon if it needs to do cleanup
-        if (currentDemon != null)
+        // If use Rigidbody movement
+        if (rb != null)
         {
-            currentDemon.OnPlayerReleased();
-            currentDemon = null;
+            rb.isKinematic = false;
+            rb.linearVelocity = Vector3.zero;
+            rb.AddForce(grabberForward * throwForce + Vector3.up * verticalForce, ForceMode.VelocityChange);
         }
+        else
+        {
+            StartCoroutine(ThrowByMoving(grabberForward));
+        }
+
+        Invoke(nameof(EndGrab), disableControlTime);
     }
 
-    // Utility if you need the demon to parent the player to a bone:
-    public void ParentTo(Transform parent, Vector3 localPosition, Vector3 localRotation)
+    public void ParentTo(Transform newParent, Vector3 localPos, Vector3 localEuler)
     {
         originalParent = transform.parent;
-        transform.SetParent(parent, true);
-        transform.localPosition = localPosition;
-        transform.localEulerAngles = localRotation;
+
+        transform.SetParent(newParent);
+        transform.localPosition = localPos;
+        transform.localEulerAngles = localEuler;
+
+        // Freeze during grab
+        if (rb != null) rb.isKinematic = true;
     }
 
     public void Unparent()
     {
-        transform.SetParent(originalParent, true);
+        transform.SetParent(originalParent);
+
+        // Re-enable physics
+        if (rb != null) rb.isKinematic = true;
     }
+
+    private System.Collections.IEnumerator ThrowByMoving(Vector3 dir)
+    {
+        float t = 0.25f;
+        while (t > 0)
+        {
+            t -= Time.deltaTime;
+            transform.position += (dir * throwForce + Vector3.up * verticalForce) * Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private void EndGrab()
+    {
+        isGrabbed = false;
+
+        if (movement != null)
+            movement.enabled = true;
+
+        if (characterController != null)
+            characterController.enabled = true;
+
+        if (rb != null)
+            rb.isKinematic = true;
+    }
+
 }

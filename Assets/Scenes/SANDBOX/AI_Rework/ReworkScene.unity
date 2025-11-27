@@ -54381,6 +54381,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!4 &1697492994 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6330197989133451956, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+  m_PrefabInstance: {fileID: 1697492990}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1711151477
 GameObject:
   m_ObjectHideFlags: 0
@@ -67411,12 +67416,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1697492994}
+    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 4702886941127013362}
+    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: huntSpeed
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: moveSpeed
-      value: 1.5
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: sightAngle
@@ -67427,8 +67440,12 @@ PrefabInstance:
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: _handAttach
+      value: 
+      objectReference: {fileID: 4702886941127013361}
+    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: maxAnimSpeed
-      value: 2.5
+      value: 2.25
       objectReference: {fileID: 0}
     - target: {fileID: 399825340937420778, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -67499,6 +67516,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05af358512b45d24089d451b7964909e, type: 3}
+--- !u!4 &4702886941127013361 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 152612366358761808, guid: 05af358512b45d24089d451b7964909e, type: 3}
+  m_PrefabInstance: {fileID: 4702886941127013360}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4702886941127013362 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8837868684694107753, guid: 05af358512b45d24089d451b7964909e, type: 3}
+  m_PrefabInstance: {fileID: 4702886941127013360}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
