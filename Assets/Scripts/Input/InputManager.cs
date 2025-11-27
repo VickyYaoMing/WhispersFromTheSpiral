@@ -51,6 +51,7 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
 
+        // Thiti was here (Got Hectors Permission) 
         if (grabController != null && (grabController.IsGrabbed || grabController.IsBeingThrown))
         {
             return;
