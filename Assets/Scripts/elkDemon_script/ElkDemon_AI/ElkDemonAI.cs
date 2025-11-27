@@ -23,6 +23,7 @@ public class ElkDemonAI : MonoBehaviour
 
     [Header("Grab Settings")]
     [SerializeField] private Vector3 grabOffset = new Vector3(0, 1.5f, 1f);
+    [SerializeField] private float throwAngle = 15f;
 
     [Header("References")]
     [SerializeField] private Transform[] patrolPoints;
@@ -226,12 +227,12 @@ public class ElkDemonAI : MonoBehaviour
         OnGrabPlayer?.Invoke();
     }
 
-    // Called when demon's hand makes contact in animation
-    public void OnDemonGrabAttach()
-    {
-        // No parenting needed in new system
-        Debug.Log("Grab attachment point reached");
-    }
+    //// Called when demon's hand makes contact in animation
+    //public void OnDemonGrabAttach()
+    //{
+    //    // No parenting needed in new system
+    //    Debug.Log("Grab attachment point reached");
+    //}
 
     // Called when throw should happen in animation
     public void OnPlayerThrow()
@@ -239,9 +240,50 @@ public class ElkDemonAI : MonoBehaviour
         if (playerGrab != null && _isGrabbingPlayer)
         {
             Debug.Log("Demon executing throw!");
-            playerGrab.ApplyThrow(transform.forward);
+
+            // Calculate throw direction with upward angle
+            Vector3 throwDirection = CalculateThrowDirection();
+
+            Debug.Log($"Throw direction calculated: {throwDirection}");
+            Debug.Log($"Demon forward: {transform.forward}");
+            Debug.Log($"Demon position: {transform.position}");
+            Debug.Log($"Player position: {player.position}");
+
+            playerGrab.ApplyThrow(throwDirection);
             OnPlayerReleased();
         }
+        else
+        {
+            Debug.LogError("Cannot throw - playerGrab is null or not grabbing!");
+            if (playerGrab == null) Debug.LogError("playerGrab is null!");
+            if (!_isGrabbingPlayer) Debug.LogError("Not grabbing player!");
+        }
+    }
+
+    private Vector3 CalculateThrowDirection()
+    {
+        // Get direction away from demon
+        Vector3 baseDirection = transform.forward;
+
+        // Add upward angle
+        Quaternion upwardRotation = Quaternion.Euler(throwAngle, 0, 0);
+        Vector3 finalDirection = upwardRotation * baseDirection;
+
+        // Optional: Add slight random variation
+        // finalDirection = Quaternion.Euler(0, Random.Range(-10f, 10f), 0) * finalDirection;
+
+        Debug.Log($"Throw direction: {finalDirection}");
+        return finalDirection.normalized;
+    }
+
+    // Alternative: Throw player away from demon's position
+    private Vector3 CalculateThrowDirectionAway()
+    {
+        if (player == null) return transform.forward;
+
+        Vector3 directionFromDemon = (player.position - transform.position).normalized;
+        directionFromDemon.y = 0.3f; // Add some upward component
+        return directionFromDemon.normalized;
     }
 
     public void OnPlayerReleased()

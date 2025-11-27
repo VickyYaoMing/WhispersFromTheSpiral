@@ -12,17 +12,22 @@ public class PlayerGrabController : MonoBehaviour
 
     [Header("Grab Settings")]
     [SerializeField] private float disableControlTime = 1.5f;
-    [SerializeField] private float throwForce = 12f;
-    [SerializeField] private float verticalForce = 2f;
-    [SerializeField] private float grabFollowSpeed = 5f;
+    [SerializeField] private float throwForce = 15f; // Increased force
+    [SerializeField] private float verticalForce = 8f; // Increased vertical force
+    [SerializeField] private float grabFollowSpeed = 8f;
+
+    [Header("Throw Settings")]
+    [SerializeField] private float throwDuration = 1f;
+    [SerializeField] private AnimationCurve throwCurve = AnimationCurve.EaseInOut(0, 1, 1, 0);
 
     private enum GrabState { None, Grabbed, Thrown }
     private GrabState currentState = GrabState.None;
 
     private Transform grabber;
     private Vector3 grabOffset;
-    private Vector3 throwVelocity;
+    private Vector3 throwDirection;
     private float throwTimer;
+    private Vector3 throwStartPosition;
 
     public bool IsGrabbed => currentState == GrabState.Grabbed;
     public bool IsBeingThrown => currentState == GrabState.Thrown;
@@ -47,11 +52,17 @@ public class PlayerGrabController : MonoBehaviour
         if (lookDir.sqrMagnitude > 0.001f)
             transform.rotation = Quaternion.LookRotation(lookDir);
 
-        // Setup physics
+        // Setup physics - make sure we're kinematic during grab
         if (rb != null)
         {
             rb.isKinematic = true;
             rb.linearVelocity = Vector3.zero;
+        }
+
+        // Disable character controller during grab
+        if (characterController != null)
+        {
+            characterController.enabled = false;
         }
 
         animator.SetTrigger("Grabbed");
@@ -64,24 +75,37 @@ public class PlayerGrabController : MonoBehaviour
 
         currentState = GrabState.Thrown;
 
-        // Calculate throw velocity
-        throwVelocity = grabberForward * throwForce + Vector3.up * verticalForce;
-        throwTimer = disableControlTime;
+        // Simple direct throw
+        Vector3 throwVector = (grabberForward * throwForce) + (Vector3.up * verticalForce);
 
-        // Enable physics for throw
         if (rb != null)
         {
             rb.isKinematic = false;
             rb.linearVelocity = Vector3.zero;
-            rb.AddForce(throwVelocity, ForceMode.VelocityChange);
+            rb.AddForce(throwVector, ForceMode.Impulse); // Try Impulse instead of VelocityChange
+            Debug.Log($"Throw impulse: {throwVector}");
+        }
+        else
+        {
+            // Manual throw as fallback
+            StartCoroutine(ManualThrow(throwVector));
         }
 
-        Debug.Log($"Player thrown with velocity: {throwVelocity}");
-
-        // Start coroutine to handle throw duration
         StartCoroutine(ThrowCountdown());
     }
 
+    private IEnumerator ManualThrow(Vector3 throwVector)
+    {
+        float timer = 1f;
+        while (timer > 0)
+        {
+            timer -= Time.deltaTime;
+            transform.position += throwVector * Time.deltaTime;
+            // Apply gravity
+            throwVector.y -= Physics.gravity.y * Time.deltaTime;
+            yield return null;
+        }
+    }
     private IEnumerator ThrowCountdown()
     {
         yield return new WaitForSeconds(disableControlTime);
@@ -108,31 +132,33 @@ public class PlayerGrabController : MonoBehaviour
         // Smoothly follow the grabber with offset
         Vector3 targetPosition = grabber.position + grabber.TransformDirection(grabOffset);
         transform.position = Vector3.Lerp(transform.position, targetPosition, grabFollowSpeed * Time.deltaTime);
-
-        // Match grabber's rotation (optional - for more dynamic movement)
-        // transform.rotation = Quaternion.Slerp(transform.rotation, grabber.rotation, grabFollowSpeed * Time.deltaTime);
     }
 
     private void UpdateThrown()
     {
         if (rb == null)
         {
-            // Manual throw movement if no rigidbody
-            transform.position += throwVelocity * Time.deltaTime;
-            throwVelocity.y -= Physics.gravity.y * Time.deltaTime * 0.5f;
+            // Manual throw movement if no rigidbody (fallback)
+            throwTimer -= Time.deltaTime;
+            if (throwTimer > 0)
+            {
+                float curveValue = throwCurve.Evaluate(1f - (throwTimer / throwDuration));
+                Vector3 newPosition = throwStartPosition +
+                                    (throwDirection * throwForce * curveValue * Time.deltaTime) +
+                                    (Vector3.up * verticalForce * curveValue * Time.deltaTime);
+                transform.position = newPosition;
+            }
         }
-
-        throwTimer -= Time.deltaTime;
-        if (throwTimer <= 0)
+        else
         {
-            EndGrab();
+            // Let physics handle the throw, just track time
+            throwTimer -= Time.deltaTime;
         }
     }
 
-    // This is now handled by the follow system, no parenting needed
     public void ParentTo(Transform newParent, Vector3 localPos, Vector3 localEuler)
     {
-        // Not used in this approach - we use position following instead
+        // Not used in this approach
     }
 
     public void Unparent()
@@ -155,6 +181,12 @@ public class PlayerGrabController : MonoBehaviour
             Debug.Log("Movement re-enabled");
         }
 
+        // Re-enable character controller
+        if (characterController != null)
+        {
+            characterController.enabled = true;
+        }
+
         // Ensure physics is proper
         if (rb != null)
         {
@@ -168,6 +200,16 @@ public class PlayerGrabController : MonoBehaviour
     public void ForceRelease()
     {
         EndGrab();
+    }
+
+    // Debug visualization
+    private void OnDrawGizmos()
+    {
+        if (currentState == GrabState.Thrown && throwDirection != Vector3.zero)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(transform.position, throwDirection * 3f);
+        }
     }
 
     private void OnDisable()

@@ -85,7 +85,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0.5081844
-        functionName: OnDemonGrabAttach
+        functionName: OnPlayerThrow
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
