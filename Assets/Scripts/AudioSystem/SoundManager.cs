@@ -75,7 +75,7 @@ namespace Assets.Scripts.AudioSystem
         }
         private void InitUiSource()
         {
-            if (uiAudioSource != null)
+            if (uiAudioSource == null)
             {
                 var go = new GameObject("UI_AudioSource");
                 go.transform.SetParent(transform, false);
@@ -90,7 +90,7 @@ namespace Assets.Scripts.AudioSystem
         }
         private void InitMusicSource()
         {
-            if (musicSource != null)
+            if (musicSource == null)
             {
                 var go = new GameObject("Music_AudioSource");
                 go.transform.SetParent(transform, false);
@@ -265,7 +265,11 @@ namespace Assets.Scripts.AudioSystem
 
         private void PlayUiInternal(SoundType type, float volumeMultiplier)
         {
-            if (uiAudioSource == null) return;
+            if (uiAudioSource == null)
+            {
+                Debug.LogWarning("[SoundManager] UI AudioSource is null.");
+                return;
+            }
 
             var entry = soundDatabase != null ? soundDatabase.Get(type) : null;
             if (entry == null)
@@ -280,8 +284,10 @@ namespace Assets.Scripts.AudioSystem
                 Debug.LogWarning($"[SoundManager] UI SoundEntry {type} has no AudioClip.");
                 return;
             }
+            var group = entry.mixerGroup ?? uiMixerGroup ?? defaultSfxGroup;
+            Debug.Log($"[SoundManager] UI Play type={type}, clip={clip.name}, baseVol={entry.baseVolume}, mixerGroup={(group != null ? group.name : "NULL")}");
 
-            uiAudioSource.outputAudioMixerGroup = entry.mixerGroup ?? uiMixerGroup ?? defaultSfxGroup;
+            uiAudioSource.outputAudioMixerGroup = group;
             uiAudioSource.pitch = entry.GetRandomPitch();
             uiAudioSource.volume = entry.baseVolume * Mathf.Clamp01(volumeMultiplier);
             uiAudioSource.PlayOneShot(clip);
