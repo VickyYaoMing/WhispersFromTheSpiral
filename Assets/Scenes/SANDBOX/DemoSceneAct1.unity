@@ -5465,6 +5465,14 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
+    - target: {fileID: 4366140393844919984, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: _breathingVolAtCalm
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366140393844919984, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: _heartbeatVolAtCalm
+      value: 0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 4514346888026753170, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
