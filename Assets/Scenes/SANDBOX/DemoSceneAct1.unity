@@ -5361,6 +5361,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1691932602843097327, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
     - target: {fileID: 2474768576574833494, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5769,6 +5773,10 @@ PrefabInstance:
       propertyPath: doorLayer.m_Bits
       value: 33554432
       objectReference: {fileID: 0}
+    - target: {fileID: 7401663087903442350, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7463144061129777672, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -5821,6 +5829,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8063648807530202026, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
     - target: {fileID: 8613972868914304329, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5845,6 +5857,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8707854563100488527, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
