@@ -47,6 +47,10 @@ public class MainMenuNavigation : MonoBehaviour
         m_fadeAnimator = GetComponent<FadeAnimator>();
         m_optionsCanvasGroup.alpha = 0f;
         m_creditsCanvasGroup.alpha = 0f;
+        m_optionsCanvasGroup.interactable = false;
+        m_creditsCanvasGroup.interactable = false;
+        m_optionsCanvasGroup.blocksRaycasts = false;
+        m_creditsCanvasGroup.blocksRaycasts = false;
         m_fadeAnimator.FadeIn(m_mainCanvasGroup, 2f);
     }
     #endregion
@@ -55,6 +59,8 @@ public class MainMenuNavigation : MonoBehaviour
     {
         m_optionsCanvasGroup.interactable = false;
         m_creditsCanvasGroup.interactable = false;
+        m_optionsCanvasGroup.blocksRaycasts = false;
+        m_creditsCanvasGroup.blocksRaycasts = false;
 
         switch (m_currentState)
         {
@@ -68,6 +74,7 @@ public class MainMenuNavigation : MonoBehaviour
         m_fadeAnimator.FadeIn(m_mainCanvasGroup, 0.5f);
         m_currentState = MenuState.MainView;
         m_mainCanvasGroup.interactable = true;
+        m_mainCanvasGroup.blocksRaycasts = true;
     }
 
     public void StartGame()
