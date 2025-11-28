@@ -17,6 +17,16 @@ public class SaveSystem
         public bool hasSaved;
     }
     
+    public static bool CheckForSave()
+    {
+        string saveContent = File.ReadAllText(SaveFileName());
+
+        _saveData = JsonUtility.FromJson<SaveData>(saveContent);
+
+        Debug.Log("Checked for save. Save exists? " + DoesSaveExist());
+        return DoesSaveExist();
+    }
+
     public static string SaveFileName()
     {
         string saveFile = Application.persistentDataPath + "/save" + ".save";
@@ -97,7 +107,7 @@ public class SaveSystem
             GameManager.Instance.ItemManager.Load(_saveData.ItemManagerSaveData);   
     }
 
-    public bool DoesSaveExist()
+    public static bool DoesSaveExist()
     {
         return _saveData.hasSaved;
     }
