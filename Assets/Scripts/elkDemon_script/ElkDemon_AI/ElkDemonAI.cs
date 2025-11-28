@@ -171,7 +171,6 @@ public class ElkDemonAI : MonoBehaviour
         {
             animator.SetTrigger("Attack");
 
-            // Use the new StartGrab signature that requires the grabber transform
             playerGrab.StartGrab(transform, transform.position);
 
             BeginGrabSequence();
@@ -190,7 +189,6 @@ public class ElkDemonAI : MonoBehaviour
     {
         _stateMachine.SetTrigger("Stunned");
 
-        // If stunned while grabbing, release player
         if (_isGrabbingPlayer)
         {
             ForceReleasePlayer();
@@ -208,7 +206,6 @@ public class ElkDemonAI : MonoBehaviour
 
         _isGrabbingPlayer = true;
 
-        // Face player
         Vector3 lookDirection = (player.position - transform.position);
         lookDirection.y = 0f;
         if (lookDirection.sqrMagnitude > 0.001f)
@@ -220,19 +217,11 @@ public class ElkDemonAI : MonoBehaviour
         if (_animator != null)
             _animator.SetTrigger("Grabbed");
 
-        // Start grab with offset position
         Vector3 grabPosition = transform.position + transform.TransformDirection(grabOffset);
         playerGrab.StartGrab(transform, grabPosition);
 
         OnGrabPlayer?.Invoke();
     }
-
-    //// Called when demon's hand makes contact in animation
-    //public void OnDemonGrabAttach()
-    //{
-    //    // No parenting needed in new system
-    //    Debug.Log("Grab attachment point reached");
-    //}
 
     // Called when throw should happen in animation
     public void OnPlayerThrow()
@@ -241,7 +230,6 @@ public class ElkDemonAI : MonoBehaviour
         {
             Debug.Log("Demon executing throw!");
 
-            // Calculate throw direction with upward angle
             Vector3 throwDirection = CalculateThrowDirection();
 
             Debug.Log($"Throw direction calculated: {throwDirection}");
@@ -262,27 +250,31 @@ public class ElkDemonAI : MonoBehaviour
 
     private Vector3 CalculateThrowDirection()
     {
-        // Get direction away from demon
+        // Method 1: Forward with upward angle (your current approach)
         Vector3 baseDirection = transform.forward;
-
-        // Add upward angle
         Quaternion upwardRotation = Quaternion.Euler(throwAngle, 0, 0);
         Vector3 finalDirection = upwardRotation * baseDirection;
 
-        // Optional: Add slight random variation
-        // finalDirection = Quaternion.Euler(0, Random.Range(-10f, 10f), 0) * finalDirection;
+        // Method 2: Away from demon (often more reliable)
+        if (player != null)
+        {
+            Vector3 awayFromDemon = (player.position - transform.position).normalized;
+            awayFromDemon.y = 0.3f; // Keep some upward component
+            awayFromDemon = awayFromDemon.normalized;
 
-        Debug.Log($"Throw direction: {finalDirection}");
+            Debug.Log($"Away direction: {awayFromDemon}");
+            return awayFromDemon;
+        }
+
         return finalDirection.normalized;
     }
 
-    // Alternative: Throw player away from demon's position
     private Vector3 CalculateThrowDirectionAway()
     {
         if (player == null) return transform.forward;
 
         Vector3 directionFromDemon = (player.position - transform.position).normalized;
-        directionFromDemon.y = 0.3f; // Add some upward component
+        directionFromDemon.y = 0.3f; 
         return directionFromDemon.normalized;
     }
 
@@ -294,7 +286,7 @@ public class ElkDemonAI : MonoBehaviour
         if (_animator != null)
         {
             _animator.ResetTrigger("Grabbed");
-            _animator.SetTrigger("Idle"); // Or whatever state you want
+            _animator.SetTrigger("Idle"); 
         }
 
         _isGrabbingPlayer = false;
@@ -306,16 +298,10 @@ public class ElkDemonAI : MonoBehaviour
     {
         if (_isGrabbingPlayer && playerGrab != null)
         {
-            // Use the force release method if available
             var forceReleaseMethod = playerGrab.GetType().GetMethod("ForceRelease");
             if (forceReleaseMethod != null)
             {
                 forceReleaseMethod.Invoke(playerGrab, null);
-            }
-            else
-            {
-                // Fallback to regular release
-                playerGrab.Unparent();
             }
 
             OnPlayerReleased();
@@ -326,7 +312,6 @@ public class ElkDemonAI : MonoBehaviour
 
     public void ChangeBehavior(BehaviorType newBehavior)
     {
-        // Don't change behavior while grabbing player
         if (_isGrabbingPlayer) return;
 
         currentBehavior = newBehavior;
@@ -343,7 +328,6 @@ public class ElkDemonAI : MonoBehaviour
         }
     }
 
-    // Clean up when disabled or destroyed
     private void OnDisable()
     {
         if (_isGrabbingPlayer)

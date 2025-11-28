@@ -53584,6 +53584,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: grabController
+      value: 
+      objectReference: {fileID: 1697493012}
+    - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: characterController
+      value: 
+      objectReference: {fileID: 1697493008}
+    - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_defaultSensitivity
       value: 0.1
       objectReference: {fileID: 0}
@@ -54343,9 +54351,6 @@ PrefabInstance:
       addedObject: {fileID: 1697492993}
     - targetCorrespondingSourceObject: {fileID: 75806692677558944, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1697493011}
-    - targetCorrespondingSourceObject: {fileID: 75806692677558944, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1697493012}
   m_SourcePrefab: {fileID: 100100000, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
 --- !u!1 &1697492991 stripped
@@ -54408,33 +54413,6 @@ CharacterController:
   m_CorrespondingSourceObject: {fileID: 3845427104001166077, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
   m_PrefabInstance: {fileID: 1697492990}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &1697493011
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1697492991}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &1697493012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54450,36 +54428,14 @@ MonoBehaviour:
   characterController: {fileID: 1697493008}
   animator: {fileID: 4702886941127013362}
   movement: {fileID: 1697492999}
-  rb: {fileID: 1697493011}
   disableControlTime: 0.1
-  throwForce: 50
-  verticalForce: 1
-  grabFollowSpeed: 5
-  throwDuration: 1
-  throwCurve:
+  throwForce: 100
+  verticalForce: 0
+  grabFollowSpeed: 2
+  maxMoveDistance: 1
+  obstacleLayers:
     serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_Bits: 4294967295
 --- !u!1 &1711151477
 GameObject:
   m_ObjectHideFlags: 0

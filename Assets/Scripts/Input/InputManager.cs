@@ -5,8 +5,6 @@ public class InputManager : MonoBehaviour
     private PlayerInput player_input;
     private PlayerInput.On_FootActions on_foot;
     private PlayerInput.InventoryActions inventoryActions;
-    private PlayerGrabController grabController;
-    private CharacterController characterController;
 
     private Movement playerMovement;
 
@@ -19,8 +17,6 @@ public class InputManager : MonoBehaviour
     void Awake()
     {
         player_input = new PlayerInput();
-        grabController = GetComponent<PlayerGrabController>(); 
-        characterController = GetComponent<CharacterController>(); 
         //player_movement = GetComponent<PlayerMovement>();
         //player_look = GetComponent<PlayerLook>();
         playerMovement = GetComponent<Movement>();
@@ -50,13 +46,6 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-
-        // Thiti was here (Got Hectors Permission) 
-        if (grabController != null && (grabController.IsGrabbed || grabController.IsBeingThrown))
-        {
-            return;
-        }
-
         if (uiManager.IsPaused || uiManager.IsNotebookActive || uiManager.IsViewingCollectible)
         {
             Cursor.lockState = CursorLockMode.Confined;
