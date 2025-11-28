@@ -1024,7 +1024,7 @@ PrefabInstance:
       objectReference: {fileID: 6296681089141434937}
     - target: {fileID: 3971693138088952935, guid: 1662ab534dfd14c4e85ef6a7b1e3b5fe, type: 3}
       propertyPath: m_audioClips.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3971693138088952935, guid: 1662ab534dfd14c4e85ef6a7b1e3b5fe, type: 3}
       propertyPath: 'm_audioClips.Array.data[0]'
