@@ -220,7 +220,7 @@ AudioSource:
   m_GameObject: {fileID: 18226621}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 25d48786edb2dd64f9939c90e7873dc6, type: 3}
   m_PlayOnAwake: 0
@@ -1032,7 +1032,7 @@ PrefabInstance:
       objectReference: {fileID: 6296681089141434937}
     - target: {fileID: 3971693138088952935, guid: 1662ab534dfd14c4e85ef6a7b1e3b5fe, type: 3}
       propertyPath: m_audioClips.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3971693138088952935, guid: 1662ab534dfd14c4e85ef6a7b1e3b5fe, type: 3}
       propertyPath: 'm_audioClips.Array.data[0]'
@@ -4357,7 +4357,7 @@ AudioSource:
   m_GameObject: {fileID: 1251575636}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7413692854867692767, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 1733a5ac6b28d2544a61c0d259d3f548, type: 3}
   m_PlayOnAwake: 1
@@ -5385,6 +5385,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1691932602843097327, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
     - target: {fileID: 2474768576574833494, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5480,6 +5484,18 @@ PrefabInstance:
     - target: {fileID: 3931485726726653497, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257500883397688371, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
+    - target: {fileID: 4366140393844919984, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: _breathingVolAtCalm
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366140393844919984, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: _heartbeatVolAtCalm
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 4514346888026753170, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5789,6 +5805,10 @@ PrefabInstance:
       propertyPath: doorLayer.m_Bits
       value: 33554432
       objectReference: {fileID: 0}
+    - target: {fileID: 7401663087903442350, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7463144061129777672, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -5841,6 +5861,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8063648807530202026, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
     - target: {fileID: 8613972868914304329, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5865,6 +5889,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8707854563100488527, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
