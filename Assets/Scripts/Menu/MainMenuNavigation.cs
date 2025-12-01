@@ -84,8 +84,8 @@ public class MainMenuNavigation : MonoBehaviour
 
     public void LoadGame()
     {
-        //Implement logic for loading save and necessary scene + data
-        GameManager.Instance.LoadAsync();
+        GameManager.Instance.ShouldLoad(true);
+        StartCoroutine(ChangeToGameScene());
     }
 
     public void ViewOptions()
