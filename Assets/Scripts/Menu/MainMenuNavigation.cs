@@ -38,13 +38,10 @@ public class MainMenuNavigation : MonoBehaviour
         m_startButton.transform.localPosition = m_defaultStartButtonPos;
         if (GameManager.Instance.saveExists)
         {
-            if (GameManager.Instance.SaveSystem.DoesSaveExist())
-            {
-                m_loadButton.SetActive(true);
-                m_startButtonPosIfSaveExists = m_defaultStartButtonPos + new Vector3(0, 90, 0);
-                m_startButton.transform.localPosition = m_startButtonPosIfSaveExists;
-            }
-        }    
+            m_loadButton.SetActive(true);
+            m_startButtonPosIfSaveExists = m_defaultStartButtonPos + new Vector3(0, 90, 0);
+            m_startButton.transform.localPosition = m_startButtonPosIfSaveExists;
+        }
         m_camTransform = m_cameraObject.transform;
         m_initialPosition = m_cameraObject.transform.position;
         m_fadeAnimator = GetComponent<FadeAnimator>();
