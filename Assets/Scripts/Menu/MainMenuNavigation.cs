@@ -38,7 +38,7 @@ public class MainMenuNavigation : MonoBehaviour
         m_startButton.transform.localPosition = m_defaultStartButtonPos;
         if (GameManager.Instance.SaveSystem != null)
         {
-            if (GameManager.Instance.DoesSaveExist())
+            if (GameManager.Instance.SaveSystem.DoesSaveExist())
             {
                 m_loadButton.SetActive(true);
                 m_startButtonPosIfSaveExists = m_defaultStartButtonPos + new Vector3(0, -90, 0);
@@ -129,6 +129,6 @@ public class MainMenuNavigation : MonoBehaviour
         }
 
         m_camTransform.position = targetPosition;
-        SceneManager.LoadScene("Mansion_Main");
+        SceneManager.LoadScene("DemoSceneAct1");
     }
 }
