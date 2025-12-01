@@ -134,6 +134,6 @@ public class MainMenuNavigation : MonoBehaviour
         }
 
         m_camTransform.position = targetPosition;
-        SceneManager.LoadScene("DemoSceneAct1");
+        SceneManager.LoadScene("ProductionDemoScene");
     }
 }

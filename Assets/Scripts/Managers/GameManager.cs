@@ -138,6 +138,11 @@ public class GameManager : MonoBehaviour
         LoadAsync();
     }
 
+    public void QuitToMenu()
+    {
+        SceneManager.LoadScene("System_MainMenu");
+    }
+
 }
 
 
