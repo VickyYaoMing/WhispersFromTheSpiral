@@ -36,12 +36,12 @@ public class MainMenuNavigation : MonoBehaviour
     {
         m_loadButton.SetActive(false);
         m_startButton.transform.localPosition = m_defaultStartButtonPos;
-        if (GameManager.Instance.SaveSystem != null)
+        if (GameManager.Instance.saveExists)
         {
             if (GameManager.Instance.SaveSystem.DoesSaveExist())
             {
                 m_loadButton.SetActive(true);
-                m_startButtonPosIfSaveExists = m_defaultStartButtonPos + new Vector3(0, -90, 0);
+                m_startButtonPosIfSaveExists = m_defaultStartButtonPos + new Vector3(0, 90, 0);
                 m_startButton.transform.localPosition = m_startButtonPosIfSaveExists;
             }
         }    
@@ -50,6 +50,10 @@ public class MainMenuNavigation : MonoBehaviour
         m_fadeAnimator = GetComponent<FadeAnimator>();
         m_optionsCanvasGroup.alpha = 0f;
         m_creditsCanvasGroup.alpha = 0f;
+        m_optionsCanvasGroup.interactable = false;
+        m_creditsCanvasGroup.interactable = false;
+        m_optionsCanvasGroup.blocksRaycasts = false;
+        m_creditsCanvasGroup.blocksRaycasts = false;
         m_fadeAnimator.FadeIn(m_mainCanvasGroup, 2f);
     }
     #endregion
@@ -58,6 +62,8 @@ public class MainMenuNavigation : MonoBehaviour
     {
         m_optionsCanvasGroup.interactable = false;
         m_creditsCanvasGroup.interactable = false;
+        m_optionsCanvasGroup.blocksRaycasts = false;
+        m_creditsCanvasGroup.blocksRaycasts = false;
 
         switch (m_currentState)
         {
@@ -71,6 +77,7 @@ public class MainMenuNavigation : MonoBehaviour
         m_fadeAnimator.FadeIn(m_mainCanvasGroup, 0.5f);
         m_currentState = MenuState.MainView;
         m_mainCanvasGroup.interactable = true;
+        m_mainCanvasGroup.blocksRaycasts = true;
     }
 
     public void StartGame()
@@ -81,6 +88,7 @@ public class MainMenuNavigation : MonoBehaviour
     public void LoadGame()
     {
         //Implement logic for loading save and necessary scene + data
+        GameManager.Instance.LoadAsync();
     }
 
     public void ViewOptions()
