@@ -19486,6 +19486,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   cam: {fileID: 2014616247}
+  m_interactionDistance: 0
 --- !u!95 &637917924
 Animator:
   serializedVersion: 7
@@ -25126,6 +25127,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   cam: {fileID: 2014616247}
+  m_interactionDistance: 0
 --- !u!95 &764384210
 Animator:
   serializedVersion: 7
@@ -26723,6 +26725,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   cam: {fileID: 2014616247}
+  m_interactionDistance: 0
 --- !u!95 &810534978
 Animator:
   serializedVersion: 7
@@ -67045,6 +67048,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   cam: {fileID: 2014616247}
+  m_interactionDistance: 0
 --- !u!95 &2137951746
 Animator:
   serializedVersion: 7
@@ -67469,34 +67473,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1697492994}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: _animator
-      value: 
-      objectReference: {fileID: 4702886941127013362}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: huntSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: moveSpeed
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: sightAngle
-      value: 340
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: sightRange
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: _handAttach
-      value: 
-      objectReference: {fileID: 4702886941127013361}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: maxAnimSpeed
-      value: 2.25
-      objectReference: {fileID: 0}
     - target: {fileID: 399825340937420778, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -67541,36 +67517,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Demon
       objectReference: {fileID: 0}
-    - target: {fileID: 2756012791499241304, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: m_Speed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2756012791499241304, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: m_Radius
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2756012791499241304, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: m_BaseOffset
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2756012791499241304, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: m_AgentTypeID
-      value: -1372625422
-      objectReference: {fileID: 0}
-    - target: {fileID: 2756012791499241304, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05af358512b45d24089d451b7964909e, type: 3}
---- !u!4 &4702886941127013361 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 152612366358761808, guid: 05af358512b45d24089d451b7964909e, type: 3}
-  m_PrefabInstance: {fileID: 4702886941127013360}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &4702886941127013362 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 8837868684694107753, guid: 05af358512b45d24089d451b7964909e, type: 3}

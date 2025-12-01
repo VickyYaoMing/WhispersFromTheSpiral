@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -33,6 +34,15 @@ public class ElkDemonAI : MonoBehaviour
     [SerializeField] private AudioSource elkRoar;
     [SerializeField] private Animator _animator;
 
+    [Header("Teleport Settings")]
+    [SerializeField] private bool canTeleportAfterGrab = true;
+    [SerializeField] private float teleportMinDistance = 10f;
+    [SerializeField] private float teleportMaxDistance = 25f;
+    [SerializeField] private GameObject teleportVFXPrefab;
+    [SerializeField] private AudioClip teleportSound;
+    [SerializeField] private float teleportCooldown = 5f;
+    [SerializeField] private float minDistanceFromPlayer = 8f;
+
     [Header("Cutscene Attach")]
     [SerializeField] private Transform _handAttach;
     [SerializeField] private Vector3 grabLocalOffset = new Vector3(0, 0, 0.5f);
@@ -41,6 +51,9 @@ public class ElkDemonAI : MonoBehaviour
     private NavMeshAgent _navAgent;
     private Animator _stateMachine;
     private PlayerGrabController playerGrab;
+
+    private float lastTeleportTime;
+    private bool isTeleporting = false;
 
     private Vector3 _playerLastKnownPosition;
     private Vector3 _playerLastKnownDirection;
@@ -74,6 +87,7 @@ public class ElkDemonAI : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerGrab = player.GetComponent<PlayerGrabController>();
 
+        lastTeleportTime = -teleportCooldown;
         _navAgent.updatePosition = true;
     }
 
@@ -286,11 +300,235 @@ public class ElkDemonAI : MonoBehaviour
         if (_animator != null)
         {
             _animator.ResetTrigger("Grabbed");
-            _animator.SetTrigger("Idle"); 
+        }
+
+        if (canTeleportAfterGrab && CanTeleport())
+        {
+            StartCoroutine(TeleportSequence());
         }
 
         _isGrabbingPlayer = false;
         Debug.Log("Player released by demon");
+    }
+
+    private bool CanTeleport()
+    {
+        // Check cooldown
+        if (Time.time < lastTeleportTime + teleportCooldown)
+            return false;
+
+        // Don't teleport if already teleporting
+        if (isTeleporting)
+            return false;
+
+        return true;
+    }
+
+    private IEnumerator TeleportSequence()
+    {
+        isTeleporting = true;
+        
+        // Step 1: Play teleport start effects
+        PlayTeleportEffects(false); // Teleport out effects
+        
+        // Step 2: Brief delay before disappearing
+        yield return new WaitForSeconds(0.3f);
+        
+        // Step 3: Disable renderer and collider temporarily
+        SetVisibility(false);
+        
+        // Step 4: Find a teleport location
+        Vector3 teleportPosition = FindTeleportPosition();
+        
+        // Step 5: Move to new position
+        transform.position = teleportPosition;
+        
+        // Step 6: Brief delay before reappearing
+        yield return new WaitForSeconds(0.3f);
+        
+        // Step 7: Enable renderer and collider
+        SetVisibility(true);
+        
+        // Step 8: Play teleport arrival effects
+        PlayTeleportEffects(true); // Teleport in effects
+        
+        // Step 9: Update teleport cooldown
+        lastTeleportTime = Time.time;
+        isTeleporting = false;
+        
+        Debug.Log($"Demon teleported to: {teleportPosition}");
+    }
+
+    private Vector3 FindTeleportPosition()
+    {
+        int maxAttempts = 30;
+        
+        for (int i = 0; i < maxAttempts; i++)
+        {
+            // Method 1: Random point around player within range
+            Vector3 randomDirection = Random.insideUnitSphere.normalized;
+            float randomDistance = Random.Range(teleportMinDistance, teleportMaxDistance);
+            Vector3 candidatePosition = player.position + (randomDirection * randomDistance);
+            candidatePosition.y = transform.position.y; // Keep same height initially
+            
+            // Method 2: Try to find a point behind the player
+            if (i % 3 == 0) // Every 3rd attempt, try behind player
+            {
+                Vector3 behindPlayer = player.position - (player.forward * Random.Range(teleportMinDistance, teleportMaxDistance * 0.7f));
+                candidatePosition = behindPlayer;
+            }
+            
+            // Check if position is valid
+            if (IsValidTeleportPosition(candidatePosition))
+            {
+                // Get exact NavMesh position
+                NavMeshHit hit;
+                if (NavMesh.SamplePosition(candidatePosition, out hit, 5f, NavMesh.AllAreas))
+                {
+                    // Ensure minimum distance from player
+                    if (Vector3.Distance(hit.position, player.position) >= minDistanceFromPlayer)
+                    {
+                        return hit.position;
+                    }
+                }
+            }
+        }
+        
+        // Fallback: Use patrol points or observation points
+        Debug.LogWarning("Could not find valid teleport position, using fallback");
+        return GetFallbackTeleportPosition();
+    }
+
+    private bool IsValidTeleportPosition(Vector3 position)
+    {
+        // Check if too close to player
+        if (Vector3.Distance(position, player.position) < minDistanceFromPlayer)
+            return false;
+            
+        // Check if position is on NavMesh
+        NavMeshHit hit;
+        if (!NavMesh.SamplePosition(position, out hit, 1f, NavMesh.AllAreas))
+            return false;
+            
+        // Check line of sight (optional - for surprise attacks)
+        // You might want the demon to teleport out of sight
+        RaycastHit sightHit;
+        Vector3 eyePosition = position + Vector3.up * eyeHeight;
+        Vector3 playerEyePosition = player.position + Vector3.up * 1.5f;
+        Vector3 directionToPlayer = (playerEyePosition - eyePosition).normalized;
+        
+        // Don't teleport right in front of player
+        if (Physics.Raycast(eyePosition, directionToPlayer, out sightHit, sightRange))
+        {
+            if (sightHit.transform == player)
+            {
+                // Player can see this spot - maybe avoid it for surprise
+                return Random.value > 0.5f; // 50% chance to allow visible spots
+            }
+        }
+        
+        return true;
+    }
+
+    private Vector3 GetFallbackTeleportPosition()
+    {
+        // Try patrol points first
+        if (patrolPoints != null && patrolPoints.Length > 0)
+        {
+            Transform farthestPoint = patrolPoints[0];
+            float maxDistance = 0;
+            
+            foreach (Transform point in patrolPoints)
+            {
+                float distance = Vector3.Distance(point.position, player.position);
+                if (distance > maxDistance && distance >= minDistanceFromPlayer)
+                {
+                    maxDistance = distance;
+                    farthestPoint = point;
+                }
+            }
+            
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(farthestPoint.position, out hit, 5f, NavMesh.AllAreas))
+            {
+                return hit.position;
+            }
+        }
+        
+        // Last resort: random point on NavMesh
+        Vector3 randomPoint = player.position + Random.insideUnitSphere * teleportMaxDistance;
+        randomPoint.y = transform.position.y;
+        
+        NavMeshHit lastResortHit;
+        if (NavMesh.SamplePosition(randomPoint, out lastResortHit, 10f, NavMesh.AllAreas))
+        {
+            return lastResortHit.position;
+        }
+        
+        // Ultimate fallback: don't move
+        Debug.LogError("Could not find any valid teleport position!");
+        return transform.position;
+    }
+
+    private void PlayTeleportEffects(bool isArrival)
+    {
+        // Play sound
+        if (teleportSound != null)
+        {
+            AudioSource.PlayClipAtPoint(teleportSound, transform.position);
+        }
+        
+        // Spawn VFX
+        if (teleportVFXPrefab != null)
+        {
+            GameObject vfx = Instantiate(teleportVFXPrefab, transform.position, Quaternion.identity);
+            Destroy(vfx, 2f); // Clean up after 2 seconds
+        }
+        
+        // You could also:
+        // - Play particle effects
+        // - Screen shake
+        // - Flash effect
+        // - Distortion shader
+    }
+
+    private void SetVisibility(bool isVisible)
+    {
+        // Disable/enable renderers
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.enabled = isVisible;
+        }
+        
+        // Disable/enable collider during teleport (optional)
+        Collider collider = GetComponent<Collider>();
+        if (collider != null)
+        {
+            collider.enabled = isVisible;
+        }
+        
+        // Stop/start NavAgent during teleport
+        if (_navAgent != null)
+        {
+            _navAgent.isStopped = !isVisible;
+        }
+    }
+
+    // Debug visualization for teleport range
+    private void OnDrawGizmosSelected()
+    {
+        if (player != null)
+        {
+            // Draw teleport range
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireSphere(player.position, teleportMinDistance);
+            Gizmos.DrawWireSphere(player.position, teleportMaxDistance);
+            
+            // Draw minimum distance from player
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(player.position, minDistanceFromPlayer);
+        }
     }
 
     // Force release player (for stuns, damage, etc.)
