@@ -2,7 +2,6 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using UnityEngine.Audio;
-using UnityEditor.EditorTools;
 
 namespace Assets.Scripts.AudioSystem
 {

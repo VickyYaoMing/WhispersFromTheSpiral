@@ -140,6 +140,7 @@ public class GameManager : MonoBehaviour
 
     public void QuitToMenu()
     {
+        Debug.Log("Loading scene...");
         SceneManager.LoadScene("System_MainMenu");
     }
 

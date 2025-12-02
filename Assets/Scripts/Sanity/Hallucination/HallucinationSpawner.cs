@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using SanitySystem;
 using UnityEngine.AI;
-using Unity.VisualScripting;
-using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class HallucinationSpawner : MonoBehaviour
