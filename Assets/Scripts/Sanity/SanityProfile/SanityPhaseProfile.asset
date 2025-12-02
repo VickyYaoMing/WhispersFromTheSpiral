@@ -28,7 +28,7 @@ MonoBehaviour:
     lensDistAtMin: 0
     dofEnabled: 0
     dofAperturef: 0
-    allowHallucinationSpawn: 1
+    allowHallucinationSpawn: 0
     baseInterval: 8
     minInterval: 2
     maxActive: 2
