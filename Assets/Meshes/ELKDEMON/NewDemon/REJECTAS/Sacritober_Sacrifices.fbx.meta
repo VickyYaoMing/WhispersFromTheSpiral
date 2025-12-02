@@ -84,8 +84,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.6684497
-        functionName: OnGrabFrame
+      - time: 0.78393525
+        functionName: OnPlayerThrow
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: OnPlayerReleased
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

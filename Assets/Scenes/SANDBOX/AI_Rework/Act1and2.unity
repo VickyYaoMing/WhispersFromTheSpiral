@@ -601,7 +601,7 @@ MonoBehaviour:
   characterController: {fileID: 1515581191}
   animator: {fileID: 2097346555}
   movement: {fileID: 1515581197}
-  disableControlTime: 0.5
+  disableControlTime: 1
   throwForce: 100
   verticalForce: 0
   grabFollowSpeed: 5
