@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -108,6 +109,12 @@ public class UIManager : MonoBehaviour
             m_notebookGroup.blocksRaycasts = false;
             m_fadeAnimator.FadeOut(m_notebookGroup, 0.5f);
         }
+    }
+
+    public void QuitToMenu()
+    {
+        Debug.Log("Loading scene...");
+        SceneManager.LoadScene("System_MainMenu");
     }
 
     private void ExitCollectible()

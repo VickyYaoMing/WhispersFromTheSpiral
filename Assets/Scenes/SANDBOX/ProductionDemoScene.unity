@@ -5047,17 +5047,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 803e0d75da545ea4890a013f9aab5fa0, type: 3}
---- !u!114 &414138922 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4066209384927210016, guid: 803e0d75da545ea4890a013f9aab5fa0, type: 3}
-  m_PrefabInstance: {fileID: 414138921}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6d6604d0a3488c4197720cfabf497ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &415742214
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16433,6 +16422,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334061220}
   m_Mesh: {fileID: -4795434063177870167, guid: 1cf01b8496ebfdf44805268e20371a61, type: 3}
+--- !u!114 &1335666355 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 243505681456416465, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+  m_PrefabInstance: {fileID: 1515581190}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0c3f901a083864aa62a0f9e5859415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1336254819
 GameObject:
   m_ObjectHideFlags: 0
@@ -18213,7 +18213,15 @@ PrefabInstance:
     - target: {fileID: 4487421610247740786, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 414138922}
+      objectReference: {fileID: 1335666355}
+    - target: {fileID: 4487421610247740786, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitToMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 4487421610247740786, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4514346888026753170, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
