@@ -33,10 +33,6 @@ public class Movement : MonoBehaviour
     [SerializeField] private float m_standingSpeed = 5;
     [SerializeField] private float m_crouchingSpeed = 2;
 
-    [Header("References")]
-    [SerializeField] private CharacterController characterController;
-    [SerializeField] private PlayerGrabController grabController;
-
     private readonly float m_standingColliderHeight = 2f;
     private readonly float m_crouchingColliderHeight = 0.5f;
     private readonly float m_standingColliderCenterY = 0;
@@ -69,12 +65,6 @@ public class Movement : MonoBehaviour
 
     public void UpdatePlayer(Vector2 lookInput, Vector2 moveInput)
     {
-        // Thiti was here 
-        if (grabController != null && (grabController.IsGrabbed || grabController.IsBeingThrown))
-        {
-            return;
-        }
-
         IsGrounded = controller.isGrounded;
         ProcessLook(lookInput);
         ProcessMove(moveInput);
@@ -117,9 +107,6 @@ public class Movement : MonoBehaviour
     }
     private void ProcessMove(Vector2 input)
     {
-        if (characterController == null || !characterController.enabled)
-            return;
-
         if (GameManager.Instance.IsSaving || GameManager.Instance.IsLoading) return;
         Vector3 moveDir = Vector3.zero;
         moveDir.x = input.x;

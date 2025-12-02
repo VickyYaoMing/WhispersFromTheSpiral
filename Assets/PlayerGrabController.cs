@@ -1,227 +1,82 @@
-using System;
 using UnityEngine;
-using System.Collections;
 
 public class PlayerGrabController : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private CharacterController characterController;
-    [SerializeField] private Animator animator;
-    [SerializeField] private Movement movement;
+    [SerializeField] private Animator playerAnimator;
+    [SerializeField] private CharacterController characterController; // or your player movement script type
+    [SerializeField] private Transform grabAttachPoint; // optional: demon hand attach target on player (local)
+    [SerializeField] private MonoBehaviour[] scriptsToDisableDuringCutscene;
 
-    [Header("Grab Settings")]
-    [SerializeField] private float disableControlTime = 1.5f;
-    [SerializeField] private float throwForce = 8f; // REDUCED - much lower force
-    [SerializeField] private float verticalForce = 4f; // REDUCED
-    [SerializeField] private float grabFollowSpeed = 8f;
+    private Transform originalParent;
+    private bool inCutscene = false;
+    private ElkDemonAI currentDemon;
 
-    [Header("Collision Safety")]
-    [SerializeField] private float maxMoveDistance = 1f; // Maximum move per frame
-    [SerializeField] private LayerMask obstacleLayers = ~0; // All layers by default
-
-    private enum GrabState { None, Grabbed, Thrown }
-    private GrabState currentState = GrabState.None;
-
-    private Transform grabber;
-    private Vector3 localGrabOffset;
-    private Vector3 throwDirection;
-    private float throwTimer;
-
-
-    public bool IsGrabbed => currentState == GrabState.Grabbed;
-    public bool IsBeingThrown => currentState == GrabState.Thrown;
-
-    public void StartGrab(Transform grabberTransform, Vector3 grabberPosition)
+    // Called by the demon to start the cutscene
+    public void StartGrabCutscene(ElkDemonAI demon)
     {
-        if (currentState != GrabState.None) return;
+        if (inCutscene) return;
+        inCutscene = true;
+        currentDemon = demon;
 
-        currentState = GrabState.Grabbed;
-        grabber = grabberTransform;
+        // Disable player movement / input
+        if (characterController != null)
+            characterController.enabled = false;
 
-        // Calculate LOCAL offset instead of world offset
-        localGrabOffset = grabber.InverseTransformPoint(transform.position);
+        foreach (var s in scriptsToDisableDuringCutscene)
+            if (s != null) s.enabled = false;
 
-        // Alternatively, use a fixed local offset:
-        // localGrabOffset = new Vector3(0, 0.5f, 0); // Half a meter in front in local space
+        // Trigger player animator "Grabbed" state
+        if (playerAnimator != null)
+            playerAnimator.SetTrigger("Grabbed");
 
-        if (movement != null)
-            movement.enabled = false;
-
-        // Face the grabber (look at demon)
-        Vector3 lookDir = grabber.position - transform.position;
-        lookDir.y = 0;
-        if (lookDir.sqrMagnitude > 0.001f)
-            transform.rotation = Quaternion.LookRotation(lookDir);
-
-        animator.SetTrigger("Grabbed");
-        Debug.Log("Player grabbed by demon - using LOCAL offset");
+        // Call demon hook so it can play its grab animation and align
+        demon?.BeginGrabSequence(this);
     }
 
-    public void ApplyThrow(Vector3 grabberForward)
+    // Called by an animation event in the player's "grabbed" animation once cutscene ends
+    // Name must match the event string in the animation timeline
+    public void OnPlayerGrabAnimationComplete()
     {
-        if (currentState != GrabState.Grabbed) return;
-
-        currentState = GrabState.Thrown;
-        throwDirection = grabberForward.normalized;
-        throwTimer = disableControlTime;
-
-        Debug.Log($"Throw direction: {throwDirection}");
-
-        // Start the safe throw coroutine
-        StartCoroutine(SafeThrowCoroutine());
+        EndGrabCutscene();
     }
 
-    private IEnumerator SafeThrowCoroutine()
+    // Undo the cutscene lock and notify demon
+    public void EndGrabCutscene()
     {
-        Vector3 velocity = (throwDirection * throwForce) + (Vector3.up * verticalForce);
-        float timer = throwTimer;
+        if (!inCutscene) return;
+        inCutscene = false;
 
-        while (timer > 0f && currentState == GrabState.Thrown)
+        // Re-enable player movement / input
+        if (characterController != null)
+            characterController.enabled = true;
+
+        foreach (var s in scriptsToDisableDuringCutscene)
+            if (s != null) s.enabled = true;
+
+        // Reset animator trigger if needed
+        if (playerAnimator != null)
+            playerAnimator.ResetTrigger("Grabbed");
+
+        // notify demon if it needs to do cleanup
+        if (currentDemon != null)
         {
-            timer -= Time.deltaTime;
-
-            // Apply gravity
-            velocity.y -= Physics.gravity.y * Time.deltaTime;
-
-            // Calculate movement for this frame
-            Vector3 frameMovement = velocity * Time.deltaTime;
-
-            // Ensure we don't move too far in one frame
-            if (frameMovement.magnitude > maxMoveDistance)
-            {
-                frameMovement = frameMovement.normalized * maxMoveDistance;
-            }
-
-            // Use safe movement that respects collisions
-            SafeMove(frameMovement);
-
-            yield return null;
-        }
-
-        EndGrab();
-    }
-
-    private void SafeMove(Vector3 movement)
-    {
-        if (characterController != null && characterController.enabled)
-        {
-            // CharacterController.Move already has collision detection
-            characterController.Move(movement);
-        }
-        else
-        {
-            // Manual collision checking as fallback
-            Vector3 newPosition = transform.position + movement;
-
-            // Check if the new position is valid
-            if (!WouldCollide(newPosition))
-            {
-                transform.position = newPosition;
-            }
-            else
-            {
-                // If we would collide, stop the throw
-                Debug.Log("Throw stopped due to collision");
-                EndGrab();
-            }
+            currentDemon.OnPlayerReleased();
+            currentDemon = null;
         }
     }
 
-    private bool WouldCollide(Vector3 newPosition)
+    // Utility if you need the demon to parent the player to a bone:
+    public void ParentTo(Transform parent, Vector3 localPosition, Vector3 localRotation)
     {
-        // Check if moving to new position would cause collision
-        float checkRadius = 0.4f;
-        float checkHeight = 1.8f;
-        Vector3 checkCenter = newPosition + Vector3.up * (checkHeight / 2f);
-
-        return Physics.CheckCapsule(
-            checkCenter - Vector3.up * (checkHeight / 2f - checkRadius),
-            checkCenter + Vector3.up * (checkHeight / 2f - checkRadius),
-            checkRadius,
-            obstacleLayers
-        );
+        originalParent = transform.parent;
+        transform.SetParent(parent, true);
+        transform.localPosition = localPosition;
+        transform.localEulerAngles = localRotation;
     }
 
-    private void Update()
+    public void Unparent()
     {
-        if (currentState == GrabState.Grabbed)
-        {
-            UpdateGrabbed();
-        }
-    }
-
-    private void UpdateGrabbed()
-    {
-        if (grabber == null) return;
-
-        // Convert local offset to world position
-        Vector3 targetPosition = grabber.TransformPoint(localGrabOffset);
-        Vector3 moveDirection = (targetPosition - transform.position);
-
-        // Limit movement per frame during grab too
-        if (moveDirection.magnitude > maxMoveDistance)
-        {
-            moveDirection = moveDirection.normalized * maxMoveDistance;
-        }
-
-        SafeMove(moveDirection * grabFollowSpeed * Time.deltaTime);
-
-        // OPTIONAL: Keep facing the demon while grabbed
-        Vector3 lookDir = grabber.position - transform.position;
-        lookDir.y = 0;
-        if (lookDir.sqrMagnitude > 0.001f)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation,
-                Quaternion.LookRotation(lookDir),
-                Time.deltaTime * 10f);
-        }
-    }
-
-
-    private void EndGrab()
-    {
-        if (currentState == GrabState.None) return;
-
-        Debug.Log("Ending grab state");
-        currentState = GrabState.None;
-        grabber = null;
-
-        if (movement != null)
-        {
-            movement.enabled = true;
-        }
-
-        StopAllCoroutines();
-    }
-
-    public void ForceRelease()
-    {
-        EndGrab();
-    }
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        // This gets called when CharacterController hits something
-        if (currentState == GrabState.Thrown)
-        {
-            Debug.Log($"Player hit {hit.gameObject.name} during throw - stopping throw");
-            EndGrab();
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (currentState != GrabState.None)
-        {
-            ForceRelease();
-        }
-    }
-
-    private void OnDestroy()
-    {
-        if (currentState != GrabState.None)
-        {
-            ForceRelease();
-        }
+        transform.SetParent(originalParent, true);
     }
 }

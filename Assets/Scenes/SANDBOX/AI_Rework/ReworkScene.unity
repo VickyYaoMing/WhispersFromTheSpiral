@@ -19486,7 +19486,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   cam: {fileID: 2014616247}
-  m_interactionDistance: 0
 --- !u!95 &637917924
 Animator:
   serializedVersion: 7
@@ -25127,7 +25126,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   cam: {fileID: 2014616247}
-  m_interactionDistance: 0
 --- !u!95 &764384210
 Animator:
   serializedVersion: 7
@@ -26725,7 +26723,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   cam: {fileID: 2014616247}
-  m_interactionDistance: 0
 --- !u!95 &810534978
 Animator:
   serializedVersion: 7
@@ -33745,7 +33742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SerializedVersion: 0
-  m_AgentTypeID: -1372625422
+  m_AgentTypeID: 0
   m_CollectObjects: 0
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 2, z: 0}
@@ -33760,7 +33757,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.26666668
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 268efb9dd9f38314593385c112db5927, type: 2}
   m_BuildHeightMesh: 0
@@ -53587,14 +53584,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-      propertyPath: grabController
-      value: 
-      objectReference: {fileID: 1697493012}
-    - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-      propertyPath: characterController
-      value: 
-      objectReference: {fileID: 1697493008}
-    - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_defaultSensitivity
       value: 0.1
       objectReference: {fileID: 0}
@@ -54352,9 +54341,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 75806692677558944, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1697492993}
-    - targetCorrespondingSourceObject: {fileID: 75806692677558944, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1697493012}
   m_SourcePrefab: {fileID: 100100000, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
 --- !u!1 &1697492991 stripped
 GameObject:
@@ -54395,50 +54381,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!4 &1697492994 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6330197989133451956, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-  m_PrefabInstance: {fileID: 1697492990}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1697492999 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-  m_PrefabInstance: {fileID: 1697492990}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1697492991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f108a505c6837548ab0c28bfa69ac87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!143 &1697493008 stripped
-CharacterController:
-  m_CorrespondingSourceObject: {fileID: 3845427104001166077, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-  m_PrefabInstance: {fileID: 1697492990}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1697493012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1697492991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47618fe04e809c440b83a77a80ad477b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterController: {fileID: 1697493008}
-  animator: {fileID: 4702886941127013362}
-  movement: {fileID: 1697492999}
-  disableControlTime: 0.1
-  throwForce: 100
-  verticalForce: 0
-  grabFollowSpeed: 2
-  maxMoveDistance: 1
-  obstacleLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &1711151477
 GameObject:
   m_ObjectHideFlags: 0
@@ -67048,7 +66990,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   cam: {fileID: 2014616247}
-  m_interactionDistance: 0
 --- !u!95 &2137951746
 Animator:
   serializedVersion: 7
@@ -67469,10 +67410,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1697492994}
     - target: {fileID: 399825340937420778, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -67522,11 +67459,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05af358512b45d24089d451b7964909e, type: 3}
---- !u!95 &4702886941127013362 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 8837868684694107753, guid: 05af358512b45d24089d451b7964909e, type: 3}
-  m_PrefabInstance: {fileID: 4702886941127013360}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

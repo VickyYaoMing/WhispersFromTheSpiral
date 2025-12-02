@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 900576588246404101}
   - component: {fileID: 4066209384927210016}
   - component: {fileID: 2708879655286291170}
+  - component: {fileID: -5140497691773068432}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d6604d0a3488c4197720cfabf497ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveExists: 0
 --- !u!114 &2708879655286291170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,4 +59,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c3fe1524474ced40be5df4794e22255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Items: []
+  currentItems: []
+  itemPrefabs: []
+--- !u!114 &-5140497691773068432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8997886214572261377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e0383801fffc3a4cb772e92458fb8fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Checkpoints: []
+  checkpointPrefab: {fileID: 9139617889882530917, guid: 9de193ce4be1c154d95ac4564b09f17e, type: 3}
+  checkpointParent: {fileID: 0}
