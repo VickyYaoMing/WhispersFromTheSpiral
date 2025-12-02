@@ -6108,66 +6108,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1515581192}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: huntSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: moveSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: sightAngle
-      value: 360
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: sightRange
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: throwAngle
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: attackRange
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: grabOffset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: grabOffset.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: maxAnimSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: teleportCooldown
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: grabLocalOffset.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: teleportMaxDistance
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: teleportMinDistance
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: minDistanceFromPlayer
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: obstructionMask.m_Bits
-      value: 33554688
-      objectReference: {fileID: 0}
     - target: {fileID: 399825340937420778, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -39.88
@@ -6211,10 +6151,6 @@ PrefabInstance:
     - target: {fileID: 1065004193543513424, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: m_Name
       value: Demon
-      objectReference: {fileID: 0}
-    - target: {fileID: 2756012791499241304, guid: 05af358512b45d24089d451b7964909e, type: 3}
-      propertyPath: m_AngularSpeed
-      value: 1200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
