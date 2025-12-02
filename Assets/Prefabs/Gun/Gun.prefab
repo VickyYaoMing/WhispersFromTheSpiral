@@ -187,9 +187,9 @@ GameObject:
   - component: {fileID: 3570582694930930098}
   - component: {fileID: 4238778960371831903}
   - component: {fileID: 9014596242694361053}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Gun
-  m_TagString: Untagged
+  m_TagString: ItemInsideSafe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -202,7 +202,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5877509689352786209}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -29.18709, y: 0.089020446, z: 16.37272}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -286,6 +286,9 @@ MonoBehaviour:
   aboveZoomClose: 1.1
   canBePlacedUpon: 0
   placementArea: {x: 0, y: 0, z: 0}
+  recoilAmount: 0.1
+  recoilSpeed: 5
+  ammoText: {fileID: 0}
   stats: {fileID: 11400000, guid: 2c9d75e8b48d45843be1ce9dae78ba2c, type: 2}
   muzzle: {fileID: 5634109913302503457}
   cam: {fileID: 0}
@@ -296,7 +299,7 @@ MonoBehaviour:
   normalFOV: 60
   aimFOV: 40
   aimSpeed: 10
-  gunTransform: {fileID: 0}
+  GunSlideTransform: {fileID: 2995592784775869442}
   hipPosition: {x: 0, y: 0, z: 0}
   hipRotation: {x: 0, y: 0, z: 0}
   aimPosition: {x: 0, y: -0.01, z: 0.1}
@@ -313,7 +316,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: b5bd4499cdc20eb4085b56a220ee86f0, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

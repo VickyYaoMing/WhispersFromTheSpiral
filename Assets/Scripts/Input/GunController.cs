@@ -30,7 +30,7 @@ public class GunController : InteractableBase
     public float normalFOV = 60f;
     public float aimFOV = 40f;
     public float aimSpeed = 10f;
-    public Transform gunTransform;
+    public Transform GunSlideTransform;
     public Vector3 hipPosition = new Vector3(0.01f, -0.02f, 0.0f);
     public Vector3 hipRotation = new Vector3(0f, 0f, 0f);
     public Vector3 aimPosition = new Vector3(0f, -0.01f, 0.1f);
@@ -49,8 +49,8 @@ public class GunController : InteractableBase
         // Hide the cursor for immersion
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        originalGunPosition = gunTransform.localPosition;
-
+        originalGunPosition = GunSlideTransform.localPosition;
+        ammoText.gameObject.SetActive(false);
     }
 
     //private void OnEnable()
@@ -66,7 +66,11 @@ public class GunController : InteractableBase
         HandleRecoil();
         HandleAiming();
         if (Input.GetKeyDown(KeyCode.R)) StartCoroutine(Reload());
-        if (!isAiming) return;
+        if (!isAiming)
+        {
+            ammoText.gameObject.SetActive(false);
+            return;
+        }
         if (Input.GetButton("Fire1") && Time.time >= nextFire)
         {
             if (stats.fireMode == FireMode.Single)
@@ -78,15 +82,15 @@ public class GunController : InteractableBase
                 TryShoot();
             }
         }
-
+        ammoText.gameObject.SetActive(true);
     }
     void HandleRecoil()
     {
-        if (gunTransform != null)
+        if (GunSlideTransform != null)
         {
             // Lerp recoil effect back to original position
             recoilOffset = Vector3.Lerp(recoilOffset, Vector3.zero, Time.deltaTime * recoilSpeed);
-            gunTransform.localPosition = Vector3.Lerp(gunTransform.localPosition, originalGunPosition + recoilOffset, Time.deltaTime * recoilSpeed * 6f);
+            GunSlideTransform.localPosition = Vector3.Lerp(GunSlideTransform.localPosition, originalGunPosition + recoilOffset, Time.deltaTime * recoilSpeed * 6f);
         }
     }
 
@@ -101,13 +105,13 @@ public class GunController : InteractableBase
         pixelFOVCam.fieldOfView = Mathf.Lerp(pixelFOVCam.fieldOfView, targetFOV, Time.deltaTime * aimSpeed);
 
         // Move and rotate gun
-        if (gunTransform != null)
+        if (GunSlideTransform != null)
         {
             Vector3 targetPos = isAiming ? aimPosition : hipPosition;
             Vector3 targetRot = isAiming ? aimRotation : hipRotation; 
             Vector3 recoilTargetPos = targetPos + recoilOffset;
             //gunTransform.localPosition = Vector3.Lerp(gunTransform.localPosition, recoilTargetPos, Time.deltaTime * aimSpeed);
-            gunTransform.localRotation = Quaternion.Lerp(gunTransform.localRotation, Quaternion.Euler(targetRot), Time.deltaTime * aimSpeed);
+            GunSlideTransform.localRotation = Quaternion.Lerp(GunSlideTransform.localRotation, Quaternion.Euler(targetRot), Time.deltaTime * aimSpeed);
         }
     }
 
@@ -145,8 +149,8 @@ public class GunController : InteractableBase
         //recoilOffset = -gunTransform.forward * recoilAmount;
         //recoilOffset = -cam.transform.forward * recoilAmount;
         
-        Vector3 camBack = -gunTransform.InverseTransformDirection(cam.transform.forward);
-        Vector3 camUp = gunTransform.InverseTransformDirection(cam.transform.up);
+        Vector3 camBack = -GunSlideTransform.InverseTransformDirection(cam.transform.forward);
+        Vector3 camUp = GunSlideTransform.InverseTransformDirection(cam.transform.up);
 
         
        recoilOffset = camBack * recoilAmount;
@@ -155,7 +159,7 @@ public class GunController : InteractableBase
 
 
         // the gun gets pushed back z axis
-        Debug.DrawRay(gunTransform.position, gunTransform.forward * 0.5f, Color.red, 2f);
+        Debug.DrawRay(GunSlideTransform.position, GunSlideTransform.forward * 0.5f, Color.red, 2f);
 
 
         Debug.Log("Recoil Offset: " + recoilOffset);
@@ -174,9 +178,7 @@ public class GunController : InteractableBase
             currentAmmoInGun += bulletsToLoad;
             stats.pickedUpAmmo -= bulletsToLoad;
         }
-
         Debug.Log("Reloaded " + " " + currentAmmoInGun);
-
     }
 
     void SpawnImpact(RaycastHit hit)
