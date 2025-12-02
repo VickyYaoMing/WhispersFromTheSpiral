@@ -50,7 +50,7 @@ public class PatrolState : StateMachineBehaviour
         if (!_elkDemon.GetComponent<NavMeshAgent>().pathPending && _elkDemon.GetComponent<NavMeshAgent>().remainingDistance < 0.5f)
         {
             //_currentPatrolIndex = Random.Range(0, _patrolRoutes.Length);
-            Vector3 newTarget = GetCenteredRandomNavMeshPoint(30f);
+            Vector3 newTarget = GetCenteredRandomNavMeshPoint(100f);
             _elkDemon.MoveTowards(newTarget, _elkDemon.MoveSpeed);
         }
 
@@ -59,7 +59,6 @@ public class PatrolState : StateMachineBehaviour
             animator.SetTrigger("PlayerSpotted");
         }
     }
-
 
     private Vector3 GetCenteredRandomNavMeshPoint(float radius)
     {
