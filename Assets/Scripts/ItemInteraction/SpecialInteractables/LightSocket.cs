@@ -83,10 +83,8 @@ public class LightSocket : SecondaryInteractionItem
         bulb.IsInUse = true;
         bulb.GetComponent<Light>().enabled = true;
         bulb.enabled = false;
-        interactionManager.PlaceItemInHand(transform.position, Quaternion.Euler(new Vector3(90,0,0)));
+        interactionManager.PlaceItemInHand(lightPosition, lightRotation);
         lightbulb = bulb;
-        lightbulb.transform.parent = transform;
-        lightbulb.transform.localPosition = new Vector3(0, -0.00628999993f, 0);
     }
 
     public void TakeLightbulbFromSocket(Lightbulb bulb)
