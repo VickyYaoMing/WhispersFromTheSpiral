@@ -23,7 +23,7 @@ public class PlayerGrabController : MonoBehaviour
     private GrabState currentState = GrabState.None;
 
     private Transform grabber;
-    private Vector3 localGrabOffset;
+    private Vector3 localGrabOffset; 
     private Vector3 throwDirection;
     private float throwTimer;
 
@@ -38,23 +38,108 @@ public class PlayerGrabController : MonoBehaviour
         currentState = GrabState.Grabbed;
         grabber = grabberTransform;
 
-        // Calculate LOCAL offset instead of world offset
-        localGrabOffset = grabber.InverseTransformPoint(transform.position);
+        // Force player to face the demon
+        ForceFaceDemon();
 
-        // Alternatively, use a fixed local offset:
-        // localGrabOffset = new Vector3(0, 0.5f, 0); // Half a meter in front in local space
+        // Set local offset for maintaining position
+        // Player should be 1.5 units in front of demon
+        localGrabOffset = new Vector3(0, 0, 1.5f); // Directly in front
+
+        // Immediately position the player correctly
+        ForcePositionInFrontOfDemon();
 
         if (movement != null)
             movement.enabled = false;
 
-        // Face the grabber (look at demon)
-        Vector3 lookDir = grabber.position - transform.position;
-        lookDir.y = 0;
-        if (lookDir.sqrMagnitude > 0.001f)
-            transform.rotation = Quaternion.LookRotation(lookDir);
-
         animator.SetTrigger("Grabbed");
-        Debug.Log("Player grabbed by demon - using LOCAL offset");
+        Debug.Log("Player grabbed - forced to face demon");
+    }
+
+    private void ForceFaceDemon()
+    {
+        if (grabber == null) return;
+
+        Vector3 directionToDemon = grabber.position - transform.position;
+        directionToDemon.y = 0;
+
+        if (directionToDemon.sqrMagnitude > 0.001f)
+        {
+            transform.rotation = Quaternion.LookRotation(directionToDemon);
+        }
+    }
+
+    private void ForcePositionInFrontOfDemon()
+    {
+        if (grabber == null) return;
+
+        // Calculate position 1.5 units directly in front of demon
+        Vector3 idealPosition = grabber.position + (grabber.forward * 1.5f);
+        idealPosition.y = transform.position.y; // Keep current height
+
+        // Check if position is blocked
+        if (!WouldCollide(idealPosition))
+        {
+            transform.position = idealPosition;
+        }
+        else
+        {
+            // Try alternative positions if blocked
+            TryAlternativePositions(idealPosition);
+        }
+    }
+
+    private void TryAlternativePositions(Vector3 idealPosition)
+    {
+        // Try positions around the demon
+        float[] distances = { 1.2f, 1.0f, 1.8f };
+        float[] angles = { 0f, 15f, -15f, 30f, -30f };
+
+        foreach (float distance in distances)
+        {
+            foreach (float angle in angles)
+            {
+                Vector3 offset = Quaternion.Euler(0, angle, 0) * grabber.forward * distance;
+                Vector3 testPosition = grabber.position + offset;
+                testPosition.y = transform.position.y;
+
+                if (!WouldCollide(testPosition))
+                {
+                    // Adjust local offset for this position
+                    Vector3 localPos = grabber.InverseTransformPoint(testPosition);
+                    localGrabOffset = localPos;
+                    transform.position = testPosition;
+                    Debug.Log($"Using alternative position at distance {distance}, angle {angle}");
+                    return;
+                }
+            }
+        }
+
+        // If all else fails, use the ideal position (might clip)
+        transform.position = idealPosition;
+        Debug.LogWarning("Using ideal position despite potential collision");
+    }
+
+    private void UpdateGrabbed()
+    {
+        if (grabber == null) return;
+
+        // Always force player to look at demon
+        ForceFaceDemon();
+
+        // Calculate target position in front of demon
+        Vector3 targetPosition = grabber.TransformPoint(localGrabOffset);
+
+        // Smooth movement to maintain position
+        Vector3 moveDirection = (targetPosition - transform.position);
+
+        // Limit movement per frame
+        if (moveDirection.magnitude > maxMoveDistance)
+        {
+            moveDirection = moveDirection.normalized * maxMoveDistance;
+        }
+
+        // Move towards target
+        SafeMove(moveDirection * grabFollowSpeed * Time.deltaTime);
     }
 
     public void ApplyThrow(Vector3 grabberForward)
@@ -150,32 +235,32 @@ public class PlayerGrabController : MonoBehaviour
         }
     }
 
-    private void UpdateGrabbed()
-    {
-        if (grabber == null) return;
+    //private void UpdateGrabbed()
+    //{
+    //    if (grabber == null) return;
 
-        // Convert local offset to world position
-        Vector3 targetPosition = grabber.TransformPoint(localGrabOffset);
-        Vector3 moveDirection = (targetPosition - transform.position);
+    //    // Convert local offset to world position
+    //    Vector3 targetPosition = grabber.TransformPoint(localGrabOffset);
+    //    Vector3 moveDirection = (targetPosition - transform.position);
 
-        // Limit movement per frame during grab too
-        if (moveDirection.magnitude > maxMoveDistance)
-        {
-            moveDirection = moveDirection.normalized * maxMoveDistance;
-        }
+    //    // Limit movement per frame during grab too
+    //    if (moveDirection.magnitude > maxMoveDistance)
+    //    {
+    //        moveDirection = moveDirection.normalized * maxMoveDistance;
+    //    }
 
-        SafeMove(moveDirection * grabFollowSpeed * Time.deltaTime);
+    //    SafeMove(moveDirection * grabFollowSpeed * Time.deltaTime);
 
-        // OPTIONAL: Keep facing the demon while grabbed
-        Vector3 lookDir = grabber.position - transform.position;
-        lookDir.y = 0;
-        if (lookDir.sqrMagnitude > 0.001f)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation,
-                Quaternion.LookRotation(lookDir),
-                Time.deltaTime * 10f);
-        }
-    }
+    //    // OPTIONAL: Keep facing the demon while grabbed
+    //    Vector3 lookDir = grabber.position - transform.position;
+    //    lookDir.y = 0;
+    //    if (lookDir.sqrMagnitude > 0.001f)
+    //    {
+    //        transform.rotation = Quaternion.Slerp(transform.rotation,
+    //            Quaternion.LookRotation(lookDir),
+    //            Time.deltaTime * 10f);
+    //    }
+    //}
 
 
     private void EndGrab()

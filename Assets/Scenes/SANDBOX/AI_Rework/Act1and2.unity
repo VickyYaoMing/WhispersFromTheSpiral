@@ -601,7 +601,7 @@ MonoBehaviour:
   characterController: {fileID: 1515581191}
   animator: {fileID: 2097346555}
   movement: {fileID: 1515581197}
-  disableControlTime: 1
+  disableControlTime: 0.5
   throwForce: 100
   verticalForce: 0
   grabFollowSpeed: 5
@@ -6126,7 +6126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: throwAngle
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: attackRange

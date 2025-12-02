@@ -220,21 +220,67 @@ public class ElkDemonAI : MonoBehaviour
 
         _isGrabbingPlayer = true;
 
-        Vector3 lookDirection = (player.position - transform.position);
-        lookDirection.y = 0f;
-        if (lookDirection.sqrMagnitude > 0.001f)
-        {
-            Quaternion targetRot = Quaternion.LookRotation(lookDirection);
-            transform.rotation = targetRot;
-        }
+        // Force demon to face player
+        ForceDemonToFacePlayer();
+
+        // Force player to face demon
+        ForcePlayerToFaceDemon();
 
         if (_animator != null)
             _animator.SetTrigger("Grabbed");
 
-        Vector3 grabPosition = transform.position + transform.TransformDirection(grabOffset);
-        playerGrab.StartGrab(transform, grabPosition);
+        // Just pass demon's transform and position
+        // The PlayerGrabController will handle the positioning
+        playerGrab.StartGrab(transform, transform.position);
 
         OnGrabPlayer?.Invoke();
+    }
+
+    private void ForceDemonToFacePlayer()
+    {
+        if (player == null) return;
+
+        Vector3 directionToPlayer = player.position - transform.position;
+        directionToPlayer.y = 0;
+
+        if (directionToPlayer.sqrMagnitude > 0.001f)
+        {
+            transform.rotation = Quaternion.LookRotation(directionToPlayer);
+        }
+    }
+
+    private void ForcePlayerToFaceDemon()
+    {
+        if (player == null) return;
+
+        // Position player directly in front of demon
+        Vector3 playerPosition = transform.position + (transform.forward * 1.5f);
+        playerPosition.y = player.position.y; // Keep player's current height
+
+        // Check if position is clear
+        if (!IsPositionBlocked(playerPosition))
+        {
+            player.position = playerPosition;
+        }
+
+        // Make player look at demon
+        Vector3 directionToDemon = transform.position - player.position;
+        directionToDemon.y = 0;
+
+        if (directionToDemon.sqrMagnitude > 0.001f)
+        {
+            player.rotation = Quaternion.LookRotation(directionToDemon);
+        }
+    }
+
+    private bool IsPositionBlocked(Vector3 position)
+    {
+        float checkRadius = 0.5f;
+        float checkHeight = 2f;
+        Vector3 bottom = position + Vector3.up * 0.1f;
+        Vector3 top = position + Vector3.up * checkHeight;
+
+        return Physics.CheckCapsule(bottom, top, checkRadius, obstructionMask);
     }
 
     // Called when throw should happen in animation
