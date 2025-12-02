@@ -93,8 +93,11 @@ public class GunController : InteractableBase
     void HandleAiming()
     {
         isAiming = Input.GetMouseButton(1);
+        // NEW: Show/hide ammo text only while aiming
+        if (ammoText != null)
+            ammoText.enabled = isAiming;
 
-        if(Input.GetMouseButtonDown(1)) disableBaseInteraction?.Invoke(isAiming);
+        if (Input.GetMouseButtonDown(1)) disableBaseInteraction?.Invoke(isAiming);
         if(Input.GetMouseButtonUp(1)) disableBaseInteraction?.Invoke(isAiming);
 
         float targetFOV = isAiming ? aimFOV : normalFOV;
