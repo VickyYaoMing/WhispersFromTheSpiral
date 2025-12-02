@@ -601,14 +601,14 @@ MonoBehaviour:
   characterController: {fileID: 1515581191}
   animator: {fileID: 2097346555}
   movement: {fileID: 1515581197}
-  disableControlTime: 0.1
+  disableControlTime: 0.5
   throwForce: 100
-  verticalForce: -20
-  grabFollowSpeed: 2
-  maxMoveDistance: 10
+  verticalForce: 0
+  grabFollowSpeed: 5
+  maxMoveDistance: 5
   obstacleLayers:
     serializedVersion: 2
-    m_Bits: 33555200
+    m_Bits: 768
 --- !u!1 &267249276
 GameObject:
   m_ObjectHideFlags: 0
@@ -6122,15 +6122,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: sightRange
-      value: 10
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: throwAngle
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: attackRange
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: grabOffset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: grabOffset.y
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: maxAnimSpeed
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: teleportCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: grabLocalOffset.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: teleportMaxDistance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: teleportMinDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: minDistanceFromPlayer
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 124636776672602076, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: obstructionMask.m_Bits
-      value: 256
+      value: 33554688
       objectReference: {fileID: 0}
     - target: {fileID: 399825340937420778, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6175,6 +6211,10 @@ PrefabInstance:
     - target: {fileID: 1065004193543513424, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: m_Name
       value: Demon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2756012791499241304, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 1200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -23,7 +23,7 @@ public class ElkDemonAI : MonoBehaviour
     [SerializeField] private float eyeHeight = 1.5f;
 
     [Header("Grab Settings")]
-    [SerializeField] private Vector3 grabOffset = new Vector3(0, 1.5f, 1f);
+    [SerializeField] private Vector3 grabOffset = new Vector3(1, 1f, 1f);
     [SerializeField] private float throwAngle = 15f;
 
     [Header("References")]

@@ -23,9 +23,10 @@ public class PlayerGrabController : MonoBehaviour
     private GrabState currentState = GrabState.None;
 
     private Transform grabber;
-    private Vector3 grabOffset;
+    private Vector3 localGrabOffset;
     private Vector3 throwDirection;
     private float throwTimer;
+
 
     public bool IsGrabbed => currentState == GrabState.Grabbed;
     public bool IsBeingThrown => currentState == GrabState.Thrown;
@@ -36,19 +37,24 @@ public class PlayerGrabController : MonoBehaviour
 
         currentState = GrabState.Grabbed;
         grabber = grabberTransform;
-        grabOffset = transform.position - grabber.position;
+
+        // Calculate LOCAL offset instead of world offset
+        localGrabOffset = grabber.InverseTransformPoint(transform.position);
+
+        // Alternatively, use a fixed local offset:
+        // localGrabOffset = new Vector3(0, 0.5f, 0); // Half a meter in front in local space
 
         if (movement != null)
             movement.enabled = false;
 
-        // Face the grabber
-        Vector3 lookDir = (grabberPosition - transform.position);
+        // Face the grabber (look at demon)
+        Vector3 lookDir = grabber.position - transform.position;
         lookDir.y = 0;
         if (lookDir.sqrMagnitude > 0.001f)
             transform.rotation = Quaternion.LookRotation(lookDir);
 
         animator.SetTrigger("Grabbed");
-        Debug.Log("Player grabbed by demon");
+        Debug.Log("Player grabbed by demon - using LOCAL offset");
     }
 
     public void ApplyThrow(Vector3 grabberForward)
@@ -148,8 +154,8 @@ public class PlayerGrabController : MonoBehaviour
     {
         if (grabber == null) return;
 
-        // Smoothly follow the grabber with offset
-        Vector3 targetPosition = grabber.position + grabber.TransformDirection(grabOffset);
+        // Convert local offset to world position
+        Vector3 targetPosition = grabber.TransformPoint(localGrabOffset);
         Vector3 moveDirection = (targetPosition - transform.position);
 
         // Limit movement per frame during grab too
@@ -159,7 +165,18 @@ public class PlayerGrabController : MonoBehaviour
         }
 
         SafeMove(moveDirection * grabFollowSpeed * Time.deltaTime);
+
+        // OPTIONAL: Keep facing the demon while grabbed
+        Vector3 lookDir = grabber.position - transform.position;
+        lookDir.y = 0;
+        if (lookDir.sqrMagnitude > 0.001f)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation,
+                Quaternion.LookRotation(lookDir),
+                Time.deltaTime * 10f);
+        }
     }
+
 
     private void EndGrab()
     {
