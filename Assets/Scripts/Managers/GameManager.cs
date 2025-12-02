@@ -11,17 +11,14 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-#if UNITY_EDITOR
-            if(!Application.isPlaying)
+            if (instance == null)
             {
-                return null;
+                var prefab = Resources.Load<GameManager>("GameManager");
+                if(prefab != null)
+                {
+                    instance = Instantiate(prefab);
+                }
             }
-
-            if(instance == null)
-            {
-                Instantiate(Resources.Load<GameManager>("GameManager"));
-            }
-#endif
             return instance;
         }
     }
@@ -47,9 +44,10 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
 
-
+        saveExists = SaveSystem.CheckForSave();
 
     }
     void Start()
@@ -67,7 +65,7 @@ public class GameManager : MonoBehaviour
         }
         if (Keyboard.current.fKey.wasPressedThisFrame) 
         {
-            LoadAsync();
+            //LoadAsync();
             //Load();
         }
 
@@ -93,7 +91,7 @@ public class GameManager : MonoBehaviour
         isSaving = false;
     }
 
-    private async void LoadAsync()
+    public async void LoadAsync()
     {
         isLoading = true;
         await SaveSystem.LoadAsynchronously();
@@ -111,6 +109,14 @@ public class GameManager : MonoBehaviour
 
 }
 
+//Some kind of way to figure out what the current gamestate is?
+public enum GameState
+{
+    Menu,
+    Cutscene,
+    Pause,
+    Gameplay
+}
 public enum GameProgression
 {
     Intro,

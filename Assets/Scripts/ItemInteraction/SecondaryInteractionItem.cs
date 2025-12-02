@@ -3,14 +3,21 @@ using UnityEngine;
 public class SecondaryInteractionItem : InteractableBase
 {
     protected InteractionManager interactionManager;
+   
+    private void Awake()
+    {
+        if(GameManager.Instance != null)
+        {
+            interactionManager = GameManager.Instance.InteractionManager;
+        }
+        if(interactionManager == null)
+        {
+            interactionManager = FindFirstObjectByType<InteractionManager>();
+        }
+    }
     private void Start()
     {
         HasSecondaryInteraction = true;
-    }
-
-    private void Awake()
-    {
-        interactionManager = GameManager.Instance.InteractionManager;
     }
 
     public virtual void SecondaryInteraction()
