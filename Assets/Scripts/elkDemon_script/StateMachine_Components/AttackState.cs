@@ -10,7 +10,9 @@ public class AttackState : StateMachineBehaviour
 
     private ElkDemonAI _elkDemon;
     private float _coolDownTimer;
+    private float _windupTimer;
     private bool _hasAttacked;
+    private bool _attackCompleted;
     private SanityEffectOnPlayer _playerSanityEffect;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -33,7 +35,9 @@ public class AttackState : StateMachineBehaviour
 
         _elkDemon.StopMoving();
         _hasAttacked = false;
+        _attackCompleted = false;
         _coolDownTimer = 0f;
+        _windupTimer = 0f;
 
         animator.SetBool("IsAttacking", true);
         Debug.Log("Entered Attack state!");
@@ -43,13 +47,7 @@ public class AttackState : StateMachineBehaviour
     {
         if (_elkDemon == null) return;
 
-        //// Future Stuff
-        //if (_playerSanityEffect != null && _playerSanityEffect.IsDead)
-        //{
-        //    animator.SetTrigger("PlayerDead");
-        //    return;
-        //}
-
+        _windupTimer += Time.deltaTime;
         _coolDownTimer += Time.deltaTime;
 
         // Face the player
@@ -59,15 +57,24 @@ public class AttackState : StateMachineBehaviour
             _elkDemon.transform.LookAt(lookDirection);
         }
 
-        if (!_hasAttacked && _coolDownTimer >= attackWindupTime)
+        // Perform attack after windup
+        if (!_hasAttacked && _windupTimer >= attackWindupTime)
         {
-            animator.SetTrigger("PerformAttack"); 
+            PerformAttack();
             _hasAttacked = true;
+        }
+
+        // Check if attack sequence is complete (windup + brief cooldown)
+        if (_hasAttacked && !_attackCompleted && _coolDownTimer >= attackWindupTime + 0.2f)
+        {
+            _attackCompleted = true;
+            animator.SetTrigger("AttackComplete");
         }
 
         CheckExitConditions(animator);
         DebugAttackInfo();
     }
+
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool("IsAttacking", false);
@@ -77,7 +84,11 @@ public class AttackState : StateMachineBehaviour
 
     private void CheckExitConditions(Animator animator)
     {
-        if (_elkDemon.Player == null) return;
+        if (_elkDemon.Player == null)
+        {
+            animator.SetTrigger("LostSight");
+            return;
+        }
 
         float distanceToPlayer = Vector3.Distance(_elkDemon.transform.position, _elkDemon.Player.position);
 
@@ -93,27 +104,13 @@ public class AttackState : StateMachineBehaviour
             return;
         }
 
-        //// Check if player is SLEEPING T_T
-        //if (_playerSanityEffect != null && _playerSanityEffect.IsDead)
-        //{
-        //    animator.SetTrigger("PlayerDead");
-        //    return;
-        //}
-
-
-        //Same timer used for cooldown and for windup?
-        if (_coolDownTimer >= attackCD)
-        {
-            animator.SetTrigger("AttackComplete");
-            _coolDownTimer = 0;
-        }
+        // Allow natural transition via AttackComplete trigger
+        // Remove the manual AttackComplete trigger from here
     }
 
     private void PerformAttack()
     {
-        Debug.Log("Elk Demon Attempts Grab!");
-
-        // Check basic angle & distance as before
+        Debug.Log("Elk Demon Attacks!");
         Vector3 directionToPlayer = (_elkDemon.Player.position - _elkDemon.transform.position).normalized;
         float dotProduct = Vector3.Dot(_elkDemon.transform.forward, directionToPlayer);
 
@@ -123,14 +120,25 @@ public class AttackState : StateMachineBehaviour
 
             if (distance < _elkDemon.AttackRange)
             {
-                var grab = _elkDemon.Player.GetComponentInParent<PlayerGrabController>();
-                if (grab != null)
+                Debug.Log("Player got hit by Elk Demon's Attack!");
+                var sanity = _elkDemon.Player.GetComponentInParent<SanitySystem.Sanity>();
+                if (sanity != null)
                 {
-                    grab.StartGrabCutscene(_elkDemon);
+                    sanity.ApplyImpulse(sanityDmg);
+                    Debug.Log($"Sanity reduced by {sanityDmg}. New sanity: {sanity.Sanity01}");
+
+                    if (sanity.Sanity01 <= 0.4f)
+                    {
+                        Debug.Log("Death is Running!");
+                        if (_playerSanityEffect != null)
+                        {
+                            _playerSanityEffect.ZeroSanityDeath();
+                        }
+                    }
                 }
                 else
                 {
-                    Debug.LogWarning("PlayerGrabController not found on player root or parent.");
+                    Debug.Log("No sanity was found so I'm Schizo as hell");
                 }
             }
         }
@@ -141,6 +149,7 @@ public class AttackState : StateMachineBehaviour
         animator.ResetTrigger("AttackComplete");
         animator.ResetTrigger("PlayerOutOfRange");
         animator.ResetTrigger("LostSight");
+        animator.ResetTrigger("Attack"); // Also reset the attack trigger
     }
 
     void DebugAttackInfo()
@@ -151,6 +160,6 @@ public class AttackState : StateMachineBehaviour
         Vector3 direction = (_elkDemon.Player.position - _elkDemon.transform.position).normalized;
         float dot = Vector3.Dot(_elkDemon.transform.forward, direction);
 
-        //Debug.Log($"Attack Info - Distance: {distance}, Dot: {dot}, CanSee: {_elkDemon.CanSeePlayer()}");
+        Debug.Log($"Attack Info - Distance: {distance}, Dot: {dot}, Windup: {_windupTimer:F2}, CD: {_coolDownTimer:F2}, HasAttacked: {_hasAttacked}");
     }
 }

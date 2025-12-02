@@ -38,16 +38,16 @@ public class HuntState : StateMachineBehaviour
         {
             _timeSinceLastSeen += Time.deltaTime;
 
-            // 3 second memory
-            if (_elkDemon.HasRecentPlayerInfo && _timeSinceLastSeen < 1f) 
+            // 5 second memory
+            if (_elkDemon.HasRecentPlayerInfo && _timeSinceLastSeen < 5f) 
             {
                 // Move toward player's last known position
                 // AND continue in the direction they were moving
-                // Predict 10 units ahead
-                Vector3 predictedPosition = _elkDemon.PlayerLastKnownPosition + (_elkDemon.PlayerLastKnownDirection * 10f); 
+                // Predict 2 units ahead
+                Vector3 predictedPosition = _elkDemon.PlayerLastKnownPosition + (_elkDemon.PlayerLastKnownDirection * 2f); 
 
                 Debug.DrawLine(_elkDemon.transform.position, predictedPosition, Color.yellow);
-                _elkDemon.MoveTowards(predictedPosition, _elkDemon.HuntSpeed * 0.9f); 
+                _elkDemon.MoveTowards(predictedPosition, _elkDemon.HuntSpeed * 0.8f); 
             }
             else
             {
