@@ -1,25 +1,33 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-public enum SurfaceType { Floor, Table, Wall }//bookshelf??
 
+//Set a float t rotate the y axis depeding on the wall so wallitems show up, should be able to do specifically for walls
 public class toolKindaScript : MonoBehaviour
 {
     /// <summary>
-    /// createa list that has certain items in it
+    /// creates a list that has certain items in it
     /// use enums to define surfaces
     /// place them out depending on what kind
     /// if surface is table and floor maybe rotate items  randomly 
     /// might give items scripts if they are wall deco or flat surface items
     /// </summary>
 
-    [SerializeField] List<GameObject> placeableItems = new List<GameObject>();//list of all objects 
+     List<GameObject> placeableItems = new List<GameObject>();//list of all objects 
+    [SerializeField] private GameObject listItems;
     List<GameObject> chosenItems = new List<GameObject>();//list of chosen items to place
-   // [SerializeField] private List<Vector3> placedPositions = new List<Vector3>();
+   
     [SerializeField]int amountOfChosenItems;
     private Collider hitbox;
 
-
+    [SerializeField] float rotationFloat;
+    private void Awake()
+    {
+        placeableItems.Clear();
+        foreach (Transform child in listItems.transform)
+        {
+            placeableItems.Add(child.gameObject);
+        }
+    }
     //hope all items in a room has hitboxes
     void Start()
     {
@@ -51,58 +59,41 @@ public class toolKindaScript : MonoBehaviour
         }
         return chosenItems;
     }
-    /// <summary>
-    /// depening on the surface certain items can be placed
-    /// calle method for eocisifc enums logic
-    /// </summary>
-    private void PlaceItems(SurfaceType surfaceType)
+    
+
+
+    public void Place(/*SurfaceType surface*/)
     {
+        
 
-        switch (surfaceType)
-        {
-            case SurfaceType.Wall:
-                Debug.Log(surfaceType);
-                Place(surfaceType);
-                break;
-
-            case SurfaceType.Table:
-                Debug.Log(surfaceType);
-                break;
-            case SurfaceType.Floor:
-                Debug.Log(surfaceType);
-                Place(surfaceType);
-                break;
-            default:
-                Debug.Log("Not sure what to put here....");
-                break;
-        }
-
-
-
-
-    }
-
-
-    public void Place(SurfaceType surface)
-    {
-        //will work for like one item, might have to fix for more on wall
         foreach (GameObject item in chosenItems)
         {
-            int amountOftries = 0;
+            ItemType type = item.GetComponent<ItemType>();
+            Debug.Log(" items is of surfacetype " + type);//just checcking
+
+            int amountOftries = 0;//just for the whileloop
             bool placed = false;
 
-            bool tempBool;
 
             while (amountOftries < 5 && !placed)
             {
-                Vector3 randomSpawnPlace = RandomPos(surface);
-                tempBool = CheckIfSpace(randomSpawnPlace, item, surface);
-                Debug.Log(tempBool);
-                if (tempBool)
+                Vector3 randomSpawnPlace = RandomPos(type.surfaceType);
+                bool canPlace = CheckIfSpace(randomSpawnPlace, item, type.surfaceType);
+                Debug.Log(canPlace);
+                if (canPlace)
                 {
-                    Instantiate(item, randomSpawnPlace, Quaternion.identity);
+                    Quaternion rotation;
+                    //fix roation here
+                    if (type.surfaceType == SurfaceType.Wall)
+                    {
+                        rotationFloat = Quaternion.LookRotation(transform.forward).eulerAngles.y;
+                        rotation = Quaternion.Euler(0f,rotationFloat,0f);
+                    }
+                    else { rotation = Quaternion.identity; }
+                        Instantiate(item, randomSpawnPlace, rotation);
                     //Debug.Log("Could be placed, yaaay"); 
-                    placed = true;
+                    canPlace = true;
+                    placed= true;
                 }
                 else
                 {
@@ -132,8 +123,10 @@ public class toolKindaScript : MonoBehaviour
         switch (surface)
         {
             case SurfaceType.Wall:
+                //SERIALISED FIELD FLOT THINGY SUCK MY DICK
 
                 return new Vector3(randX, randY, b.center.z);
+
             case SurfaceType.Floor:
                 return new Vector3(randX, b.max.y, randZ);
 
@@ -146,15 +139,16 @@ public class toolKindaScript : MonoBehaviour
     }
     public bool CheckIfSpace(Vector3 pos, GameObject item, SurfaceType surface)
     {
-        Debug.Log("In the checkIFspace method");
+      
         Collider itemCollider = item.GetComponent<Collider>();
-        Vector3 spawnPos = Vector3.zero;//why tho??
+        
 
-        //if (itemCollider == null)
-        //{
-        //    Debug.Log("is null");
-        //    return false;
-        //}
+        if (itemCollider == null)
+        {
+            Debug.Log("is null");
+            return false;
+        }
+
         Vector3 halfsize = itemCollider.bounds.extents;
         float padding = 0.05f;
         halfsize += Vector3.one * padding;
@@ -172,23 +166,23 @@ public class toolKindaScript : MonoBehaviour
             center = new Vector3(pos.x + halfsize.x, pos.y, pos.z);
 
         }
-        Debug.Log("Did we leave the if statments?");
+        
 
         //check if oveerlaps
         Collider[] hits = Physics.OverlapBox(center, halfsize, Quaternion.identity);
 
-        Debug.Log("above the foreach  loop");
+       
         foreach (var hit in hits)
         {
-            Debug.Log("its in the foreach  loop");
+           
             if (hit != hitbox && hit.tag != "ToolTag")
             {
                 Debug.Log(item.name + " blocked by " + hit.name);
                 return false;
             }
         }
-        Debug.Log("below the foreach  loop");
-        // spawnPos = center;
+       
+      
         return true;
 
 
@@ -198,10 +192,9 @@ public class toolKindaScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //int amountOfChosenItems = Random.Range(0, placeableItems.Count);
-            Debug.Log("amount randomized in list: " + amountOfChosenItems);
+           
             chosenItems = RandomizedList(amountOfChosenItems);
-            Place(SurfaceType.Wall);
+            Place();
         }
     }
 
