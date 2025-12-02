@@ -6,6 +6,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ItemManager : MonoBehaviour
 {
@@ -16,9 +17,20 @@ public class ItemManager : MonoBehaviour
     void Start()
     {
         PopulatePrefabList();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void Awake()
+    {
+        Init();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+    }
+
+    private void Init()
     {
         GameManager.Instance.ItemManager = this;
         RefreshItemList();
@@ -32,9 +44,9 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Init();
     }
 
     private void RefreshItemList()
@@ -76,7 +88,6 @@ public class ItemManager : MonoBehaviour
 
     public void Save(ref ItemManagerSaveData data)
     {
-        Debug.Log("saving");
         List<ItemSaveData> ItemSaveDataList = new List<ItemSaveData>();
         RefreshItemList();
 
