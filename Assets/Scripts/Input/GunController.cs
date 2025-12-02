@@ -1,9 +1,20 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using TMPro;
+using Random = UnityEngine.Random;
 
 public class GunController : InteractableBase
 {
+    [Header("Recoil Settings")]
+    public float recoilAmount = 0.1f;
+    public float recoilSpeed = 5f;
+    private Vector3 originalGunPosition;
+    private Vector3 recoilOffset;
+
+    public TextMeshProUGUI ammoText;
+
+
     public GunStats stats;
     public Transform muzzle;
     [SerializeField] private Camera cam;
@@ -38,6 +49,8 @@ public class GunController : InteractableBase
         // Hide the cursor for immersion
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        originalGunPosition = gunTransform.localPosition;
+
     }
 
     //private void OnEnable()
@@ -47,6 +60,10 @@ public class GunController : InteractableBase
 
     void Update()
     {
+        if (ammoText != null)
+            ammoText.text = $"{currentAmmoInGun} / {stats.pickedUpAmmo}";
+
+        HandleRecoil();
         HandleAiming();
         if (Input.GetKeyDown(KeyCode.R)) StartCoroutine(Reload());
         if (!isAiming) return;
@@ -63,6 +80,15 @@ public class GunController : InteractableBase
         }
 
     }
+    void HandleRecoil()
+    {
+        if (gunTransform != null)
+        {
+            // Lerp recoil effect back to original position
+            recoilOffset = Vector3.Lerp(recoilOffset, Vector3.zero, Time.deltaTime * recoilSpeed);
+            gunTransform.localPosition = Vector3.Lerp(gunTransform.localPosition, originalGunPosition + recoilOffset, Time.deltaTime * recoilSpeed * 6f);
+        }
+    }
 
     void HandleAiming()
     {
@@ -78,9 +104,9 @@ public class GunController : InteractableBase
         if (gunTransform != null)
         {
             Vector3 targetPos = isAiming ? aimPosition : hipPosition;
-            Vector3 targetRot = isAiming ? aimRotation : hipRotation;
-
-            gunTransform.localPosition = Vector3.Lerp(gunTransform.localPosition, targetPos, Time.deltaTime * aimSpeed);
+            Vector3 targetRot = isAiming ? aimRotation : hipRotation; 
+            Vector3 recoilTargetPos = targetPos + recoilOffset;
+            //gunTransform.localPosition = Vector3.Lerp(gunTransform.localPosition, recoilTargetPos, Time.deltaTime * aimSpeed);
             gunTransform.localRotation = Quaternion.Lerp(gunTransform.localRotation, Quaternion.Euler(targetRot), Time.deltaTime * aimSpeed);
         }
     }
@@ -111,6 +137,29 @@ public class GunController : InteractableBase
         {
             SpawnImpact(hit);
         }
+        //recoilOffset = new Vector3(0f, 0f, -recoilAmount); // the gun gets pushed back
+        //        recoilOffset = new Vector3(UnityEngine.Random.Range(-0.05f, 0.05f),UnityEngine.Random.Range(0.05f, 0.1f),-0.3f
+        //);
+        //recoilOffset = new Vector3(Random.Range(-0.05f, 0.05f), Random.Range(-0.05f, 0.05f), -recoilAmount);
+
+        //recoilOffset = -gunTransform.forward * recoilAmount;
+        //recoilOffset = -cam.transform.forward * recoilAmount;
+        
+        Vector3 camBack = -gunTransform.InverseTransformDirection(cam.transform.forward);
+        Vector3 camUp = gunTransform.InverseTransformDirection(cam.transform.up);
+
+        
+       recoilOffset = camBack * recoilAmount;
+
+
+
+
+        // the gun gets pushed back z axis
+        Debug.DrawRay(gunTransform.position, gunTransform.forward * 0.5f, Color.red, 2f);
+
+
+        Debug.Log("Recoil Offset: " + recoilOffset);
+
     }
 
     IEnumerator Reload()
