@@ -89,7 +89,15 @@ public class toolKindaScript : MonoBehaviour
                         rotationFloat = Quaternion.LookRotation(transform.forward).eulerAngles.y;
                         rotation = Quaternion.Euler(0f,rotationFloat,0f);
                     }
-                    else { rotation = Quaternion.identity; }
+                    else
+                    {
+                     // randomly rotates the item when instanziating ish   
+                        float rotationX = Random.Range(0,360);
+                        float rotationY = Random.Range(0, 360);
+                        float rotationZ = Random.Range(0, 360);
+                        rotation = Quaternion.Euler(rotationX,rotationY,rotationZ);
+                    }
+                   
                         Instantiate(item, randomSpawnPlace, rotation);
                     //Debug.Log("Could be placed, yaaay"); 
                     canPlace = true;
