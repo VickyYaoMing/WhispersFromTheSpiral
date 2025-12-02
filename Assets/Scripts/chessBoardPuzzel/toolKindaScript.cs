@@ -1,32 +1,38 @@
 using System.Collections.Generic;
 using UnityEngine;
-public enum SurfaceType { Floor, Table, Wall }//bookshelf??
 
+//Set a float t rotate the y axis depeding on the wall so wallitems show up, should be able to do specifically for walls
 public class toolKindaScript : MonoBehaviour
 {
     /// <summary>
-    /// createa list that has certain items in it
+    /// creates a list that has certain items in it
     /// use enums to define surfaces
     /// place them out depending on what kind
     /// if surface is table and floor maybe rotate items  randomly 
     /// might give items scripts if they are wall deco or flat surface items
     /// </summary>
 
-    [SerializeField] List<GameObject> placeableItems = new List<GameObject>();//list of all objects 
+     List<GameObject> placeableItems = new List<GameObject>();//list of all objects 
+    [SerializeField] private GameObject listItems;
     List<GameObject> chosenItems = new List<GameObject>();//list of chosen items to place
-    [SerializeField] private List<Vector3> placedPositions = new List<Vector3>();
-    //rename probs and not serilized but make it make sense
-    //[SerializeField] float hitboxBottom;
-    //[SerializeField] float hitboxHeight;
-
-    //[SerializeField] float HitboxEnd, hitboxStart;//migth need for size of room
+   
+    [SerializeField]int amountOfChosenItems;
     private Collider hitbox;
 
+    [SerializeField] float rotationFloat;
+    private void Awake()
+    {
+        placeableItems.Clear();
+        foreach (Transform child in listItems.transform)
+        {
+            placeableItems.Add(child.gameObject);
+        }
+    }
     //hope all items in a room has hitboxes
     void Start()
     {
 
-        int amountOfChosenItems = Random.Range(0, 10);//how many should be chosen this time// might have to alter range
+        //how many should be chosen this time// might have to alter range
         hitbox = GetComponent<Collider>();
 
 
@@ -53,63 +59,49 @@ public class toolKindaScript : MonoBehaviour
         }
         return chosenItems;
     }
-    /// <summary>
-    /// depening on the surface certain items can be placed
-    /// calle method for eocisifc enums logic
-    /// </summary>
-    private void PlaceItems(SurfaceType surfaceType)
+    
+
+
+    public void Place(/*SurfaceType surface*/)
     {
+        
 
-        switch (surfaceType)
+        foreach (GameObject item in chosenItems)
         {
-            case SurfaceType.Wall:
-                Debug.Log(surfaceType);
-                PlaceOnWall();
-                break;
+            ItemType type = item.GetComponent<ItemType>();
+            Debug.Log(" items is of surfacetype " + type);//just checcking
 
-            case SurfaceType.Table:
-                Debug.Log(surfaceType);
-                break;
-            case SurfaceType.Floor:
-                Debug.Log(surfaceType);
-                break;
-            default:
-                Debug.Log("Not sure what to put here....");
-                break;
-        }
-
-
-
-
-    }
-    /// <summary>
-    /// use floats to set the hitboxes width and height and so on
-    /// randomize position it spawns from
-    /// place out on that pos/ no ridgidbody on walls
-    /// cause walls probas won't need more than one item per hitbox it shouldn't be an issue
-    /// if issue call vicky
-    /// </summary>
-    public void PlaceOnWall()
-    {
-
-
-        //will work for like one item, might have to fix for more on wall
-        foreach (GameObject item in placeableItems)
-        {
-            int amountOftries = 0;
+            int amountOftries = 0;//just for the whileloop
             bool placed = false;
-            
 
 
             while (amountOftries < 5 && !placed)
             {
-                Vector3 randomSpawnPlace = RandomPos();
-
-                if (CheckIfSpace(randomSpawnPlace,item) == true)
+                Vector3 randomSpawnPlace = RandomPos(type.surfaceType);
+                bool canPlace = CheckIfSpace(randomSpawnPlace, item, type.surfaceType);
+                Debug.Log(canPlace);
+                if (canPlace)
                 {
-                    Instantiate(item, randomSpawnPlace, Quaternion.identity);
-                    Debug.Log("Could be placed, yaaay"); 
-                    placed = true;
+                    Quaternion rotation;
+                    //fix roation here
+                    if (type.surfaceType == SurfaceType.Wall)
+                    {
+                        rotationFloat = Quaternion.LookRotation(transform.forward).eulerAngles.y;
+                        rotation = Quaternion.Euler(0f,rotationFloat,0f);
+                    }
+                    else
+                    {
+                     // randomly rotates the item when instanziating ish   
+                        float rotationX = Random.Range(0,360);
+                        float rotationY = Random.Range(0, 360);
+                        float rotationZ = Random.Range(0, 360);
+                        rotation = Quaternion.Euler(rotationX,rotationY,rotationZ);
+                    }
+                   
+                        Instantiate(item, randomSpawnPlace, rotation);
+                    //Debug.Log("Could be placed, yaaay"); 
+                    canPlace = true;
+                    placed= true;
                 }
                 else
                 {
@@ -118,7 +110,7 @@ public class toolKindaScript : MonoBehaviour
                 }
 
             }
-            if (amountOftries >= 5 && !placed)
+            if (!placed)
             {
                 Debug.Log("Failed to place item after 5 attempts: " + item.name);
             }
@@ -127,54 +119,91 @@ public class toolKindaScript : MonoBehaviour
         }
 
     }
-    public Vector3 RandomPos()
+    public Vector3 RandomPos(SurfaceType surface)
     {
 
         Bounds b = hitbox.bounds;
+
         float randX = Random.Range(b.min.x, b.max.x);//might ned +-1 somewhere
         float randY = Random.Range(b.min.y, b.max.y);
-        float z = b.center.z;
-        Vector3 randomPos = new Vector3(randX, randY, z);
-        return randomPos;
+      
+        float randZ = Random.Range(b.min.z, b.max.z);
+        switch (surface)
+        {
+            case SurfaceType.Wall:
+                //SERIALISED FIELD FLOT THINGY SUCK MY DICK
+
+                return new Vector3(randX, randY, b.center.z);
+
+            case SurfaceType.Floor:
+                return new Vector3(randX, b.max.y, randZ);
+
+            default:
+                return transform.position;
+
+
+        }
 
     }
-    public bool CheckIfSpace(Vector3 pos, GameObject item)
+    public bool CheckIfSpace(Vector3 pos, GameObject item, SurfaceType surface)
     {
+      
         Collider itemCollider = item.GetComponent<Collider>();
+        
 
-       
         if (itemCollider == null)
         {
-            Debug.LogWarning("Item has no collider: " + item.name);
+            Debug.Log("is null");
             return false;
         }
+
         Vector3 halfsize = itemCollider.bounds.extents;
         float padding = 0.05f;
         halfsize += Vector3.one * padding;
 
-        Collider[] hits = Physics.OverlapBox(pos, halfsize, Quaternion.identity);
-        Debug.Log(item.name + " checking at " + pos + ", hits count: " + hits.Length);
+        Vector3 center = pos;
 
-        foreach(var hit in hits)
+        if (surface == SurfaceType.Floor || surface == SurfaceType.Table)
         {
-            if(hit != hitbox)
+            Debug.Log("ITS NOT A WAALLLLLL");
+            center = new Vector3(pos.x, pos.y + halfsize.y, pos.z);
+        }
+        else if(surface == SurfaceType.Wall)
+        {
+            Debug.Log("ITS A WAALLLLLL");
+            center = new Vector3(pos.x + halfsize.x, pos.y, pos.z);
+
+        }
+        
+
+        //check if oveerlaps
+        Collider[] hits = Physics.OverlapBox(center, halfsize, Quaternion.identity);
+
+       
+        foreach (var hit in hits)
+        {
+           
+            if (hit != hitbox && hit.tag != "ToolTag")
             {
                 Debug.Log(item.name + " blocked by " + hit.name);
                 return false;
             }
         }
+       
+      
         return true;
-        //if (hits.Length==0) return true;
-        //else return false;
+
 
     }
-   
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            PlaceOnWall();
+           
+            chosenItems = RandomizedList(amountOfChosenItems);
+            Place();
         }
     }
-    
+
 }

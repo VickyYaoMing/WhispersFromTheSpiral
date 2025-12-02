@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Assets.Scripts.AudioSystem;
 
 public class Movement : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class Movement : MonoBehaviour
     [SerializeField] private float m_headBangAmount = 0.1f;
     [SerializeField] private float m_headBangFrequency = 10.0f;
     [SerializeField] private float m_headBangSmoothing = 10.0f;
+    [Header("Footsteps")] //Added for sound
+    [SerializeField] private float m_stepInterval = 0.75f;
+    [SerializeField] private float m_minMoveMagnitudeForSteps = 0.1f;
+    private float m_stepTimer;
 
     [Header("Zoom")]
     [SerializeField] private float m_duration = 1f;
@@ -47,7 +52,7 @@ public class Movement : MonoBehaviour
 
     public bool LockCamera { get; set; } = false;
     public bool IsGrounded { get; set; }
-   
+
     #region Unity Methods
     private void Start()
     {
@@ -120,6 +125,7 @@ public class Movement : MonoBehaviour
             StopHeadBob();
         }
         controller.Move(velocity * Time.deltaTime);
+        HandleFootsteps(input);
     }
     public void Crouch()
     {
@@ -183,7 +189,7 @@ public class Movement : MonoBehaviour
     private void StopHeadBob()
     {
         Vector3 targetCamPos = m_isCrouching ? m_crouchingCamPos : m_standingCamPos;
-        if(m_camera.transform.localPosition == targetCamPos) { return ; }
+        if (m_camera.transform.localPosition == targetCamPos) { return; }
         m_camera.transform.localPosition = Vector3.Lerp(m_camera.transform.localPosition, targetCamPos, 1 * Time.deltaTime);
     }
     private void SetMeshVisible(bool visible)
@@ -220,5 +226,24 @@ public class Movement : MonoBehaviour
 
         m_camera.transform.position = targetPos;
         m_camera.transform.rotation = targetRot;
+    }
+    private void HandleFootsteps(Vector2 input)
+    {
+        float moveMagnitude = new Vector3(input.x, 0f, input.y).magnitude;
+        bool isMoving = moveMagnitude > m_minMoveMagnitudeForSteps;
+        float stepInterval = m_isCrouching ? m_stepInterval * 1.5f : m_stepInterval;
+        if (!IsGrounded || !isMoving)
+        {
+            m_stepTimer = Mathf.Min(m_stepTimer, stepInterval);
+            return;
+        }
+        m_stepTimer -= Time.deltaTime;
+        if (m_stepTimer <= 0f)
+        {
+            //For 3D if we want that
+            SoundManager.PlayAttached(SoundType.SFX_PlayerSteps, transform);
+            // SoundManager.Play(SoundType.SFX_PlayerSteps);
+            m_stepTimer = stepInterval;
+        }
     }
 }

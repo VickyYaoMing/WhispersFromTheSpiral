@@ -1,9 +1,20 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using TMPro;
+using Random = UnityEngine.Random;
 
 public class GunController : InteractableBase
 {
+    [Header("Recoil Settings")]
+    public float recoilAmount = 0.1f;
+    public float recoilSpeed = 5f;
+    private Vector3 originalGunPosition;
+    private Vector3 recoilOffset;
+
+    public TextMeshProUGUI ammoText;
+
+
     public GunStats stats;
     public Transform muzzle;
     [SerializeField] private Camera cam;
@@ -19,7 +30,7 @@ public class GunController : InteractableBase
     public float normalFOV = 60f;
     public float aimFOV = 40f;
     public float aimSpeed = 10f;
-    public Transform gunTransform;
+    public Transform GunSlideTransform;
     public Vector3 hipPosition = new Vector3(0.01f, -0.02f, 0.0f);
     public Vector3 hipRotation = new Vector3(0f, 0f, 0f);
     public Vector3 aimPosition = new Vector3(0f, -0.01f, 0.1f);
@@ -38,6 +49,8 @@ public class GunController : InteractableBase
         // Hide the cursor for immersion
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        originalGunPosition = GunSlideTransform.localPosition;
+        ammoText.gameObject.SetActive(false);
     }
 
     //private void OnEnable()
@@ -47,9 +60,17 @@ public class GunController : InteractableBase
 
     void Update()
     {
+        if (ammoText != null)
+            ammoText.text = $"{currentAmmoInGun} / {stats.pickedUpAmmo}";
+
+        HandleRecoil();
         HandleAiming();
         if (Input.GetKeyDown(KeyCode.R)) StartCoroutine(Reload());
-        if (!isAiming) return;
+        if (!isAiming)
+        {
+            ammoText.gameObject.SetActive(false);
+            return;
+        }
         if (Input.GetButton("Fire1") && Time.time >= nextFire)
         {
             if (stats.fireMode == FireMode.Single)
@@ -61,7 +82,16 @@ public class GunController : InteractableBase
                 TryShoot();
             }
         }
-
+        ammoText.gameObject.SetActive(true);
+    }
+    void HandleRecoil()
+    {
+        if (GunSlideTransform != null)
+        {
+            // Lerp recoil effect back to original position
+            recoilOffset = Vector3.Lerp(recoilOffset, Vector3.zero, Time.deltaTime * recoilSpeed);
+            GunSlideTransform.localPosition = Vector3.Lerp(GunSlideTransform.localPosition, originalGunPosition + recoilOffset, Time.deltaTime * recoilSpeed * 6f);
+        }
     }
 
     void HandleAiming()
@@ -75,13 +105,13 @@ public class GunController : InteractableBase
         pixelFOVCam.fieldOfView = Mathf.Lerp(pixelFOVCam.fieldOfView, targetFOV, Time.deltaTime * aimSpeed);
 
         // Move and rotate gun
-        if (gunTransform != null)
+        if (GunSlideTransform != null)
         {
             Vector3 targetPos = isAiming ? aimPosition : hipPosition;
-            Vector3 targetRot = isAiming ? aimRotation : hipRotation;
-
-            gunTransform.localPosition = Vector3.Lerp(gunTransform.localPosition, targetPos, Time.deltaTime * aimSpeed);
-            gunTransform.localRotation = Quaternion.Lerp(gunTransform.localRotation, Quaternion.Euler(targetRot), Time.deltaTime * aimSpeed);
+            Vector3 targetRot = isAiming ? aimRotation : hipRotation; 
+            Vector3 recoilTargetPos = targetPos + recoilOffset;
+            //gunTransform.localPosition = Vector3.Lerp(gunTransform.localPosition, recoilTargetPos, Time.deltaTime * aimSpeed);
+            GunSlideTransform.localRotation = Quaternion.Lerp(GunSlideTransform.localRotation, Quaternion.Euler(targetRot), Time.deltaTime * aimSpeed);
         }
     }
 
@@ -111,6 +141,29 @@ public class GunController : InteractableBase
         {
             SpawnImpact(hit);
         }
+        //recoilOffset = new Vector3(0f, 0f, -recoilAmount); // the gun gets pushed back
+        //        recoilOffset = new Vector3(UnityEngine.Random.Range(-0.05f, 0.05f),UnityEngine.Random.Range(0.05f, 0.1f),-0.3f
+        //);
+        //recoilOffset = new Vector3(Random.Range(-0.05f, 0.05f), Random.Range(-0.05f, 0.05f), -recoilAmount);
+
+        //recoilOffset = -gunTransform.forward * recoilAmount;
+        //recoilOffset = -cam.transform.forward * recoilAmount;
+        
+        Vector3 camBack = -GunSlideTransform.InverseTransformDirection(cam.transform.forward);
+        Vector3 camUp = GunSlideTransform.InverseTransformDirection(cam.transform.up);
+
+        
+       recoilOffset = camBack * recoilAmount;
+
+
+
+
+        // the gun gets pushed back z axis
+        Debug.DrawRay(GunSlideTransform.position, GunSlideTransform.forward * 0.5f, Color.red, 2f);
+
+
+        Debug.Log("Recoil Offset: " + recoilOffset);
+
     }
 
     IEnumerator Reload()
@@ -125,9 +178,7 @@ public class GunController : InteractableBase
             currentAmmoInGun += bulletsToLoad;
             stats.pickedUpAmmo -= bulletsToLoad;
         }
-
         Debug.Log("Reloaded " + " " + currentAmmoInGun);
-
     }
 
     void SpawnImpact(RaycastHit hit)

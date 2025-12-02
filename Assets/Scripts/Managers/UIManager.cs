@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -46,6 +47,9 @@ public class UIManager : MonoBehaviour
             m_canvasGroups[i].alpha = 0.0f;
             m_canvasGroups[i].interactable = false;
         }
+        m_collectibleGroup.blocksRaycasts = false;
+        m_pauseGroup.blocksRaycasts = false;
+        m_notebookGroup.blocksRaycasts = false;
     }
     private void OnEnable()
     {
@@ -97,12 +101,20 @@ public class UIManager : MonoBehaviour
         {
             m_fadeAnimator.FadeIn(m_notebookGroup, 0.5f);
             m_notebookGroup.interactable = true;
+            m_notebookGroup.blocksRaycasts = true;
         }
         else
         {
             m_notebookGroup.interactable = false;
+            m_notebookGroup.blocksRaycasts = false;
             m_fadeAnimator.FadeOut(m_notebookGroup, 0.5f);
         }
+    }
+
+    public void QuitToMenu()
+    {
+        Debug.Log("Loading scene...");
+        SceneManager.LoadScene("System_MainMenu");
     }
 
     private void ExitCollectible()
@@ -127,10 +139,12 @@ public class UIManager : MonoBehaviour
         {
             m_fadeAnimator.FadeIn(m_pauseGroup, 0.5f);
             m_pauseGroup.interactable = true;
+            m_pauseGroup.blocksRaycasts = true;
         }
         else
         {
             m_pauseGroup.interactable = false;
+            m_pauseGroup.blocksRaycasts = false;
             m_fadeAnimator.FadeOut(m_pauseGroup, 0.5f);
         }
     }

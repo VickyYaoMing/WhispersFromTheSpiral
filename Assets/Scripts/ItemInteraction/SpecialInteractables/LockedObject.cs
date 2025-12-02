@@ -16,6 +16,7 @@ public class LockedObject : SecondaryInteractionItem
 
     public override void SecondaryInteraction()
     {
+        if (interactionManager.GetItemInHand() == null) return;
         if (interactionManager.GetItemInHand() != key) return;
         interactionManager.GetItemInHand().GetComponent<Default_Item>().IsInUse = true;
         interactionManager.PlaceItemInHand(Vector3.zero, Quaternion.identity);
