@@ -37,6 +37,7 @@ public class CheckpointManager : MonoBehaviour
         }
         GameManager.Instance.CheckpointManager = this;
         checkpointParent = GameObject.Find("Checkpoints");
+        if(!checkpointParent) checkpointParent = gameObject;
     }
 
     public void RefreshCheckpointList()

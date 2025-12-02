@@ -371,6 +371,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5140497691773068432, guid: 803e0d75da545ea4890a013f9aab5fa0, type: 3}
+      propertyPath: checkpointParent
+      value: 
+      objectReference: {fileID: 738434458}
     - target: {fileID: 900576588246404101, guid: 803e0d75da545ea4890a013f9aab5fa0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.130265
@@ -418,10 +422,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8997886214572261377, guid: 803e0d75da545ea4890a013f9aab5fa0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 343182269}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 803e0d75da545ea4890a013f9aab5fa0, type: 3}
 --- !u!1 &98910618
 GameObject:
@@ -1420,25 +1421,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 936403839}
   m_SourcePrefab: {fileID: 100100000, guid: 09b3b7ef76381934891a19208c2ddb4f, type: 3}
---- !u!1 &343182265 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8997886214572261377, guid: 803e0d75da545ea4890a013f9aab5fa0, type: 3}
-  m_PrefabInstance: {fileID: 86517866}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &343182269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 343182265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e0383801fffc3a4cb772e92458fb8fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkpointPrefab: {fileID: 9139617889882530917, guid: 9de193ce4be1c154d95ac4564b09f17e, type: 3}
-  checkpointParent: {fileID: 738434458}
 --- !u!1 &355079307
 GameObject:
   m_ObjectHideFlags: 0
