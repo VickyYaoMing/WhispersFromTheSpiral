@@ -16,10 +16,12 @@ public class GameMessage : MonoBehaviour
     [SerializeField] float m_duration;
     [SerializeField] MessageType m_type;
     [SerializeField] GameMessageManager PlayerMessageManager;
+
     public AudioClip[] AudioClips;
     public Text Description { get; private set; }
     public string[] DescriptionAsPages { get; private set; }
     public float[] Durations { get; private set; }
+    public bool HasAudio {  get; private set; }
     public MessageType Type { get; private set; }
 
     private bool m_isTriggered;
@@ -39,6 +41,7 @@ public class GameMessage : MonoBehaviour
             {
                 Durations[i] = AudioClips[i].length;
             }
+            HasAudio = true;
         }
         else
         {
@@ -47,6 +50,7 @@ public class GameMessage : MonoBehaviour
             {
                 Durations[i] = m_duration;
             }
+            HasAudio = false;
         }
         m_isTriggered = false;
     }

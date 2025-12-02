@@ -27,6 +27,10 @@ public class ElkDemonAI : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private BehaviorType currentBehavior;
     [SerializeField] private AudioSource elkRoar;
+    [SerializeField] private Animator _animator;
+
+    [Header("Cutscene Attach")]
+    [SerializeField] private Transform _handAttach;
 
     private NavMeshAgent _navAgent;
     private Animator _stateMachine;
@@ -35,6 +39,9 @@ public class ElkDemonAI : MonoBehaviour
     private float _playerLastSeenTime;
     private bool _hasRecentPlayerInfo;
     private int _currentObservationIndex;
+
+
+    public System.Action OnGrabPlayer;
 
     [SerializeField] Vector3 Destination;
 
@@ -49,7 +56,7 @@ public class ElkDemonAI : MonoBehaviour
     public Transform[] PatrolPoints { get { return patrolPoints;  } }
 
 
-    void Start()
+    private void Start()
     {
         _navAgent = GetComponent<NavMeshAgent>();
         _stateMachine = GetComponent<Animator>();
@@ -89,52 +96,39 @@ public class ElkDemonAI : MonoBehaviour
     public bool CanSeePlayer()
     {
         if (player == null)
-        {
-            //Debug.Log("CanSeePlayer: Failed - Player reference is null.");
             return false;
-        }
 
-        Vector3 directionToPlayer = (player.position - transform.position);
-        float distanceToPlayer = directionToPlayer.magnitude;
+        Vector3 toPlayerRaw = player.position - transform.position;
+        float distanceToPlayer = toPlayerRaw.magnitude;
 
         if (distanceToPlayer > sightRange)
-        {
-            //Debug.Log("CanSeePlayer: Failed - Player is too far. Distance: " + distanceToPlayer);
             return false;
-        }
-        else
-        {
-            //Debug.Log("CanSeePlayer: Passed Range Check. Distance: " + distanceToPlayer);
-        }
 
-        float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
-        if (angleToPlayer > sightAngle / 2)
-        {
-            //Debug.Log("CanSeePlayer: Failed - Player is outside FOV. Angle: " + angleToPlayer);
+        float angleToPlayer = Vector3.Angle(transform.forward, toPlayerRaw);
+        if (angleToPlayer > sightAngle * 0.5f)
             return false;
-        }
-        else
-        {
-            //Debug.Log("CanSeePlayer: Passed Angle Check. Angle: " + angleToPlayer);
-        }
 
-        Vector3 rayStartPoint = transform.position + (Vector3.up * eyeHeight);
+        Vector3 rayStart = transform.position + Vector3.up * eyeHeight;
+        Vector3 playerTargetPoint = player.position + Vector3.up * 1.0f;
+
+        // Fix upward direction issue
+        Vector3 toTarget = (playerTargetPoint - rayStart);
+        toTarget.y = Mathf.Clamp(toTarget.y, -0.5f, 0.5f);
+        Vector3 direction = toTarget.normalized;
+
+        float sphereRadius = 0.4f;
         RaycastHit hit;
 
-        // Visualize the ray in the Scene View >:)
-        Debug.DrawRay(rayStartPoint, directionToPlayer.normalized * sightRange, Color.red, 0.1f);
+        Debug.DrawRay(rayStart, direction * sightRange, Color.red, 0.1f);
 
-        if (Physics.Raycast(rayStartPoint, directionToPlayer.normalized, out hit, sightRange, obstructionMask))
+        if (Physics.SphereCast(rayStart, sphereRadius, direction, out hit, sightRange, obstructionMask))
         {
-            //Debug.Log("Vision BLOCKED by: " + hit.collider.gameObject.name + " | Layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer));
-            return false;
+            if (hit.transform != player)
+                return false;
         }
-        else
-        {
-            UpdatePlayerTrackingInfo(player.position, directionToPlayer);
-            //Debug.Log("Vision CLEAR. Can see player! Ray started from: " + rayStartPoint);
-            return true;
-        }
+
+        UpdatePlayerTrackingInfo(player.position, toPlayerRaw);
+        return true;
     }
 
     public bool CanAttackPlayer()
@@ -172,17 +166,70 @@ public class ElkDemonAI : MonoBehaviour
         Debug.Log("Elk Demon got Stunned!");
     }
 
-    // Draw sight range and angle
-    private void OnDrawGizmos()
+// Call this from PlayerGrabController when the grab starts
+public void BeginGrabSequence(PlayerGrabController playerController)
+{
+    // Stop moving and face the player
+    if (_navAgent != null)
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position + Vector3.up * eyeHeight, sightRange);
-
-        Vector3 leftDir = Quaternion.Euler(0, -sightAngle / 2, 0) * transform.forward;
-        Vector3 rightDir = Quaternion.Euler(0, sightAngle / 2, 0) * transform.forward;
-        Gizmos.DrawRay(transform.position + Vector3.up * eyeHeight, leftDir * sightRange);
-        Gizmos.DrawRay(transform.position + Vector3.up * eyeHeight, rightDir * sightRange);
+        _navAgent.isStopped = true;
     }
+
+    // Optional: smoothly rotate to face player
+    Vector3 lookDirection = (playerController.transform.position - transform.position);
+    lookDirection.y = 0f;
+    if (lookDirection.sqrMagnitude > 0.001f)
+    {
+        Quaternion targetRot = Quaternion.LookRotation(lookDirection);
+        transform.rotation = targetRot; // or Slerp for smoothness
+    }
+
+    // Trigger demon animator to play grab animation
+    if (_animator != null)
+        _animator.SetTrigger("GrabPlayer");
+
+    // Optional: If you want the demon to hold the player, you can set up an animation event
+    // in the demon's grab animation that calls ElkDemonAI.OnDemonGrabAttach to parent the player.
+}
+
+// Called by demon animation event (when demon animation reaches the moment where player should be attached)
+public void OnDemonGrabAttach()
+{
+    // Find player grab controller and parent player to demon bone (if desired)
+    var playerGrab = player.GetComponentInParent<PlayerGrabController>();
+    if (playerGrab != null)
+    {
+        // Example: parent player to a demon hand bone (create a bone reference in inspector if needed)
+        // transformOfHand should be set in inspector; here we use a serialized field:
+        if (_handAttach != null)
+        {
+            // Choose a proper local offset (tweak in editor)
+            playerGrab.ParentTo(_handAttach, Vector3.zero, Vector3.zero);
+        }
+    }
+}
+
+// Called by player when cutscene ends so demon can resume
+public void OnPlayerReleased()
+{
+    if (_navAgent != null)
+    {
+        _navAgent.isStopped = false;
+        // optionally set a small cooldown or wander behaviour
+    }
+
+    if (_animator != null)
+    {
+        _animator.ResetTrigger("GrabPlayer");
+    }
+
+    // If you parented the player to hand, unparent
+    var playerGrab = player.GetComponentInParent<PlayerGrabController>();
+    if (playerGrab != null)
+    {
+        playerGrab.Unparent();
+    }
+}
 
     public enum BehaviorType { Roar, Idle }
 
@@ -200,5 +247,17 @@ public class ElkDemonAI : MonoBehaviour
                 _stateMachine.SetTrigger("Idle");
                 break;
         }
+    }
+
+    // Draw sight range and angle
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position + Vector3.up * eyeHeight, sightRange);
+
+        Vector3 leftDir = Quaternion.Euler(0, -sightAngle / 2, 0) * transform.forward;
+        Vector3 rightDir = Quaternion.Euler(0, sightAngle / 2, 0) * transform.forward;
+        Gizmos.DrawRay(transform.position + Vector3.up * eyeHeight, leftDir * sightRange);
+        Gizmos.DrawRay(transform.position + Vector3.up * eyeHeight, rightDir * sightRange);
     }
 }

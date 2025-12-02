@@ -14,9 +14,20 @@ public class SaveSystem
         public PlayerSaveData PlayerData;
         public PlayerInventoryData InventoryData;
         public ItemManagerSaveData ItemManagerSaveData;
+        public CheckpointManagerSaveData CheckpointManagerSaveData;
         public bool hasSaved;
     }
     
+    public static bool CheckForSave()
+    {
+        string saveContent = File.ReadAllText(SaveFileName());
+
+        _saveData = JsonUtility.FromJson<SaveData>(saveContent);
+
+        Debug.Log("Checked for save. Save exists? " + DoesSaveExist());
+        return DoesSaveExist();
+    }
+
     public static string SaveFileName()
     {
         string saveFile = Application.persistentDataPath + "/save" + ".save";
@@ -56,9 +67,10 @@ public class SaveSystem
 
     private static async Task HandleLoadDataAsync()
     {
+        GameManager.Instance.CheckpointManager.Load(_saveData.CheckpointManagerSaveData);
         await GameManager.Instance.Player.Load(_saveData.PlayerData);
         GameManager.Instance.InteractionManager.Load(_saveData.InventoryData);
-        GameManager.Instance.ItemManager.Load(_saveData.ItemManagerSaveData);
+        GameManager.Instance.ItemManager.Load(_saveData.ItemManagerSaveData);   
     }
 
     #endregion
@@ -72,7 +84,7 @@ public class SaveSystem
 
     public static void HandleSaveData()
     {
-        GameManager.Instance.CheckpointManager.Save(ref _saveData.PlayerData);
+        GameManager.Instance.CheckpointManager.Save(ref _saveData.PlayerData, ref _saveData.CheckpointManagerSaveData);
         GameManager.Instance.InteractionManager.Save(ref _saveData.InventoryData);
         GameManager.Instance.ItemManager.Save(ref _saveData.ItemManagerSaveData);
         if (!_saveData.hasSaved)
@@ -97,7 +109,7 @@ public class SaveSystem
             GameManager.Instance.ItemManager.Load(_saveData.ItemManagerSaveData);   
     }
 
-    public bool DoesSaveExist()
+    public static bool DoesSaveExist()
     {
         return _saveData.hasSaved;
     }

@@ -2,6 +2,8 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,17 +13,14 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-#if UNITY_EDITOR
-            if(!Application.isPlaying)
+            if (instance == null)
             {
-                return null;
+                var prefab = Resources.Load<GameManager>("GameManager");
+                if(prefab != null)
+                {
+                    instance = Instantiate(prefab);
+                }
             }
-
-            if(instance == null)
-            {
-                Instantiate(Resources.Load<GameManager>("GameManager"));
-            }
-#endif
             return instance;
         }
     }
@@ -34,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     private bool isSaving;
     private bool isLoading;
+    private bool shouldLoad;
 
     public bool saveExists;
 
@@ -47,9 +47,12 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
+        saveExists = SaveSystem.CheckForSave();
 
     }
     void Start()
@@ -62,15 +65,23 @@ public class GameManager : MonoBehaviour
     {
         if (Keyboard.current.qKey.wasPressedThisFrame)
         {
-            //Save();
+            Save();
             //CheckpointManager.CreateNewCheckpoint(new Vector3(-1.07f, 4.39f, -3.92f)); just a debug to test creating new checkpoints
         }
         if (Keyboard.current.fKey.wasPressedThisFrame) 
         {
-            LoadAsync();
+            //LoadAsync();
             //Load();
         }
+    }
 
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(scene.name == "DemoSceneAct1" && shouldLoad)
+        {
+            StartCoroutine(Wait());
+            shouldLoad = false;
+        }
     }
 
     public void Save()
@@ -93,12 +104,17 @@ public class GameManager : MonoBehaviour
         isSaving = false;
     }
 
-    private async void LoadAsync()
+    public async void LoadAsync()
     {
         isLoading = true;
         await SaveSystem.LoadAsynchronously();
         Debug.Log("Loaded!");
         isLoading = false;
+    }
+
+    public void ShouldLoad(bool should)
+    {
+        shouldLoad = should;
     }
 
     public bool DoesSaveExist()
@@ -109,8 +125,36 @@ public class GameManager : MonoBehaviour
     public bool IsSaving { get { return isSaving; } }
     public bool IsLoading { get { return isLoading; } }
 
+    IEnumerator Wait()
+    {
+        float timeElapsed = 0f;
+
+        while (timeElapsed < 1)
+        {
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        LoadAsync();
+    }
+
+    public void QuitToMenu()
+    {
+        SceneManager.LoadScene("System_MainMenu");
+    }
+
 }
 
+
+
+//Some kind of way to figure out what the current gamestate is?
+public enum GameState
+{
+    Menu,
+    Cutscene,
+    Pause,
+    Gameplay
+}
 public enum GameProgression
 {
     Intro,
