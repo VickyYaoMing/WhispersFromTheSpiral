@@ -503,7 +503,10 @@ Transform:
   m_LocalPosition: {x: -11.942354, y: -16.401306, z: 15.703283}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 747587000}
+  - {fileID: 1762371667}
+  - {fileID: 379331254}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &29521956
@@ -772,22 +775,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 976218623}
     m_Modifications:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_Name
-      value: AnimatedFan (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.086617
       objectReference: {fileID: 0}
@@ -826,6 +813,10 @@ PrefabInstance:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
+      propertyPath: m_Name
+      value: AnimatedFan (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1305,10 +1296,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 738791524}
     m_Modifications:
-    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
-      propertyPath: m_Name
-      value: FlickeringFan (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.207373
@@ -1348,6 +1335,10 @@ PrefabInstance:
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
+      propertyPath: m_Name
+      value: FlickeringFan (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2266,22 +2257,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 976218623}
     m_Modifications:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_Name
-      value: AnimatedFan (5)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.5866165
       objectReference: {fileID: 0}
@@ -2320,6 +2295,10 @@ PrefabInstance:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
+      propertyPath: m_Name
+      value: AnimatedFan (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2559,10 +2538,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 738791524}
     m_Modifications:
-    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
-      propertyPath: m_Name
-      value: FlickeringFan
-      objectReference: {fileID: 0}
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -13.45606
@@ -2602,6 +2577,10 @@ PrefabInstance:
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
+      propertyPath: m_Name
+      value: FlickeringFan
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4368,22 +4347,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 976218623}
     m_Modifications:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_Name
-      value: AnimatedFan (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 46.23677
       objectReference: {fileID: 0}
@@ -4422,6 +4385,10 @@ PrefabInstance:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
+      propertyPath: m_Name
+      value: AnimatedFan (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5759,7 +5726,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 18725058}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8803dd837d005f346a4640d2660d4e16, type: 3}
       propertyPath: m_LocalScale.x
@@ -5775,15 +5742,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8803dd837d005f346a4640d2660d4e16, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -34.04
+      value: -22.097647
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8803dd837d005f346a4640d2660d4e16, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.65
+      value: 11.751307
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8803dd837d005f346a4640d2660d4e16, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 22.83
+      value: 7.1267166
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8803dd837d005f346a4640d2660d4e16, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5904,6 +5871,11 @@ MonoBehaviour:
   aboveZoomClose: 1.1
   canBePlacedUpon: 0
   placementArea: {x: 0, y: 0, z: 0}
+--- !u!4 &379331254 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8803dd837d005f346a4640d2660d4e16, type: 3}
+  m_PrefabInstance: {fileID: 379331249}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &381950880
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6944,10 +6916,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 976218623}
     m_Modifications:
-    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
-      propertyPath: m_Name
-      value: FlickeringFan (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.319138
@@ -6988,6 +6956,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
+      propertyPath: m_Name
+      value: FlickeringFan (1)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7001,22 +6973,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 738791524}
     m_Modifications:
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_Name
-      value: AnimatedFan (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.9264545
@@ -7056,6 +7012,10 @@ PrefabInstance:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
+      propertyPath: m_Name
+      value: AnimatedFan (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7772,22 +7732,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 976218623}
     m_Modifications:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_Name
-      value: AnimatedFan
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 22.93795
       objectReference: {fileID: 0}
@@ -7826,6 +7770,10 @@ PrefabInstance:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
+      propertyPath: m_Name
+      value: AnimatedFan
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8291,22 +8239,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 976218623}
     m_Modifications:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_Name
-      value: AnimatedFan (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.5866165
       objectReference: {fileID: 0}
@@ -8345,6 +8277,10 @@ PrefabInstance:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
+      propertyPath: m_Name
+      value: AnimatedFan (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8723,10 +8659,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 738791524}
     m_Modifications:
-    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
-      propertyPath: m_Name
-      value: FlickeringFan (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -27.47032
@@ -8766,6 +8698,10 @@ PrefabInstance:
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
+      propertyPath: m_Name
+      value: FlickeringFan (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10256,10 +10192,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 976218623}
     m_Modifications:
-    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
-      propertyPath: m_Name
-      value: FlickeringFan (4)
-      objectReference: {fileID: 0}
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.186615
@@ -10299,6 +10231,10 @@ PrefabInstance:
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
+      propertyPath: m_Name
+      value: FlickeringFan (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11143,52 +11079,16 @@ PrefabInstance:
       value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -0.137
-      objectReference: {fileID: 0}
-    - target: {fileID: 7296828313516217948, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_Name
-      value: AnimatedFlickeringFan
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.9843483
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 113.96435
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 89.41253
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071063
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071063
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.0008456912
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.0008456909
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296828313516217948, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
+      propertyPath: m_Name
+      value: AnimatedFlickeringFan
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11841,7 +11741,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 18725058}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a304baff9ae4dbc44aae95e16448ac44, type: 3}
       propertyPath: m_LocalScale.x
@@ -11857,15 +11757,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a304baff9ae4dbc44aae95e16448ac44, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -41.585
+      value: -29.642645
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a304baff9ae4dbc44aae95e16448ac44, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.007
+      value: 11.394306
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a304baff9ae4dbc44aae95e16448ac44, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 22.125
+      value: 6.4217167
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a304baff9ae4dbc44aae95e16448ac44, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11986,6 +11886,11 @@ MonoBehaviour:
   aboveZoomClose: 1.1
   canBePlacedUpon: 0
   placementArea: {x: 0, y: 0, z: 0}
+--- !u!4 &747587000 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a304baff9ae4dbc44aae95e16448ac44, type: 3}
+  m_PrefabInstance: {fileID: 747586995}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &750028899
 GameObject:
   m_ObjectHideFlags: 0
@@ -13056,22 +12961,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 738791524}
     m_Modifications:
     - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 7296828313516217948, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_Name
-      value: AnimatedFlickeringFan (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -27.438715
       objectReference: {fileID: 0}
@@ -13110,6 +12999,10 @@ PrefabInstance:
     - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296828313516217948, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
+      propertyPath: m_Name
+      value: AnimatedFlickeringFan (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16432,22 +16325,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 738791524}
     m_Modifications:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_Name
-      value: AnimatedFan (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -33.4376
       objectReference: {fileID: 0}
@@ -16486,6 +16363,10 @@ PrefabInstance:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
+      propertyPath: m_Name
+      value: AnimatedFan (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17443,10 +17324,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 976218623}
     m_Modifications:
-    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
-      propertyPath: m_Name
-      value: FlickeringFan (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.686615
@@ -17486,6 +17363,10 @@ PrefabInstance:
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
+      propertyPath: m_Name
+      value: FlickeringFan (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18812,22 +18693,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 976218623}
     m_Modifications:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_Name
-      value: AnimatedFan (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 25.704933
       objectReference: {fileID: 0}
@@ -18866,6 +18731,10 @@ PrefabInstance:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
+      propertyPath: m_Name
+      value: AnimatedFan (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25693,22 +25562,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 976218623}
     m_Modifications:
     - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 7296828313516217948, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_Name
-      value: AnimatedFlickeringFan (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 50.33985
       objectReference: {fileID: 0}
@@ -25747,6 +25600,10 @@ PrefabInstance:
     - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296828313516217948, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
+      propertyPath: m_Name
+      value: AnimatedFlickeringFan (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25831,22 +25688,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 738791524}
     m_Modifications:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
-      propertyPath: m_Name
-      value: AnimatedFan
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -17.834562
       objectReference: {fileID: 0}
@@ -25885,6 +25726,10 @@ PrefabInstance:
     - target: {fileID: 6781640070843685411, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856545277532829882, guid: 6670488068c6b624ea774c90d8b40da7, type: 3}
+      propertyPath: m_Name
+      value: AnimatedFan
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -26809,10 +26654,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 976218623}
     m_Modifications:
-    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
-      propertyPath: m_Name
-      value: FlickeringFan (5)
-      objectReference: {fileID: 0}
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.663452
@@ -26852,6 +26693,10 @@ PrefabInstance:
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
+      propertyPath: m_Name
+      value: FlickeringFan (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27065,7 +26910,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 18725058}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4110565d5a0a8df4c81cf497352270b2, type: 3}
       propertyPath: m_LocalScale.x
@@ -27081,15 +26926,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4110565d5a0a8df4c81cf497352270b2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -90.727
+      value: -78.784645
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4110565d5a0a8df4c81cf497352270b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.576
+      value: 11.825306
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4110565d5a0a8df4c81cf497352270b2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 37.577
+      value: 21.873716
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4110565d5a0a8df4c81cf497352270b2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -27214,6 +27059,11 @@ MonoBehaviour:
   aboveZoomClose: 1.1
   canBePlacedUpon: 0
   placementArea: {x: 0, y: 0, z: 0}
+--- !u!4 &1762371667 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4110565d5a0a8df4c81cf497352270b2, type: 3}
+  m_PrefabInstance: {fileID: 1762371662}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1764584248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27222,10 +27072,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 976218623}
     m_Modifications:
-    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
-      propertyPath: m_Name
-      value: FlickeringFan
-      objectReference: {fileID: 0}
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 33.99451
@@ -27265,6 +27111,10 @@ PrefabInstance:
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
+      propertyPath: m_Name
+      value: FlickeringFan
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -31428,10 +31278,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 976218623}
     m_Modifications:
-    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
-      propertyPath: m_Name
-      value: FlickeringFan (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.9866257
@@ -31471,6 +31317,10 @@ PrefabInstance:
     - target: {fileID: 7632358565538736855, guid: 129efa997deefd84599b532f182fa32f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775006084045500137, guid: 129efa997deefd84599b532f182fa32f, type: 3}
+      propertyPath: m_Name
+      value: FlickeringFan (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -31674,22 +31524,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 976218623}
     m_Modifications:
     - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 7296828313516217948, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
-      propertyPath: m_Name
-      value: AnimatedFlickeringFan (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 46.05246
       objectReference: {fileID: 0}
@@ -31728,6 +31562,10 @@ PrefabInstance:
     - target: {fileID: 5327573362560568762, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296828313516217948, guid: 0329317ef9fe2214dbc48b74984f3ee4, type: 3}
+      propertyPath: m_Name
+      value: AnimatedFlickeringFan (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -128460,6 +128298,3 @@ SceneRoots:
   - {fileID: 580950646}
   - {fileID: 1739797109}
   - {fileID: 18725058}
-  - {fileID: 747586995}
-  - {fileID: 1762371662}
-  - {fileID: 379331249}
