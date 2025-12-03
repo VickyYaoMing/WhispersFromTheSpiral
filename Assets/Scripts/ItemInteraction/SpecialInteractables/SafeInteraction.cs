@@ -76,7 +76,7 @@ public class SafeInteraction : InteractableBase
 
             if (Physics.Raycast(rayItem, out hitItem, rayHitDistance, interactMask))
             {
-                if (hitItem.collider.gameObject.CompareTag("ItemInsideSafe"))
+                if (hitItem.collider.gameObject.CompareTag("Summoning_Puzzle"))
                 {
                     returnGameObject.SetActive(false);
                     interactionManager.OnPickUp(returnGameObject);
