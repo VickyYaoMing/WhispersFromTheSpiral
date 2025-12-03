@@ -27,6 +27,7 @@ public class toolKindaScript : MonoBehaviour
         {
             placeableItems.Add(child.gameObject);
         }
+
     }
     //hope all items in a room has hitboxes
     void Start()
@@ -34,7 +35,8 @@ public class toolKindaScript : MonoBehaviour
 
         //how many should be chosen this time// might have to alter range
         hitbox = GetComponent<Collider>();
-
+        chosenItems = RandomizedList(amountOfChosenItems);
+        Place();
 
     }
     /// <summary>
@@ -201,8 +203,7 @@ public class toolKindaScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
            
-            chosenItems = RandomizedList(amountOfChosenItems);
-            Place();
+           
         }
     }
 
