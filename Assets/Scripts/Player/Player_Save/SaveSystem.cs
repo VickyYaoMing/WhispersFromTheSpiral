@@ -20,6 +20,11 @@ public class SaveSystem
     
     public static bool CheckForSave()
     {
+        if(SaveFileName() == null)
+        {
+            Debug.Log("No save file found");
+            return false;
+        }
         string saveContent = File.ReadAllText(SaveFileName());
 
         _saveData = JsonUtility.FromJson<SaveData>(saveContent);
