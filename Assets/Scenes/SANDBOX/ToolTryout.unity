@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 88210630}
   m_Layer: 0
   m_Name: onTable
-  m_TagString: Untagged
+  m_TagString: ToolTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1290,7 +1290,7 @@ GameObject:
   - component: {fileID: 866735512}
   m_Layer: 0
   m_Name: wallCollider
-  m_TagString: Untagged
+  m_TagString: ToolTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1540,7 +1540,7 @@ GameObject:
   - component: {fileID: 998072563}
   m_Layer: 0
   m_Name: floorCollider
-  m_TagString: Untagged
+  m_TagString: ToolTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
