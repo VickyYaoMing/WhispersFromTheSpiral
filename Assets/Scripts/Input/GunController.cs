@@ -140,6 +140,7 @@ public class GunController : InteractableBase
         if (Physics.Raycast(ray, out RaycastHit hit, stats.range, layerMask, QueryTriggerInteraction.Ignore))
         {
             SpawnImpact(hit);
+            TryStunEnemy(hit);
         }
         //recoilOffset = new Vector3(0f, 0f, -recoilAmount); // the gun gets pushed back
         //        recoilOffset = new Vector3(UnityEngine.Random.Range(-0.05f, 0.05f),UnityEngine.Random.Range(0.05f, 0.1f),-0.3f
@@ -164,6 +165,40 @@ public class GunController : InteractableBase
 
         Debug.Log("Recoil Offset: " + recoilOffset);
 
+    }
+
+    private void TryStunEnemy(RaycastHit hit)
+    {
+        // Check if we hit an enemy with ElkDemonAI
+        ElkDemonAI elkDemon = hit.collider.GetComponent<ElkDemonAI>();
+
+        if (elkDemon == null)
+        {
+            // Try parent or root if not on direct collider
+            elkDemon = hit.collider.GetComponentInParent<ElkDemonAI>();
+        }
+
+        if (elkDemon != null)
+        {
+            Debug.Log($"Hit Elk Demon at: {hit.point}, on collider: {hit.collider.name}");
+
+            // Optional: Check if it's a valid stun (not already stunned, not grabbing)
+            if (!elkDemon.IsGrabbingPlayer)
+            {
+                elkDemon.GetStunned();
+
+                // Visual feedback
+                if (hitEffectPrefab != null)
+                {
+                    var fx = Instantiate(hitEffectPrefab, hit.point, Quaternion.LookRotation(hit.normal));
+                    Destroy(fx, 2f);
+                }
+            }
+            else
+            {
+                Debug.Log("Cannot stun while demon is grabbing player");
+            }
+        }
     }
 
     IEnumerator Reload()
