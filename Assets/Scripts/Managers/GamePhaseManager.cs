@@ -6,8 +6,16 @@ using UnityEngine.Audio;
 [DisallowMultipleComponent]
 public class GamePhaseManager : MonoBehaviour
 {
-    Sanity sanity;
+    public GamePhaseManager Instance { get; private set; }
+    public Sanity sanity;
     public bool keepRelativeOnChange = true;
+    void Awake()
+    {
+        if (sanity == null)
+        {
+            sanity = FindAnyObjectByType<Sanity>();
+        }
+    }
 
     public void SetPhase(int index)
     {
