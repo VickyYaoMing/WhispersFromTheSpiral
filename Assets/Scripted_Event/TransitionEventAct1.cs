@@ -4,7 +4,7 @@ using UnityEngine;
 public class TransitionEventAct1 : MonoBehaviour
 {
     private Rigidbody m_body;
-    private float m_fallPower = 10000;
+    private float m_fallPower = 100;
 
     #region Unity Method
     private void Start()

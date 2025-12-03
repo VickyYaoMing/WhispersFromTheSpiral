@@ -44,7 +44,7 @@ public class GunController : InteractableBase
 
     void Start()
     {
-        currentAmmoInGun = stats.maxAmmo;
+        currentAmmoInGun = 5;
 
         // Hide the cursor for immersion
         Cursor.lockState = CursorLockMode.Locked;
