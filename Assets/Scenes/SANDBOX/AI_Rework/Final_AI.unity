@@ -6508,6 +6508,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Demon
       objectReference: {fileID: 0}
+    - target: {fileID: 1065004193543513424, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 2756012791499241304, guid: 05af358512b45d24089d451b7964909e, type: 3}
       propertyPath: m_Radius
       value: 0.3
@@ -6515,13 +6519,44 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1065004193543513424, guid: 05af358512b45d24089d451b7964909e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 489528458}
   m_SourcePrefab: {fileID: 100100000, guid: 05af358512b45d24089d451b7964909e, type: 3}
 --- !u!95 &489528456 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 8837868684694107753, guid: 05af358512b45d24089d451b7964909e, type: 3}
   m_PrefabInstance: {fileID: 489528455}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &489528457 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1065004193543513424, guid: 05af358512b45d24089d451b7964909e, type: 3}
+  m_PrefabInstance: {fileID: 489528455}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &489528458
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489528457}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &490369392
 GameObject:
   m_ObjectHideFlags: 0
