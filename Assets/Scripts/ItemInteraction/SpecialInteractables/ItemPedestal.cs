@@ -105,8 +105,10 @@ public class ItemPedestal : SecondaryInteractionItem
 
     void SwapItems(Default_Item item, Default_Item playerItem)
     {
-        PlaceItemUsingColliderBounds(playerItem.gameObject);
         TakeItemFromPedestal(item);
+
+        PlaceItemUsingColliderBounds(playerItem.gameObject);
+
         itemOnPedestal = playerItem;
     }
 

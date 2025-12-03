@@ -26,7 +26,10 @@ public class SafeInteraction : InteractableBase
         interactionManager = GameManager.Instance.InteractionManager;
         itemShouldBeCameraLocked = true;
         code = new int[4];
-        returnGameObject.SetActive(false);
+        if(returnGameObject != null)
+        {
+            returnGameObject.SetActive(false);
+        }
     }
    
     private void Update()
@@ -76,7 +79,7 @@ public class SafeInteraction : InteractableBase
 
             if (Physics.Raycast(rayItem, out hitItem, rayHitDistance, interactMask))
             {
-                if (hitItem.collider.gameObject.CompareTag("Summoning_Puzzle"))
+                if (hitItem.collider.gameObject.CompareTag("ItemInsideSafe"))
                 {
                     returnGameObject.SetActive(false);
                     interactionManager.OnPickUp(returnGameObject);
@@ -100,7 +103,10 @@ public class SafeInteraction : InteractableBase
             animator.SetBool("IsNumActive", false);
             animator.SetTrigger("OpenSafe");
             safeOpened = true;
-            returnGameObject.SetActive(true);
+            if(returnGameObject != null)
+            {
+                returnGameObject.SetActive(true);
+            }
         }
         else
         {
