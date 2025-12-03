@@ -52,6 +52,7 @@ public class MainMenuNavigation : MonoBehaviour
         m_optionsCanvasGroup.blocksRaycasts = false;
         m_creditsCanvasGroup.blocksRaycasts = false;
         m_fadeAnimator.FadeIn(m_mainCanvasGroup, 2f);
+        Cursor.lockState = CursorLockMode.Confined;
     }
     #endregion
 
