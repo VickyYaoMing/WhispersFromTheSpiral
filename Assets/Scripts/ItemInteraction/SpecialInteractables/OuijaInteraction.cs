@@ -6,7 +6,7 @@ using System.Collections;
 public class OuijaInteraction : InteractableBase
 {
     [SerializeField] private List<GameObject> anchors;
-    [SerializeField] private TMP_Text inputText;
+    [SerializeField] private TextMeshProUGUI inputText;
 
     private PlanchetteInteraction planchette;
     private KeyCode[] allKeys;
@@ -19,7 +19,7 @@ public class OuijaInteraction : InteractableBase
         itemShouldBeCameraLocked = true;
         planchette = GetComponentInChildren<PlanchetteInteraction>();
         allKeys = (KeyCode[])System.Enum.GetValues(typeof(KeyCode));
-        this.enabled = false;
+        enabled = false;
     }
 
     public void Update()
