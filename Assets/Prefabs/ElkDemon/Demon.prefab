@@ -122,15 +122,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -36.599
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -6.026
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -22.79
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_LocalRotation.w
@@ -294,20 +294,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 2
   attackAngleThreshold: 0.7
-  moveSpeed: 1
-  huntSpeed: 1.5
-  maxAnimSpeed: 6
+  moveSpeed: 1.5
+  huntSpeed: 4
+  maxAnimSpeed: 2.5
   sightRange: 15
   sightAngle: 360
   obstructionMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 33555200
   eyeHeight: 1
+  grabOffset: {x: 1, y: 1, z: 1}
+  throwAngle: 15
   patrolPoints: []
   observationPoints: []
   player: {fileID: 0}
   currentBehavior: 0
   elkRoar: {fileID: 4240682144957534593}
+  _animator: {fileID: 7632643052807057722}
+  canTeleportAfterGrab: 1
+  teleportMinDistance: 10
+  teleportMaxDistance: 25
+  teleportVFXPrefab: {fileID: 0}
+  teleportSound: {fileID: 0}
+  teleportCooldown: 5
+  minDistanceFromPlayer: 8
+  _handAttach: {fileID: 0}
+  grabLocalOffset: {x: 0, y: 0, z: 0.5}
+  grabRotationOffset: {x: 0, y: 0, z: 0}
+  canBeStunned: 1
+  stunCooldown: 5
+  Destination: {x: 0, y: 0, z: 0}
 --- !u!114 &7047561757618068723
 MonoBehaviour:
   m_ObjectHideFlags: 0
