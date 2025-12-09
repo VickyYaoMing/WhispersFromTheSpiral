@@ -33760,7 +33760,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.33333334
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 268efb9dd9f38314593385c112db5927, type: 2}
   m_BuildHeightMesh: 0
@@ -49537,6 +49537,9 @@ MonoBehaviour:
   aboveZoomClose: 1.1
   canBePlacedUpon: 0
   placementArea: {x: 0, y: 0, z: 0}
+  recoilAmount: 0.1
+  recoilSpeed: 5
+  ammoText: {fileID: 0}
   stats: {fileID: 11400000, guid: 2c9d75e8b48d45843be1ce9dae78ba2c, type: 2}
   muzzle: {fileID: 1111104906}
   cam: {fileID: 440878104}
@@ -49547,7 +49550,7 @@ MonoBehaviour:
   normalFOV: 60
   aimFOV: 40
   aimSpeed: 10
-  gunTransform: {fileID: 0}
+  GunSlideTransform: {fileID: 0}
   hipPosition: {x: 0, y: 0, z: 0}
   hipRotation: {x: 0, y: 0, z: 0}
   aimPosition: {x: 0, y: -0.01, z: 0.1}
@@ -51081,6 +51084,9 @@ MonoBehaviour:
   aboveZoomClose: 1.1
   canBePlacedUpon: 0
   placementArea: {x: 0, y: 0, z: 0}
+  recoilAmount: 0.1
+  recoilSpeed: 5
+  ammoText: {fileID: 0}
   stats: {fileID: 11400000, guid: 2c9d75e8b48d45843be1ce9dae78ba2c, type: 2}
   muzzle: {fileID: 1111104906}
   cam: {fileID: 440878104}
@@ -51091,7 +51097,7 @@ MonoBehaviour:
   normalFOV: 60
   aimFOV: 40
   aimSpeed: 10
-  gunTransform: {fileID: 0}
+  GunSlideTransform: {fileID: 0}
   hipPosition: {x: 0.01, y: -0.02, z: 0}
   hipRotation: {x: 0, y: 0, z: 0}
   aimPosition: {x: 0, y: -0.01, z: 0.1}
