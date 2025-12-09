@@ -44,6 +44,8 @@ namespace Assets.Scripts.AudioSystem
         SFX_Violin_Harmonic,
         SFX_DemoBreathing,
         SFX_MonsterRoar,
+        SFX_FallingObject,
+        SFX_ThudNoise
 
         // // --- Voice overs / events (if they are VO lines) ---
         // VO_FirstTest,
