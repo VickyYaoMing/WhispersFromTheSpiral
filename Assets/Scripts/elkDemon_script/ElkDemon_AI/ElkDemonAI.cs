@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using Assets.Scripts.AudioSystem;
 
 [RequireComponent(typeof(Animator))]
 public class ElkDemonAI : MonoBehaviour
@@ -31,7 +32,7 @@ public class ElkDemonAI : MonoBehaviour
     [SerializeField] private Transform[] observationPoints;
     [SerializeField] private Transform player;
     [SerializeField] private BehaviorType currentBehavior;
-    [SerializeField] private AudioSource elkRoar;
+    // [SerializeField] private AudioSource elkRoar;
     [SerializeField] private Animator _animator;
 
     [Header("Teleport Settings")]
@@ -52,6 +53,12 @@ public class ElkDemonAI : MonoBehaviour
     [SerializeField] private bool canBeStunned = true;
     [SerializeField] private float stunCooldown = 5f;
     private float lastStunTime = -999f;
+    [Header("Sounds")]
+    [SerializeField] private SoundType screamSound;
+    [SerializeField] private float screamCooldown = 10f;
+    private float _lastScreamTime = -999f;
+    private bool _playerVisibleLastFrame = false;
+    //
 
     private NavMeshAgent _navAgent;
     private Animator _stateMachine;
@@ -139,15 +146,24 @@ public class ElkDemonAI : MonoBehaviour
         if (player == null || _isGrabbingPlayer)
             return false;
 
+        //new
+        bool canSee = false;
+
         Vector3 toPlayerRaw = player.position - transform.position;
         float distanceToPlayer = toPlayerRaw.magnitude;
 
         if (distanceToPlayer > sightRange)
+        {
+            _playerVisibleLastFrame = false;
             return false;
+        }
 
         float angleToPlayer = Vector3.Angle(transform.forward, toPlayerRaw);
         if (angleToPlayer > sightAngle * 0.5f)
+        {
+            _playerVisibleLastFrame = false;
             return false;
+        }
 
         Vector3 rayStart = transform.position + Vector3.up * eyeHeight;
         Vector3 playerTargetPoint = player.position + Vector3.up * 1.0f;
@@ -164,10 +180,20 @@ public class ElkDemonAI : MonoBehaviour
         if (Physics.SphereCast(rayStart, sphereRadius, direction, out hit, sightRange, obstructionMask))
         {
             if (hit.transform != player)
+            {
+                _playerVisibleLastFrame = false;
                 return false;
+            }
         }
-
+        canSee = true;
         UpdatePlayerTrackingInfo(player.position, toPlayerRaw);
+
+        //Scream logic 
+        if (canSee && !_playerVisibleLastFrame)
+        {
+            TryPlaySightScream();
+        }
+        _playerVisibleLastFrame = canSee;
         return true;
     }
 
@@ -618,7 +644,7 @@ public class ElkDemonAI : MonoBehaviour
         switch (newBehavior)
         {
             case BehaviorType.Roar:
-                elkRoar.Play();
+                SoundManager.PlayAt(screamSound, transform.position, 1f);
                 break;
             case BehaviorType.Idle:
                 _stateMachine.SetTrigger("Idle");
@@ -640,6 +666,16 @@ public class ElkDemonAI : MonoBehaviour
         {
             ForceReleasePlayer();
         }
+    }
+    private void TryPlaySightScream()
+    {
+        if (Time.time < _lastScreamTime + screamCooldown)
+        {
+            return;
+        }
+        _lastScreamTime = Time.time;
+        SoundManager.PlayAt(screamSound, transform.position, 1f);
+        Debug.Log("Elk is screaming RAHHHH");
     }
 
     private void OnDrawGizmos()

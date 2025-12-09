@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7d0a135718364ca45b47f33e6ab2f6f1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -39.88
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d0a135718364ca45b47f33e6ab2f6f1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.63
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d0a135718364ca45b47f33e6ab2f6f1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -18.395
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d0a135718364ca45b47f33e6ab2f6f1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -202,7 +202,6 @@ MonoBehaviour:
   observationPoints: []
   player: {fileID: 0}
   currentBehavior: 0
-  elkRoar: {fileID: 0}
   _animator: {fileID: 8837868684694107753}
   canTeleportAfterGrab: 1
   teleportMinDistance: 20
@@ -216,6 +215,8 @@ MonoBehaviour:
   grabRotationOffset: {x: 0, y: 0, z: 0}
   canBeStunned: 1
   stunCooldown: 5
+  screamSound: 0
+  screamCooldown: 10
   Destination: {x: 0, y: 0, z: 0}
 --- !u!195 &2756012791499241304
 NavMeshAgent:

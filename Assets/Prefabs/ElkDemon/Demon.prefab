@@ -30,76 +30,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6213767349117250653}
-  - {fileID: 1168028707427531799}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &4206258691340509904
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 7794734533956426072}
-    m_Modifications:
-    - target: {fileID: 3056266385579384519, guid: d76e7a12257e99140901dd591b599e4a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -7.925
-      objectReference: {fileID: 0}
-    - target: {fileID: 3056266385579384519, guid: d76e7a12257e99140901dd591b599e4a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.755
-      objectReference: {fileID: 0}
-    - target: {fileID: 3056266385579384519, guid: d76e7a12257e99140901dd591b599e4a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 19.618
-      objectReference: {fileID: 0}
-    - target: {fileID: 3056266385579384519, guid: d76e7a12257e99140901dd591b599e4a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3056266385579384519, guid: d76e7a12257e99140901dd591b599e4a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3056266385579384519, guid: d76e7a12257e99140901dd591b599e4a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3056266385579384519, guid: d76e7a12257e99140901dd591b599e4a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3056266385579384519, guid: d76e7a12257e99140901dd591b599e4a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3056266385579384519, guid: d76e7a12257e99140901dd591b599e4a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3056266385579384519, guid: d76e7a12257e99140901dd591b599e4a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7939252199903902638, guid: d76e7a12257e99140901dd591b599e4a, type: 3}
-      propertyPath: m_Name
-      value: AudioRoar
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d76e7a12257e99140901dd591b599e4a, type: 3}
---- !u!4 &1168028707427531799 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3056266385579384519, guid: d76e7a12257e99140901dd591b599e4a, type: 3}
-  m_PrefabInstance: {fileID: 4206258691340509904}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &4240682144957534593 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 37801274947220305, guid: d76e7a12257e99140901dd591b599e4a, type: 3}
-  m_PrefabInstance: {fileID: 4206258691340509904}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5886491711675337654
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -309,7 +241,6 @@ MonoBehaviour:
   observationPoints: []
   player: {fileID: 0}
   currentBehavior: 0
-  elkRoar: {fileID: 4240682144957534593}
   _animator: {fileID: 7632643052807057722}
   canTeleportAfterGrab: 1
   teleportMinDistance: 10
@@ -323,6 +254,8 @@ MonoBehaviour:
   grabRotationOffset: {x: 0, y: 0, z: 0}
   canBeStunned: 1
   stunCooldown: 5
+  screamSound: 0
+  screamCooldown: 10
   Destination: {x: 0, y: 0, z: 0}
 --- !u!114 &7047561757618068723
 MonoBehaviour:
