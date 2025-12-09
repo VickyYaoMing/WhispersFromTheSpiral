@@ -1,3 +1,4 @@
+using Assets.Scripts.AudioSystem;
 using UnityEngine;
 
 public class DoorInteraction : MonoBehaviour
@@ -10,7 +11,7 @@ public class DoorInteraction : MonoBehaviour
     private Transform selectedDoor;
     private GameObject dragPointGameobject;
     private int leftDoor = 0;
-    
+
     void Update()
     {
         //Raycast
@@ -21,16 +22,18 @@ public class DoorInteraction : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 selectedDoor = hit.collider.gameObject.transform;
-                
+
                 if (selectedDoor.parent.GetComponentInParent<LockedObject>() != null)
                 {
                     doorLock = selectedDoor.parent.GetComponentInParent<LockedObject>();
                     Debug.Log(doorLock);
+
                 }
 
                 //If door is locked, run secondary interaction
                 if (doorLock != null && doorLock.Locked)
                 {
+                    SoundManager.PlayAt(SoundType.SFX_DoorTryOpen, transform.position, 1f);
                     doorLock.SecondaryInteraction();
                 }
             }

@@ -25,6 +25,9 @@ namespace Assets.Scripts.AudioSystem
         Amb_WhisperVoices,
         Amb_RandomNoise,
         SFX_PlayerSteps,
+        Amb_OldTV_Loop,
+        Amb_Ominous_Loop2,
+        Amb_Eerie_Loop,
 
         // --- Whips / Stingers / Instruments ---
         SFX_Piano_MenacingThumps,
