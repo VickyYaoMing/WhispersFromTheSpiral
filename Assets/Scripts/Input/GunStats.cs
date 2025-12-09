@@ -9,13 +9,13 @@ public class GunStats : ScriptableObject
 {
     [Header("General")]
     public FireMode fireMode = FireMode.Single;     // Fire mode: Single or Automatic
-    public readonly int maxAmmo = 20;                        // Magazine capacity
+    public readonly int maxAmmo = 10;                        // Magazine capacity
     public float fireRate = 0.25f;                  // Time between shots
     public float reloadTime = 1.5f;                 // Time to reload
     public float damage = 10f;                      // Damage per shot
     public float range = 50f;                       // Max raycast distance
     public int pickedUpAmmo = 0;
-    private int ammoCrateAmount = 5; //How much each ammo crate is worth
+    private int ammoCrateAmount = 2; //How much each ammo crate is worth
 
     [Header("Effects")]
     public GameObject muzzleFlashPrefab;            // Muzzle flash effect

@@ -48,6 +48,11 @@ public class ElkDemonAI : MonoBehaviour
     [SerializeField] private Vector3 grabLocalOffset = new Vector3(0, 0, 0.5f);
     [SerializeField] private Vector3 grabRotationOffset = new Vector3(0, 0, 0);
 
+    [Header("Stun Settings")]
+    [SerializeField] private bool canBeStunned = true;
+    [SerializeField] private float stunCooldown = 5f;
+    private float lastStunTime = -999f;
+
     private NavMeshAgent _navAgent;
     private Animator _stateMachine;
     private PlayerGrabController playerGrab;
@@ -201,6 +206,14 @@ public class ElkDemonAI : MonoBehaviour
 
     public void GetStunned()
     {
+        // Check cooldown and conditions
+        if (!canBeStunned || Time.time < lastStunTime + stunCooldown)
+            return;
+
+        // Don't stun if grabbing player
+        if (_isGrabbingPlayer)
+            return;
+
         _stateMachine.SetTrigger("Stunned");
 
         if (_isGrabbingPlayer)
@@ -208,6 +221,7 @@ public class ElkDemonAI : MonoBehaviour
             ForceReleasePlayer();
         }
 
+        lastStunTime = Time.time;
         Debug.Log("Elk Demon got Stunned!");
     }
 
@@ -302,9 +316,9 @@ public class ElkDemonAI : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Cannot throw - playerGrab is null or not grabbing!");
-            if (playerGrab == null) Debug.LogError("playerGrab is null!");
-            if (!_isGrabbingPlayer) Debug.LogError("Not grabbing player!");
+            Debug.Log("Cannot throw - playerGrab is null or not grabbing!");
+            if (playerGrab == null) Debug.Log("playerGrab is null!");
+            if (!_isGrabbingPlayer) Debug.Log("Not grabbing player!");
         }
     }
 
