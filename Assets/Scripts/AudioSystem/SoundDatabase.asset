@@ -292,3 +292,15 @@ MonoBehaviour:
     maxDistance: 1
     rolloffMode: 0
     loop: 1
+  - type: 28
+    clips:
+    - {fileID: 8300000, guid: e5f3922b347b5524382a35ba3a111465, type: 3}
+    mixerGroup: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
+    baseVolume: 0.7
+    minPitch: 0.75
+    maxPitch: 1.25
+    spatial: 1
+    spatialBlend: 1
+    maxDistance: 3.5
+    rolloffMode: 0
+    loop: 0
