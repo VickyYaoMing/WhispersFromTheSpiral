@@ -100,7 +100,7 @@ MonoBehaviour:
     maxDistance: 1
     rolloffMode: 0
     loop: 0
-  - type: 14
+  - type: 18
     clips:
     - {fileID: 8300000, guid: 7e6eac321857d6044a4dc463fd7db113, type: 3}
     mixerGroup: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
@@ -112,7 +112,7 @@ MonoBehaviour:
     maxDistance: 1
     rolloffMode: 0
     loop: 0
-  - type: 15
+  - type: 19
     clips:
     - {fileID: 8300000, guid: ec653666577aed04495c8697d5d150fe, type: 3}
     mixerGroup: {fileID: 7413692854867692767, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
@@ -124,7 +124,7 @@ MonoBehaviour:
     maxDistance: 1
     rolloffMode: 0
     loop: 0
-  - type: 16
+  - type: 20
     clips:
     - {fileID: 8300000, guid: 693f7f6aaf061304a9f1b1f6a58c2b80, type: 3}
     mixerGroup: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
@@ -136,7 +136,7 @@ MonoBehaviour:
     maxDistance: 1
     rolloffMode: 0
     loop: 0
-  - type: 17
+  - type: 21
     clips:
     - {fileID: 8300000, guid: 3cfd3ee883e47e844be48f214464f0ee, type: 3}
     mixerGroup: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
@@ -148,7 +148,7 @@ MonoBehaviour:
     maxDistance: 1
     rolloffMode: 0
     loop: 0
-  - type: 18
+  - type: 22
     clips:
     - {fileID: 8300000, guid: 1dd885e8959ad324f9417cfca6ce4bf8, type: 3}
     mixerGroup: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
@@ -160,7 +160,7 @@ MonoBehaviour:
     maxDistance: 1
     rolloffMode: 0
     loop: 0
-  - type: 19
+  - type: 23
     clips:
     - {fileID: 8300000, guid: 515e387851668a840b144b2b1395b9b9, type: 3}
     mixerGroup: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
@@ -172,7 +172,7 @@ MonoBehaviour:
     maxDistance: 1
     rolloffMode: 0
     loop: 0
-  - type: 20
+  - type: 24
     clips:
     - {fileID: 8300000, guid: a9898b4ef9a6d3f46837f0a98de994fa, type: 3}
     mixerGroup: {fileID: 7413692854867692767, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
@@ -184,7 +184,7 @@ MonoBehaviour:
     maxDistance: 1
     rolloffMode: 0
     loop: 0
-  - type: 21
+  - type: 25
     clips:
     - {fileID: 8300000, guid: de785a3501e64df49b96d6fc5455bc14, type: 3}
     mixerGroup: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
@@ -196,7 +196,7 @@ MonoBehaviour:
     maxDistance: 1
     rolloffMode: 0
     loop: 0
-  - type: 22
+  - type: 26
     clips:
     - {fileID: 8300000, guid: 083e829a6443627499d4ab4a93062eb8, type: 3}
     mixerGroup: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
@@ -208,7 +208,7 @@ MonoBehaviour:
     maxDistance: 1
     rolloffMode: 0
     loop: 0
-  - type: 23
+  - type: 27
     clips:
     - {fileID: 8300000, guid: 0c43f647e72e70f4f9bdc3956fab9e86, type: 3}
     mixerGroup: {fileID: 7413692854867692767, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
@@ -220,10 +220,10 @@ MonoBehaviour:
     maxDistance: 1
     rolloffMode: 0
     loop: 0
-  - type: 24
+  - type: 28
     clips:
     - {fileID: 8300000, guid: d57ed69802104754596987ec40aab259, type: 3}
-    mixerGroup: {fileID: 7413692854867692767, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
+    mixerGroup: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
     baseVolume: 0.2
     minPitch: 0.95
     maxPitch: 1.05
@@ -292,7 +292,7 @@ MonoBehaviour:
     maxDistance: 1
     rolloffMode: 0
     loop: 1
-  - type: 28
+  - type: 29
     clips:
     - {fileID: 8300000, guid: e5f3922b347b5524382a35ba3a111465, type: 3}
     mixerGroup: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
@@ -302,5 +302,17 @@ MonoBehaviour:
     spatial: 1
     spatialBlend: 1
     maxDistance: 3.5
+    rolloffMode: 0
+    loop: 0
+  - type: 17
+    clips:
+    - {fileID: 8300000, guid: 91668edea778e8a45a9ad69613a675d4, type: 3}
+    mixerGroup: {fileID: 7413692854867692767, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
+    baseVolume: 0.7
+    minPitch: 1
+    maxPitch: 1
+    spatial: 1
+    spatialBlend: 1
+    maxDistance: 4
     rolloffMode: 0
     loop: 0
