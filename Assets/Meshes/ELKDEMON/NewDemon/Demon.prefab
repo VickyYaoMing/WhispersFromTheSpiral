@@ -138,6 +138,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2756012791499241304}
   m_SourcePrefab: {fileID: 100100000, guid: 7d0a135718364ca45b47f33e6ab2f6f1, type: 3}
+--- !u!4 &152612366358761808 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7035059682806097, guid: 7d0a135718364ca45b47f33e6ab2f6f1, type: 3}
+  m_PrefabInstance: {fileID: 146031061392644097}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1065004193543513424 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d0a135718364ca45b47f33e6ab2f6f1, type: 3}
@@ -152,7 +157,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065004193543513424}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 7d0a135718364ca45b47f33e6ab2f6f1, type: 3}
+  m_Avatar: {fileID: 9000000, guid: bda738b64d8f7c44f88e69523df3225c, type: 3}
   m_Controller: {fileID: 9100000, guid: 56aa091f026826443adc474a733763b5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -179,22 +184,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 2
   attackAngleThreshold: 0.7
-  moveSpeed: 3
-  huntSpeed: 5
-  maxAnimSpeed: 6
-  sightRange: 15
-  sightAngle: 270
+  moveSpeed: 1.25
+  huntSpeed: 4
+  maxAnimSpeed: 2.25
+  sightRange: 30
+  sightAngle: 340
   obstructionMask:
     serializedVersion: 2
     m_Bits: 512
   eyeHeight: 1.5
+  grabOffset: {x: 0, y: 1.5, z: 1}
+  throwAngle: 15
   patrolPoints: []
   observationPoints: []
   player: {fileID: 0}
   currentBehavior: 0
   elkRoar: {fileID: 0}
-  _animator: {fileID: 0}
-  _handAttach: {fileID: 0}
+  _animator: {fileID: 8837868684694107753}
+  _handAttach: {fileID: 152612366358761808}
+  grabLocalOffset: {x: 0, y: 0, z: 0.5}
+  grabRotationOffset: {x: 0, y: 0, z: 0}
   Destination: {x: 0, y: 0, z: 0}
 --- !u!195 &2756012791499241304
 NavMeshAgent:
@@ -204,9 +213,9 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065004193543513424}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -1372625422
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
