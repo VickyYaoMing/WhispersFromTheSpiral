@@ -10,7 +10,7 @@ public class PatrolState : StateMachineBehaviour
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (_elkDemon == null)
+        if(_elkDemon == null)
         {
             _elkDemon = animator.GetComponent<ElkDemonAI>();
         }
@@ -18,7 +18,6 @@ public class PatrolState : StateMachineBehaviour
         _agent = _elkDemon.GetComponent<NavMeshAgent>();
         _timeAtCurrentDestination = 0f;
 
-        // Set new destination
         _currentDestination = GetRandomPatrolPoint();
         _elkDemon.MoveTowards(_currentDestination, _elkDemon.MoveSpeed);
 
@@ -31,51 +30,45 @@ public class PatrolState : StateMachineBehaviour
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (_elkDemon == null || _agent == null) return;
-
+        
         _timeAtCurrentDestination += Time.deltaTime;
 
-        // Check if we can see player
         if (_elkDemon.CanSeePlayer())
         {
             animator.SetTrigger("PlayerSpotted");
             return;
         }
 
-        // Check if we've reached destination or been stuck too long
         if (!_agent.pathPending && _agent.remainingDistance < 0.5f)
         {
-            // Find new destination
             _currentDestination = GetRandomPatrolPoint();
             _elkDemon.MoveTowards(_currentDestination, _elkDemon.MoveSpeed);
             _timeAtCurrentDestination = 0f;
         }
-        else if (_timeAtCurrentDestination > 10f) // Prevent getting stuck
+        else if (_timeAtCurrentDestination > 10f) 
         {
             _currentDestination = GetRandomPatrolPoint();
             _elkDemon.MoveTowards(_currentDestination, _elkDemon.MoveSpeed);
             _timeAtCurrentDestination = 0f;
         }
 
-        // Debug visualization
         Debug.DrawLine(_elkDemon.transform.position, _agent.destination, Color.green);
     }
 
     private Vector3 GetRandomPatrolPoint()
     {
-        // Use patrol points if available
         if (_elkDemon.PatrolPoints != null && _elkDemon.PatrolPoints.Length > 0)
         {
             int randomIndex = Random.Range(0, _elkDemon.PatrolPoints.Length);
             return _elkDemon.PatrolPoints[randomIndex].position;
         }
-
-        // Fallback to random NavMesh point
+        
         return GetCenteredRandomNavMeshPoint(15f);
     }
 
     private Vector3 GetCenteredRandomNavMeshPoint(float radius)
     {
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 30; i++) 
         {
             Vector3 randomDir = Random.insideUnitSphere * radius;
             randomDir += _elkDemon.transform.position;
@@ -89,7 +82,7 @@ public class PatrolState : StateMachineBehaviour
 
         return _elkDemon.transform.position;
     }
-
+    
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.ResetTrigger("PlayerSpotted");

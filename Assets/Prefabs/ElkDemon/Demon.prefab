@@ -236,25 +236,25 @@ MonoBehaviour:
     m_Bits: 33555200
   eyeHeight: 1
   grabOffset: {x: 1, y: 1, z: 1}
-  throwAngle: 15
+  throwAngle: 10
   patrolPoints: []
   observationPoints: []
   player: {fileID: 0}
   currentBehavior: 0
   _animator: {fileID: 7632643052807057722}
   canTeleportAfterGrab: 1
-  teleportMinDistance: 10
-  teleportMaxDistance: 25
+  teleportMinDistance: 30
+  teleportMaxDistance: 40
   teleportVFXPrefab: {fileID: 0}
   teleportSound: {fileID: 0}
   teleportCooldown: 5
-  minDistanceFromPlayer: 8
+  minDistanceFromPlayer: 30
   _handAttach: {fileID: 0}
   grabLocalOffset: {x: 0, y: 0, z: 0.5}
   grabRotationOffset: {x: 0, y: 0, z: 0}
   canBeStunned: 1
   stunCooldown: 5
-  screamSound: 0
+  screamSound: 28
   screamCooldown: 10
   Destination: {x: 0, y: 0, z: 0}
 --- !u!114 &7047561757618068723

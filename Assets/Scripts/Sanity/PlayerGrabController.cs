@@ -11,13 +11,13 @@ public class PlayerGrabController : MonoBehaviour
 
     [Header("Grab Settings")]
     [SerializeField] private float disableControlTime = 1.5f;
-    [SerializeField] private float throwForce = 8f; // REDUCED - much lower force
-    [SerializeField] private float verticalForce = 4f; // REDUCED
+    [SerializeField] private float throwForce = 8f;
+    [SerializeField] private float verticalForce = 4f; 
     [SerializeField] private float grabFollowSpeed = 8f;
 
     [Header("Collision Safety")]
-    [SerializeField] private float maxMoveDistance = 1f; // Maximum move per frame
-    [SerializeField] private LayerMask obstacleLayers = ~0; // All layers by default
+    [SerializeField] private float maxMoveDistance = 1f;
+    [SerializeField] private LayerMask obstacleLayers = ~0; 
 
     private enum GrabState { None, Grabbed, Thrown }
     private GrabState currentState = GrabState.None;
@@ -38,14 +38,13 @@ public class PlayerGrabController : MonoBehaviour
         currentState = GrabState.Grabbed;
         grabber = grabberTransform;
 
-        // Force player to face the demon
+       
         ForceFaceDemon();
 
-        // Set local offset for maintaining position
-        // Player should be 1.5 units in front of demon
+        // Set local offset to maintaining position
+        // Units in front of demon
         localGrabOffset = new Vector3(0, 0, 1.5f); // Directly in front
 
-        // Immediately position the player correctly
         ForcePositionInFrontOfDemon();
 
         if (movement != null)
@@ -72,25 +71,21 @@ public class PlayerGrabController : MonoBehaviour
     {
         if (grabber == null) return;
 
-        // Calculate position 1.5 units directly in front of demon
         Vector3 idealPosition = grabber.position + (grabber.forward * 1.5f);
-        idealPosition.y = transform.position.y; // Keep current height
+        idealPosition.y = transform.position.y; 
 
-        // Check if position is blocked
         if (!WouldCollide(idealPosition))
         {
             transform.position = idealPosition;
         }
         else
         {
-            // Try alternative positions if blocked
             TryAlternativePositions(idealPosition);
         }
     }
 
     private void TryAlternativePositions(Vector3 idealPosition)
     {
-        // Try positions around the demon
         float[] distances = { 1.2f, 1.0f, 1.8f };
         float[] angles = { 0f, 15f, -15f, 30f, -30f };
 
@@ -104,7 +99,6 @@ public class PlayerGrabController : MonoBehaviour
 
                 if (!WouldCollide(testPosition))
                 {
-                    // Adjust local offset for this position
                     Vector3 localPos = grabber.InverseTransformPoint(testPosition);
                     localGrabOffset = localPos;
                     transform.position = testPosition;
@@ -114,7 +108,6 @@ public class PlayerGrabController : MonoBehaviour
             }
         }
 
-        // If all else fails, use the ideal position (might clip)
         transform.position = idealPosition;
         Debug.LogWarning("Using ideal position despite potential collision");
     }
@@ -123,22 +116,17 @@ public class PlayerGrabController : MonoBehaviour
     {
         if (grabber == null) return;
 
-        // Always force player to look at demon
         ForceFaceDemon();
 
-        // Calculate target position in front of demon
         Vector3 targetPosition = grabber.TransformPoint(localGrabOffset);
 
-        // Smooth movement to maintain position
         Vector3 moveDirection = (targetPosition - transform.position);
 
-        // Limit movement per frame
         if (moveDirection.magnitude > maxMoveDistance)
         {
             moveDirection = moveDirection.normalized * maxMoveDistance;
         }
 
-        // Move towards target
         SafeMove(moveDirection * grabFollowSpeed * Time.deltaTime);
     }
 
@@ -152,7 +140,6 @@ public class PlayerGrabController : MonoBehaviour
 
         Debug.Log($"Throw direction: {throwDirection}");
 
-        // Start the safe throw coroutine
         StartCoroutine(SafeThrowCoroutine());
     }
 
@@ -165,19 +152,15 @@ public class PlayerGrabController : MonoBehaviour
         {
             timer -= Time.deltaTime;
 
-            // Apply gravity
             velocity.y -= Physics.gravity.y * Time.deltaTime;
 
-            // Calculate movement for this frame
             Vector3 frameMovement = velocity * Time.deltaTime;
 
-            // Ensure we don't move too far in one frame
             if (frameMovement.magnitude > maxMoveDistance)
             {
                 frameMovement = frameMovement.normalized * maxMoveDistance;
             }
 
-            // Use safe movement that respects collisions
             SafeMove(frameMovement);
 
             yield return null;
@@ -190,22 +173,18 @@ public class PlayerGrabController : MonoBehaviour
     {
         if (characterController != null && characterController.enabled)
         {
-            // CharacterController.Move already has collision detection
             characterController.Move(movement);
         }
         else
         {
-            // Manual collision checking as fallback
             Vector3 newPosition = transform.position + movement;
 
-            // Check if the new position is valid
             if (!WouldCollide(newPosition))
             {
                 transform.position = newPosition;
             }
             else
             {
-                // If we would collide, stop the throw
                 Debug.Log("Throw stopped due to collision");
                 EndGrab();
             }
@@ -214,7 +193,6 @@ public class PlayerGrabController : MonoBehaviour
 
     private bool WouldCollide(Vector3 newPosition)
     {
-        // Check if moving to new position would cause collision
         float checkRadius = 0.4f;
         float checkHeight = 1.8f;
         Vector3 checkCenter = newPosition + Vector3.up * (checkHeight / 2f);
@@ -286,7 +264,6 @@ public class PlayerGrabController : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        // This gets called when CharacterController hits something
         if (currentState == GrabState.Thrown)
         {
             Debug.Log($"Player hit {hit.gameObject.name} during throw - stopping throw");
