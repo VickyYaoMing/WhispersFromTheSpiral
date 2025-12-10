@@ -146,54 +146,61 @@ public class ElkDemonAI : MonoBehaviour
         if (player == null || _isGrabbingPlayer)
             return false;
 
-        //new
-        bool canSee = false;
+        Vector3 toPlayer = player.position - transform.position;
+        float distanceToPlayer = toPlayer.magnitude;
 
-        Vector3 toPlayerRaw = player.position - transform.position;
-        float distanceToPlayer = toPlayerRaw.magnitude;
-
+        // Distance check
         if (distanceToPlayer > sightRange)
         {
             _playerVisibleLastFrame = false;
             return false;
         }
 
-        float angleToPlayer = Vector3.Angle(transform.forward, toPlayerRaw);
+        // Angle check
+        float angleToPlayer = Vector3.Angle(transform.forward, toPlayer.normalized);
         if (angleToPlayer > sightAngle * 0.5f)
         {
             _playerVisibleLastFrame = false;
             return false;
         }
 
-        Vector3 rayStart = transform.position + Vector3.up * eyeHeight;
-        Vector3 playerTargetPoint = player.position + Vector3.up * 1.0f;
+        // Line of sight check with improved raycasting
+        Vector3 eyePosition = transform.position + Vector3.up * eyeHeight;
+        Vector3 playerCenter = player.position + Vector3.up * 1.0f; // Aim at player's chest
 
-        Vector3 toTarget = (playerTargetPoint - rayStart);
-        toTarget.y = Mathf.Clamp(toTarget.y, -0.5f, 0.5f);
-        Vector3 direction = toTarget.normalized;
-
-        float sphereRadius = 0.4f;
+        // Check for obstructions
         RaycastHit hit;
+        Vector3 direction = (playerCenter - eyePosition).normalized;
+        float checkDistance = Mathf.Min(distanceToPlayer, sightRange);
 
-        Debug.DrawRay(rayStart, direction * sightRange, Color.red, 0.1f);
-
-        if (Physics.SphereCast(rayStart, sphereRadius, direction, out hit, sightRange, obstructionMask))
+        // Use a thinner ray for more precise detection (was using SphereCast with radius 0.4)
+        if (Physics.Raycast(eyePosition, direction, out hit, checkDistance, obstructionMask))
         {
-            if (hit.transform != player)
+            // Check if we hit the player or something else
+            if (hit.transform != player && !hit.transform.IsChildOf(player))
             {
                 _playerVisibleLastFrame = false;
                 return false;
             }
         }
-        canSee = true;
-        UpdatePlayerTrackingInfo(player.position, toPlayerRaw);
 
-        //Scream logic 
-        if (canSee && !_playerVisibleLastFrame)
+        // Additional check: make sure player isn't too far above/below
+        float heightDifference = Mathf.Abs(player.position.y - transform.position.y);
+        if (heightDifference > 3f) // Adjust this value based on your game
+        {
+            _playerVisibleLastFrame = false;
+            return false;
+        }
+
+        UpdatePlayerTrackingInfo(player.position, toPlayer);
+
+        // Scream logic 
+        if (!_playerVisibleLastFrame)
         {
             TryPlaySightScream();
         }
-        _playerVisibleLastFrame = canSee;
+
+        _playerVisibleLastFrame = true;
         return true;
     }
 
@@ -568,14 +575,10 @@ public class ElkDemonAI : MonoBehaviour
         if (teleportVFXPrefab != null)
         {
             GameObject vfx = Instantiate(teleportVFXPrefab, transform.position, Quaternion.identity);
-            Destroy(vfx, 2f); // Clean up after 2 seconds
+            Destroy(vfx, 2f);
         }
 
-        // You could also:
-        // - Play particle effects
-        // - Screen shake
-        // - Flash effect
-        // - Distortion shader
+
     }
 
     private void SetVisibility(bool isVisible)
@@ -587,21 +590,18 @@ public class ElkDemonAI : MonoBehaviour
             renderer.enabled = isVisible;
         }
 
-        // Disable/enable collider during teleport (optional)
         Collider collider = GetComponent<Collider>();
         if (collider != null)
         {
             collider.enabled = isVisible;
         }
 
-        // Stop/start NavAgent during teleport
         if (_navAgent != null)
         {
             _navAgent.isStopped = !isVisible;
         }
     }
 
-    // Debug visualization for teleport range
     private void OnDrawGizmosSelected()
     {
         if (player != null)
@@ -617,7 +617,6 @@ public class ElkDemonAI : MonoBehaviour
         }
     }
 
-    // Force release player (for stuns, damage, etc.)
     public void ForceReleasePlayer()
     {
         if (_isGrabbingPlayer && playerGrab != null)
@@ -680,15 +679,27 @@ public class ElkDemonAI : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (!Application.isPlaying) return;
+
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position + Vector3.up * eyeHeight, sightRange);
+        Vector3 eyePos = transform.position + Vector3.up * eyeHeight;
+        Gizmos.DrawWireSphere(eyePos, sightRange);
 
-        Vector3 leftDir = Quaternion.Euler(0, -sightAngle / 2, 0) * transform.forward;
-        Vector3 rightDir = Quaternion.Euler(0, sightAngle / 2, 0) * transform.forward;
-        Gizmos.DrawRay(transform.position + Vector3.up * eyeHeight, leftDir * sightRange);
-        Gizmos.DrawRay(transform.position + Vector3.up * eyeHeight, rightDir * sightRange);
+        Quaternion leftRot = Quaternion.Euler(0, -sightAngle / 2, 0);
+        Quaternion rightRot = Quaternion.Euler(0, sightAngle / 2, 0);
 
-        // Draw grab range
+        Vector3 leftDir = leftRot * transform.forward;
+        Vector3 rightDir = rightRot * transform.forward;
+
+        Gizmos.DrawRay(eyePos, leftDir * sightRange);
+        Gizmos.DrawRay(eyePos, rightDir * sightRange);
+
+        if (CanSeePlayer())
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(eyePos, player.position + Vector3.up * 1.0f);
+        }
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
