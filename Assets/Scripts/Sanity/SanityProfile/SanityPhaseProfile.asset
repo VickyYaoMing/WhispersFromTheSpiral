@@ -28,12 +28,12 @@ MonoBehaviour:
     lensDistAtMin: 0
     dofEnabled: 0
     dofAperturef: 0
-    allowHallucinationSpawn: 0
-    baseInterval: 8
-    minInterval: 2
+    allowHallucinationSpawn: 1
+    baseInterval: 3
+    minInterval: 10
     maxActive: 2
-    minRadius: 6
-    maxRadius: 16
+    minRadius: 2
+    maxRadius: 5
   - id: s_Phase1
     maxSanityCap: 0.8
     vignetteBase: 0.1
