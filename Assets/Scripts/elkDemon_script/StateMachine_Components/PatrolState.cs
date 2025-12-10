@@ -5,6 +5,8 @@ public class PatrolState : StateMachineBehaviour
 {
     private ElkDemonAI _elkDemon;
     private NavMeshAgent _agent;
+    private float _timeAtCurrentDestination;
+    private Vector3 _currentDestination;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -14,11 +16,12 @@ public class PatrolState : StateMachineBehaviour
         }
 
         _agent = _elkDemon.GetComponent<NavMeshAgent>();
+        _timeAtCurrentDestination = 0f;
 
-        Vector3 wanderTarget = GetCenteredRandomNavMeshPoint(10f);
-        _elkDemon.MoveTowards(wanderTarget, _elkDemon.MoveSpeed);
+        _currentDestination = GetRandomPatrolPoint();
+        _elkDemon.MoveTowards(_currentDestination, _elkDemon.MoveSpeed);
 
-        Debug.Log("Entered patrol state");
+        Debug.Log("Entered patrol state - Moving to: " + _currentDestination);
 
         animator.SetBool("IsHunting", false);
         animator.SetFloat("Speed", _elkDemon.MoveSpeed);
@@ -26,38 +29,41 @@ public class PatrolState : StateMachineBehaviour
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //if (!_agent.pathPending && _agent.remainingDistance < 1f)
-        //{
-        //    _elkDemon.StopMoving();
-        //
-        //    animator.SetTrigger("Patrol");
-        //
-        //    animator.SetTrigger("LookAround");
-        //}
-
-        // DEBUG: Draw the path
-        if (_agent.hasPath)
-        {
-            for (int i = 0; i < _agent.path.corners.Length - 1; i++)
-            {
-                Debug.DrawLine(_agent.path.corners[i], _agent.path.corners[i + 1], Color.white);
-            }
-        }
-
-        // DEBUG: Show current destination
-        Debug.DrawLine(_elkDemon.transform.position, _agent.destination, Color.green);
-
-        if (!_elkDemon.GetComponent<NavMeshAgent>().pathPending && _elkDemon.GetComponent<NavMeshAgent>().remainingDistance < 0.5f)
-        {
-            //_currentPatrolIndex = Random.Range(0, _patrolRoutes.Length);
-            Vector3 newTarget = GetCenteredRandomNavMeshPoint(100f);
-            _elkDemon.MoveTowards(newTarget, _elkDemon.MoveSpeed);
-        }
+        if (_elkDemon == null || _agent == null) return;
+        
+        _timeAtCurrentDestination += Time.deltaTime;
 
         if (_elkDemon.CanSeePlayer())
         {
             animator.SetTrigger("PlayerSpotted");
+            return;
         }
+
+        if (!_agent.pathPending && _agent.remainingDistance < 0.5f)
+        {
+            _currentDestination = GetRandomPatrolPoint();
+            _elkDemon.MoveTowards(_currentDestination, _elkDemon.MoveSpeed);
+            _timeAtCurrentDestination = 0f;
+        }
+        else if (_timeAtCurrentDestination > 10f) 
+        {
+            _currentDestination = GetRandomPatrolPoint();
+            _elkDemon.MoveTowards(_currentDestination, _elkDemon.MoveSpeed);
+            _timeAtCurrentDestination = 0f;
+        }
+
+        Debug.DrawLine(_elkDemon.transform.position, _agent.destination, Color.green);
+    }
+
+    private Vector3 GetRandomPatrolPoint()
+    {
+        if (_elkDemon.PatrolPoints != null && _elkDemon.PatrolPoints.Length > 0)
+        {
+            int randomIndex = Random.Range(0, _elkDemon.PatrolPoints.Length);
+            return _elkDemon.PatrolPoints[randomIndex].position;
+        }
+        
+        return GetCenteredRandomNavMeshPoint(15f);
     }
 
     private Vector3 GetCenteredRandomNavMeshPoint(float radius)
@@ -67,15 +73,18 @@ public class PatrolState : StateMachineBehaviour
             Vector3 randomDir = Random.insideUnitSphere * radius;
             randomDir += _elkDemon.transform.position;
 
-            if (NavMesh.SamplePosition(randomDir, out NavMeshHit hit, radius, NavMesh.AllAreas))
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(randomDir, out hit, radius, NavMesh.AllAreas))
             {
-                if (hit.distance > 1.0f) 
-                {
-                    return hit.position;
-                }
+                return hit.position;
             }
         }
 
         return _elkDemon.transform.position;
+    }
+    
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        animator.ResetTrigger("PlayerSpotted");
     }
 }

@@ -105,17 +105,17 @@ public class ElkDemonAI : MonoBehaviour
 
     private void Update()
     {
-        // If we're grabbing player, make sure we stay stopped
         if (_isGrabbingPlayer && _navAgent != null && _navAgent.isActiveAndEnabled)
         {
             _navAgent.isStopped = true;
         }
 
+
     }
 
     public void MoveTowards(Vector3 targetPosition, float currentSpeed)
     {
-        if (_navAgent == null || _isGrabbingPlayer) return; // Don't move while grabbing
+        if (_navAgent == null || _isGrabbingPlayer) return; 
 
         _navAgent.speed = currentSpeed;
         _navAgent.SetDestination(targetPosition);
@@ -128,7 +128,6 @@ public class ElkDemonAI : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * 8f);
         }
 
-        // Normalize speed and update animator
         float normalizedSpeed = Mathf.Clamp01(currentSpeed / maxAnimSpeed);
         _stateMachine.SetFloat("Speed", normalizedSpeed, 0.2f, Time.deltaTime);
     }
@@ -146,11 +145,8 @@ public class ElkDemonAI : MonoBehaviour
         if (player == null || _isGrabbingPlayer)
             return false;
 
-        //new
-        bool canSee = false;
-
-        Vector3 toPlayerRaw = player.position - transform.position;
-        float distanceToPlayer = toPlayerRaw.magnitude;
+        Vector3 toPlayer = player.position - transform.position;
+        float distanceToPlayer = toPlayer.magnitude;
 
         if (distanceToPlayer > sightRange)
         {
@@ -158,42 +154,45 @@ public class ElkDemonAI : MonoBehaviour
             return false;
         }
 
-        float angleToPlayer = Vector3.Angle(transform.forward, toPlayerRaw);
+        float angleToPlayer = Vector3.Angle(transform.forward, toPlayer.normalized);
         if (angleToPlayer > sightAngle * 0.5f)
         {
             _playerVisibleLastFrame = false;
             return false;
         }
 
-        Vector3 rayStart = transform.position + Vector3.up * eyeHeight;
-        Vector3 playerTargetPoint = player.position + Vector3.up * 1.0f;
+        Vector3 eyePosition = transform.position + Vector3.up * eyeHeight;
+        Vector3 playerCenter = player.position + Vector3.up * 1.0f; 
 
-        Vector3 toTarget = (playerTargetPoint - rayStart);
-        toTarget.y = Mathf.Clamp(toTarget.y, -0.5f, 0.5f);
-        Vector3 direction = toTarget.normalized;
-
-        float sphereRadius = 0.4f;
         RaycastHit hit;
+        Vector3 direction = (playerCenter - eyePosition).normalized;
+        float checkDistance = Mathf.Min(distanceToPlayer, sightRange);
 
-        Debug.DrawRay(rayStart, direction * sightRange, Color.red, 0.1f);
-
-        if (Physics.SphereCast(rayStart, sphereRadius, direction, out hit, sightRange, obstructionMask))
+        if (Physics.Raycast(eyePosition, direction, out hit, checkDistance, obstructionMask))
         {
-            if (hit.transform != player)
+            if (hit.transform != player && !hit.transform.IsChildOf(player))
             {
                 _playerVisibleLastFrame = false;
                 return false;
             }
         }
-        canSee = true;
-        UpdatePlayerTrackingInfo(player.position, toPlayerRaw);
 
-        //Scream logic 
-        if (canSee && !_playerVisibleLastFrame)
+        float heightDifference = Mathf.Abs(player.position.y - transform.position.y);
+        if (heightDifference > 3f)
+        {
+            _playerVisibleLastFrame = false;
+            return false;
+        }
+
+        UpdatePlayerTrackingInfo(player.position, toPlayer);
+
+        // Scream logic 
+        if (!_playerVisibleLastFrame)
         {
             TryPlaySightScream();
         }
-        _playerVisibleLastFrame = canSee;
+
+        _playerVisibleLastFrame = true;
         return true;
     }
 
@@ -214,6 +213,8 @@ public class ElkDemonAI : MonoBehaviour
     {
         if (CanAttackPlayer() && playerGrab != null && !playerGrab.IsGrabbed)
         {
+            if (_isGrabbingPlayer) return;
+
             animator.SetTrigger("Attack");
 
             playerGrab.StartGrab(transform, transform.position);
@@ -232,11 +233,10 @@ public class ElkDemonAI : MonoBehaviour
 
     public void GetStunned()
     {
-        // Check cooldown and conditions
         if (!canBeStunned || Time.time < lastStunTime + stunCooldown)
             return;
 
-        // Don't stun if grabbing player
+        // Do not stun if grabbing 
         if (_isGrabbingPlayer)
             return;
 
@@ -260,17 +260,14 @@ public class ElkDemonAI : MonoBehaviour
 
         _isGrabbingPlayer = true;
 
-        // Force demon to face player
+        // Face to face
         ForceDemonToFacePlayer();
 
-        // Force player to face demon
         ForcePlayerToFaceDemon();
 
         if (_animator != null)
             _animator.SetTrigger("Grabbed");
 
-        // Just pass demon's transform and position
-        // The PlayerGrabController will handle the positioning
         playerGrab.StartGrab(transform, transform.position);
 
         OnGrabPlayer?.Invoke();
@@ -293,17 +290,14 @@ public class ElkDemonAI : MonoBehaviour
     {
         if (player == null) return;
 
-        // Position player directly in front of demon
         Vector3 playerPosition = transform.position + (transform.forward * 1.5f);
-        playerPosition.y = player.position.y; // Keep player's current height
+        playerPosition.y = player.position.y; 
 
-        // Check if position is clear
         if (!IsPositionBlocked(playerPosition))
         {
             player.position = playerPosition;
         }
 
-        // Make player look at demon
         Vector3 directionToDemon = transform.position - player.position;
         directionToDemon.y = 0;
 
@@ -323,7 +317,7 @@ public class ElkDemonAI : MonoBehaviour
         return Physics.CheckCapsule(bottom, top, checkRadius, obstructionMask);
     }
 
-    // Called when throw should happen in animation
+    // Called throw should happen in animation (Event)
     public void OnPlayerThrow()
     {
         if (playerGrab != null && _isGrabbingPlayer)
@@ -348,35 +342,64 @@ public class ElkDemonAI : MonoBehaviour
         }
     }
 
+    //private Vector3 CalculateThrowDirection()
+    //{
+    //    // Method 1: Forward with upward angle (your current approach)
+    //    Vector3 baseDirection = transform.forward;
+    //    Quaternion upwardRotation = Quaternion.Euler(throwAngle, 0, 0);
+    //    Vector3 finalDirection = upwardRotation * baseDirection;
+
+    //    // Method 2: Away from demon (often more reliable)
+    //    if (player != null)
+    //    {
+    //        Vector3 awayFromDemon = (player.position - transform.position).normalized;
+    //        awayFromDemon.y = 0.3f; // Keep some upward component
+    //        awayFromDemon = awayFromDemon.normalized;
+
+    //        Debug.Log($"Away direction: {awayFromDemon}");
+    //        return awayFromDemon;
+    //    }
+
+    //    return finalDirection.normalized;
+    //}
+
     private Vector3 CalculateThrowDirection()
     {
-        // Method 1: Forward with upward angle (your current approach)
-        Vector3 baseDirection = transform.forward;
-        Quaternion upwardRotation = Quaternion.Euler(throwAngle, 0, 0);
-        Vector3 finalDirection = upwardRotation * baseDirection;
-
-        // Method 2: Away from demon (often more reliable)
         if (player != null)
         {
-            Vector3 awayFromDemon = (player.position - transform.position).normalized;
-            awayFromDemon.y = 0.3f; // Keep some upward component
-            awayFromDemon = awayFromDemon.normalized;
+            Vector3 toPlayer = (player.position - transform.position);
 
-            Debug.Log($"Away direction: {awayFromDemon}");
-            return awayFromDemon;
+            Vector3 horizontalDirection = new Vector3(toPlayer.x, 0, toPlayer.z).normalized;
+
+            if (horizontalDirection == Vector3.zero)
+            {
+                horizontalDirection = transform.forward;
+            }
+
+            float angleInRadians = Mathf.Deg2Rad * throwAngle;
+            float horizontalMagnitude = Mathf.Cos(angleInRadians);
+            float verticalMagnitude = Mathf.Sin(angleInRadians);
+
+            Vector3 finalDirection = (horizontalDirection * horizontalMagnitude) + (Vector3.up * verticalMagnitude);
+            finalDirection = finalDirection.normalized;
+
+            Debug.Log($"Throw direction: {finalDirection}");
+            return finalDirection;
         }
 
-        return finalDirection.normalized;
+        Vector3 baseDirection = transform.forward;
+        Quaternion upwardRotation = Quaternion.Euler(throwAngle, 0, 0);
+        return (upwardRotation * baseDirection).normalized;
     }
 
-    private Vector3 CalculateThrowDirectionAway()
-    {
-        if (player == null) return transform.forward;
+    //private Vector3 CalculateThrowDirectionAway()
+    //{
+    //    if (player == null) return transform.forward;
 
-        Vector3 directionFromDemon = (player.position - transform.position).normalized;
-        directionFromDemon.y = 0.3f;
-        return directionFromDemon.normalized;
-    }
+    //    Vector3 directionFromDemon = (player.position - transform.position).normalized;
+    //    directionFromDemon.y = 0.3f;
+    //    return directionFromDemon.normalized;
+    //}
 
     public void OnPlayerReleased()
     {
@@ -399,11 +422,9 @@ public class ElkDemonAI : MonoBehaviour
 
     private bool CanTeleport()
     {
-        // Check cooldown
         if (Time.time < lastTeleportTime + teleportCooldown)
             return false;
 
-        // Don't teleport if already teleporting
         if (isTeleporting)
             return false;
 
@@ -418,7 +439,7 @@ public class ElkDemonAI : MonoBehaviour
         PlayTeleportEffects(false); // Teleport out effects
 
         // Step 2: Brief delay before disappearing
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.2f);
 
         // Step 3: Disable renderer and collider temporarily
         SetVisibility(false);
@@ -455,23 +476,20 @@ public class ElkDemonAI : MonoBehaviour
             Vector3 randomDirection = Random.insideUnitSphere.normalized;
             float randomDistance = Random.Range(teleportMinDistance, teleportMaxDistance);
             Vector3 candidatePosition = player.position + (randomDirection * randomDistance);
-            candidatePosition.y = transform.position.y; // Keep same height initially
+            candidatePosition.y = transform.position.y; 
 
             // Method 2: Try to find a point behind the player
-            if (i % 3 == 0) // Every 3rd attempt, try behind player
+            if (i % 3 == 0)
             {
                 Vector3 behindPlayer = player.position - (player.forward * Random.Range(teleportMinDistance, teleportMaxDistance * 0.7f));
                 candidatePosition = behindPlayer;
             }
 
-            // Check if position is valid
             if (IsValidTeleportPosition(candidatePosition))
             {
-                // Get exact NavMesh position
                 NavMeshHit hit;
                 if (NavMesh.SamplePosition(candidatePosition, out hit, 5f, NavMesh.AllAreas))
                 {
-                    // Ensure minimum distance from player
                     if (Vector3.Distance(hit.position, player.position) >= minDistanceFromPlayer)
                     {
                         return hit.position;
@@ -480,36 +498,30 @@ public class ElkDemonAI : MonoBehaviour
             }
         }
 
-        // Fallback: Use patrol points or observation points
         Debug.LogWarning("Could not find valid teleport position, using fallback");
         return GetFallbackTeleportPosition();
     }
 
     private bool IsValidTeleportPosition(Vector3 position)
     {
-        // Check if too close to player
         if (Vector3.Distance(position, player.position) < minDistanceFromPlayer)
             return false;
 
-        // Check if position is on NavMesh
         NavMeshHit hit;
         if (!NavMesh.SamplePosition(position, out hit, 1f, NavMesh.AllAreas))
             return false;
 
-        // Check line of sight (optional - for surprise attacks)
-        // You might want the demon to teleport out of sight
         RaycastHit sightHit;
         Vector3 eyePosition = position + Vector3.up * eyeHeight;
         Vector3 playerEyePosition = player.position + Vector3.up * 1.5f;
         Vector3 directionToPlayer = (playerEyePosition - eyePosition).normalized;
 
-        // Don't teleport right in front of player
         if (Physics.Raycast(eyePosition, directionToPlayer, out sightHit, sightRange))
         {
             if (sightHit.transform == player)
             {
-                // Player can see this spot - maybe avoid it for surprise
-                return Random.value > 0.5f; // 50% chance to allow visible spots
+               
+                return Random.value > 0.5f; 
             }
         }
 
@@ -518,7 +530,6 @@ public class ElkDemonAI : MonoBehaviour
 
     private Vector3 GetFallbackTeleportPosition()
     {
-        // Try patrol points first
         if (patrolPoints != null && patrolPoints.Length > 0)
         {
             Transform farthestPoint = patrolPoints[0];
@@ -541,7 +552,6 @@ public class ElkDemonAI : MonoBehaviour
             }
         }
 
-        // Last resort: random point on NavMesh
         Vector3 randomPoint = player.position + Random.insideUnitSphere * teleportMaxDistance;
         randomPoint.y = transform.position.y;
 
@@ -551,73 +561,59 @@ public class ElkDemonAI : MonoBehaviour
             return lastResortHit.position;
         }
 
-        // Ultimate fallback: don't move
         Debug.LogError("Could not find any valid teleport position!");
         return transform.position;
     }
 
     private void PlayTeleportEffects(bool isArrival)
     {
-        // Play sound
         if (teleportSound != null)
         {
             AudioSource.PlayClipAtPoint(teleportSound, transform.position);
         }
 
-        // Spawn VFX
         if (teleportVFXPrefab != null)
         {
             GameObject vfx = Instantiate(teleportVFXPrefab, transform.position, Quaternion.identity);
-            Destroy(vfx, 2f); // Clean up after 2 seconds
+            Destroy(vfx, 2f);
         }
 
-        // You could also:
-        // - Play particle effects
-        // - Screen shake
-        // - Flash effect
-        // - Distortion shader
+
     }
 
     private void SetVisibility(bool isVisible)
     {
-        // Disable/enable renderers
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderers)
         {
             renderer.enabled = isVisible;
         }
 
-        // Disable/enable collider during teleport (optional)
         Collider collider = GetComponent<Collider>();
         if (collider != null)
         {
             collider.enabled = isVisible;
         }
 
-        // Stop/start NavAgent during teleport
         if (_navAgent != null)
         {
             _navAgent.isStopped = !isVisible;
         }
     }
 
-    // Debug visualization for teleport range
     private void OnDrawGizmosSelected()
     {
         if (player != null)
         {
-            // Draw teleport range
             Gizmos.color = Color.magenta;
             Gizmos.DrawWireSphere(player.position, teleportMinDistance);
             Gizmos.DrawWireSphere(player.position, teleportMaxDistance);
 
-            // Draw minimum distance from player
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(player.position, minDistanceFromPlayer);
         }
     }
 
-    // Force release player (for stuns, damage, etc.)
     public void ForceReleasePlayer()
     {
         if (_isGrabbingPlayer && playerGrab != null)
@@ -680,15 +676,27 @@ public class ElkDemonAI : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (!Application.isPlaying) return;
+
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position + Vector3.up * eyeHeight, sightRange);
+        Vector3 eyePos = transform.position + Vector3.up * eyeHeight;
+        Gizmos.DrawWireSphere(eyePos, sightRange);
 
-        Vector3 leftDir = Quaternion.Euler(0, -sightAngle / 2, 0) * transform.forward;
-        Vector3 rightDir = Quaternion.Euler(0, sightAngle / 2, 0) * transform.forward;
-        Gizmos.DrawRay(transform.position + Vector3.up * eyeHeight, leftDir * sightRange);
-        Gizmos.DrawRay(transform.position + Vector3.up * eyeHeight, rightDir * sightRange);
+        Quaternion leftRot = Quaternion.Euler(0, -sightAngle / 2, 0);
+        Quaternion rightRot = Quaternion.Euler(0, sightAngle / 2, 0);
 
-        // Draw grab range
+        Vector3 leftDir = leftRot * transform.forward;
+        Vector3 rightDir = rightRot * transform.forward;
+
+        Gizmos.DrawRay(eyePos, leftDir * sightRange);
+        Gizmos.DrawRay(eyePos, rightDir * sightRange);
+
+        if (CanSeePlayer())
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(eyePos, player.position + Vector3.up * 1.0f);
+        }
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }

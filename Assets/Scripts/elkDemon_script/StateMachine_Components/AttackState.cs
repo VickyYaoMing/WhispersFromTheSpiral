@@ -50,21 +50,18 @@ public class AttackState : StateMachineBehaviour
         _windupTimer += Time.deltaTime;
         _coolDownTimer += Time.deltaTime;
 
-        // Face the player
         if (_elkDemon.CanSeePlayer())
         {
             Vector3 lookDirection = new Vector3(_elkDemon.Player.position.x, _elkDemon.transform.position.y, _elkDemon.Player.position.z);
             _elkDemon.transform.LookAt(lookDirection);
         }
 
-        // Perform attack after windup
         if (!_hasAttacked && _windupTimer >= attackWindupTime)
         {
             PerformAttack();
             _hasAttacked = true;
         }
 
-        // Check if attack sequence is complete (windup + brief cooldown)
         if (_hasAttacked && !_attackCompleted && _coolDownTimer >= attackWindupTime + 0.2f)
         {
             _attackCompleted = true;
@@ -104,8 +101,6 @@ public class AttackState : StateMachineBehaviour
             return;
         }
 
-        // Allow natural transition via AttackComplete trigger
-        // Remove the manual AttackComplete trigger from here
     }
 
     private void PerformAttack()
@@ -149,7 +144,7 @@ public class AttackState : StateMachineBehaviour
         animator.ResetTrigger("AttackComplete");
         animator.ResetTrigger("PlayerOutOfRange");
         animator.ResetTrigger("LostSight");
-        animator.ResetTrigger("Attack"); // Also reset the attack trigger
+        animator.ResetTrigger("Attack"); 
     }
 
     void DebugAttackInfo()

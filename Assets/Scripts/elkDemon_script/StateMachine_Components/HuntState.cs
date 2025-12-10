@@ -1,10 +1,10 @@
 using UnityEngine;
 
-
 public class HuntState : StateMachineBehaviour
 {
     private ElkDemonAI _elkDemon;
     private float _timeSinceLastSeen;
+    private float _memoryDuration = 3f;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -15,10 +15,8 @@ public class HuntState : StateMachineBehaviour
 
         _timeSinceLastSeen = 0f;
 
-         
-
         animator.SetBool("IsHunting", true);
-        animator.SetFloat("Speed", _elkDemon.HuntSpeed); 
+        animator.SetFloat("Speed", _elkDemon.HuntSpeed);
         Debug.Log("Entered HUNT state!");
     }
 
@@ -30,34 +28,38 @@ public class HuntState : StateMachineBehaviour
 
         if (_elkDemon.CanSeePlayer())
         {
-            // Hunt them directly!
             _timeSinceLastSeen = 0f;
             _elkDemon.MoveTowards(_elkDemon.Player.position, _elkDemon.HuntSpeed);
+
+            Debug.DrawLine(_elkDemon.transform.position, _elkDemon.Player.position, Color.red);
         }
-        else
+        else if (_elkDemon.HasRecentPlayerInfo && _timeSinceLastSeen < _memoryDuration)
         {
             _timeSinceLastSeen += Time.deltaTime;
 
-            // 3 second memory
-            if (_elkDemon.HasRecentPlayerInfo && _timeSinceLastSeen < 1f) 
-            {
-                // Move toward player's last known position
-                // AND continue in the direction they were moving
-                // Predict 10 units ahead
-                Vector3 predictedPosition = _elkDemon.PlayerLastKnownPosition + (_elkDemon.PlayerLastKnownDirection * 10f); 
+            float predictionDistance = 5f * (_memoryDuration - _timeSinceLastSeen) / _memoryDuration;
+            Vector3 predictedPosition = _elkDemon.PlayerLastKnownPosition +
+                                      (_elkDemon.PlayerLastKnownDirection * predictionDistance);
 
-                Debug.DrawLine(_elkDemon.transform.position, predictedPosition, Color.yellow);
-                _elkDemon.MoveTowards(predictedPosition, _elkDemon.HuntSpeed * 0.9f); 
-            }
-            else
+            Debug.DrawLine(_elkDemon.transform.position, predictedPosition, Color.yellow);
+            _elkDemon.MoveTowards(predictedPosition, _elkDemon.HuntSpeed * 0.8f);
+
+            float distanceToLastKnown = Vector3.Distance(_elkDemon.transform.position, _elkDemon.PlayerLastKnownPosition);
+            if (distanceToLastKnown < 2f && _timeSinceLastSeen > 1f)
             {
                 animator.SetTrigger("LostSight");
-                animator.SetBool("IsHunting", false);
             }
         }
+        else
+        {
+            animator.SetTrigger("LostSight");
+            animator.SetBool("IsHunting", false);
+        }
     }
+
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool("IsHunting", false);
+        animator.ResetTrigger("LostSight");
     }
 }
