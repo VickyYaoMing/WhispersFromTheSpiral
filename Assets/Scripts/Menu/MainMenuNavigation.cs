@@ -38,13 +38,10 @@ public class MainMenuNavigation : MonoBehaviour
         m_startButton.transform.localPosition = m_defaultStartButtonPos;
         if (GameManager.Instance.saveExists)
         {
-            if (GameManager.Instance.SaveSystem.DoesSaveExist())
-            {
-                m_loadButton.SetActive(true);
-                m_startButtonPosIfSaveExists = m_defaultStartButtonPos + new Vector3(0, 90, 0);
-                m_startButton.transform.localPosition = m_startButtonPosIfSaveExists;
-            }
-        }    
+            m_loadButton.SetActive(true);
+            m_startButtonPosIfSaveExists = m_defaultStartButtonPos + new Vector3(0, 90, 0);
+            m_startButton.transform.localPosition = m_startButtonPosIfSaveExists;
+        }
         m_camTransform = m_cameraObject.transform;
         m_initialPosition = m_cameraObject.transform.position;
         m_fadeAnimator = GetComponent<FadeAnimator>();
@@ -55,6 +52,7 @@ public class MainMenuNavigation : MonoBehaviour
         m_optionsCanvasGroup.blocksRaycasts = false;
         m_creditsCanvasGroup.blocksRaycasts = false;
         m_fadeAnimator.FadeIn(m_mainCanvasGroup, 2f);
+        Cursor.lockState = CursorLockMode.Confined;
     }
     #endregion
 
@@ -87,8 +85,8 @@ public class MainMenuNavigation : MonoBehaviour
 
     public void LoadGame()
     {
-        //Implement logic for loading save and necessary scene + data
-        GameManager.Instance.LoadAsync();
+        GameManager.Instance.ShouldLoad(true);
+        StartCoroutine(ChangeToGameScene());
     }
 
     public void ViewOptions()
@@ -137,6 +135,6 @@ public class MainMenuNavigation : MonoBehaviour
         }
 
         m_camTransform.position = targetPosition;
-        SceneManager.LoadScene("DemoSceneAct1");
+        SceneManager.LoadScene("ProductionDemoScene");
     }
 }

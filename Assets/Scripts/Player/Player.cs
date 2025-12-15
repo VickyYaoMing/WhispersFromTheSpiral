@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System.Threading.Tasks;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
         //interactionManager.SetHandSlot(GameObject.Find("palm.01.R").transform);
         #endregion
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     // Update is called once per frame
@@ -35,7 +37,17 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        Init();
+    }
+
+    private void Init()
+    {
         GameManager.Instance.Player = this;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Init();
     }
 
     public void Save(ref PlayerSaveData data)

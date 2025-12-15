@@ -3,14 +3,25 @@ using UnityEngine;
 
 public class SanityOnEnterImpulse : MonoBehaviour
 {
-    public float _delta;
-    public string _playerTag = "Player";
+    [SerializeField] private string _playerTag = "Player";
+    [SerializeField] private GamePhaseManager gamePhaseManager;
+    void Awake()
+    {
+        if (!gamePhaseManager)
+        {
+            gamePhaseManager = FindAnyObjectByType<GamePhaseManager>();
+        }
+    }
     void OnTriggerEnter(Collider _other)
     {
-        if (!_other.CompareTag(_playerTag)) return;
-        var sanity = _other.GetComponentInParent<Sanity>();
-        if (sanity) sanity.ApplyImpulse(_delta);
-
-        Debug.Log("SanityOnEnterImpulse: Applied impulse of " + _delta + " to " + _other.name);
+        if (_other.CompareTag(_playerTag))
+        {
+            return;
+        }
+        if (gamePhaseManager)
+        {
+            return;
+        }
+        gamePhaseManager.NextPhase();
     }
 }

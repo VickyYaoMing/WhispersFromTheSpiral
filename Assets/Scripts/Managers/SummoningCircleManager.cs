@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SummoningCircleManager : MonoBehaviour
 {
+    [SerializeField] GameObject doorToOpen;
     ItemPedestal[] pedestals;
     int numberOfCorrectItems;
     
@@ -31,6 +32,7 @@ public class SummoningCircleManager : MonoBehaviour
         if (numberOfCorrectItems != pedestals.Length) return;
 
         Debug.Log("Puzzle complete bruh");
+        doorToOpen.SetActive(false);
         //do something once the puzzle is complete ig
 
     }
