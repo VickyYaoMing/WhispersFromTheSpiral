@@ -24643,17 +24643,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6653a74de009c5a4ba75a8a541087b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1515581210 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 58997222948107655, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-  m_PrefabInstance: {fileID: 1515581190}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1515581194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1e1afa59ac34d94fa3d1cc226b25c02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1522094046
 GameObject:
   m_ObjectHideFlags: 0
@@ -26192,6 +26181,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'OldDemon '
       objectReference: {fileID: 0}
+    - target: {fileID: 1555284636441057099, guid: 19975abfd5ab55d46aaf1845bf2f8a36, type: 3}
+      propertyPath: sightAngle
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 1555284636441057099, guid: 19975abfd5ab55d46aaf1845bf2f8a36, type: 3}
+      propertyPath: teleportCooldown
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 7794734533956426072, guid: 19975abfd5ab55d46aaf1845bf2f8a36, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.12
@@ -26235,35 +26232,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6733001117681956583, guid: 19975abfd5ab55d46aaf1845bf2f8a36, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1643301497}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19975abfd5ab55d46aaf1845bf2f8a36, type: 3}
 --- !u!4 &1643301490 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6213767349117250653, guid: 19975abfd5ab55d46aaf1845bf2f8a36, type: 3}
   m_PrefabInstance: {fileID: 1643301489}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1643301497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1572844828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e63e15f6c47c1b24381f21168d3ceebd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visionRange: 20
-  visionAngle: 30
-  playerCam: {fileID: 274468642}
-  enemy: {fileID: 1643301490}
-  playerMovementScript: {fileID: 1515581210}
-  showDebug: 1
-  coneColor: {r: 1, g: 0, b: 0, a: 0.2}
 --- !u!1 &1649534951
 GameObject:
   m_ObjectHideFlags: 0

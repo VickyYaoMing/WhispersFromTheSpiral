@@ -230,10 +230,10 @@ MonoBehaviour:
   attackRange: 2
   attackAngleThreshold: 0.7
   moveSpeed: 1.5
-  huntSpeed: 4
+  huntSpeed: 2
   maxAnimSpeed: 2.5
   sightRange: 15
-  sightAngle: 360
+  sightAngle: 270
   obstructionMask:
     serializedVersion: 2
     m_Bits: 33555200
@@ -250,7 +250,7 @@ MonoBehaviour:
   teleportMaxDistance: 40
   teleportVFXPrefab: {fileID: 0}
   teleportSound: {fileID: 0}
-  teleportCooldown: 5
+  teleportCooldown: 1
   minDistanceFromPlayer: 30
   _handAttach: {fileID: 0}
   grabLocalOffset: {x: 0, y: 0, z: 0.5}
