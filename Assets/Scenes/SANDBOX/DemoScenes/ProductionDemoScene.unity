@@ -4139,6 +4139,11 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 1333395779951691931, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
   m_PrefabInstance: {fileID: 1515581190}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &274468645 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6636292212036117546, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+  m_PrefabInstance: {fileID: 1515581190}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &281873816
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6066,6 +6071,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa52c165f28b05a40b9b51167dc7c124, type: 3}
+--- !u!1 &389152960 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8523764380395375793, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+  m_PrefabInstance: {fileID: 1515581190}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &389152961 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3322721067064822186, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+  m_PrefabInstance: {fileID: 1515581190}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &393276618
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23931,6 +23946,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: m_camera
+      value: 
+      objectReference: {fileID: 389152960}
     - target: {fileID: 771196179692006720, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -24517,6 +24536,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 75806692677558944, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1515581197}
+    - targetCorrespondingSourceObject: {fileID: 75806692677558944, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1515581212}
   m_SourcePrefab: {fileID: 100100000, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
 --- !u!114 &1515581192 stripped
 MonoBehaviour:
@@ -24601,6 +24623,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6653a74de009c5a4ba75a8a541087b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1515581212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515581194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ecb22097651864c8b51956181e3661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amplitude: 0.015
+  frequency: 10
+  _camera: {fileID: 274468645}
+  _cameraHolder: {fileID: 389152961}
+  focusDistance: 15
 --- !u!1 &1522094046
 GameObject:
   m_ObjectHideFlags: 0
