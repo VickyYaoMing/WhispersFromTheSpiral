@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using SanitySystem;
 
 public class SummoningCircleManager : MonoBehaviour
 {

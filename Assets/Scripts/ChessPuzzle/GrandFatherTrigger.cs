@@ -1,4 +1,5 @@
 using System;
+using SanitySystem;
 using Assets.Scripts.AudioSystem;
 using UnityEngine;
 

@@ -37,8 +37,8 @@ MonoBehaviour:
   - id: s_Phase1
     maxSanityCap: 0.8
     vignetteBase: 0.1
-    voicesBedVolumeAtCalm: 0.001
-    voicesBedVolumeAtMin: 0.25
+    voicesBedVolumeAtCalm: 0.0005
+    voicesBedVolumeAtMin: 0.096
     voicesDensityPerMinAtCalm: 4
     voicesDensityPerMinAtMin: 16
     vignetteAtCalm: 0.2
@@ -48,7 +48,7 @@ MonoBehaviour:
     lensDistAtCalm: -0.1
     lensDistAtMin: -0.2
     dofEnabled: 1
-    dofAperturef: 4.9
+    dofAperturef: 30
     allowHallucinationSpawn: 1
     baseInterval: 60
     minInterval: 30
@@ -69,7 +69,7 @@ MonoBehaviour:
     lensDistAtCalm: -0.15
     lensDistAtMin: -0.2
     dofEnabled: 1
-    dofAperturef: 4
+    dofAperturef: 28.1
     allowHallucinationSpawn: 1
     baseInterval: 45
     minInterval: 30
@@ -90,7 +90,7 @@ MonoBehaviour:
     lensDistAtCalm: -0.225
     lensDistAtMin: -0.27
     dofEnabled: 1
-    dofAperturef: 4
+    dofAperturef: 25.4
     allowHallucinationSpawn: 1
     baseInterval: 35
     minInterval: 25
