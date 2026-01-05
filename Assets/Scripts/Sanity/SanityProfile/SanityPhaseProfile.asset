@@ -69,7 +69,7 @@ MonoBehaviour:
     lensDistAtCalm: -0.15
     lensDistAtMin: -0.2
     dofEnabled: 1
-    dofAperturef: 28.1
+    dofAperturef: 29.9
     allowHallucinationSpawn: 1
     baseInterval: 45
     minInterval: 30
@@ -90,7 +90,28 @@ MonoBehaviour:
     lensDistAtCalm: -0.225
     lensDistAtMin: -0.27
     dofEnabled: 1
-    dofAperturef: 25.4
+    dofAperturef: 29.3
+    allowHallucinationSpawn: 1
+    baseInterval: 35
+    minInterval: 25
+    maxActive: 3
+    minRadius: 6
+    maxRadius: 15
+  - id: s_Phase4
+    maxSanityCap: 0.35
+    vignetteBase: 0.3
+    voicesBedVolumeAtCalm: 0.004
+    voicesBedVolumeAtMin: 0.3
+    voicesDensityPerMinAtCalm: 25
+    voicesDensityPerMinAtMin: 50
+    vignetteAtCalm: 0.4
+    vignetteAtMin: 0.55
+    chromAbAtCalm: 0.5
+    chromAbAtMin: 0.6
+    lensDistAtCalm: -0.225
+    lensDistAtMin: -0.27
+    dofEnabled: 1
+    dofAperturef: 29.2
     allowHallucinationSpawn: 1
     baseInterval: 35
     minInterval: 25
