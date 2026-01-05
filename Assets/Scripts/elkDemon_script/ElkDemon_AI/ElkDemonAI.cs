@@ -148,7 +148,7 @@ public class ElkDemonAI : MonoBehaviour
 
     public bool CanSeePlayer()
     {
-        if (player == null || _isGrabbingPlayer)
+        if (_isGrabbingPlayer)
             return false;
 
         Vector3 toPlayer = player.position - transform.position;
@@ -217,15 +217,13 @@ public class ElkDemonAI : MonoBehaviour
 
     public void CheckForAttack(Animator animator)
     {
+        if (_isGrabbingPlayer)
+            return;
+
         if (CanAttackPlayer() && playerGrab != null && !playerGrab.IsGrabbed)
         {
-            if (_isGrabbingPlayer) return;
-
             animator.SetTrigger("Attack");
-
-            playerGrab.StartGrab(transform, transform.position);
-
-            BeginGrabSequence();
+            BeginGrabSequence(); 
         }
     }
 
@@ -409,20 +407,14 @@ public class ElkDemonAI : MonoBehaviour
 
     public void OnPlayerReleased()
     {
+        _isGrabbingPlayer = false;
+
         if (_navAgent != null)
             _navAgent.isStopped = false;
 
         if (_animator != null)
-        {
             _animator.ResetTrigger("Grabbed");
-        }
 
-        if (canTeleportAfterGrab && CanTeleport())
-        {
-            StartCoroutine(TeleportSequence());
-        }
-
-        _isGrabbingPlayer = false;
         Debug.Log("Player released by demon");
     }
 
