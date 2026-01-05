@@ -24350,7 +24350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6330197989133451956, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -37.25
+      value: -27.04
       objectReference: {fileID: 0}
     - target: {fileID: 6330197989133451956, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -24358,7 +24358,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6330197989133451956, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.71
+      value: -8.08
       objectReference: {fileID: 0}
     - target: {fileID: 6330197989133451956, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -26182,13 +26182,9 @@ PrefabInstance:
       value: 'OldDemon '
       objectReference: {fileID: 0}
     - target: {fileID: 1555284636441057099, guid: 19975abfd5ab55d46aaf1845bf2f8a36, type: 3}
-      propertyPath: sightAngle
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 1555284636441057099, guid: 19975abfd5ab55d46aaf1845bf2f8a36, type: 3}
-      propertyPath: teleportCooldown
-      value: 0.1
-      objectReference: {fileID: 0}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1515581196}
     - target: {fileID: 7794734533956426072, guid: 19975abfd5ab55d46aaf1845bf2f8a36, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.12
@@ -43499,7 +43495,7 @@ GameObject:
   - component: {fileID: 169878194278811312}
   - component: {fileID: 4729084240842736597}
   - component: {fileID: 4729084240842736598}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: floor_ceiling_1.134
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45432,7 +45428,7 @@ GameObject:
   - component: {fileID: 7226354707866319505}
   - component: {fileID: 7018718905413926934}
   - component: {fileID: 7226354707866319506}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: floor_ceiling_1.175
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46140,7 +46136,7 @@ GameObject:
   - component: {fileID: 8583205353407845807}
   - component: {fileID: 3593811721550885907}
   - component: {fileID: 8583205353407845808}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: floor_ceiling_1.176
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50219,7 +50215,7 @@ GameObject:
   - component: {fileID: 5874727586497040520}
   - component: {fileID: 5492053581574442793}
   - component: {fileID: 7651903697355382743}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: floor_ceiling_1.209
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51515,7 +51511,7 @@ GameObject:
   - component: {fileID: 2789998458809856378}
   - component: {fileID: 8048455111823035181}
   - component: {fileID: 8048455111823035182}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: floor_ceiling_1.200
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54658,7 +54654,7 @@ GameObject:
   - component: {fileID: 2854426542550285765}
   - component: {fileID: 7619859899846885646}
   - component: {fileID: 9119227337386130397}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: floor_ceiling_1.122
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55588,7 +55584,7 @@ GameObject:
   - component: {fileID: 4322043746332791296}
   - component: {fileID: 7323985658137603222}
   - component: {fileID: 7323985658137603223}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: floor_ceiling_1.204
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58095,7 +58091,7 @@ GameObject:
   - component: {fileID: 6219333286380275058}
   - component: {fileID: 8433412830854022355}
   - component: {fileID: 8433412830854022356}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: floor_ceiling_1.177
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68883,7 +68879,7 @@ GameObject:
   - component: {fileID: 7751299897785692363}
   - component: {fileID: 699087964458055046}
   - component: {fileID: 7751299897785692364}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: floor_ceiling_1.203
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102131,7 +102127,7 @@ GameObject:
   - component: {fileID: 547432398186628205}
   - component: {fileID: 3787952226345981474}
   - component: {fileID: 7252643470906720160}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: floor_ceiling_1.135
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106760,7 +106756,7 @@ GameObject:
   - component: {fileID: 7389138610443387479}
   - component: {fileID: 3448867145337341429}
   - component: {fileID: 7617132544984174268}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: floor_ceiling_1.174
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108834,7 +108830,7 @@ GameObject:
   - component: {fileID: 3129238557830786516}
   - component: {fileID: 6784705629374359646}
   - component: {fileID: 7818979076479510991}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: floor_ceiling_1.140
   m_TagString: Untagged
   m_Icon: {fileID: 0}

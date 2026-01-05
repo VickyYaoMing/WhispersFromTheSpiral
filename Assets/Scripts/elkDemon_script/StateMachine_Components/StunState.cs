@@ -32,6 +32,8 @@ public class StunState : StateMachineBehaviour
     {
         if (_elkDemon == null || _elkDemon.Player == null) return;
 
+        _elkDemon.StopMoving();
+
         stunTimer += Time.deltaTime;
 
         if (stunTimer >= stunDuration)
