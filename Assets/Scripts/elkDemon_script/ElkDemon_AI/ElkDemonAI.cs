@@ -58,6 +58,13 @@ public class ElkDemonAI : MonoBehaviour
     [SerializeField] private float screamCooldown = 10f;
     private float _lastScreamTime = -999f;
     private bool _playerVisibleLastFrame = false;
+    [Header("Movement Sounds")]
+    [SerializeField] private SoundType footstepSound;
+    [SerializeField] private float footstepIntervalWalk = 0.6f;
+    [SerializeField] private float footstepIntervalRun = 0.35f;
+    [SerializeField] private float movementThreshold = 0.1f;
+
+    private float _footstepTimer = 0f;
     //
 
     private NavMeshAgent _navAgent;
@@ -109,13 +116,12 @@ public class ElkDemonAI : MonoBehaviour
         {
             _navAgent.isStopped = true;
         }
-
-
+        UpdateFootstepSounds();
     }
 
     public void MoveTowards(Vector3 targetPosition, float currentSpeed)
     {
-        if (_navAgent == null || _isGrabbingPlayer) return; 
+        if (_navAgent == null || _isGrabbingPlayer) return;
 
         _navAgent.speed = currentSpeed;
         _navAgent.SetDestination(targetPosition);
@@ -162,7 +168,7 @@ public class ElkDemonAI : MonoBehaviour
         }
 
         Vector3 eyePosition = transform.position + Vector3.up * eyeHeight;
-        Vector3 playerCenter = player.position + Vector3.up * 1.0f; 
+        Vector3 playerCenter = player.position + Vector3.up * 1.0f;
 
         RaycastHit hit;
         Vector3 direction = (playerCenter - eyePosition).normalized;
@@ -291,7 +297,7 @@ public class ElkDemonAI : MonoBehaviour
         if (player == null) return;
 
         Vector3 playerPosition = transform.position + (transform.forward * 1.5f);
-        playerPosition.y = player.position.y; 
+        playerPosition.y = player.position.y;
 
         if (!IsPositionBlocked(playerPosition))
         {
@@ -476,7 +482,7 @@ public class ElkDemonAI : MonoBehaviour
             Vector3 randomDirection = Random.insideUnitSphere.normalized;
             float randomDistance = Random.Range(teleportMinDistance, teleportMaxDistance);
             Vector3 candidatePosition = player.position + (randomDirection * randomDistance);
-            candidatePosition.y = transform.position.y; 
+            candidatePosition.y = transform.position.y;
 
             // Method 2: Try to find a point behind the player
             if (i % 3 == 0)
@@ -520,8 +526,8 @@ public class ElkDemonAI : MonoBehaviour
         {
             if (sightHit.transform == player)
             {
-               
-                return Random.value > 0.5f; 
+
+                return Random.value > 0.5f;
             }
         }
 
@@ -699,5 +705,51 @@ public class ElkDemonAI : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+    //New method for footstep sounds
+    private void UpdateFootstepSounds()
+    {
+        // No agent, no footsteps
+        if (_navAgent == null) return;
+
+        // Don't play steps while grabbing / invisible / stunned etc.
+        if (_isGrabbingPlayer) return;
+
+        // If you haven't assigned a sound, do nothing
+        if (footstepSound == SoundType.None) return;
+
+        // If agent is stopped or not really moving, reset timer and bail
+        if (_navAgent.isStopped)
+        {
+            _footstepTimer = 0f;
+            return;
+        }
+
+        // Only care about horizontal speed
+        Vector3 vel = _navAgent.velocity;
+        vel.y = 0f;
+        float speed = vel.magnitude;
+
+        if (speed < movementThreshold)
+        {
+            _footstepTimer = 0f;
+            return;
+        }
+
+        // Blend interval between walk & run, based on current speed
+        // (0 = walkSpeed, 1 = huntSpeed)
+        float t = 0f;
+        if (huntSpeed > moveSpeed)
+        {
+            t = Mathf.InverseLerp(moveSpeed, huntSpeed, speed);
+        }
+        float interval = Mathf.Lerp(footstepIntervalWalk, footstepIntervalRun, t);
+
+        _footstepTimer -= Time.deltaTime;
+        if (_footstepTimer <= 0f)
+        {
+            SoundManager.PlayAt(footstepSound, transform.position, 1f);
+            _footstepTimer = interval;
+        }
     }
 }
