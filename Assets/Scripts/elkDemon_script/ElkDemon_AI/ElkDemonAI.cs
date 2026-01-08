@@ -1,9 +1,10 @@
+using Assets.Scripts.AudioSystem;
+using SanitySystem;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Assets.Scripts.AudioSystem;
-using SanitySystem;
 
 [RequireComponent(typeof(Animator))]
 public class ElkDemonAI : MonoBehaviour
@@ -309,11 +310,7 @@ public class ElkDemonAI : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-    Application.Quit();
-#endif
+        SceneManager.LoadScene("System_MainMenu");
     }
 
 
