@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if(scene.name == "DemoSceneAct1" && shouldLoad)
+        if(scene.name == "Presentation_Scene" && shouldLoad)
         {
             StartCoroutine(Wait());
             shouldLoad = false;

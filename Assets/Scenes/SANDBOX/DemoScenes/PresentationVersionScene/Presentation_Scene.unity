@@ -2441,7 +2441,7 @@ GameObject:
   - component: {fileID: 187825167}
   - component: {fileID: 187825166}
   - component: {fileID: 187825165}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: stairs_4.001 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16953,7 +16953,7 @@ GameObject:
   - component: {fileID: 1010773446}
   - component: {fileID: 1010773445}
   - component: {fileID: 1010773444}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: stairs_3.001 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30675,8 +30675,8 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 768
-  m_UseGeometry: 0
+    m_Bits: 769
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
@@ -30686,7 +30686,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.1
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 7915327cbec25eb4cb199f89012b7d84, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 2e806070e81b5924a902f27fa5bac61a, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &1836586389
 GameObject:
@@ -34174,6 +34174,10 @@ PrefabInstance:
     - target: {fileID: 1563754741730642340, guid: 31af10f8cd475f74792a8903c0ed6f07, type: 3}
       propertyPath: m_Name
       value: Act2DoorSubtitle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1563754741730642340, guid: 31af10f8cd475f74792a8903c0ed6f07, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1904729353860261676, guid: 31af10f8cd475f74792a8903c0ed6f07, type: 3}
       propertyPath: PlayerMessageManager
@@ -46274,7 +46278,7 @@ GameObject:
   - component: {fileID: 7226354707866319505}
   - component: {fileID: 7018718905413926934}
   - component: {fileID: 7226354707866319506}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: floor_ceiling_1.175
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68711,7 +68715,7 @@ GameObject:
   - component: {fileID: 8269299587486855394}
   - component: {fileID: 3879946797840479072}
   - component: {fileID: 8269299587486855395}
-  m_Layer: 8
+  m_Layer: 4
   m_Name: floor_ceiling_1.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78896,7 +78900,7 @@ GameObject:
   - component: {fileID: 8585845425562429119}
   - component: {fileID: 1498891970952633241}
   - component: {fileID: 8585845425562429120}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: floor_ceiling_1.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99469,7 +99473,7 @@ GameObject:
   - component: {fileID: 6485100379669942371}
   - component: {fileID: 4398506578466687855}
   - component: {fileID: 6971153682725304184}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: stairs_4.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99619,7 +99623,7 @@ GameObject:
   - component: {fileID: 3601557730176551850}
   - component: {fileID: 2694517584729176998}
   - component: {fileID: 6974551962002264491}
-  m_Layer: 8
+  m_Layer: 4
   m_Name: floor_ceiling_1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107602,7 +107606,7 @@ GameObject:
   - component: {fileID: 7389138610443387479}
   - component: {fileID: 3448867145337341429}
   - component: {fileID: 7617132544984174268}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: floor_ceiling_1.174
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121530,7 +121534,7 @@ GameObject:
   - component: {fileID: 5849037545597467999}
   - component: {fileID: 874608887135301848}
   - component: {fileID: 8657505823744036987}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: stairs_3.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
