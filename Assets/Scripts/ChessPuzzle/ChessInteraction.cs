@@ -12,7 +12,7 @@ public class ChessInteraction : InteractableBase
     [SerializeField] private List<GameObject> whitePieces;
     [SerializeField] private List<GameObject> whitePiecesThatShouldBeMoved;
     [SerializeField] private List<GameObject> placesWhitePiecesShouldBeMovedTo;
-    [SerializeField] private GameObject blackKing;
+
 
 
     private bool chessPieceSelected = false;
@@ -23,7 +23,9 @@ public class ChessInteraction : InteractableBase
     private Dictionary<GameObject, GameObject> whitePiecesCurrentPosition;
 
     public static EventHandler ChessPuzzleCompleted;
-
+    // used for 'animating' the movemet fo the pieces whe you win the game
+    [SerializeField] private GameObject blackKing;
+    [SerializeField] private GameObject whiteQueen;
 
     void Start()
     {
@@ -137,7 +139,7 @@ public class ChessInteraction : InteractableBase
         if (hasCompletedPuzzle)
         {
             StartCoroutine(KingPieceFall());
-           
+
             ChessPuzzleCompleted?.Invoke(this, EventArgs.Empty);
         }
 
@@ -156,6 +158,14 @@ public class ChessInteraction : InteractableBase
     {
         float timeElapsed = 0f;
         float animationTimr = 1f;
+
+
+        Vector3 startPos = blackKing.transform.localPosition;
+        Quaternion startRot = blackKing.transform.localRotation;
+
+        Vector3 queenPos = whiteQueen.transform.localPosition;
+        Quaternion queenRot = whiteQueen.transform.localRotation;
+
         //for rotation and pos hardcode that sht
         float yRot = 0f;
         float xRot = -79.4f;
@@ -166,11 +176,13 @@ public class ChessInteraction : InteractableBase
         float zPos = -0.05f;
 
 
-        Vector3 kingPos = blackKing.transform.localPosition;
-        Quaternion kingRot = blackKing.transform.localRotation;
+        
 
-        Vector3 endPos =new Vector3(xPos,yPos, zPos);
-        Quaternion endRot = Quaternion.Euler(xRot, yRot,zRot);
+        Vector3 endPos = new Vector3(xPos, yPos, zPos);
+        Quaternion endRot = Quaternion.Euler(xRot, yRot, zRot);
+
+        //Vector3 queenEndPos = startPos;
+        
 
         while (timeElapsed < animationTimr)
         {
@@ -178,15 +190,19 @@ public class ChessInteraction : InteractableBase
             timeElapsed += Time.deltaTime;
             //clamp that shit
             float t = Mathf.Clamp01(timeElapsed / animationTimr);
+            
 
-            blackKing.transform.localPosition = Vector3.Lerp(kingPos, endPos, t);
-            blackKing.transform.localRotation = Quaternion.Lerp(kingRot, endRot, t);
+            blackKing.transform.localPosition = Vector3.Lerp(startPos, endPos, t);
+            blackKing.transform.localRotation = Quaternion.Lerp(startRot, endRot, t);
+            whiteQueen.transform.localPosition = Vector3.Lerp(queenPos, startPos, t);    
 
             yield return null;
 
         }
+
         blackKing.transform.localPosition = endPos;
         blackKing.transform.localRotation = endRot;
+        whiteQueen.transform.localPosition = startPos;  
 
 
 
