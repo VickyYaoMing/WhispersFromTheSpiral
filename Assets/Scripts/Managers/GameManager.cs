@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     public CheckpointManager CheckpointManager { get; set; }
     public CollectibleManager CollectibleManager { get; set; }
 
+    public LampObject Lantern { get; set; }
+
     private bool isSaving;
     private bool isLoading;
     private bool shouldLoad;
@@ -71,7 +73,7 @@ public class GameManager : MonoBehaviour
         }
         if (Keyboard.current.fKey.wasPressedThisFrame) 
         {
-            //LoadAsync();
+            LoadAsync();
             //Load();
         }
     }
