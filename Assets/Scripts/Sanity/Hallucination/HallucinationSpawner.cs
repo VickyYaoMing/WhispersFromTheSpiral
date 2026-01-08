@@ -18,6 +18,18 @@ public class HallucinationSpawner : MonoBehaviour
     public LayerMask obstructionMask; //Wall
     [Tooltip("Hallucination layer")]
     public int hallucinationLayer = 0;
+    [Header("NavMesh Sampling")]
+    [Tooltip("Use the nearest NavMesh point to the player as the ring center when player is off-mesh.")]
+    public bool centerOnNearestNavMesh = true;
+
+    [Tooltip("How far from the player we search for a NavMesh anchor.")]
+    public float centerSearchRadius = 50f;
+
+    [Tooltip("Area mask for NavMesh sampling (NavMesh.AllAreas by default).")]
+    public int navMeshAreaMask = NavMesh.AllAreas;
+
+    [Tooltip("Max allowed snap from target ring point to the sampled NavMesh point.")]
+    public float navMeshMaxSnapFromTarget = 2.0f;
     [Tooltip("Snap spawn to the NavMesh")]
     public bool requireNavMesh = true;
     [Tooltip("Max distnace")]
@@ -35,6 +47,7 @@ public class HallucinationSpawner : MonoBehaviour
     public Vector2 lifeSecondsRange = new Vector2(3.5f, 8.0f);
     [Header("Debug")]
     public bool drawGizmos = true;
+    public KeyCode debugSpawnKey = KeyCode.H;
 
     //Runtime state
     private readonly List<HallucinationInstance> _pool = new();
@@ -64,12 +77,21 @@ public class HallucinationSpawner : MonoBehaviour
         if (!sanity) sanity = FindFirstObjectByType<Sanity>();
         if (sanity != null)
         {
-            sanity.OnSanityChanged += _ => ApplyPhaseCaps();
-            sanity.OnSanityStateChanged += _ => ApplyPhaseCaps();
+            sanity.OnSanityChanged += _ => { ApplyPhaseCaps(); ScheduleNextTick(); };
+            sanity.OnSanityStateChanged += _ => { ApplyPhaseCaps(); ScheduleNextTick(); };
         }
     }
     void OnEnable()
     {
+        Debug.Log("[HallucinationSpawner] Enabled");
+        ApplyPhaseCaps();
+        ScheduleNextTick();
+        StartCoroutine(KickstartTick());
+    }
+    System.Collections.IEnumerator KickstartTick()
+    {
+        // wait 1 frame so Sanity.Start() can run
+        yield return null;
         ApplyPhaseCaps();
         ScheduleNextTick();
     }
@@ -94,6 +116,12 @@ public class HallucinationSpawner : MonoBehaviour
             TrySpawn();
             ScheduleNextTick();
         }
+        if (Input.GetKeyDown(debugSpawnKey))
+        {
+            var pos = playerTransform.position + playerTransform.forward * (minDistanceFromPlayer + 1f);
+            SpawnAt(pos, Quaternion.LookRotation(playerTransform.forward));
+            Debug.Log("[HallucinationSpawner] Forced spawn via key.");
+        }
     }
     private void ApplyPhaseCaps()
     {
@@ -108,26 +136,23 @@ public class HallucinationSpawner : MonoBehaviour
     }
     private void ScheduleNextTick()
     {
-        if (sanity == null || sanity.phaseProfile == null || sanity.phaseProfile.phases == null || sanity.PhaseIndex < 0)
-        {
-            _nextTickTime = Time.time + 9999f;
-            return;
-        }
+        if (sanity == null) { _nextTickTime = Time.time + 9999f; Debug.LogWarning("[HallucinationSpawner] Pause: sanity == null"); return; }
+        if (sanity.phaseProfile == null || sanity.phaseProfile.phases == null || sanity.phaseProfile.phases.Length == 0)
+        { _nextTickTime = Time.time + 9999f; Debug.LogWarning("[HallucinationSpawner] Pause: no phase profile / empty phases"); return; }
+        if (sanity.PhaseIndex < 0 || sanity.PhaseIndex >= sanity.phaseProfile.phases.Length)
+        { _nextTickTime = Time.time + 9999f; Debug.LogWarning($"[HallucinationSpawner] Pause: invalid PhaseIndex={sanity.PhaseIndex}"); return; }
 
-        var phases = sanity.phaseProfile.phases;
-        int idx = Mathf.Clamp(sanity.PhaseIndex, 0, phases.Length - 1);
-        var P = phases[idx];
-
+        var P = sanity.phaseProfile.phases[Mathf.Clamp(sanity.PhaseIndex, 0, sanity.phaseProfile.phases.Length - 1)];
         if (!P.allowHallucinationSpawn)
-        {
-            _nextTickTime = Time.time + 9999f;
-            return;
-        }
+        { _nextTickTime = Time.time + 9999f; Debug.Log($"[HallucinationSpawner] Pause: allowHallucinationSpawn=false in phase '{P.id}'"); return; }
 
-        // In-phase intensity t = 1 - (Sanity/Cap)
         float t = InPhaseIntensity(sanity.Sanity01, sanity.Cap01);
-        float interval = Mathf.Lerp(Mathf.Max(0.1f, P.baseInterval), Mathf.Max(0.1f, P.minInterval), Mathf.Clamp01(t));
+        float baseI = Mathf.Max(0.1f, P.baseInterval);
+        float minI = Mathf.Max(0.1f, P.minInterval);
+        float interval = Mathf.Lerp(baseI, minI, Mathf.Clamp01(t));
         _nextTickTime = Time.time + interval;
+
+        Debug.Log($"[HallucinationSpawner] Tick in {interval:0.00}s (phase='{P.id}', t={t:0.00}, base={baseI}, min={minI})");
     }
     private static float InPhaseIntensity(float sanity01, float cap01)
     {
@@ -137,16 +162,20 @@ public class HallucinationSpawner : MonoBehaviour
     }
     private void TrySpawn()
     {
-        if (hallucinationPrefabs.Count == 0 || playerTransform == null) return;
+        Debug.Log("[HallucinationSpawner] TrySpawn()");
+        if (hallucinationPrefabs.Count == 0 || playerTransform == null)
+        { Debug.LogWarning("[HallucinationSpawner] Abort: no prefabs or no playerTransform"); return; }
 
         if (sanity == null || sanity.phaseProfile == null || sanity.phaseProfile.phases == null || sanity.PhaseIndex < 0)
-            return;
+        { Debug.LogWarning("[HallucinationSpawner] Abort: sanity/phase not ready"); return; }
 
         int idx = Mathf.Clamp(sanity.PhaseIndex, 0, sanity.phaseProfile.phases.Length - 1);
         var P = sanity.phaseProfile.phases[idx];
-        if (!P.allowHallucinationSpawn) return;
+        if (!P.allowHallucinationSpawn)
+        { Debug.Log("[HallucinationSpawner] Abort: phase forbids spawn"); return; }
 
-        if (_active.Count >= _maxActive) return;
+        if (_active.Count >= _maxActive)
+        { Debug.Log($"[HallucinationSpawner] Abort: maxActive reached ({_active.Count}/{_maxActive})"); return; }
 
         Vector3 playerPos = playerTransform.position;
         Vector3 playerEye = playerPos + Vector3.up * playerEyeHeight;
@@ -154,40 +183,75 @@ public class HallucinationSpawner : MonoBehaviour
         for (int attempt = 0; attempt < maxPlacementAttempts; attempt++)
         {
             Vector3? candidate = RandomRingCandidate(playerPos, _minRadius, _maxRadius);
-            if (candidate == null) continue;
+            if (candidate == null)
+            { if (attempt == maxPlacementAttempts - 1) Debug.Log("[HallucinationSpawner] No NavMesh candidate found"); continue; }
 
-            // Horizontal separation
             Vector3 flat = new Vector3(candidate.Value.x, playerPos.y, candidate.Value.z);
             if (Vector3.Distance(flat, playerPos) < minDistanceFromPlayer)
-                continue;
+            { if (attempt == maxPlacementAttempts - 1) Debug.Log("[HallucinationSpawner] Too close to player"); continue; }
 
-            // LoS: spawn eye -> player eye
             Vector3 spawnEye = candidate.Value + Vector3.up * spawnHeightOffset;
             Vector3 toPlayer = playerEye - spawnEye;
             float dist = toPlayer.magnitude;
-            if (dist <= 0.0001f) continue;
+            if (dist <= 0.0001f) { if (attempt == maxPlacementAttempts - 1) Debug.Log("[HallucinationSpawner] Zero-length ray"); continue; }
 
             bool blocked = Physics.Raycast(spawnEye, toPlayer.normalized, dist, obstructionMask, QueryTriggerInteraction.Ignore);
-            if (blocked) continue;
+            if (blocked)
+            { if (attempt == maxPlacementAttempts - 1) Debug.Log("[HallucinationSpawner] LOS blocked by obstructionMask"); continue; }
 
-            // Valid spot → spawn
             Quaternion rot = Quaternion.LookRotation(new Vector3(playerEye.x, candidate.Value.y, playerEye.z) - candidate.Value);
             SpawnAt(candidate.Value, rot);
+            Debug.Log("[HallucinationSpawner] Spawned at " + candidate.Value);
             return;
         }
+
+        Debug.Log("[HallucinationSpawner] Gave up after attempts with no valid spot.");
     }
     private Vector3? RandomRingCandidate(Vector3 center, float minR, float maxR)
     {
-        float r = UnityEngine.Random.Range(minR, maxR);
-        float ang = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
-        Vector3 flat = new Vector3(Mathf.Cos(ang), 0f, Mathf.Sin(ang)) * r;
-        Vector3 candidate = center + flat;
+        // If we don’t require NavMesh, keep the old world-space annulus
+        if (!requireNavMesh)
+        {
+            float r = UnityEngine.Random.Range(minR, maxR);
+            float ang = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
+            Vector3 flat = new Vector3(Mathf.Cos(ang), 0f, Mathf.Sin(ang)) * r;
+            return center + flat;
+        }
 
-        if (!requireNavMesh) return candidate;
+        // 1) Find a NavMesh anchor for the ring center
+        Vector3 ringCenter = center;
+        if (centerOnNearestNavMesh)
+        {
+            if (NavMesh.SamplePosition(center, out var anchor, centerSearchRadius, navMeshAreaMask))
+            {
+                ringCenter = anchor.position;
+            }
+            else
+            {
+                // No NavMesh near the player → skip spawning this tick
+                // (Prevents “far away” spawns beyond the map)
+                return null;
+            }
+        }
 
-        if (NavMesh.SamplePosition(candidate, out var hit, navMeshMaxSampleDist, NavMesh.AllAreas))
-            return hit.position;
+        // 2) Sample ring points ON the NavMesh
+        //    Keep the snap short so we don't jump across gaps
+        for (int i = 0; i < 8; i++)
+        {
+            float r = UnityEngine.Random.Range(minR, maxR);
+            float ang = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
+            Vector3 flat = new Vector3(Mathf.Cos(ang), 0f, Mathf.Sin(ang)) * r;
+            Vector3 target = ringCenter + flat;
 
+            if (NavMesh.SamplePosition(target, out var hit, navMeshMaxSampleDist, navMeshAreaMask))
+            {
+                // Reject if the sample snapped too far from the intended ring
+                if ((hit.position - target).sqrMagnitude <= navMeshMaxSnapFromTarget * navMeshMaxSnapFromTarget)
+                    return hit.position;
+            }
+        }
+
+        // Couldn’t find a good spot this tick
         return null;
     }
     private void SpawnAt(Vector3 pos, Quaternion rot)
