@@ -1,4 +1,5 @@
 using System;
+using SanitySystem;
 using Assets.Scripts.AudioSystem;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ public class GrandFatherTrigger : MonoBehaviour
     public SoundType soundType2 = SoundType.SFX_ClockDong;
     private Animator animator;
     private InteractionManager interactionManager;
+    private GamePhaseManager gamePhaseManager;
     private bool hasClockBeenOpened = false;
     private bool hasGunBeenTaken = false;
 
@@ -33,6 +35,7 @@ public class GrandFatherTrigger : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
         interactionManager = GameManager.Instance.InteractionManager;
+        gamePhaseManager = FindAnyObjectByType<GamePhaseManager>();
         // m_source = GetComponent<AudioSource>();
         // if(m_audioClips != null && m_audioClips.Length == 2)
         // {
@@ -78,5 +81,6 @@ public class GrandFatherTrigger : MonoBehaviour
             tickingSource = null;
         }
         SoundManager.PlayAt(soundType2, transform.position, 1f);
+        gamePhaseManager.NextPhase();
     }
 }

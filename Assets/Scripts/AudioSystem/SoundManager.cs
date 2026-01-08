@@ -117,7 +117,7 @@ namespace Assets.Scripts.AudioSystem
             Instance.PlaySfxInternal(type, Vector3.zero, null, false, volumeMultiplier);
         }
         //3D SFX
-        public static void PlayAt(SoundType type, Vector3 position, float volumeMultiplier = 1f)
+        public static void PlayAt(SoundType type, Vector3 position, float volumeMultiplier = 1f, bool v = false)
         {
             if (Instance == null)
             {
