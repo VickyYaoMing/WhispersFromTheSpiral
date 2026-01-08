@@ -45,7 +45,8 @@ namespace Assets.Scripts.AudioSystem
         SFX_DemoBreathing,
         SFX_MonsterRoar,
         SFX_FallingObject,
-        SFX_ThudNoise
+        SFX_ThudNoise,
+        SFX_DemonSteps,
 
         // // --- Voice overs / events (if they are VO lines) ---
         // VO_FirstTest,

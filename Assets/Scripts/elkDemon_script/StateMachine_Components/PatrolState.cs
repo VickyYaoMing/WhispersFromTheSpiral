@@ -63,7 +63,7 @@ public class PatrolState : StateMachineBehaviour
             return _elkDemon.PatrolPoints[randomIndex].position;
         }
         
-        return GetCenteredRandomNavMeshPoint(15f);
+        return GetCenteredRandomNavMeshPoint(40f);
     }
 
     private Vector3 GetCenteredRandomNavMeshPoint(float radius)
