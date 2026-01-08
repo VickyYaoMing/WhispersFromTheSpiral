@@ -145,15 +145,7 @@ public class ChessInteraction : InteractableBase
 
     }
 
-    /// <summary>
-    /// have the king piece, 
-    /// take its vector into a position/angle
-    /// take the roation and postion you wish to have(hard code that shit)
-    /// have floats that count betweeen time
-    /// add in a float t for ....
-    /// use Lerp to make it fall between the postions
-    /// after while is done set transforms to end pos
-    /// </summary>
+  
     private IEnumerator KingPieceFall()
     {
         float timeElapsed = 0f;
@@ -163,8 +155,9 @@ public class ChessInteraction : InteractableBase
         Vector3 startPos = blackKing.transform.localPosition;
         Quaternion startRot = blackKing.transform.localRotation;
 
-        Vector3 queenPos = whiteQueen.transform.localPosition;
-        Quaternion queenRot = whiteQueen.transform.localRotation;
+        //Vector3 queenPos = whiteQueen.transform.localPosition;
+        //Vector3 queenEndPos = new Vector3(0.15f,0.062f,-0.159f);
+        //Quaternion queenRot = whiteQueen.transform.localRotation;
 
         //for rotation and pos hardcode that sht
         float yRot = 0f;
@@ -188,13 +181,14 @@ public class ChessInteraction : InteractableBase
         {
 
             timeElapsed += Time.deltaTime;
-            //clamp that shit
-            float t = Mathf.Clamp01(timeElapsed / animationTimr);
             
+             float t = Mathf.Clamp01(timeElapsed / animationTimr);
+            //float t = timeElapsed / animationTimr;
 
+           // whiteQueen.transform.localPosition = Vector3.Lerp(queenPos, queenEndPos, t);
             blackKing.transform.localPosition = Vector3.Lerp(startPos, endPos, t);
             blackKing.transform.localRotation = Quaternion.Lerp(startRot, endRot, t);
-            whiteQueen.transform.localPosition = Vector3.Lerp(queenPos, startPos, t);    
+               
 
             yield return null;
 
@@ -202,7 +196,7 @@ public class ChessInteraction : InteractableBase
 
         blackKing.transform.localPosition = endPos;
         blackKing.transform.localRotation = endRot;
-        whiteQueen.transform.localPosition = startPos;  
+        //whiteQueen.transform.localPosition = queenEndPos;  
 
 
 
