@@ -5382,6 +5382,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+      propertyPath: m_camera
+      value: 
+      objectReference: {fileID: 1857727032}
+    - target: {fileID: 698089569364793979, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
       propertyPath: grabController
       value: 
       objectReference: {fileID: 262911053}
@@ -7093,6 +7097,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778040911}
   m_Mesh: {fileID: 2072656450178104052, guid: e5e7965950e407b42a4e178d15d77434, type: 3}
+--- !u!1 &1857727032 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8523764380395375793, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
+  m_PrefabInstance: {fileID: 1515581190}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1860201822
 GameObject:
   m_ObjectHideFlags: 0
