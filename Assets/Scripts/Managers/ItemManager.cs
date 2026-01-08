@@ -91,49 +91,49 @@ public class ItemManager : MonoBehaviour
 
     public void Save(ref ItemManagerSaveData data)
     {
-        //List<ItemSaveData> ItemSaveDataList = new List<ItemSaveData>();
-        //RefreshItemList();
+        List<ItemSaveData> ItemSaveDataList = new List<ItemSaveData>();
+        RefreshItemList();
 
-        //itemToPrefabMap.Clear();
+        itemToPrefabMap.Clear();
 
-        //foreach (var item in currentItems)
-        //{
-        //    GameObject prefab = GetPrefabForItem(item.gameObject);
-        //    if (prefab != null)
-        //    {
-        //        itemToPrefabMap[item.gameObject] = prefab;
-        //    }
-        //}
-        ////Decrement so we can remove items that are null or exist in the inventory
-        //for (int i = currentItems.Count() - 1; i >= 0; i--)
-        //{
-        //    //If item is not null and is not in the player inventory, make an ItemSaveData instance for it and add it to the list. Else, remove it from the currentItems list
-        //    if (currentItems[i] != null && !GameManager.Instance.Player.GetComponent<InteractionManager>().isItemInInventory(currentItems[i]))
-        //    {
-        //        GameObject Item = currentItems[i].gameObject;
-        //        ItemSaveData itemSaveData = new ItemSaveData
-        //        {
-        //            itemPrefab = itemToPrefabMap[Item],
-        //            itemPosition = Item.transform.position
-        //        };
+        foreach (var item in currentItems)
+        {
+            GameObject prefab = GetPrefabForItem(item.gameObject);
+            if (prefab != null)
+            {
+                itemToPrefabMap[item.gameObject] = prefab;
+            }
+        }
+        //Decrement so we can remove items that are null or exist in the inventory
+        for (int i = currentItems.Count() - 1; i >= 0; i--)
+        {
+            //If item is not null and is not in the player inventory, make an ItemSaveData instance for it and add it to the list. Else, remove it from the currentItems list
+            if (currentItems[i] != null && !GameManager.Instance.Player.GetComponent<InteractionManager>().isItemInInventory(currentItems[i]))
+            {
+                GameObject Item = currentItems[i].gameObject;
+                ItemSaveData itemSaveData = new ItemSaveData
+                {
+                    itemPrefab = itemToPrefabMap[Item],
+                    itemPosition = Item.transform.position
+                };
 
-        //        ItemSaveDataList.Add(itemSaveData);
-        //    }
+                ItemSaveDataList.Add(itemSaveData);
+            }
 
-        //    //Following two if statements are separate for debug reasons. Turn them into one before production.
-        //    else if (currentItems[i] == null) 
-        //    {
-        //        Debug.Log("Item at" + i + "is null");
-        //        currentItems.RemoveAt(i);
-        //    }
-        //    else
-        //    {
-        //        Debug.Log("Item at" + i + "is in inventory");
-        //        currentItems.RemoveAt(i);
-        //    }
-        //}
+            //Following two if statements are separate for debug reasons. Turn them into one before production.
+            else if (currentItems[i] == null)
+            {
+                Debug.Log("Item at" + i + "is null");
+                currentItems.RemoveAt(i);
+            }
+            else
+            {
+                Debug.Log("Item at" + i + "is in inventory");
+                currentItems.RemoveAt(i);
+            }
+        }
 
-        //data.Items = ItemSaveDataList.ToArray();
+        data.Items = ItemSaveDataList.ToArray();
     }
 
     public void Load(ItemManagerSaveData data)
