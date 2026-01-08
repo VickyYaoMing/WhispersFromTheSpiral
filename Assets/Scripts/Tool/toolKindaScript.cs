@@ -67,7 +67,6 @@ public class toolKindaScript : MonoBehaviour
     public void Place(/*SurfaceType surface*/)
     {
         
-
         foreach (GameObject item in chosenItems)
         {
             ItemType type = item.GetComponent<ItemType>();
@@ -99,8 +98,13 @@ public class toolKindaScript : MonoBehaviour
                         float rotationZ = Random.Range(0, 360);
                         rotation = Quaternion.Euler(rotationX,rotationY,rotationZ);
                     }
-                   
-                        Instantiate(item, randomSpawnPlace, rotation);
+
+                    item.SetActive(true);
+                    item.transform.position = randomSpawnPlace;
+                    item.transform.rotation = rotation;
+                    
+                    // Instantiate(item, randomSpawnPlace, rotation);
+
                     //Debug.Log("Could be placed, yaaay"); 
                     canPlace = true;
                     placed= true;
