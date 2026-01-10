@@ -24,6 +24,9 @@ public class HuntState : StateMachineBehaviour
     {
         if (_elkDemon == null) return;
 
+        if (_elkDemon.IsGrabbingPlayer)
+            return;
+
         _elkDemon.CheckForAttack(animator);
 
         if (_elkDemon.CanSeePlayer())

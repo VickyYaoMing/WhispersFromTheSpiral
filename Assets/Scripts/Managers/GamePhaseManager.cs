@@ -6,7 +6,7 @@ using UnityEngine.Audio;
 [DisallowMultipleComponent]
 public class GamePhaseManager : MonoBehaviour
 {
-    public GamePhaseManager Instance { get; private set; }
+    public GamePhaseManager Instance { get; set; }
     public Sanity sanity;
     public bool keepRelativeOnChange = true;
     void Awake()

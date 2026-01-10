@@ -1,8 +1,10 @@
+using Assets.Scripts.AudioSystem;
+using SanitySystem;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Assets.Scripts.AudioSystem;
 
 [RequireComponent(typeof(Animator))]
 public class ElkDemonAI : MonoBehaviour
@@ -70,6 +72,7 @@ public class ElkDemonAI : MonoBehaviour
     private NavMeshAgent _navAgent;
     private Animator _stateMachine;
     private PlayerGrabController playerGrab;
+    private ISanityProvider _playerSanity;
 
     private float lastTeleportTime;
     private bool isTeleporting = false;
@@ -105,6 +108,7 @@ public class ElkDemonAI : MonoBehaviour
         _stateMachine = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerGrab = player.GetComponent<PlayerGrabController>();
+        _playerSanity = player.GetComponent<ISanityProvider>();
 
         lastTeleportTime = -teleportCooldown;
         _navAgent.updatePosition = true;
@@ -148,7 +152,7 @@ public class ElkDemonAI : MonoBehaviour
 
     public bool CanSeePlayer()
     {
-        if (player == null || _isGrabbingPlayer)
+        if (_isGrabbingPlayer)
             return false;
 
         Vector3 toPlayer = player.position - transform.position;
@@ -217,15 +221,13 @@ public class ElkDemonAI : MonoBehaviour
 
     public void CheckForAttack(Animator animator)
     {
+        if (_isGrabbingPlayer)
+            return;
+
         if (CanAttackPlayer() && playerGrab != null && !playerGrab.IsGrabbed)
         {
-            if (_isGrabbingPlayer) return;
-
             animator.SetTrigger("Attack");
-
-            playerGrab.StartGrab(transform, transform.position);
-
-            BeginGrabSequence();
+            BeginGrabSequence(); 
         }
     }
 
@@ -276,8 +278,41 @@ public class ElkDemonAI : MonoBehaviour
 
         playerGrab.StartGrab(transform, transform.position);
 
+        KillPlayerSanity();
+
         OnGrabPlayer?.Invoke();
     }
+    private void KillPlayerSanity()
+    {
+        if (_playerSanity == null) return;
+
+        _playerSanity.SetSanity(0f);
+        StartCoroutine(PlayerDeathSequence());
+    }
+
+    private IEnumerator PlayerDeathSequence()
+    {
+        var movement = player.GetComponent<Movement>();
+        if (movement != null)
+            movement.enabled = false;
+
+        var cameraController = Camera.main?.GetComponent<MonoBehaviour>();
+        if (cameraController != null)
+            cameraController.enabled = false;
+
+        var rb = player.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.isKinematic = true;
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene("System_MainMenu");
+    }
+
 
     private void ForceDemonToFacePlayer()
     {
@@ -409,20 +444,19 @@ public class ElkDemonAI : MonoBehaviour
 
     public void OnPlayerReleased()
     {
+        _isGrabbingPlayer = false;
+
         if (_navAgent != null)
             _navAgent.isStopped = false;
 
         if (_animator != null)
-        {
             _animator.ResetTrigger("Grabbed");
-        }
 
         if (canTeleportAfterGrab && CanTeleport())
         {
             StartCoroutine(TeleportSequence());
         }
 
-        _isGrabbingPlayer = false;
         Debug.Log("Player released by demon");
     }
 
