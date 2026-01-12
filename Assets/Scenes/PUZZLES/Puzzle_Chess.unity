@@ -1237,10 +1237,58 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 959789660519699861, guid: efefb5222cd74934c93ffa7fbdca21c8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 959789660519699861, guid: efefb5222cd74934c93ffa7fbdca21c8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0649
+      objectReference: {fileID: 0}
+    - target: {fileID: 959789660519699861, guid: efefb5222cd74934c93ffa7fbdca21c8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 959789660519699861, guid: efefb5222cd74934c93ffa7fbdca21c8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 959789660519699861, guid: efefb5222cd74934c93ffa7fbdca21c8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 959789660519699861, guid: efefb5222cd74934c93ffa7fbdca21c8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 959789660519699861, guid: efefb5222cd74934c93ffa7fbdca21c8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 959789660519699861, guid: efefb5222cd74934c93ffa7fbdca21c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 959789660519699861, guid: efefb5222cd74934c93ffa7fbdca21c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 959789660519699861, guid: efefb5222cd74934c93ffa7fbdca21c8, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5266502247399849886, guid: efefb5222cd74934c93ffa7fbdca21c8, type: 3}
       propertyPath: m_Name
       value: ChessBoardEdited
       objectReference: {fileID: 0}
+    - target: {fileID: 7046124809058317893, guid: efefb5222cd74934c93ffa7fbdca21c8, type: 3}
+      propertyPath: blackKing
+      value: 
+      objectReference: {fileID: 660809984}
+    - target: {fileID: 7046124809058317893, guid: efefb5222cd74934c93ffa7fbdca21c8, type: 3}
+      propertyPath: whiteQueen
+      value: 
+      objectReference: {fileID: 464264204}
     - target: {fileID: 9038104937925348526, guid: efefb5222cd74934c93ffa7fbdca21c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
