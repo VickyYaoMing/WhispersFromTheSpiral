@@ -175,7 +175,7 @@ public class ChessInteraction : InteractableBase
             ChessPuzzleCompleted?.Invoke(this, EventArgs.Empty);
             return true;
         }
-
+        return false;
     }
 
   
