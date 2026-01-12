@@ -21,6 +21,10 @@ public class ChessInteraction : InteractableBase
     private GameObject currentGameObject = null;
     private Dictionary<GameObject, GameObject> whitePiecesWinningPosition;
     private Dictionary<GameObject, GameObject> whitePiecesCurrentPosition;
+    private Dictionary<GameObject, GameObject> whitePiecesStartPosition;
+    private int piecesPlaced = 0;
+    private int piecesPlacedBeforeReset = 3;
+
 
     public static EventHandler ChessPuzzleCompleted;
     // used for 'animating' the movemet fo the pieces whe you win the game
@@ -50,6 +54,9 @@ public class ChessInteraction : InteractableBase
             }
 
         }
+
+        whitePiecesStartPosition = new Dictionary<GameObject, GameObject>(whitePiecesCurrentPosition);
+
     }
     void Update()
     {
@@ -65,7 +72,7 @@ public class ChessInteraction : InteractableBase
         if (distance <= 0.001f)
         {
             currentGameObject.transform.position = currentPieceOriginalPosition;
-            currentGameObject.transform.SetParent(originalParent.transform, true);
+            currentGameObject.transform.SetParent(originalParent.transform, false);
             chessPieceSelected = false;
             currentGameObject = null;
             return;
@@ -127,13 +134,38 @@ public class ChessInteraction : InteractableBase
                 currentGameObject.transform.position = new Vector3(hitTransform.position.x, currentPieceOriginalPosition.y, hitTransform.position.z);
                 chessPieceSelected = false;
                 whitePiecesCurrentPosition[currentGameObject] = hitTransform.gameObject;
-                if (whitePiecesWinningPosition[currentGameObject] == hitTransform.gameObject) WinningCondition();
+                if (whitePiecesWinningPosition[currentGameObject] == hitTransform.gameObject)
+                {
+                    if (WinningCondition()) return;
+                }
                 currentGameObject = null;
+                piecesPlaced++;
+                if(piecesPlaced >= piecesPlacedBeforeReset)
+                {
+                    ResetChess();
+                }
             }
         }
     }
 
-    private void WinningCondition()
+    private void ResetChess()
+    {
+        for (int i = 0; i < whitePieces.Count; i++)
+        {
+            Transform chessPlace = whitePiecesStartPosition[whitePieces[i]].transform;
+            whitePieces[i].transform.SetParent(null, false);
+            chessPlace.DetachChildren();
+            whitePieces[i].transform.SetParent(chessPlace, false);
+            whitePieces[i].transform.position = new Vector3(chessPlace.position.x, currentPieceOriginalPosition.y, chessPlace.position.z);
+
+            whitePiecesCurrentPosition = new Dictionary<GameObject, GameObject>(whitePiecesStartPosition);
+            piecesPlaced = 0;
+            originalParent = null;
+            currentGameObject = null;
+        }
+    }
+
+    private bool WinningCondition()
     {
         bool hasCompletedPuzzle = whitePiecesWinningPosition.All(kvp => whitePiecesCurrentPosition.TryGetValue(kvp.Key, out var v) && EqualityComparer<GameObject>.Default.Equals(kvp.Value, v));
         if (hasCompletedPuzzle)
@@ -141,6 +173,7 @@ public class ChessInteraction : InteractableBase
             StartCoroutine(KingPieceFall());
 
             ChessPuzzleCompleted?.Invoke(this, EventArgs.Empty);
+            return true;
         }
 
     }
