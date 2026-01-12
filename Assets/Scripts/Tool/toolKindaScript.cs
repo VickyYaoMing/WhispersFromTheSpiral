@@ -12,14 +12,19 @@ public class toolKindaScript : MonoBehaviour
     /// might give items scripts if they are wall deco or flat surface items
     /// </summary>
 
+    Vector3 startposition = new Vector3( 100,-100,100);
+
      List<GameObject> placeableItems = new List<GameObject>();//list of all objects 
     [SerializeField] private GameObject listItems;
-    List<GameObject> chosenItems = new List<GameObject>();//list of chosen items to place
+    public List<GameObject> chosenItems = new List<GameObject>();//list of chosen items to place
    
     [SerializeField]int amountOfChosenItems;
     private Collider hitbox;
 
     [SerializeField] float rotationFloat;
+
+    [SerializeField] bool isSectionActive = false;
+    MapSectionThingy thingy;
     private void Awake()
     {
         placeableItems.Clear();
@@ -27,17 +32,13 @@ public class toolKindaScript : MonoBehaviour
         {
             placeableItems.Add(child.gameObject);
         }
-
     }
     //hope all items in a room has hitboxes
     void Start()
     {
-
         //how many should be chosen this time// might have to alter range
         hitbox = GetComponent<Collider>();
-        chosenItems = RandomizedList(amountOfChosenItems);
-        Place();
-
+        
     }
     /// <summary>
     /// send in the number of items we want
@@ -51,6 +52,8 @@ public class toolKindaScript : MonoBehaviour
     private List<GameObject> RandomizedList(int amountOfChosenItems)
     {
         //reason for sending in list might be because dependng on code structure might need mulitple lists
+        
+
         chosenItems.Clear();//saftey for each time its called
         for (int i = 0; i < amountOfChosenItems; i++)
         {
@@ -59,15 +62,28 @@ public class toolKindaScript : MonoBehaviour
             //might need to add in a templist that willuse instaeed so we can remove item already chosen
             chosenItems.Add(go);   //add in random object i list to be placed
         }
+        
         return chosenItems;
     }
+    //private void HEll()
+    //{
+    //    foreach (GameObject go in placeableItems)
+    //    {
+    //        startposition = transform.position;
+    //    }
+    //}
     
-
+    /// <summary>
+    /// have a ethid that removes items in the script
+    /// make it public
+    /// call for the emthod in if section is active
+    /// if false, clear list
+    /// id true call for methid to add in list
+    /// </summary>
 
     public void Place(/*SurfaceType surface*/)
     {
-        
-
+        chosenItems = RandomizedList(amountOfChosenItems);
         foreach (GameObject item in chosenItems)
         {
             ItemType type = item.GetComponent<ItemType>();
@@ -75,8 +91,7 @@ public class toolKindaScript : MonoBehaviour
 
             int amountOftries = 0;//just for the whileloop
             bool placed = false;
-
-
+            
             while (amountOftries < 5 && !placed)
             {
                 Vector3 randomSpawnPlace = RandomPos(type.surfaceType);
@@ -99,11 +114,17 @@ public class toolKindaScript : MonoBehaviour
                         float rotationZ = Random.Range(0, 360);
                         rotation = Quaternion.Euler(rotationX,rotationY,rotationZ);
                     }
-                   
-                        Instantiate(item, randomSpawnPlace, rotation);
+
+                  //  item.SetActive(true);
+                    item.transform.position = randomSpawnPlace;
+                    item.transform.rotation = rotation;
+                    
+                    // Instantiate(item, randomSpawnPlace, rotation);
+
                     //Debug.Log("Could be placed, yaaay"); 
                     canPlace = true;
                     placed= true;
+                    
                 }
                 else
                 {
@@ -120,6 +141,14 @@ public class toolKindaScript : MonoBehaviour
 
         }
 
+    }
+    public void RemoveItems(List <GameObject> items)
+    {
+        foreach (GameObject item in items) {
+            item.transform.position = startposition;
+            item.SetActive(false);
+        }
+        items.Clear();
     }
     public Vector3 RandomPos(SurfaceType surface)
     {
@@ -200,11 +229,16 @@ public class toolKindaScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (thingy.sectionActive)
         {
-           
-           
+            //this no make sense, call for randomized list adb tehn place
+            Place();
         }
+        else
+        {
+            RemoveItems(chosenItems);
+        }
+        
     }
 
 }
