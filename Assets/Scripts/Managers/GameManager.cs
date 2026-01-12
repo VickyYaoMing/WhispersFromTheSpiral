@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
     public SaveSystem SaveSystem { get;  set; }
     public ItemManager ItemManager { get; set; }
     public CheckpointManager CheckpointManager { get; set; }
+    public CollectibleManager CollectibleManager { get; set; }
+
+    public LampObject Lantern { get; set; }
 
     private bool isSaving;
     private bool isLoading;
@@ -65,19 +68,19 @@ public class GameManager : MonoBehaviour
     {
         if (Keyboard.current.qKey.wasPressedThisFrame)
         {
-            Save();
+            //Save();
             //CheckpointManager.CreateNewCheckpoint(new Vector3(-1.07f, 4.39f, -3.92f)); just a debug to test creating new checkpoints
         }
         if (Keyboard.current.fKey.wasPressedThisFrame) 
         {
-            //LoadAsync();
+            LoadAsync();
             //Load();
         }
     }
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if(scene.name == "DemoSceneAct1" && shouldLoad)
+        if(scene.name == "Presentation_Scene" && shouldLoad)
         {
             StartCoroutine(Wait());
             shouldLoad = false;

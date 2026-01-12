@@ -13,6 +13,8 @@ public class LampObject : SecondaryInteractionItem
         {
             m_playerLightComponent = m_playerObj.GetComponent<PlayerLight>();
         }
+
+        GameManager.Instance.Lantern = this;
     }
     #endregion
     public override void SecondaryInteraction()
@@ -21,6 +23,25 @@ public class LampObject : SecondaryInteractionItem
         {
             m_playerLightComponent.HasFoundLamp = true;
         }
-        Destroy(gameObject);
+        gameObject.transform.position = new Vector3(0, -100, 0);
     }
+
+    public void Save(ref LanternSaveData data)
+    {
+        data.lampHasBeenFound = m_playerLightComponent.HasFoundLamp;
+        if(data.lampHasBeenFound) Debug.Log("lamp found");
+        Debug.Log("lamp not found");
+    }
+    
+    public void Load(LanternSaveData data)
+    {
+        if (!data.lampHasBeenFound) return;
+
+        gameObject.transform.position = new Vector3(0, -100, 0);
+    }
+}
+
+public struct LanternSaveData
+{
+    public bool lampHasBeenFound;
 }

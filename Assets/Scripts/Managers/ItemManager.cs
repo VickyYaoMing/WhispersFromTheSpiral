@@ -14,6 +14,7 @@ public class ItemManager : MonoBehaviour
     private Dictionary<GameObject, GameObject> itemToPrefabMap = new Dictionary<GameObject, GameObject>();
     [SerializeField] private List<GameObject> itemPrefabs;
 
+    #region Unity Methods
     void Start()
     {
         PopulatePrefabList();
@@ -28,7 +29,9 @@ public class ItemManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
+    #endregion
 
     private void Init()
     {
@@ -118,7 +121,7 @@ public class ItemManager : MonoBehaviour
             }
 
             //Following two if statements are separate for debug reasons. Turn them into one before production.
-            else if (currentItems[i] == null) 
+            else if (currentItems[i] == null)
             {
                 Debug.Log("Item at" + i + "is null");
                 currentItems.RemoveAt(i);

@@ -86,8 +86,11 @@ public class CheckpointManager : MonoBehaviour
     public void Load(CheckpointManagerSaveData saveData)
     {
         foreach (var checkpoint in Checkpoints)
-        {  
-            Destroy(checkpoint.gameObject);
+        {
+            if (checkpoint != null)
+            {
+                Destroy(checkpoint.gameObject);
+            }
         }
 
         RefreshCheckpointList();

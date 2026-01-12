@@ -310,7 +310,7 @@ public class ElkDemonAI : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        GameManager.Instance.Load();
+        GameManager.Instance.LoadAsync();
     }
 
 

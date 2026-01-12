@@ -119,11 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!20 &365255856 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 5423445441675027060, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-  m_PrefabInstance: {fileID: 700911170}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &426962110 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: dcd6b07ee76161f499d634ab64c2d2b8, type: 3}
@@ -144,10 +139,11 @@ MonoBehaviour:
   zoomFromFront: 0
   howCloseFromFront: 1.5
   upwardTilt: 0
+  itemShouldBeRotatedWhenHeld: {x: 0, y: 0, z: 0, w: 1}
+  itemShouldBePositionedWhenHeld: {x: 0, y: 0, z: 0}
   aboveZoomClose: 1.1
   canBePlacedUpon: 0
   placementArea: {x: 0, y: 0, z: 0}
-  keyToActivate: {fileID: 0}
 --- !u!54 &426962119
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -268,10 +264,11 @@ MonoBehaviour:
   zoomFromFront: 0
   howCloseFromFront: 1.5
   upwardTilt: 0
+  itemShouldBeRotatedWhenHeld: {x: 0, y: 0, z: 0, w: 1}
+  itemShouldBePositionedWhenHeld: {x: 0, y: 0, z: 0}
   aboveZoomClose: 1.1
   canBePlacedUpon: 0
   placementArea: {x: 0, y: 0, z: 0}
-  keyToActivate: {fileID: 0}
   m_sprites:
   - {fileID: 21300000, guid: 6e75897208cc18b4396f3af40c9eb8af, type: 3}
   - {fileID: 21300000, guid: b0c4f31ed6a3f2444a45f0285e0e3e52, type: 3}
@@ -1672,10 +1669,11 @@ MonoBehaviour:
   zoomFromFront: 0
   howCloseFromFront: 1.5
   upwardTilt: 0
+  itemShouldBeRotatedWhenHeld: {x: 0, y: 0, z: 0, w: 1}
+  itemShouldBePositionedWhenHeld: {x: 0, y: 0, z: 0}
   aboveZoomClose: 1.1
   canBePlacedUpon: 0
   placementArea: {x: 0, y: 0, z: 0}
-  keyToActivate: {fileID: 0}
 --- !u!1001 &1591485682
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1814,15 +1812,11 @@ MonoBehaviour:
   zoomFromFront: 0
   howCloseFromFront: 1.5
   upwardTilt: 0
+  itemShouldBeRotatedWhenHeld: {x: 0, y: 0, z: 0, w: 1}
+  itemShouldBePositionedWhenHeld: {x: 0, y: 0, z: 0}
   aboveZoomClose: 1.1
   canBePlacedUpon: 0
   placementArea: {x: 0, y: 0, z: 0}
-  keyToActivate: {fileID: 0}
---- !u!20 &1787453135 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 1333395779951691931, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-  m_PrefabInstance: {fileID: 700911170}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1815481974
 GameObject:
   m_ObjectHideFlags: 0
@@ -2019,11 +2013,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5158298889113374149, guid: e342cd6c091fccd4091c3baaeff121ac, type: 3}
   m_PrefabInstance: {fileID: 8295947795041637741}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1979868793 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4635922049782578351, guid: 80498d958d1592b45b373e99b2a1d7e9, type: 3}
-  m_PrefabInstance: {fileID: 700911170}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2037992542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2162,79 +2151,11 @@ MonoBehaviour:
   zoomFromFront: 0
   howCloseFromFront: 1.5
   upwardTilt: 0
+  itemShouldBeRotatedWhenHeld: {x: 0, y: 0, z: 0, w: 1}
+  itemShouldBePositionedWhenHeld: {x: 0, y: 0, z: 0}
   aboveZoomClose: 1.1
   canBePlacedUpon: 0
   placementArea: {x: 0, y: 0, z: 0}
-  keyToActivate: {fileID: 0}
---- !u!1001 &999962297281506317
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 491183127896249117, guid: dfc0eec62810a7a43aee2093cd14abea, type: 3}
-      propertyPath: cam
-      value: 
-      objectReference: {fileID: 1787453135}
-    - target: {fileID: 491183127896249117, guid: dfc0eec62810a7a43aee2093cd14abea, type: 3}
-      propertyPath: anim
-      value: 
-      objectReference: {fileID: 1979868793}
-    - target: {fileID: 491183127896249117, guid: dfc0eec62810a7a43aee2093cd14abea, type: 3}
-      propertyPath: pixelFOVCam
-      value: 
-      objectReference: {fileID: 365255856}
-    - target: {fileID: 1698907009949754135, guid: dfc0eec62810a7a43aee2093cd14abea, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.449
-      objectReference: {fileID: 0}
-    - target: {fileID: 1698907009949754135, guid: dfc0eec62810a7a43aee2093cd14abea, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.475
-      objectReference: {fileID: 0}
-    - target: {fileID: 1698907009949754135, guid: dfc0eec62810a7a43aee2093cd14abea, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.883
-      objectReference: {fileID: 0}
-    - target: {fileID: 1698907009949754135, guid: dfc0eec62810a7a43aee2093cd14abea, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.70706207
-      objectReference: {fileID: 0}
-    - target: {fileID: 1698907009949754135, guid: dfc0eec62810a7a43aee2093cd14abea, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.70706207
-      objectReference: {fileID: 0}
-    - target: {fileID: 1698907009949754135, guid: dfc0eec62810a7a43aee2093cd14abea, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.007953859
-      objectReference: {fileID: 0}
-    - target: {fileID: 1698907009949754135, guid: dfc0eec62810a7a43aee2093cd14abea, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.007953859
-      objectReference: {fileID: 0}
-    - target: {fileID: 1698907009949754135, guid: dfc0eec62810a7a43aee2093cd14abea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 1698907009949754135, guid: dfc0eec62810a7a43aee2093cd14abea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1698907009949754135, guid: dfc0eec62810a7a43aee2093cd14abea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -1.289
-      objectReference: {fileID: 0}
-    - target: {fileID: 3860204833933436546, guid: dfc0eec62810a7a43aee2093cd14abea, type: 3}
-      propertyPath: m_Name
-      value: GUN-WORKING
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: dfc0eec62810a7a43aee2093cd14abea, type: 3}
 --- !u!1001 &4100902571053340521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2497,6 +2418,5 @@ SceneRoots:
   - {fileID: 4100902571053340521}
   - {fileID: 1091521046}
   - {fileID: 671603966}
-  - {fileID: 999962297281506317}
   - {fileID: 4117212302266261529}
   - {fileID: 7021912175334101762}
