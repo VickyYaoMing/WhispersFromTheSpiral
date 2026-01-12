@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using SanitySystem;
 
 public class Player : MonoBehaviour
 {
@@ -52,7 +53,11 @@ public class Player : MonoBehaviour
 
     public void Save(ref PlayerSaveData data)
     {
-        //data.position = transform.position;
+        data.sanityPhaseCap = GetComponent<Sanity>().Cap01;
+        data.stress = GetComponent<StressController>().GetStressValue();
+
+        Debug.Log("Phase Cap" + data.sanityPhaseCap);
+        Debug.Log("Stress" + data.stress);
     }
 
     public async Task Load(PlayerSaveData data)
@@ -70,6 +75,9 @@ public class Player : MonoBehaviour
 
         //wait one frame (just in case)
         await Task.Delay(1);
+
+        GetComponent<Sanity>().SetPhaseCap(data.sanityPhaseCap);
+        GetComponent<StressController>().SetStressValue(data.stress);
 
         //Re-enable controller and movement
         characterController.enabled = true;
@@ -90,5 +98,7 @@ public class Player : MonoBehaviour
 [System.Serializable]
 public struct PlayerSaveData
 {
+    public float sanityPhaseCap;
+    public float stress;
     public Vector3 position;
 }

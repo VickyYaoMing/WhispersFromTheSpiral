@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     public CheckpointManager CheckpointManager { get; set; }
     public CollectibleManager CollectibleManager { get; set; }
 
+    public DemonSaveAndLoad Demon { get; set; }
+
     public LampObject Lantern { get; set; }
 
     private bool isSaving;
