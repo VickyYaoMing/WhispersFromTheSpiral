@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -36.599
+      value: -35.408
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_LocalPosition.y
@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -22.79
+      value: -21.405
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       propertyPath: m_LocalRotation.w
@@ -230,10 +230,10 @@ MonoBehaviour:
   attackRange: 2
   attackAngleThreshold: 0.7
   moveSpeed: 1.5
-  huntSpeed: 4
+  huntSpeed: 2
   maxAnimSpeed: 2.5
   sightRange: 15
-  sightAngle: 360
+  sightAngle: 150
   obstructionMask:
     serializedVersion: 2
     m_Bits: 33555200
@@ -250,7 +250,7 @@ MonoBehaviour:
   teleportMaxDistance: 40
   teleportVFXPrefab: {fileID: 0}
   teleportSound: {fileID: 0}
-  teleportCooldown: 5
+  teleportCooldown: 0.1
   minDistanceFromPlayer: 30
   _handAttach: {fileID: 0}
   grabLocalOffset: {x: 0, y: 0, z: 0.5}
@@ -259,6 +259,10 @@ MonoBehaviour:
   stunCooldown: 5
   screamSound: 28
   screamCooldown: 10
+  footstepSound: 0
+  footstepIntervalWalk: 0.6
+  footstepIntervalRun: 0.35
+  movementThreshold: 0.1
   Destination: {x: 0, y: 0, z: 0}
 --- !u!114 &7047561757618068723
 MonoBehaviour:

@@ -10,7 +10,7 @@ public class HallucinationSpawner : MonoBehaviour
     public Transform playerTransform;
     public Sanity sanity;
     [Header("Prefabs")]
-    public List<GameObject> halluciantionPrefabs = new();
+    public List<GameObject> hallucinationPrefabs = new();
     [Min(0)] public int initialPool = 3;
 
     [Header("LoS & Placement")]
@@ -68,7 +68,7 @@ public class HallucinationSpawner : MonoBehaviour
             sanity.OnSanityStateChanged += _ => ApplyPhaseCaps();
         }
     }
-    void Onable()
+    void OnEnable()
     {
         ApplyPhaseCaps();
         ScheduleNextTick();
@@ -137,7 +137,7 @@ public class HallucinationSpawner : MonoBehaviour
     }
     private void TrySpawn()
     {
-        if (halluciantionPrefabs.Count == 0 || playerTransform == null) return;
+        if (hallucinationPrefabs.Count == 0 || playerTransform == null) return;
 
         if (sanity == null || sanity.phaseProfile == null || sanity.phaseProfile.phases == null || sanity.PhaseIndex < 0)
             return;
@@ -193,7 +193,7 @@ public class HallucinationSpawner : MonoBehaviour
     private void SpawnAt(Vector3 pos, Quaternion rot)
     {
         var inst = GetFromPool();
-        var prefab = halluciantionPrefabs[UnityEngine.Random.Range(0, halluciantionPrefabs.Count)];
+        var prefab = hallucinationPrefabs[UnityEngine.Random.Range(0, hallucinationPrefabs.Count)];
         inst.BuildVisualIfNeeded(prefab, hallucinationLayer);
 
         inst.transform.SetPositionAndRotation(pos, rot);
