@@ -32,7 +32,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 07587a63328375745a01d6d44cc4ea92, type: 3}
     - {fileID: 8300000, guid: ba21aaedf186f7347aee09eec18ed930, type: 3}
     mixerGroup: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
-    baseVolume: 0.2
+    baseVolume: 0.175
     minPitch: 0.95
     maxPitch: 1.05
     spatial: 1
@@ -44,7 +44,7 @@ MonoBehaviour:
     clips:
     - {fileID: 8300000, guid: e5f3922b347b5524382a35ba3a111465, type: 3}
     mixerGroup: {fileID: 9183648810433088380, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
-    baseVolume: 0.2
+    baseVolume: 0.227
     minPitch: 0.75
     maxPitch: 1.25
     spatial: 1
@@ -326,5 +326,20 @@ MonoBehaviour:
     spatial: 1
     spatialBlend: 1
     maxDistance: 4
+    rolloffMode: 0
+    loop: 0
+  - type: 32
+    clips:
+    - {fileID: 8300000, guid: 359ec8dc4a83c8c49b45ffda81f363f5, type: 3}
+    - {fileID: 8300000, guid: ca850e3bbe3054843bb5c08ee117104c, type: 3}
+    - {fileID: 8300000, guid: 07587a63328375745a01d6d44cc4ea92, type: 3}
+    - {fileID: 8300000, guid: ba21aaedf186f7347aee09eec18ed930, type: 3}
+    mixerGroup: {fileID: 7413692854867692767, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
+    baseVolume: 0.7
+    minPitch: 0.35
+    maxPitch: 0.4
+    spatial: 1
+    spatialBlend: 1
+    maxDistance: 1
     rolloffMode: 0
     loop: 0

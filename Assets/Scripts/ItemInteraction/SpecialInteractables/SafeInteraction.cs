@@ -17,6 +17,7 @@ public class SafeInteraction : InteractableBase
     [SerializeField] private float rayHitDistance = 100f;
     private bool safeOpened = false;
     private InteractionManager interactionManager;
+    private GamePhaseManager gamePhaseManager;
 
     private int[] code;
     private int currentCodeIndex = 0;
@@ -24,14 +25,15 @@ public class SafeInteraction : InteractableBase
     private void Start()
     {
         interactionManager = GameManager.Instance.InteractionManager;
+        gamePhaseManager = FindAnyObjectByType<GamePhaseManager>();
         itemShouldBeCameraLocked = true;
         code = new int[4];
-        if(returnGameObject != null)
+        if (returnGameObject != null)
         {
             returnGameObject.SetActive(false);
         }
     }
-   
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0) && !safeOpened)
@@ -103,7 +105,8 @@ public class SafeInteraction : InteractableBase
             animator.SetBool("IsNumActive", false);
             animator.SetTrigger("OpenSafe");
             safeOpened = true;
-            if(returnGameObject != null)
+            gamePhaseManager.NextPhase();
+            if (returnGameObject != null)
             {
                 returnGameObject.SetActive(true);
             }
@@ -112,6 +115,6 @@ public class SafeInteraction : InteractableBase
         {
             ResetCode();
         }
-        
+
     }
 }

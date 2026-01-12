@@ -29,50 +29,92 @@ MonoBehaviour:
     dofEnabled: 0
     dofAperturef: 0
     allowHallucinationSpawn: 1
-    baseInterval: 3
-    minInterval: 10
-    maxActive: 2
+    baseInterval: 8.9
+    minInterval: 17.3
+    maxActive: 1
     minRadius: 2
     maxRadius: 5
   - id: s_Phase1
     maxSanityCap: 0.8
     vignetteBase: 0.1
-    voicesBedVolumeAtCalm: 0.001
-    voicesBedVolumeAtMin: 0.25
+    voicesBedVolumeAtCalm: 0.0005
+    voicesBedVolumeAtMin: 0.096
     voicesDensityPerMinAtCalm: 4
     voicesDensityPerMinAtMin: 16
-    vignetteAtCalm: 0.2
-    vignetteAtMin: 0.4
+    vignetteAtCalm: 0.104
+    vignetteAtMin: 0.301
     chromAbAtCalm: 0
     chromAbAtMin: 0.247
     lensDistAtCalm: -0.1
     lensDistAtMin: -0.2
     dofEnabled: 1
-    dofAperturef: 4.9
-    allowHallucinationSpawn: 0
-    baseInterval: 60
-    minInterval: 30
+    dofAperturef: 31
+    allowHallucinationSpawn: 1
+    baseInterval: 5.9
+    minInterval: 8.3
     maxActive: 1
     minRadius: 8
     maxRadius: 30
   - id: s_Phase2
     maxSanityCap: 0.65
     vignetteBase: 0.2
-    voicesBedVolumeAtCalm: 0.0025
+    voicesBedVolumeAtCalm: 0.0008
     voicesBedVolumeAtMin: 0.244
     voicesDensityPerMinAtCalm: 22.1
     voicesDensityPerMinAtMin: 47.1
-    vignetteAtCalm: 0.35
-    vignetteAtMin: 0.5
+    vignetteAtCalm: 0.24
+    vignetteAtMin: 0.372
     chromAbAtCalm: 0.35
     chromAbAtMin: 0.5
     lensDistAtCalm: -0.15
     lensDistAtMin: -0.2
     dofEnabled: 1
-    dofAperturef: 4
+    dofAperturef: 29.9
     allowHallucinationSpawn: 1
     baseInterval: 45
     minInterval: 30
     maxActive: 3
     minRadius: 6
     maxRadius: 32
+  - id: s_Phase3
+    maxSanityCap: 0.5
+    vignetteBase: 0.3
+    voicesBedVolumeAtCalm: 0.0013
+    voicesBedVolumeAtMin: 0.26
+    voicesDensityPerMinAtCalm: 25
+    voicesDensityPerMinAtMin: 50
+    vignetteAtCalm: 0.4
+    vignetteAtMin: 0.55
+    chromAbAtCalm: 0.4
+    chromAbAtMin: 0.55
+    lensDistAtCalm: -0.225
+    lensDistAtMin: -0.27
+    dofEnabled: 1
+    dofAperturef: 29.3
+    allowHallucinationSpawn: 1
+    baseInterval: 35
+    minInterval: 25
+    maxActive: 3
+    minRadius: 6
+    maxRadius: 15
+  - id: s_Phase4
+    maxSanityCap: 0.35
+    vignetteBase: 0.3
+    voicesBedVolumeAtCalm: 0.02
+    voicesBedVolumeAtMin: 0.3
+    voicesDensityPerMinAtCalm: 25
+    voicesDensityPerMinAtMin: 50
+    vignetteAtCalm: 0.4
+    vignetteAtMin: 0.55
+    chromAbAtCalm: 0.5
+    chromAbAtMin: 0.6
+    lensDistAtCalm: -0.225
+    lensDistAtMin: -0.27
+    dofEnabled: 1
+    dofAperturef: 29.2
+    allowHallucinationSpawn: 1
+    baseInterval: 35
+    minInterval: 25
+    maxActive: 3
+    minRadius: 6
+    maxRadius: 15
