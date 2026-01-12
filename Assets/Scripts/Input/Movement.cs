@@ -156,7 +156,7 @@ public class Movement : MonoBehaviour
         else
         {
             targetPos = item.position + Vector3.up * aboveClose;
-            targetRot = Quaternion.LookRotation(Vector3.down, Vector3.forward);
+            targetRot = Quaternion.LookRotation(Vector3.down, item.forward);
         }
 
         StartCoroutine(ZoomCamera(item, targetPos, targetRot));
