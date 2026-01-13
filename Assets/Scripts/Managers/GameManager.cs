@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
         }
         if (Keyboard.current.fKey.wasPressedThisFrame) 
         {
-            LoadAsync();
+            //LoadAsync();
             //Load();
         }
     }
