@@ -18,8 +18,16 @@ MonoBehaviour:
   m_PlatformId: 4e3c793746204150860bf175a9a41a05
   m_PlatformBuildProfile:
     rid: 2526839545396985919
-  m_OverrideGlobalSceneList: 0
-  m_Scenes: []
+  m_OverrideGlobalSceneList: 1
+  m_Scenes:
+  - m_enabled: 1
+    m_path: Assets/Scenes/SYSTEMS/System_Loading.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/SYSTEMS/System_MainMenu.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/SANDBOX/DemoScenes/PresentationVersionScene/Presentation_Scene.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/SYSTEMS/System_Credits.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings: []
