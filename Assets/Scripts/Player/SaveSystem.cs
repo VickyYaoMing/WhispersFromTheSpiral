@@ -6,20 +6,21 @@ using System.Threading.Tasks;
 
 public class SaveSystem
 {
-    private static SaveData _saveData = new SaveData();
-
     [System.Serializable]
     public struct SaveData
     {
+        public LanternSaveData LanternSaveData;
+        public DemonSaveData DemonSaveData;
         public PlayerSaveData PlayerData;
         public PlayerInventoryData InventoryData;
         public ItemManagerSaveData ItemManagerSaveData;
         public CollectibleManagerSaveData CollectibleManagerSaveData;
         public CheckpointManagerSaveData CheckpointManagerSaveData;
-        public LanternSaveData LanternSaveData;
         public bool hasSaved;
     }
-    
+
+    private static SaveData _saveData = new SaveData();
+
     public static bool CheckForSave()
     {
         if(SaveFileName() == null)
@@ -80,6 +81,7 @@ public class SaveSystem
         GameManager.Instance.ItemManager.Load(_saveData.ItemManagerSaveData);   
         GameManager.Instance.CollectibleManager.Load(_saveData.CollectibleManagerSaveData);
         GameManager.Instance.Lantern.Load(_saveData.LanternSaveData);
+        GameManager.Instance.Demon.Load(_saveData.DemonSaveData);
     }
 
     #endregion
@@ -98,8 +100,9 @@ public class SaveSystem
         GameManager.Instance.ItemManager.Save(ref _saveData.ItemManagerSaveData);
         GameManager.Instance.CollectibleManager.Save(ref _saveData.CollectibleManagerSaveData);
         GameManager.Instance.Lantern.Save(ref _saveData.LanternSaveData);
+        GameManager.Instance.Player.Save(ref _saveData.PlayerData);
+        GameManager.Instance.Demon.Save(ref _saveData.DemonSaveData);
 
-        Debug.Log("bro please" + _saveData.LanternSaveData.lampHasBeenFound.ToString());
         if (!_saveData.hasSaved)
         {
             _saveData.hasSaved = true;

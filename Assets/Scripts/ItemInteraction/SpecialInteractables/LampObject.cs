@@ -41,6 +41,7 @@ public class LampObject : SecondaryInteractionItem
     }
 }
 
+[System.Serializable]
 public struct LanternSaveData
 {
     public bool lampHasBeenFound;

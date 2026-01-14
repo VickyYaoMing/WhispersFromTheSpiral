@@ -84,7 +84,9 @@ public class SafeInteraction : InteractableBase
                 if (hitItem.collider.gameObject.CompareTag("ItemInsideSafe"))
                 {
                     returnGameObject.SetActive(false);
+                    Vector3 savedScale = hitItem.transform.localScale;
                     interactionManager.OnPickUp(returnGameObject);
+                    returnGameObject.transform.localScale = savedScale;
                     interactionManager.ReleaseCameraLock();
                 }
             }

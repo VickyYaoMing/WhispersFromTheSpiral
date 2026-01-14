@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraBob : MonoBehaviour
 {
-    private bool enabled = true;
+    private bool isEnabled = true;
     [SerializeField, Range(0, 0.1f)] private float amplitude = 0.015f;
     [SerializeField, Range(0, 30)] private float frequency = 10.0f;
 
@@ -29,7 +29,7 @@ public class CameraBob : MonoBehaviour
 
     void Update()
     {
-        if (!enabled) return;
+        if (!isEnabled) return;
         CheckMotion();
         _camera.LookAt(FocusTarget());
     }

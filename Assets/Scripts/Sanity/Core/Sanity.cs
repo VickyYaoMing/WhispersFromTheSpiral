@@ -298,5 +298,12 @@ namespace SanitySystem
             return true;
         }
 
+#region Save and Load Helpers
+        public void SetPhaseCap(float newCap)
+        {
+            _cap01 = newCap;
+        }
+#endregion
+
     }
 }
