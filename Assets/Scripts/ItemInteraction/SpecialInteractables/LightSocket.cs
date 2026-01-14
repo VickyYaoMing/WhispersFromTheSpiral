@@ -131,7 +131,6 @@ public class LightSocket : SecondaryInteractionItem
     {
         if (lightbulb)
         {
-            saveData.lightbulbPosition = lightbulb.transform.position;
             saveData.hasLightbulb = true;
         }
         else
@@ -178,6 +177,5 @@ public class LightSocket : SecondaryInteractionItem
 [System.Serializable] 
 public struct LightSocketSaveData
 {
-    public Vector3 lightbulbPosition;
     public bool hasLightbulb;
 }
