@@ -78,4 +78,15 @@ public class StressController : MonoBehaviour
         _extraRate = Mathf.Max(0f, perSecond);
     }
 
+    #region Save and Load Helpers
+    public float GetStressValue()
+    {
+        return _stress;
+    }
+
+    public void SetStressValue(float newStress)
+    {
+        _stress = newStress;
+    }
+    #endregion
 }

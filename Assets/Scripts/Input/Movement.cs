@@ -7,7 +7,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private Renderer[] m_playerMesh;
 
     [Header("Camera Effects & Sensitivity")]
-    [SerializeField] private Camera m_camera;
+    [SerializeField] private GameObject m_camera;
     [SerializeField] private float m_defaultSensitivity = 0.1f;
     [SerializeField] private float m_crouchSensitivity = 0.05f;
     [SerializeField] private float m_trippingValue = 1f;
@@ -156,7 +156,7 @@ public class Movement : MonoBehaviour
         else
         {
             targetPos = item.position + Vector3.up * aboveClose;
-            targetRot = Quaternion.LookRotation(Vector3.down, Vector3.forward);
+            targetRot = Quaternion.LookRotation(Vector3.down, item.forward);
         }
 
         StartCoroutine(ZoomCamera(item, targetPos, targetRot));

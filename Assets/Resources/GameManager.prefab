@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4066209384927210016}
   - component: {fileID: 2708879655286291170}
   - component: {fileID: -5140497691773068432}
+  - component: {fileID: 4256444781510366655}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -76,3 +77,15 @@ MonoBehaviour:
   Checkpoints: []
   checkpointPrefab: {fileID: 9139617889882530917, guid: 9de193ce4be1c154d95ac4564b09f17e, type: 3}
   checkpointParent: {fileID: 0}
+--- !u!114 &4256444781510366655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8997886214572261377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67028164239dcff43ad997ac9837c239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -137,6 +137,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       insertIndex: -1
       addedObject: {fileID: 557041715295536151}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3019188827709823212}
   m_SourcePrefab: {fileID: 100100000, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
 --- !u!4 &6213767349117250653 stripped
 Transform:
@@ -229,9 +232,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 2
   attackAngleThreshold: 0.7
-  moveSpeed: 1.5
+  moveSpeed: 1
   huntSpeed: 2
-  maxAnimSpeed: 2.5
+  maxAnimSpeed: 2
   sightRange: 15
   sightAngle: 150
   obstructionMask:
@@ -239,7 +242,7 @@ MonoBehaviour:
     m_Bits: 33555200
   eyeHeight: 1
   grabOffset: {x: 1, y: 1, z: 1}
-  throwAngle: 10
+  throwAngle: 0
   patrolPoints: []
   observationPoints: []
   player: {fileID: 0}
@@ -257,10 +260,10 @@ MonoBehaviour:
   grabRotationOffset: {x: 0, y: 0, z: 0}
   canBeStunned: 1
   stunCooldown: 5
-  screamSound: 28
+  screamSound: 29
   screamCooldown: 10
-  footstepSound: 0
-  footstepIntervalWalk: 0.6
+  footstepSound: 32
+  footstepIntervalWalk: 0.3
   footstepIntervalRun: 0.35
   movementThreshold: 0.1
   Destination: {x: 0, y: 0, z: 0}
@@ -313,3 +316,15 @@ MonoBehaviour:
   playerMovementScript: {fileID: 0}
   showDebug: 1
   coneColor: {r: 1, g: 0, b: 0, a: 0.2}
+--- !u!114 &3019188827709823212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6733001117681956583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 793699e72ce39a541a87078236e1ea81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
