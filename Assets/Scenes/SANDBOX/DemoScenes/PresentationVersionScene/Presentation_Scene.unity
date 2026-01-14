@@ -1123,6 +1123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 33251052}
+  - component: {fileID: 33251053}
   m_Layer: 0
   m_Name: BLOCKINGSTAIRS RIGHT
   m_TagString: Untagged
@@ -1147,6 +1148,20 @@ Transform:
   - {fileID: 1271262785}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &33251053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33251051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fca5e4a59bfe6e41b0f57025f66e853, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObject: {fileID: 33251051}
+  positionToMoveTo: {x: -31.11037, y: -9, z: 13.87207}
 --- !u!1 &43522841
 GameObject:
   m_ObjectHideFlags: 0
@@ -5277,6 +5292,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 218333613}
+  - component: {fileID: 218333614}
   m_Layer: 0
   m_Name: BLOCKINGSTAIRS LEFT
   m_TagString: Untagged
@@ -5301,6 +5317,20 @@ Transform:
   - {fileID: 488070562}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &218333614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218333612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fca5e4a59bfe6e41b0f57025f66e853, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObject: {fileID: 218333612}
+  positionToMoveTo: {x: -44.232, y: -9, z: 13.77}
 --- !u!1001 &218888879
 PrefabInstance:
   m_ObjectHideFlags: 0
