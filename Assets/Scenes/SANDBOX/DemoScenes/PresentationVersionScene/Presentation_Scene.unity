@@ -554,11 +554,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1896839218}
-  chosenItems: []
-  amountOfChosenItems: 1
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &29521959
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -637,14 +632,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 33251051}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.110373, y: -5.9130106, z: 13.872073}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.75448036, y: -4.3867383, z: 5.23588}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1912733581}
   - {fileID: 1271262785}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 52259137}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &43522841
 GameObject:
@@ -755,6 +750,54 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 43522841}
   m_Mesh: {fileID: -3899200920067504171, guid: 1cf01b8496ebfdf44805268e20371a61, type: 3}
+--- !u!1 &52259136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 52259137}
+  - component: {fileID: 52259138}
+  m_Layer: 0
+  m_Name: StairBlockerHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &52259137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52259136}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -30.355892, y: -1.5262722, z: 8.636193}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 33251052}
+  - {fileID: 218333613}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &52259138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52259136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fca5e4a59bfe6e41b0f57025f66e853, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObject: {fileID: 52259136}
+  positionToMoveTo: {x: -30.35589, y: -3.3, z: 8.636193}
 --- !u!1001 &55559964
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -936,11 +979,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1896839218}
-  chosenItems: []
-  amountOfChosenItems: 1
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &61179673
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1225,11 +1263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 6
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &89313772
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1670,11 +1703,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 6
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &120309724
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1948,11 +1976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 8
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &143808689
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2191,11 +2214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 9
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &180813962
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2710,11 +2728,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1896839218}
-  chosenItems: []
-  amountOfChosenItems: 1
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &201465306
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3107,14 +3120,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 218333612}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -44.232, y: -5.9130106, z: 13.77}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -13.876106, y: -4.3867383, z: 5.133807}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 301044807}
   - {fileID: 488070562}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 52259137}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &221558304
 GameObject:
@@ -6473,11 +6486,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 7
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &404096124
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7019,11 +7027,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 8
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &419942879
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7392,11 +7395,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 7
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &434085151
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8381,11 +8379,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 7
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &470877674
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10184,11 +10177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 8
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &591614050
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11153,11 +11141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 15
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &647473100
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11224,11 +11207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 15
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &651210901
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12673,11 +12651,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 10
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &756284940
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14396,11 +14369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 8
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &844417907
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14584,11 +14552,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 15
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &855287701
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15377,11 +15340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 25
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &881651667
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17482,11 +17440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 8
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &1040327949
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20135,11 +20088,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 15
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &1173708453
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20394,11 +20342,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 12
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &1207079570
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20710,11 +20653,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 5
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &1220358753
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21143,11 +21081,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 7
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &1248466999
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23139,11 +23072,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 9
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &1385932755
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23417,11 +23345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1896839218}
-  chosenItems: []
-  amountOfChosenItems: 1
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &1426738052
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24464,11 +24387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 7
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &1495549795
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26452,11 +26370,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 12
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &1616650911
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27615,11 +27528,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 7
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &1676828511
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27743,11 +27651,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 7
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &1684550593
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29367,11 +29270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1896839218}
-  chosenItems: []
-  amountOfChosenItems: 1
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &1771821040
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29680,11 +29578,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 9
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &1790839337
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30661,11 +30554,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 6
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &1835559032
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32762,11 +32650,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1896839218}
-  chosenItems: []
-  amountOfChosenItems: 1
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &2023356736
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32942,11 +32825,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1109127807}
-  chosenItems: []
-  amountOfChosenItems: 7
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &2034454705
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -33434,11 +33312,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c5e66420e8eab4c88250b798ddc15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItems: {fileID: 1896839218}
-  chosenItems: []
-  amountOfChosenItems: 1
-  rotationFloat: 0
-  isSectionActive: 0
 --- !u!65 &2064286117
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -130611,6 +130484,5 @@ SceneRoots:
   - {fileID: 581692627}
   - {fileID: 625421169}
   - {fileID: 521356700}
-  - {fileID: 33251052}
-  - {fileID: 218333613}
   - {fileID: 794484375}
+  - {fileID: 52259137}
