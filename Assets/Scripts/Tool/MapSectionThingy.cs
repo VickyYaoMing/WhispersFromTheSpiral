@@ -4,7 +4,7 @@ public class MapSectionThingy : MonoBehaviour
 {
     public bool sectionActive;
     public Transform player;
-    float inrange = 32;
+    float inrange = 40;
     //toolKindaScript toolList;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

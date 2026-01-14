@@ -109,6 +109,7 @@ private Collider hitbox;
                 Debug.Log(canPlace);
                 if (canPlace)
                 {
+                    item.SetActive(true);
                     Quaternion rotation;
                     //fix roation here
                     if (type.surfaceType == SurfaceType.Wall)
@@ -125,7 +126,7 @@ private Collider hitbox;
                         rotation = Quaternion.Euler(rotationX, rotationY, rotationZ);
                     }
 
-                    item.SetActive(true);
+                   
                     item.GetComponent<Rigidbody>().useGravity = true;
                     item.transform.position = randomSpawnPlace;
                     item.transform.rotation = rotation;
@@ -173,7 +174,6 @@ private Collider hitbox;
         switch (surface)
         {
             case SurfaceType.Wall:
-                //SERIALISED FIELD FLOT THINGY SUCK MY DICK
 
                 return new Vector3(randX, randY, b.center.z);
 
