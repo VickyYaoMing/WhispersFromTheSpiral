@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using SanitySystem;
+using System.Linq;
+using System.Collections.Generic;
+
 
 public class SummoningCircleManager : MonoBehaviour
 {
@@ -16,6 +19,7 @@ public class SummoningCircleManager : MonoBehaviour
         pedestals = GetComponentsInChildren<ItemPedestal>();
         gamePhaseManager = FindAnyObjectByType<GamePhaseManager>();
         stairBlockEnabler = FindAnyObjectByType<StairBlockEnabler>();
+        GameManager.Instance.SummoningCircle = this;
     }
 
     // Update is called once per frame
@@ -44,4 +48,52 @@ public class SummoningCircleManager : MonoBehaviour
         StartCoroutine(stairBlockEnabler.MoveBars(stairBlockEnabler.positionToMoveTo, 2f));
     }
 
+
+    public void Save(ref SummoningCircleSaveData saveData)
+    {
+        List<PedestalSaveData> pedestalSaveDataList = new List<PedestalSaveData>();
+        for (int i = 0; i < pedestals.Length; i++)
+        {
+            PedestalSaveData p = new PedestalSaveData
+            {
+                thisPedestal = pedestals[i],
+                correctItem = pedestals[i].CorrectItem,
+                item = pedestals[i].ItemOnPedestal,
+            };
+            pedestalSaveDataList.Add(p);
+        }
+        saveData.pedestalSaves = pedestalSaveDataList.ToArray();
+        Debug.Log(pedestalSaveDataList.Count);
+        foreach (var a in pedestalSaveDataList)
+        {
+            Debug.Log("list " + a.ToString());
+        }
+        foreach (var a in saveData.pedestalSaves)
+        {
+            Debug.Log("array" + a.ToString());
+        }
+    }
+
+    public void Load(SummoningCircleSaveData saveData)
+    {
+        for (int i = 0; i < pedestals.Length; i++)
+        {
+            pedestals[i].Load(saveData.pedestalSaves[i]);
+        }
+    }
+
 }
+[System.Serializable]
+public struct PedestalSaveData
+{
+    public ItemPedestal thisPedestal;
+    public Default_Item correctItem;
+    public Default_Item item;
+}
+
+[System.Serializable]
+public struct SummoningCircleSaveData
+{
+    public PedestalSaveData[] pedestalSaves;
+}
+

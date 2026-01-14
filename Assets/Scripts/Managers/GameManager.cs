@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public CheckpointManager CheckpointManager { get; set; }
     public CollectibleManager CollectibleManager { get; set; }
 
+    public SummoningCircleManager SummoningCircle { get; set; }
     public DemonSaveAndLoad Demon { get; set; }
 
     public LampObject Lantern { get; set; }
@@ -73,9 +74,9 @@ public class GameManager : MonoBehaviour
             //Save();
             //CheckpointManager.CreateNewCheckpoint(new Vector3(-1.07f, 4.39f, -3.92f)); just a debug to test creating new checkpoints
         }
-        if (Keyboard.current.fKey.wasPressedThisFrame) 
+        if (Keyboard.current.gKey.wasPressedThisFrame) 
         {
-            //LoadAsync();
+            LoadAsync();
             //Load();
         }
     }

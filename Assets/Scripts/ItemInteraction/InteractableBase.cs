@@ -30,6 +30,7 @@ public abstract class InteractableBase : MonoBehaviour
 
     public bool HasSecondaryInteraction { get; protected set; } = false;
     public bool IsInUse { get; set; } = false;
+    public bool IsInPuzzle {  get;  set; } = false;
     public bool IsCollectible { get; protected set; } = false;
     protected bool isActive = false;
     

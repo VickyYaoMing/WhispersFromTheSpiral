@@ -16,6 +16,7 @@ public class SaveSystem
         public ItemManagerSaveData ItemManagerSaveData;
         //public CollectibleManagerSaveData CollectibleManagerSaveData;
         public CheckpointManagerSaveData CheckpointManagerSaveData;
+        public SummoningCircleSaveData SummoningCircleSaveData;
         public bool hasSaved;
     }
 
@@ -82,6 +83,7 @@ public class SaveSystem
         //GameManager.Instance.CollectibleManager.Load(_saveData.CollectibleManagerSaveData);
         GameManager.Instance.Lantern.Load(_saveData.LanternSaveData);
         GameManager.Instance.Demon.Load(_saveData.DemonSaveData);
+        GameManager.Instance.SummoningCircle.Load(_saveData.SummoningCircleSaveData);
     }
 
     #endregion
@@ -102,6 +104,8 @@ public class SaveSystem
         GameManager.Instance.Lantern.Save(ref _saveData.LanternSaveData);
         GameManager.Instance.Player.Save(ref _saveData.PlayerData);
         GameManager.Instance.Demon.Save(ref _saveData.DemonSaveData);
+        GameManager.Instance.SummoningCircle.Save(ref _saveData.SummoningCircleSaveData);
+
 
         if (!_saveData.hasSaved)
         {
