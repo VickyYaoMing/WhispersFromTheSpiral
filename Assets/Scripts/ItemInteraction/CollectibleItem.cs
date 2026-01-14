@@ -18,13 +18,16 @@ public class CollectibleItem : SecondaryInteractionItem
     {
         Description = GetComponent<Text>();
         IsCollectible = true;
+        HasSecondaryInteraction = true;
         DescriptionAsPages = SplitDescription(Description.text);
     }
     #endregion
 
     public override void SecondaryInteraction()
     {
+        interactionManager.GetItemInHand().GetComponent<InteractableBase>().IsInUse = true;
         OnCollect();
+        interactionManager.GetItemInHand().GetComponent<InteractableBase>().IsInUse = false;
     }
 
     public void OnCollect()

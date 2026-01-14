@@ -122,11 +122,6 @@ public class InteractionManager : MonoBehaviour
 
         if (currentItem == null) return;
         currentItemInteractBase.PickedUp();
-        if (currentItemInteractBase.IsCollectible)
-        {
-            OnCollectibleFound?.Invoke(currentItem);
-            return;
-        }
         if (lockItem)
         {
             OnItemCameraLock();
@@ -173,6 +168,11 @@ public class InteractionManager : MonoBehaviour
     private void OnSecondaryInteraction(GameObject detectedItem)
     {
         currentItem = detectedItem;
+        if (currentItem.GetComponent<InteractableBase>().IsCollectible)
+        {
+            OnCollectibleFound?.Invoke(currentItem);
+            return;
+        }
         detectedItem.GetComponent<SecondaryInteractionItem>().SecondaryInteraction();
         currentItem = itemArray[currentItemSpot];
     }
