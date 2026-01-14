@@ -140,6 +140,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3019188827709823212}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5995987887362560154}
   m_SourcePrefab: {fileID: 100100000, guid: 5d0f98d45f7eeae4a8a2ae9f5f2b8682, type: 3}
 --- !u!4 &6213767349117250653 stripped
 Transform:
@@ -233,10 +236,10 @@ MonoBehaviour:
   attackRange: 2
   attackAngleThreshold: 0.7
   moveSpeed: 1
-  huntSpeed: 2
+  huntSpeed: 1.8
   maxAnimSpeed: 2
-  sightRange: 15
-  sightAngle: 150
+  sightRange: 20
+  sightAngle: 165
   obstructionMask:
     serializedVersion: 2
     m_Bits: 33555200
@@ -326,5 +329,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 793699e72ce39a541a87078236e1ea81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5995987887362560154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6733001117681956583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6806fd8a9680f4ab9789190381db3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
