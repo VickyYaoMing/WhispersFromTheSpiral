@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
     public SafeManager SafeManager { get; set; }
     public DemonSaveAndLoad Demon { get; set; }
 
+    public GrandFatherTrigger Clock { get; set; }
+
     public LampObject Lantern { get; set; }
 
     private bool isSaving;

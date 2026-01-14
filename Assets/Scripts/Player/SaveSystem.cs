@@ -19,6 +19,7 @@ public class SaveSystem
         public SummoningCircleSaveData SummoningCircleSaveData;
         public LightSocketSaveData LightSocketSaveData;
         public SafeManagerSaveData SafeManagerSaveData;
+        public ClockSaveData ClockSaveData;
         public bool hasSaved;
     }
 
@@ -111,7 +112,8 @@ public class SaveSystem
         GameManager.Instance.SummoningCircle.Save(ref _saveData.SummoningCircleSaveData);
         GameManager.Instance.UVLightPuzzle.Save(ref _saveData.LightSocketSaveData);
         GameManager.Instance.SafeManager.Save(ref _saveData.SafeManagerSaveData);
-
+        GameManager.Instance.Clock.Save(ref _saveData.ClockSaveData);
+        GameManager.Instance.SafeManager.Save(ref _saveData.SafeManagerSaveData);
 
 
         if (!_saveData.hasSaved)
