@@ -114,7 +114,8 @@ public class DoorInteraction : MonoBehaviour
                 motor.targetVelocity = 0;
                 joint.motor = motor;
                 Destroy(dragPointGameobject);
-                GameManager.Instance.InteractionManager.GetItemInHand().GetComponent<InteractableBase>().IsInUse = false;
+                if(GameManager.Instance.InteractionManager.GetItemInHand())
+                    GameManager.Instance.InteractionManager.GetItemInHand().GetComponent<InteractableBase>().IsInUse = false;
             }
         }
     }
