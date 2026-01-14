@@ -17,6 +17,7 @@ public class SaveSystem
         //public CollectibleManagerSaveData CollectibleManagerSaveData;
         public CheckpointManagerSaveData CheckpointManagerSaveData;
         public SummoningCircleSaveData SummoningCircleSaveData;
+        public LightSocketSaveData LightSocketSaveData;
         public bool hasSaved;
     }
 
@@ -84,6 +85,7 @@ public class SaveSystem
         GameManager.Instance.Lantern.Load(_saveData.LanternSaveData);
         GameManager.Instance.Demon.Load(_saveData.DemonSaveData);
         GameManager.Instance.SummoningCircle.Load(_saveData.SummoningCircleSaveData);
+        GameManager.Instance.UVLightPuzzle.Load(_saveData.LightSocketSaveData);
     }
 
     #endregion
@@ -105,6 +107,7 @@ public class SaveSystem
         GameManager.Instance.Player.Save(ref _saveData.PlayerData);
         GameManager.Instance.Demon.Save(ref _saveData.DemonSaveData);
         GameManager.Instance.SummoningCircle.Save(ref _saveData.SummoningCircleSaveData);
+        GameManager.Instance.UVLightPuzzle.Save(ref _saveData.LightSocketSaveData);
 
 
         if (!_saveData.hasSaved)

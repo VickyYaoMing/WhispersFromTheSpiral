@@ -1,10 +1,11 @@
 using JetBrains.Annotations;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LightSocket : SecondaryInteractionItem
 {
-    private Lightbulb lightbulb;
+    [SerializeField] private Lightbulb lightbulb;
     Vector3 lightPosition;
     Quaternion lightRotation;
     UVVisibleObject[] UVVisibleObjects;
@@ -18,6 +19,7 @@ public class LightSocket : SecondaryInteractionItem
         lightPosition = new Vector3(0f, 4.2f, 0.049f);
         lightRotation = Quaternion.identity;
         UVVisibleObjects = GetComponentsInChildren<UVVisibleObject>(true);
+        GameManager.Instance.UVLightPuzzle = this;
     }
 
     private void Update()
@@ -82,7 +84,7 @@ public class LightSocket : SecondaryInteractionItem
         //If the player is holding a lightbulb, place it into the socket.
         bulb.IsInUse = true;
         bulb.GetComponent<Light>().enabled = true;
-        bulb.enabled = false;
+        //bulb.enabled = false;
         interactionManager.PlaceItemInHand(transform.position, Quaternion.Euler(new Vector3(90,0,0)));
         lightbulb = bulb;
         lightbulb.transform.parent = transform;
@@ -125,4 +127,57 @@ public class LightSocket : SecondaryInteractionItem
         interactionManager.ReleaseCameraLock();
     }
 
+    public void Save(ref LightSocketSaveData saveData)
+    {
+        if (lightbulb)
+        {
+            saveData.lightbulbPosition = lightbulb.transform.position;
+            saveData.hasLightbulb = true;
+        }
+        else
+        {
+            saveData.hasLightbulb = false;
+        }
+    }
+
+    public void Load(LightSocketSaveData saveData)
+    {
+        lightbulb = null;
+
+        if (saveData.hasLightbulb)
+        {
+            //only 1 lightbulb in scene so we just find it
+            //if i wanna scale this either i gotta turn it into an itempedestal or i gotta instantiate specifically for this
+            //for the scope of the game this is enough
+            Lightbulb savedBulb = FindFirstObjectByType<Lightbulb>();
+
+            if (savedBulb != null)
+            {
+                GameObject bulbObject = savedBulb.gameObject;
+
+                savedBulb.IsInUse = true;
+                savedBulb.GetComponent<Light>().enabled = true;
+
+                bulbObject.transform.SetParent(null);
+                bulbObject.transform.position = transform.position;
+                bulbObject.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+                bulbObject.GetComponent<Rigidbody>().isKinematic = true;
+                bulbObject.GetComponent<Rigidbody>().detectCollisions = false;
+
+                lightbulb = savedBulb;
+                lightbulb.transform.SetParent(transform);
+                lightbulb.transform.localPosition = new Vector3(0, -0.00628999993f, 0);
+                Debug.Log(bulbObject.name);
+            }
+
+            Debug.Log(lightbulb);
+        }
+    }
+
+}
+[System.Serializable] 
+public struct LightSocketSaveData
+{
+    public Vector3 lightbulbPosition;
+    public bool hasLightbulb;
 }

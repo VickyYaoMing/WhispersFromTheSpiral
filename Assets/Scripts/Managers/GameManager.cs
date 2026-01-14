@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public CollectibleManager CollectibleManager { get; set; }
 
     public SummoningCircleManager SummoningCircle { get; set; }
+    public LightSocket UVLightPuzzle {  get; set; }
     public DemonSaveAndLoad Demon { get; set; }
 
     public LampObject Lantern { get; set; }
