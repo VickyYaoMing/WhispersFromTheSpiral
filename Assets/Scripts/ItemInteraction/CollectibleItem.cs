@@ -11,6 +11,7 @@ public class CollectibleItem : InteractableBase
     public Sprite SpriteInNotebook { get { return m_sprites[1]; } }
     public Text Description { get; private set; }
     public string[] DescriptionAsPages { get; private set; }
+    public bool hasBeenCollected { get; private set; }
 
     #region Unity Methods
     private void Start()
@@ -23,6 +24,7 @@ public class CollectibleItem : InteractableBase
 
     public void OnCollect()
     {
+        hasBeenCollected = true;
         Destroy(gameObject);
     }
 
@@ -35,6 +37,11 @@ public class CollectibleItem : InteractableBase
             pages.Add(line);
         }
         return pages.ToArray();
+    }
+
+    public void Save(ref CollectibleSaveData saveData)
+    {
+        saveData.hasBeenCollected = hasBeenCollected;
     }
 
 }
