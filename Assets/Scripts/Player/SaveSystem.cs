@@ -89,6 +89,7 @@ public class SaveSystem
         GameManager.Instance.SummoningCircle.Load(_saveData.SummoningCircleSaveData);
         GameManager.Instance.UVLightPuzzle.Load(_saveData.LightSocketSaveData);
         GameManager.Instance.SafeManager.Load(_saveData.SafeManagerSaveData);
+        GameManager.Instance.Clock.Load(_saveData.ClockSaveData);
     }
 
     #endregion
@@ -113,8 +114,6 @@ public class SaveSystem
         GameManager.Instance.UVLightPuzzle.Save(ref _saveData.LightSocketSaveData);
         GameManager.Instance.SafeManager.Save(ref _saveData.SafeManagerSaveData);
         GameManager.Instance.Clock.Save(ref _saveData.ClockSaveData);
-        GameManager.Instance.SafeManager.Save(ref _saveData.SafeManagerSaveData);
-
 
         if (!_saveData.hasSaved)
         {
