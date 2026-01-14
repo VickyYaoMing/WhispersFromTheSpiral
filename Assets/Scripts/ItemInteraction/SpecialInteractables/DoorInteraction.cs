@@ -20,6 +20,7 @@ public class DoorInteraction : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, m_interactionDistance, doorLayer))
         {
             GameManager.Instance.Player.holdingDoorHandle = true;
+            Debug.Log("holding handle? " + GameManager.Instance.Player.holdingDoorHandle);
             if (Input.GetMouseButtonDown(0))
             {
                 selectedDoor = hit.collider.gameObject.transform;

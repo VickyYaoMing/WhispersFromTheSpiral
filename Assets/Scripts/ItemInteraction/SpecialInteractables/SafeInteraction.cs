@@ -81,13 +81,14 @@ public class SafeInteraction : InteractableBase
 
             if (Physics.Raycast(rayItem, out hitItem, rayHitDistance, interactMask))
             {
-                if (hitItem.collider.gameObject.CompareTag("ItemInsideSafe"))
+                //if (hitItem.collider.gameObject.CompareTag("ItemInsideSafe"))
                 {
-                    returnGameObject.SetActive(false);
-                    Vector3 savedScale = hitItem.transform.localScale;
-                    interactionManager.OnPickUp(returnGameObject);
-                    returnGameObject.transform.localScale = savedScale;
+                    //Vector3 savedScale = hitItem.transform.localScale;
+                    //interactionManager.OnPickUp(returnGameObject);
+                    //returnGameObject.transform.localScale = savedScale;
                     interactionManager.ReleaseCameraLock();
+                    gameObject.layer = 0;
+                    Destroy(this);
                 }
             }
         }
@@ -107,7 +108,7 @@ public class SafeInteraction : InteractableBase
             animator.SetBool("IsNumActive", false);
             animator.SetTrigger("OpenSafe");
             safeOpened = true;
-            gamePhaseManager.NextPhase();
+            //gamePhaseManager.NextPhase();
             if (returnGameObject != null)
             {
                 returnGameObject.SetActive(true);
