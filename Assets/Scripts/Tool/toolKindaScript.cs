@@ -24,12 +24,7 @@ public class toolKindaScript : MonoBehaviour
     [SerializeField] float rotationFloat;
 
     [SerializeField] bool isSectionActive = false;
-
-    public GameObject section;
-    MapSectionThingy thingyComponent;
-
-    bool haveBeenPlaced;
-
+    MapSectionThingy thingy;
     private void Awake()
     {
         placeableItems.Clear();
@@ -41,10 +36,9 @@ public class toolKindaScript : MonoBehaviour
     //hope all items in a room has hitboxes
     void Start()
     {
-        thingyComponent = section.GetComponent<MapSectionThingy>();
-         
         //how many should be chosen this time// might have to alter range
         hitbox = GetComponent<Collider>();
+        
     }
     /// <summary>
     /// send in the number of items we want
@@ -121,8 +115,7 @@ public class toolKindaScript : MonoBehaviour
                         rotation = Quaternion.Euler(rotationX,rotationY,rotationZ);
                     }
 
-                    item.SetActive(true);
-                   
+                  //  item.SetActive(true);
                     item.transform.position = randomSpawnPlace;
                     item.transform.rotation = rotation;
                     
@@ -144,13 +137,15 @@ public class toolKindaScript : MonoBehaviour
             {
                 Debug.Log("Failed to place item after 5 attempts: " + item.name);
             }
+
+
         }
 
     }
     public void RemoveItems(List <GameObject> items)
     {
         foreach (GameObject item in items) {
-           // item.transform.position = startposition;
+            item.transform.position = startposition;
             item.SetActive(false);
         }
         items.Clear();
@@ -234,19 +229,14 @@ public class toolKindaScript : MonoBehaviour
 
     void Update()
     {
-        if (thingyComponent.sectionActive)
+        if (thingy.sectionActive)
         {
             //this no make sense, call for randomized list adb tehn place
-            if(!haveBeenPlaced)
-            {
-                Place();
-                haveBeenPlaced = true;
-            }          
+            Place();
         }
         else
         {
             RemoveItems(chosenItems);
-            haveBeenPlaced = false;
         }
         
     }
