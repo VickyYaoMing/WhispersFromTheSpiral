@@ -24,7 +24,12 @@ public class toolKindaScript : MonoBehaviour
     [SerializeField] float rotationFloat;
 
     [SerializeField] bool isSectionActive = false;
-    MapSectionThingy thingy;
+
+    public GameObject section;
+    MapSectionThingy thingyComponent;
+
+    bool haveBeenPlaced;
+
     private void Awake()
     {
         placeableItems.Clear();
@@ -36,9 +41,10 @@ public class toolKindaScript : MonoBehaviour
     //hope all items in a room has hitboxes
     void Start()
     {
+        thingyComponent = section.GetComponent<MapSectionThingy>();
+         
         //how many should be chosen this time// might have to alter range
         hitbox = GetComponent<Collider>();
-        
     }
     /// <summary>
     /// send in the number of items we want
@@ -115,7 +121,8 @@ public class toolKindaScript : MonoBehaviour
                         rotation = Quaternion.Euler(rotationX,rotationY,rotationZ);
                     }
 
-                  //  item.SetActive(true);
+                    item.SetActive(true);
+                   
                     item.transform.position = randomSpawnPlace;
                     item.transform.rotation = rotation;
                     
@@ -137,15 +144,13 @@ public class toolKindaScript : MonoBehaviour
             {
                 Debug.Log("Failed to place item after 5 attempts: " + item.name);
             }
-
-
         }
 
     }
     public void RemoveItems(List <GameObject> items)
     {
         foreach (GameObject item in items) {
-            item.transform.position = startposition;
+           // item.transform.position = startposition;
             item.SetActive(false);
         }
         items.Clear();
@@ -229,14 +234,19 @@ public class toolKindaScript : MonoBehaviour
 
     void Update()
     {
-        if (thingy.sectionActive)
+        if (thingyComponent.sectionActive)
         {
             //this no make sense, call for randomized list adb tehn place
-            Place();
+            if(!haveBeenPlaced)
+            {
+                Place();
+                haveBeenPlaced = true;
+            }          
         }
         else
         {
             RemoveItems(chosenItems);
+            haveBeenPlaced = false;
         }
         
     }
