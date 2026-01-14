@@ -94,6 +94,7 @@ public class InteractionManager : MonoBehaviour
         if (detectedItem.GetComponent<InteractableBase>().HasSecondaryInteraction)
         {
             OnSecondaryInteraction(detectedItem);
+            Debug.Log("Secondary");
             return;
         }
         if (detectedItem.GetComponent<InteractableBase>().isAmmo)
@@ -106,10 +107,10 @@ public class InteractionManager : MonoBehaviour
         {
             OnPickUp(detectedItem);  
         }
-      
         else if (!currentHandAvailable)
         {
             OnSwap(detectedItem);
+            Debug.Log("Swap");
         }
     }
 
@@ -121,11 +122,6 @@ public class InteractionManager : MonoBehaviour
 
         if (currentItem == null) return;
         currentItemInteractBase.PickedUp();
-        if (currentItemInteractBase.IsCollectible)
-        {
-            OnCollectibleFound?.Invoke(currentItem);
-            return;
-        }
         if (lockItem)
         {
             OnItemCameraLock();
@@ -172,8 +168,12 @@ public class InteractionManager : MonoBehaviour
     private void OnSecondaryInteraction(GameObject detectedItem)
     {
         currentItem = detectedItem;
+        if (currentItem.GetComponent<InteractableBase>().IsCollectible)
+        {
+            OnCollectibleFound?.Invoke(currentItem);
+            return;
+        }
         detectedItem.GetComponent<SecondaryInteractionItem>().SecondaryInteraction();
-        Debug.Log("Secondary interaction baybee");
         currentItem = itemArray[currentItemSpot];
     }
 
@@ -223,7 +223,7 @@ public class InteractionManager : MonoBehaviour
 
         //Maybe do lockItem || itemInUse?
         //that bool would have to be true only for the frame where it's being placed into the socket
-        if (Input.GetMouseButtonDown(0) && !lockItem)
+        if (Input.GetMouseButtonDown(0) && !lockItem && !GameManager.Instance.Player.holdingDoorHandle)
         {
             if (isHitAnInteractable)
             {
