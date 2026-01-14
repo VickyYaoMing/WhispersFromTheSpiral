@@ -45,6 +45,7 @@ public class GrandFatherTrigger : MonoBehaviour
         // m_source.resource = m_ticking;
         // if (m_source != null ) { m_source.Play(); }
         tickingSource = SoundManager.PlayAttached(soundType, transform, 1f);
+        GameManager.Instance.Clock = this;
     }
 
     void Update()
@@ -72,6 +73,11 @@ public class GrandFatherTrigger : MonoBehaviour
 
     private void PuzzleTrigger(object e, EventArgs args)
     {
+        OpenClock();
+    }
+
+    private void OpenClock()
+    {
         Debug.Log("Grandfather clock triggered");
         animator.SetBool("winningCondition", true);
         hasClockBeenOpened = true;
@@ -83,4 +89,28 @@ public class GrandFatherTrigger : MonoBehaviour
         SoundManager.PlayAt(soundType2, transform.position, 1f);
         gamePhaseManager.NextPhase();
     }
+
+    public void Save(ref ClockSaveData saveData)
+    {
+        saveData.clockOpened = hasClockBeenOpened;
+        saveData.gunTaken = hasGunBeenTaken;
+    }
+
+    public void Load(ClockSaveData saveData)
+    {
+        if (saveData.clockOpened)
+        {
+            OpenClock();
+        }
+        else
+        {
+
+        }
+    }
+}
+[System.Serializable]
+public struct ClockSaveData
+{
+    public bool clockOpened;
+    public bool gunTaken;
 }

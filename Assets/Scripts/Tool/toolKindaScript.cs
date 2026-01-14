@@ -12,7 +12,6 @@ public class toolKindaScript : MonoBehaviour
     //    /// might give items scripts if they are wall deco or flat surface items
     //    /// </summary>
 
-    Vector3 startposition = new Vector3(100, -100, 100);
 
 List<GameObject> placeableItems = new List<GameObject>();//list of all objects 
 [SerializeField] private GameObject listItems;
@@ -36,6 +35,7 @@ private Collider hitbox;
         foreach (Transform child in listItems.transform)
         {
             placeableItems.Add(child.gameObject);
+            
         }
     }
     //hope all items in a room has hitboxes
@@ -67,7 +67,10 @@ private Collider hitbox;
                 int randomIndex = Random.Range(0, placeableItems.Count);
                 GameObject go = placeableItems[randomIndex];
                 //might need to add in a templist that willuse instaeed so we can remove item already chosen
-                chosenItems.Add(go);   //add in random object i list to be placed
+                chosenItems.Add(go);
+                go.SetActive(false);
+                go.GetComponent<Rigidbody>().useGravity = false;
+                //add in random object i list to be placed
             }
 
         return chosenItems;
@@ -106,6 +109,7 @@ private Collider hitbox;
                 Debug.Log(canPlace);
                 if (canPlace)
                 {
+                    item.SetActive(true);
                     Quaternion rotation;
                     //fix roation here
                     if (type.surfaceType == SurfaceType.Wall)
@@ -122,10 +126,11 @@ private Collider hitbox;
                         rotation = Quaternion.Euler(rotationX, rotationY, rotationZ);
                     }
 
-                    item.SetActive(true);
-
+                   
+                    item.GetComponent<Rigidbody>().useGravity = true;
                     item.transform.position = randomSpawnPlace;
                     item.transform.rotation = rotation;
+              
 
                     // Instantiate(item, randomSpawnPlace, rotation);
 
@@ -153,6 +158,7 @@ private Collider hitbox;
         foreach (GameObject item in items) {
            // item.transform.position = startposition;
             item.SetActive(false);
+            item.GetComponent<Rigidbody>().useGravity = false;
         }
         items.Clear();
     }
@@ -168,7 +174,6 @@ private Collider hitbox;
         switch (surface)
         {
             case SurfaceType.Wall:
-                //SERIALISED FIELD FLOT THINGY SUCK MY DICK
 
                 return new Vector3(randX, randY, b.center.z);
 

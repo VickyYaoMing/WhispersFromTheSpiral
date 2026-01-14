@@ -1,4 +1,5 @@
- using UnityEngine;
+using JetBrains.Annotations;
+using UnityEngine;
 
 public class ItemPedestal : SecondaryInteractionItem
 {
@@ -7,6 +8,10 @@ public class ItemPedestal : SecondaryInteractionItem
     public bool IsCorrectItem {  get { return isCorrectItem; } }
 
     [SerializeField] Default_Item itemOnPedestal;
+
+    public Default_Item ItemOnPedestal { get { return itemOnPedestal; } }
+
+    public Default_Item CorrectItem { get { return correctItem; } }
 
     string thisTag;
 
@@ -60,7 +65,7 @@ public class ItemPedestal : SecondaryInteractionItem
     }
 
 
-    void PlaceItemUsingColliderBounds(GameObject item) 
+    public void PlaceItemUsingColliderBounds(GameObject item) 
     { 
         item.transform.SetParent(anchorPoint);
         Renderer renderer = item.GetComponent<Renderer>();
@@ -121,6 +126,25 @@ public class ItemPedestal : SecondaryInteractionItem
     {
         gameObject.GetComponentInChildren<ParticleSystem>().Clear();
         gameObject.GetComponentInChildren<ParticleSystem>().Pause();
+    }
+
+    public void Save(ref PedestalSaveData saveData)
+    {
+        saveData.thisPedestal = this;
+        saveData.correctItem = correctItem;
+        saveData.item = ItemOnPedestal;
+        ItemOnPedestal.IsInPuzzle = true;
+    }
+
+    public void Load(PedestalSaveData saveData)
+    {
+        correctItem = saveData.correctItem;
+        if (saveData.item)
+        {
+            string gameObjectName = saveData.item.gameObject.name;
+            PlaceItemUsingColliderBounds(GameObject.Find(gameObjectName));
+        }
+        
     }
 
 }
