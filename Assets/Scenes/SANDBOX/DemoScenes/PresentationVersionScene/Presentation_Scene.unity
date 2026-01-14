@@ -17558,7 +17558,7 @@ Transform:
   m_GameObject: {fileID: 581692626}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 8.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22654,7 +22654,7 @@ MonoBehaviour:
   requirePlayerInside: 1
   playerTag: Player
   useChildSpawnPoints: 0
-  radius: 10
+  radius: 15
   alignToPlayerHeight: 1
 --- !u!65 &825450699
 BoxCollider:
@@ -23279,7 +23279,7 @@ MonoBehaviour:
   requirePlayerInside: 0
   playerTag: Player
   useChildSpawnPoints: 0
-  radius: 10
+  radius: 15
   alignToPlayerHeight: 1
 --- !u!1 &843264403
 GameObject:
@@ -27276,7 +27276,7 @@ MonoBehaviour:
   requirePlayerInside: 1
   playerTag: Player
   useChildSpawnPoints: 0
-  radius: 10
+  radius: 15
   alignToPlayerHeight: 1
 --- !u!1 &1000950582
 GameObject:
@@ -29832,7 +29832,7 @@ MonoBehaviour:
   requirePlayerInside: 0
   playerTag: Player
   useChildSpawnPoints: 0
-  radius: 10
+  radius: 15
   alignToPlayerHeight: 1
 --- !u!1001 &1089042383
 PrefabInstance:
@@ -34663,7 +34663,7 @@ MonoBehaviour:
   requirePlayerInside: 1
   playerTag: Player
   useChildSpawnPoints: 0
-  radius: 10
+  radius: 15
   alignToPlayerHeight: 1
 --- !u!1 &1240889543
 GameObject:
@@ -50228,7 +50228,7 @@ MonoBehaviour:
   requirePlayerInside: 0
   playerTag: Player
   useChildSpawnPoints: 0
-  radius: 10
+  radius: 15
   alignToPlayerHeight: 1
 --- !u!1 &1800725570
 GameObject:
@@ -53131,7 +53131,7 @@ MonoBehaviour:
   requirePlayerInside: 0
   playerTag: Player
   useChildSpawnPoints: 0
-  radius: 10
+  radius: 15
   alignToPlayerHeight: 1
 --- !u!1001 &1927856491
 PrefabInstance:
