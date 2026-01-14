@@ -22675,7 +22675,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 33.4, y: 10, z: 10}
+  m_Size: {x: 10, y: 3, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &825566461
 PrefabInstance:
@@ -23258,7 +23258,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 11, y: 10, z: 21.9}
+  m_Size: {x: 10, y: 3, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &837840977
 MonoBehaviour:
@@ -27230,7 +27230,7 @@ Transform:
   m_GameObject: {fileID: 1000089661}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.5, y: -3.87, z: 29.8}
+  m_LocalPosition: {x: -12.65, y: -1.91, z: 29.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27255,7 +27255,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 25, y: 10, z: 33.1}
+  m_Size: {x: 10, y: 3, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1000089664
 MonoBehaviour:
@@ -29811,7 +29811,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 8, y: 10, z: 13.28}
+  m_Size: {x: 10, y: 3, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1085932733
 MonoBehaviour:
@@ -34642,7 +34642,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 15.2, y: 10, z: 9.83}
+  m_Size: {x: 10, y: 3, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1238984307
 MonoBehaviour:
@@ -42698,7 +42698,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1522094047
 Transform:
   m_ObjectHideFlags: 0
@@ -42708,7 +42708,7 @@ Transform:
   m_GameObject: {fileID: 1522094046}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -38.98, y: 0, z: 13.93}
+  m_LocalPosition: {x: -38.98, y: 8.01, z: 13.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -50207,7 +50207,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.8, y: 10, z: 25}
+  m_Size: {x: 10, y: 3, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1796495225
 MonoBehaviour:
@@ -53110,7 +53110,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 14.9, y: 10, z: 20.9}
+  m_Size: {x: 10, y: 3, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1920626406
 MonoBehaviour:
