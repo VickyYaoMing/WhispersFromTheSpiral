@@ -19,6 +19,7 @@ public class DoorInteraction : MonoBehaviour
 
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, m_interactionDistance, doorLayer))
         {
+            GameManager.Instance.Player.holdingDoorHandle = true;
             if (Input.GetMouseButtonDown(0))
             {
                 selectedDoor = hit.collider.gameObject.transform;
@@ -37,6 +38,10 @@ public class DoorInteraction : MonoBehaviour
                     doorLock.SecondaryInteraction();
                 }
             }
+        }
+        else
+        {
+            GameManager.Instance.Player.holdingDoorHandle = false;
         }
 
         if (selectedDoor != null)
@@ -108,6 +113,7 @@ public class DoorInteraction : MonoBehaviour
                 motor.targetVelocity = 0;
                 joint.motor = motor;
                 Destroy(dragPointGameobject);
+                GameManager.Instance.InteractionManager.GetItemInHand().GetComponent<InteractableBase>().IsInUse = false;
             }
         }
     }
