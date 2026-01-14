@@ -7,6 +7,7 @@ public class SummoningCircleManager : MonoBehaviour
     [SerializeField] GameObject doorToOpen;
     ItemPedestal[] pedestals;
     private GamePhaseManager gamePhaseManager;
+    private StairBlockEnabler stairBlockEnabler;
     int numberOfCorrectItems;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -14,6 +15,7 @@ public class SummoningCircleManager : MonoBehaviour
     {
         pedestals = GetComponentsInChildren<ItemPedestal>();
         gamePhaseManager = FindAnyObjectByType<GamePhaseManager>();
+        stairBlockEnabler = FindAnyObjectByType<StairBlockEnabler>();
     }
 
     // Update is called once per frame
@@ -29,7 +31,6 @@ public class SummoningCircleManager : MonoBehaviour
         }
         PuzzleComplete();
     }
-
     public void PuzzleComplete()
     {
         if (numberOfCorrectItems != pedestals.Length) return;
@@ -40,6 +41,7 @@ public class SummoningCircleManager : MonoBehaviour
 
         //Added to advance game phase
         gamePhaseManager.NextPhase();
+        StartCoroutine(stairBlockEnabler.MoveBars(stairBlockEnabler.positionToMoveTo, 2f));
     }
 
 }

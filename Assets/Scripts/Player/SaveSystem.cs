@@ -14,7 +14,7 @@ public class SaveSystem
         public PlayerSaveData PlayerData;
         public PlayerInventoryData InventoryData;
         public ItemManagerSaveData ItemManagerSaveData;
-        public CollectibleManagerSaveData CollectibleManagerSaveData;
+        //public CollectibleManagerSaveData CollectibleManagerSaveData;
         public CheckpointManagerSaveData CheckpointManagerSaveData;
         public bool hasSaved;
     }
@@ -79,7 +79,7 @@ public class SaveSystem
         await GameManager.Instance.Player.Load(_saveData.PlayerData);
         GameManager.Instance.InteractionManager.Load(_saveData.InventoryData);
         GameManager.Instance.ItemManager.Load(_saveData.ItemManagerSaveData);   
-        GameManager.Instance.CollectibleManager.Load(_saveData.CollectibleManagerSaveData);
+        //GameManager.Instance.CollectibleManager.Load(_saveData.CollectibleManagerSaveData);
         GameManager.Instance.Lantern.Load(_saveData.LanternSaveData);
         GameManager.Instance.Demon.Load(_saveData.DemonSaveData);
     }
@@ -98,7 +98,7 @@ public class SaveSystem
         GameManager.Instance.CheckpointManager.Save(ref _saveData.PlayerData, ref _saveData.CheckpointManagerSaveData);
         GameManager.Instance.InteractionManager.Save(ref _saveData.InventoryData);
         GameManager.Instance.ItemManager.Save(ref _saveData.ItemManagerSaveData);
-        GameManager.Instance.CollectibleManager.Save(ref _saveData.CollectibleManagerSaveData);
+        //GameManager.Instance.CollectibleManager.Save(ref _saveData.CollectibleManagerSaveData);
         GameManager.Instance.Lantern.Save(ref _saveData.LanternSaveData);
         GameManager.Instance.Player.Save(ref _saveData.PlayerData);
         GameManager.Instance.Demon.Save(ref _saveData.DemonSaveData);

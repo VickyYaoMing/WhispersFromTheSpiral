@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Text))]
-public class CollectibleItem : InteractableBase
+public class CollectibleItem : SecondaryInteractionItem
 {
     [SerializeField] Sprite[] m_sprites;
     public Sprite SpriteInWorld { get { return m_sprites[0]; } }
@@ -18,9 +18,17 @@ public class CollectibleItem : InteractableBase
     {
         Description = GetComponent<Text>();
         IsCollectible = true;
+        HasSecondaryInteraction = true;
         DescriptionAsPages = SplitDescription(Description.text);
     }
     #endregion
+
+    public override void SecondaryInteraction()
+    {
+        interactionManager.GetItemInHand().GetComponent<InteractableBase>().IsInUse = true;
+        OnCollect();
+        interactionManager.GetItemInHand().GetComponent<InteractableBase>().IsInUse = false;
+    }
 
     public void OnCollect()
     {
