@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using AudioSystem;
 
 [RequireComponent(typeof(Animator))]
 public class ElkDemonAI : MonoBehaviour
@@ -60,6 +61,16 @@ public class ElkDemonAI : MonoBehaviour
     [SerializeField] private float screamCooldown = 10f;
     private float _lastScreamTime = -999f;
     private bool _playerVisibleLastFrame = false;
+    [Header("Chase Music")]
+    [SerializeField] private bool enableChaseMusic = true;
+    [SerializeField] private SoundType chaseMusicType;
+    [SerializeField] private float chaseFadeIn = 0.5f;         // Seconds to fade in
+    [SerializeField] private float chaseFadeOut = 1.5f;        // Seconds to fade out
+    [SerializeField] private string huntingBoolParam = "IsHunting"; // Animator bool
+    [SerializeField] private float chaseMusicStopDelay = 3.5f; // time demon must NOT be hunting before music stops
+    private bool _wasHuntingLastFrame = false;
+    private bool _chaseMusicActive = false;
+    private float _notHuntingSince = -1f;
     [Header("Movement Sounds")]
     [SerializeField] private SoundType footstepSound;
     [SerializeField] private float footstepIntervalWalk = 0.6f;
@@ -112,6 +123,8 @@ public class ElkDemonAI : MonoBehaviour
 
         lastTeleportTime = -teleportCooldown;
         _navAgent.updatePosition = true;
+        if (_stateMachine != null)
+            _wasHuntingLastFrame = _stateMachine.GetBool(huntingBoolParam);
     }
 
     private void Update()
@@ -121,6 +134,7 @@ public class ElkDemonAI : MonoBehaviour
             _navAgent.isStopped = true;
         }
         UpdateFootstepSounds();
+        HandleChaseMusic();
     }
 
     public void MoveTowards(Vector3 targetPosition, float currentSpeed)
@@ -227,7 +241,7 @@ public class ElkDemonAI : MonoBehaviour
         if (CanAttackPlayer() && playerGrab != null && !playerGrab.IsGrabbed)
         {
             animator.SetTrigger("Attack");
-            BeginGrabSequence(); 
+            BeginGrabSequence();
         }
     }
 
@@ -785,5 +799,51 @@ public class ElkDemonAI : MonoBehaviour
             SoundManager.PlayAt(footstepSound, transform.position, 1f);
             _footstepTimer = interval;
         }
+    }
+    private void HandleChaseMusic()
+    {
+        if (!enableChaseMusic || _stateMachine == null)
+            return;
+
+        bool isHuntingNow = _stateMachine.GetBool(huntingBoolParam);
+
+        // Transition: NOT hunting -> HUNTING  → start music
+        if (isHuntingNow && !_wasHuntingLastFrame)
+        {
+            _notHuntingSince = -1f; // clear timer
+
+            if (!_chaseMusicActive && chaseMusicType != SoundType.None)
+            {
+                SoundManager.PlayMusic(chaseMusicType, chaseFadeIn);
+                _chaseMusicActive = true;
+                Debug.Log("Chase music started.");
+            }
+        }
+
+        // Transition: HUNTING -> NOT hunting  → start countdown to stop music
+        if (!isHuntingNow && _wasHuntingLastFrame)
+        {
+            _notHuntingSince = Time.time;
+            Debug.Log("Chase music: left hunting, starting stop-delay timer.");
+        }
+
+        // If we are NOT hunting and music is active, only stop after delay
+        if (!isHuntingNow && _chaseMusicActive && _notHuntingSince > 0f)
+        {
+            if (Time.time - _notHuntingSince >= chaseMusicStopDelay)
+            {
+                SoundManager.StopMusic(chaseFadeOut);
+                _chaseMusicActive = false;
+                Debug.Log("Chase music stopped after delay.");
+            }
+        }
+
+        // If we are hunting again before delay is over, timer gets reset next frame
+        if (isHuntingNow)
+        {
+            _notHuntingSince = -1f;
+        }
+
+        _wasHuntingLastFrame = isHuntingNow;
     }
 }
