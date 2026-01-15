@@ -51506,6 +51506,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: UVPuzzle
       objectReference: {fileID: 0}
+    - target: {fileID: 802536946904272314, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 961099014638280716, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1215001363488866235, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.047
@@ -51537,6 +51545,14 @@ PrefabInstance:
     - target: {fileID: 1215001363488866235, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130813835934977994, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0242
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130813835934977994, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.00255
       objectReference: {fileID: 0}
     - target: {fileID: 2288457926497493849, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51590,6 +51606,18 @@ PrefabInstance:
       propertyPath: returnGameObject
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4366074524896022287, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0147
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366074524896022287, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.023
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366074524896022287, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0305
+      objectReference: {fileID: 0}
     - target: {fileID: 5050433452764279648, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -51602,6 +51630,18 @@ PrefabInstance:
       propertyPath: m_ProvidesContacts
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6720342783218868894, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0281
+      objectReference: {fileID: 0}
+    - target: {fileID: 6720342783218868894, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.024
+      objectReference: {fileID: 0}
+    - target: {fileID: 6720342783218868894, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0269
+      objectReference: {fileID: 0}
     - target: {fileID: 7176032531158695899, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -51610,6 +51650,22 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 4d66dd87c4f43b34cb345e6b941c5d1a, type: 3}
+    - target: {fileID: 7212766810185400930, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0242
+      objectReference: {fileID: 0}
+    - target: {fileID: 7212766810185400930, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0019
+      objectReference: {fileID: 0}
+    - target: {fileID: 7396635539737023650, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9133769571956098905, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5186508276218584366, guid: 92b16845582b3004dabf74a74f2bdf71, type: 3}
