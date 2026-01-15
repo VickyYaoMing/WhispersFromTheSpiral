@@ -45,8 +45,8 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0.735849, g: 0.3092302, b: 0.26610878, a: 1}
-  m_Intensity: 10
-  m_Range: 10
+  m_Intensity: 5
+  m_Range: 5
   m_SpotAngle: 45
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -134,8 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c183b49dfc994b445a56b8f9fc8b5547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_minIntensity: 10
-  m_maxIntensity: 30
+  m_minIntensity: 3
+  m_maxIntensity: 7
   m_minFlickerCooldown: 0.1
   m_maxFlickerCooldown: 0.5
 --- !u!1 &2805604091594122004

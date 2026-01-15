@@ -130,7 +130,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: 4c9d0845c06fc124cb8258ff2cd8402c, type: 3}
+  - {fileID: -2015733522826705863, guid: d6fa5355644c6474a91a51f2f3bfb98d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -343,7 +343,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -35.376, y: -5.4625, z: -26.35}
-  m_LocalScale: {x: 0.15747572, y: 0.15747572, z: 0.15747572}
+  m_LocalScale: {x: 0.12598057, y: 0.12598057, z: 0.12598059}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8165066589111257364}
@@ -449,7 +449,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: b5bd4499cdc20eb4085b56a220ee86f0, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -557,7 +557,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: -2015733522826705863, guid: d6fa5355644c6474a91a51f2f3bfb98d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -643,7 +643,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: 4c9d0845c06fc124cb8258ff2cd8402c, type: 3}
+  - {fileID: -2015733522826705863, guid: d6fa5355644c6474a91a51f2f3bfb98d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -850,7 +850,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3846018093981099296, guid: 4c9d0845c06fc124cb8258ff2cd8402c, type: 3}
+  - {fileID: -2015733522826705863, guid: d6fa5355644c6474a91a51f2f3bfb98d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
