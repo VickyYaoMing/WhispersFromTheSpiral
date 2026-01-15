@@ -708,6 +708,11 @@ public class ElkDemonAI : MonoBehaviour
         {
             ForceReleasePlayer();
         }
+        if (enableChaseMusic && _chaseMusicActive)
+        {
+            SoundManager.StopMusic(chaseFadeOut);
+            _chaseMusicActive = false;
+        }
     }
 
     private void OnDestroy()
@@ -715,6 +720,11 @@ public class ElkDemonAI : MonoBehaviour
         if (_isGrabbingPlayer)
         {
             ForceReleasePlayer();
+        }
+        if (enableChaseMusic && _chaseMusicActive)
+        {
+            SoundManager.StopMusic(chaseFadeOut);
+            _chaseMusicActive = false;
         }
     }
     private void TryPlaySightScream()

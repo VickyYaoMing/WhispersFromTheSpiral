@@ -107,7 +107,7 @@ public class SafeInteraction : InteractableBase
     {
         if (code.SequenceEqual(correctCode))
         {
-            Unlock();   
+            Unlock();
         }
         else
         {
@@ -121,7 +121,7 @@ public class SafeInteraction : InteractableBase
         animator.SetBool("IsNumActive", false);
         animator.SetTrigger("OpenSafe");
         safeOpened = true;
-        //gamePhaseManager.NextPhase();
+        gamePhaseManager.NextPhase();
         if (returnGameObject != null)
         {
             returnGameObject.SetActive(true);

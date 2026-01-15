@@ -296,7 +296,7 @@ MonoBehaviour:
     clips:
     - {fileID: 8300000, guid: 91668edea778e8a45a9ad69613a675d4, type: 3}
     mixerGroup: {fileID: 7413692854867692767, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
-    baseVolume: 0.7
+    baseVolume: 0.369
     minPitch: 1
     maxPitch: 1
     spatial: 1
@@ -347,7 +347,7 @@ MonoBehaviour:
     clips:
     - {fileID: 8300000, guid: 90c4ab4caca16db418c37310ad3aecc7, type: 3}
     mixerGroup: {fileID: 7413692854867692767, guid: 487f6092588bedb44a20ce5523c6161e, type: 2}
-    baseVolume: 0.2
+    baseVolume: 0.1
     minPitch: 1
     maxPitch: 1
     spatial: 0
