@@ -111,10 +111,13 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void QuitToMenu()
+    public void QuitGame()
     {
         Debug.Log("Loading scene...");
-        SceneManager.LoadScene("System_MainMenu");
+        Application.Quit();
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 
     private void ExitCollectible()

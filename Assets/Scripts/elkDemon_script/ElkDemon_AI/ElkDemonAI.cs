@@ -10,7 +10,8 @@ using AudioSystem;
 [RequireComponent(typeof(Animator))]
 public class ElkDemonAI : MonoBehaviour
 {
-    [Header("Atack Settings")]
+    [SerializeField] GameObject playerDeathScreen;
+    [Header("Attack Settings")]
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private float attackAngleThreshold = 0.7f;
 
@@ -125,6 +126,10 @@ public class ElkDemonAI : MonoBehaviour
         _navAgent.updatePosition = true;
         if (_stateMachine != null)
             _wasHuntingLastFrame = _stateMachine.GetBool(huntingBoolParam);
+        if(playerDeathScreen != null)
+        {
+            playerDeathScreen.SetActive(false);
+        }
     }
 
     private void Update()
@@ -322,8 +327,12 @@ public class ElkDemonAI : MonoBehaviour
             rb.isKinematic = true;
         }
 
-        yield return new WaitForSeconds(1.5f);
-
+        if(playerDeathScreen != null)
+        {
+            playerDeathScreen.SetActive(true);
+            yield return new WaitForSeconds(2f);
+            playerDeathScreen.SetActive(false);
+        }
         GameManager.Instance.LoadAsync();
     }
 
