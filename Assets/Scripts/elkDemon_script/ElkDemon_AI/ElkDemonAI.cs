@@ -327,7 +327,9 @@ public class ElkDemonAI : MonoBehaviour
             rb.isKinematic = true;
         }
 
-        if(playerDeathScreen != null)
+        yield return new WaitForSeconds(1.5f);
+
+        if (playerDeathScreen != null)
         {
             playerDeathScreen.SetActive(true);
             yield return new WaitForSeconds(2f);
